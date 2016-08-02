@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { NavigationExperimental } from 'react-native';
 import { connect } from 'react-redux';
 
-import Home from './Home';
-import Counter from './Counter';
+import Login from './Login';
+//import Home from './Home';
+//import Counter from './Counter';
 
 const { CardStack } = NavigationExperimental;
 
@@ -23,10 +24,12 @@ export default class Root extends Component {
 
   renderScene = props => {
     switch (props.scene.key) {
-      case 'scene_home':
-        return <Home navigate={this.handleNavigation} />;
-      case 'scene_counter':
-        return <Counter navigate={this.handleNavigation} />;
+      case 'scene_login':
+        return <Login navigate={this.handleNavigation} />;
+      //case 'scene_home':
+      //  return <Home navigate={this.handleNavigation} />;
+      //case 'scene_counter':
+      //  return <Counter navigate={this.handleNavigation} />;
       default:
         return null;
     }

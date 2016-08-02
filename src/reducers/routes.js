@@ -4,7 +4,7 @@ const { StateUtils } = NavigationExperimental;
 
 const initialState = {
   index: 0,
-  routes: [{ key: 'home' }],
+  routes: [{ key: 'login' }],
 };
 
 const actionsMap = {
