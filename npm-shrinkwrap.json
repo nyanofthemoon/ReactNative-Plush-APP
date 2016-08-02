@@ -4362,6 +4362,11 @@
         }
       }
     },
+    "react-native-fbsdk": {
+      "version": "0.3.0",
+      "from": "react-native-fbsdk@latest",
+      "resolved": "https://registry.npmjs.org/react-native-fbsdk/-/react-native-fbsdk-0.3.0.tgz"
+    },
     "react-proxy": {
       "version": "1.1.8",
       "from": "react-proxy@>=1.1.7 <2.0.0",
