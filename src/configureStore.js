@@ -27,7 +27,7 @@ if (__DEV__) {
   enhancer = applyMiddleware(...middlewares);
 }
 
-export default function configureStore(initialState) {
+function configureStore(initialState) {
   const store = createStore(reducer, initialState, enhancer);
   if (module.hot) {
     module.hot.accept(() => {
@@ -36,3 +36,5 @@ export default function configureStore(initialState) {
   }
   return store;
 }
+
+export default configureStore()

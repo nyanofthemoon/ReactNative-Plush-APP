@@ -2,52 +2,82 @@ import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
   Text,
-  View,
-  TouchableOpacity
+  View
 } from 'react-native';
+
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import {facebookConnectionSuccess, facebookConnectionFailure, facebookLogout} from './../actions';
+import Login from './../components/Login';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    justifyContent:  'center',
+    alignItems:      'center',
+    backgroundColor: '#EEEEEE'
+  }
 });
+
+@connect(
+  state => ({
+    app:  state.app,
+    user: state.user
+  }),
+  dispatch => bindActionCreators({facebookConnectionSuccess, facebookConnectionFailure, facebookLogout}, dispatch)
+)
 
 export default class Home extends Component {
   static propTypes = {
+    app:      PropTypes.object.isRequired,
+    user:     PropTypes.object.isRequired,
     navigate: PropTypes.func.isRequired
   };
 
-  toCounter = () => {
-    const { navigate } = this.props;
-    navigate({
-      type: 'push',
-      key: 'counter'
-    });
-  }
-
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native Boilerplate!
-        </Text>
-        <TouchableOpacity onPress={this.toCounter}>
-          <Text style={styles.instructions}>Navigate to Counter</Text>
-        </TouchableOpacity>
-      </View>
-    );
+    const {app} = this.props
+    switch(app.get('facebookStatus')) {
+      case 'authenticated':
+        switch(app.get('socketStatus')) {
+          case 'connected':
+            return (
+              <View style={styles.container}>
+                <Text>Facebook Authenticated</Text>
+                <Text>Socket Connected</Text>
+              </View>
+            );
+          case 'connecting':
+            return (
+              <View style={styles.container}>
+                <Text>Facebook Authenticated</Text>
+                <Text>Waiting for socket...</Text>
+              </View>
+            );
+          default:
+            return (
+              <View style={styles.container}>
+                <Text>Facebook Authenticated</Text>
+                <Text>Websocket disconnected</Text>
+              </View>
+            );
+        }
+      case 'authenticating':
+        return (
+          <View style={styles.container}>
+            <Text>Waiting for Facebook...</Text>
+            <Login handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} handleLogout={facebookLogout} />
+          </View>
+        );
+      default:
+        return (
+          <View style={styles.container}>
+            <Text>
+              Please Login with Facebook
+            </Text>
+            <Login handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} handleLogout={facebookLogout} />
+          </View>
+        );
+    }
   }
 }
