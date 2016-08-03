@@ -11,10 +11,10 @@ const actionsMap = {
   push(state, action) {
     return StateUtils.push(state, { key: action.key });
   },
-  back(state/*, action*/) {
+  back(state) {
     return state.index > 0 ? StateUtils.pop(state) : state;
   },
-  pop(state/*, action*/) {
+  pop(state) {
     return state.index > 0 ? StateUtils.pop(state) : state;
   }
 };

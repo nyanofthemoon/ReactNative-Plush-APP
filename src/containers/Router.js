@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { NavigationExperimental }      from 'react-native';
-import { connect }                     from 'react-redux';
+import { connect } from 'react-redux';
+import { NavigationExperimental } from 'react-native';
 
 import Home from './Home';
 
@@ -10,11 +10,12 @@ const { CardStack } = NavigationExperimental;
   state    => state,
   dispatch => ({ dispatch })
 )
-export default class Root extends Component {
+
+export default class extends Component {
   static propTypes = {
     routes  : PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
-  };
+  }
 
   handleNavigation = action => {
     this.props.dispatch(action);
@@ -23,7 +24,7 @@ export default class Root extends Component {
   renderScene = props => {
     switch (props.scene.key) {
       case 'scene_home':
-        return <Home navigate={this.handleNavigation} />;
+        return (<Home navigate={this.handleNavigation} />)
       default:
         return null;
     }
@@ -36,6 +37,6 @@ export default class Root extends Component {
         navigationState={this.props.routes}
         renderScene={this.renderScene}
       />
-    );
+    )
   }
 }

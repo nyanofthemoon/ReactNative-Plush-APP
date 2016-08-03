@@ -1,9 +1,5 @@
 const FBSDK = require('react-native-fbsdk');
-const {
-  AccessToken,
-  GraphRequest,
-  GraphRequestManager
-} = FBSDK;
+const { AccessToken, GraphRequest, GraphRequestManager } = FBSDK;
 
 import * as types from './constants'
 import Store      from './configureStore'

@@ -1,9 +1,8 @@
-/* eslint global-require: 0 */
-
 import Immutable from 'immutable';
-import { Platform } from 'react-native';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { Platform } from 'react-native';
+
 import reducer from './reducers';
 
 const middlewares = [thunk];

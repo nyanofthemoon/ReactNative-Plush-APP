@@ -1,10 +1,7 @@
-import React, { Component } from 'react-native';
-
 window.navigator.userAgent = 'react-native';
-
 const io = require('socket.io-client/socket.io');
 
-import Config     from './../config';
+import Config from './../config';
 import * as types from './../constants';
 
 let socket;

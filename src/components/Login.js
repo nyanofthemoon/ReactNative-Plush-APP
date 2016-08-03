@@ -2,15 +2,9 @@
 // https://developers.facebook.com/docs/facebook-login/permissions#reference-email
 
 import React, { Component, PropTypes } from 'react';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
-
+import { StyleSheet, View } from 'react-native';
 const FBSDK = require('react-native-fbsdk');
-const {
-  LoginButton
-} = FBSDK;
+const { LoginButton } = FBSDK;
 
 const styles = StyleSheet.create({
   container: {
@@ -21,7 +15,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Login extends Component {
+export default class extends Component {
   render() {
     return (
       <View style={styles.container}>

@@ -1,34 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { StyleSheet, Text, View } from 'react-native';
 
 import {facebookConnectionSuccess, facebookConnectionFailure, facebookLogout} from './../actions';
 import Login from './../components/Login';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent:  'center',
-    alignItems:      'center',
-    backgroundColor: '#EEEEEE'
-  }
-});
 
 @connect(
   state => ({
     app:  state.app,
     user: state.user
-  }),
-  dispatch => bindActionCreators({facebookConnectionSuccess, facebookConnectionFailure, facebookLogout}, dispatch)
+  })
 )
 
-export default class Home extends Component {
+export default class extends Component {
   static propTypes = {
     app:      PropTypes.object.isRequired,
     user:     PropTypes.object.isRequired,
@@ -81,3 +66,12 @@ export default class Home extends Component {
     }
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex           : 1,
+    justifyContent : 'center',
+    alignItems     : 'center',
+    backgroundColor: '#EEEEEE'
+  }
+});

@@ -1,8 +1,9 @@
-import React           from 'react';
+import React from 'react';
+import { Provider } from 'react-redux';
 import { AppRegistry } from 'react-native';
-import { Provider }    from 'react-redux';
-import Router          from './containers/Router';
-import Store           from './configureStore';
+
+import Router from './containers/Router';
+import Store from './configureStore';
 
 const RNBoilerplate = () => (
   <Provider store={Store}>
