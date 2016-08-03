@@ -40,6 +40,6 @@ $ adb reverse tcp:8097 tcp:8097  # if you're using react-devtools
 $ npm run android
 ```
 
-### DevTools
+## DevTools
 
 In development mode, you can install [React Native Debugger](https://github.com/jhen0409/react-native-debugger) as default debugger. If not installed, it will use [Remote Redux DevTools](https://github.com/zalmoxisus/remote-redux-devtools) and [On Debugger](https://github.com/jhen0409/remote-redux-devtools-on-debugger).
