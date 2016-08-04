@@ -5,7 +5,7 @@ import { Text } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import {facebookConnectionSuccess, facebookConnectionFailure, facebookLogout} from './../actions'
+import { facebookConnectionSuccess, facebookConnectionFailure } from './../actions'
 import StatusBarBackground from './../components/StatusBarBackground'
 import ViewContainer from './../components/ViewContainer'
 import TextContainer from './../components/TextContainer'
@@ -24,8 +24,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 export default class extends React.Component {
   static propTypes = {
     app     : React.PropTypes.object.isRequired,
-    user    : React.PropTypes.object.isRequired,
-    navigate: React.PropTypes.func.isRequired
+    user    : React.PropTypes.object.isRequired
   }
 
   render() {
@@ -50,7 +49,7 @@ export default class extends React.Component {
         <Icon name="rocket" size={75} color="#FFF" />
         <TextContainer>{facebookMessage}</TextContainer>
         <TextContainer>{websocketMessage}</TextContainer>
-        <Login handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} handleLogout={facebookLogout} />
+        <Login handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
         <ListViewContainer data={[ {firstName: 'John'}, {firstName: 'Jane'} ]}></ListViewContainer>
       </ViewContainer>
     )

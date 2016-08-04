@@ -23,12 +23,11 @@ export default (state = initialState, action) => {
     case types.SOCKET_QUERY_USER_REQUESTED:
     case types.SOCKET_LOGIN_USER_REQUESTED:
       break
-    case types.FACEBOOK_GRAPH_DATA_SUCCEEDED:
     case types.SOCKET_QUERY_USER_RECEIVED:
-    case types.SOCKET_LOGIN_USER_SUCCEEDED:
       break
+    case types.FACEBOOK_GRAPH_DATA_SUCCEEDED:
     case types.FACEBOOK_GRAPH_DATA_FAILED:
-      break
+      break;
     default:
       break
   }

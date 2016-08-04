@@ -5,9 +5,11 @@ import { Text } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import { facebookConnectionSuccess, facebookConnectionFailure } from './../actions'
 import StatusBarBackground from './../components/StatusBarBackground'
 import ViewContainer from './../components/ViewContainer'
 import TextContainer from './../components/TextContainer'
+import Login from './../components/Login'
 
 @connect(
   state => ({
@@ -19,8 +21,7 @@ import TextContainer from './../components/TextContainer'
 export default class extends React.Component {
   static propTypes = {
     app     : React.PropTypes.object.isRequired,
-    user    : React.PropTypes.object.isRequired,
-    navigate: React.PropTypes.func.isRequired
+    user    : React.PropTypes.object.isRequired
   };
 
   render() {
@@ -29,6 +30,7 @@ export default class extends React.Component {
       <ViewContainer>
         <StatusBarBackground/>
         <TextContainer>Home Scene</TextContainer>
+        <Login handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
       </ViewContainer>
     )
   }

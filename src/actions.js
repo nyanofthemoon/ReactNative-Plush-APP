@@ -1,5 +1,6 @@
 'use strict'
 
+import {Actions} from 'react-native-router-flux'
 const FBSDK = require('react-native-fbsdk')
 const { AccessToken, GraphRequest, GraphRequestManager } = FBSDK
 
@@ -18,10 +19,7 @@ export function facebookConnectionSuccess() {
 
 export function facebookConnectionFailure() {
   dispatch({type: types.FACEBOOK_LOGIN_FAILED})
-}
-
-export function facebookLogout() {
-  dispatch({type: types.FACEBOOK_LOGOUT})
+  Actions.login()
 }
 
 function socketConnectionRequest() {
@@ -73,6 +71,7 @@ export function queryUser() {
 
 function queryUserReception(data) {
   dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
+  Actions.home()
 }
 
 function queryUnknownReception(data) {

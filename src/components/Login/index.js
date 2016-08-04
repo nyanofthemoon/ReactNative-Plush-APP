@@ -7,11 +7,24 @@ import React from 'react'
 import { View } from 'react-native'
 
 const FBSDK = require('react-native-fbsdk')
-const { LoginButton } = FBSDK;
+const { AccessToken, LoginButton } = FBSDK;
 
 import styles from './styles'
 
 export default class extends React.Component {
+
+  componentWillMount() {
+    AccessToken.getCurrentAccessToken().then(
+      (data) => {
+        if (data) {
+          this.props.handleSuccess()
+        } else {
+          this.props.handleFailure()
+        }
+      }
+    )
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -23,7 +36,7 @@ export default class extends React.Component {
               this.props.handleSuccess();
             }
           }}
-          onLogoutFinished={this.props.handleLogout}
+          onLogoutFinished={this.props.handleFailure}
           readPermissions={['public_profile', 'email']}
         >
         </LoginButton>
