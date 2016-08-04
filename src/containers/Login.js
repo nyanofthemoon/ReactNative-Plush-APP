@@ -1,6 +1,6 @@
 'use strict'
 
-import React from 'react'
+import React, { Component } from 'react';
 import { Text } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
@@ -11,6 +11,8 @@ import ViewContainer from './../components/ViewContainer'
 import TextContainer from './../components/TextContainer'
 import ListViewContainer from './../components/ListViewContainer'
 import Login from './../components/Login'
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 @connect(
   state => ({
@@ -48,6 +50,7 @@ export default class extends React.Component {
         <TextContainer>{facebookMessage}</TextContainer>
         <TextContainer>{websocketMessage}</TextContainer>
         <ListViewContainer data={[ {firstName: 'John'}, {firstName: 'Jane'} ]}></ListViewContainer>
+        <Icon name="rocket" size={75} color="#FFF"c />
       </ViewContainer>
     )
   }

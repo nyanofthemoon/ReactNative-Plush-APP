@@ -4,6 +4,7 @@
 package com.rnboilerplate;
 
 import com.facebook.react.ReactActivity;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 
 import android.content.Intent;
