@@ -33,9 +33,9 @@ export default class extends React.Component {
 
     let facebookMessage;
     if ('authenticated' === app.get('facebookStatus')) {
-      facebookMessage = 'FaceBook Unauthenticated'
-    } else {
       facebookMessage = 'FaceBook Authenticated'
+    } else {
+      facebookMessage = 'FaceBook Unauthenticated'
     }
     let websocketMessage;
     if ('connected' === app.get('socketStatus')) {
@@ -47,10 +47,11 @@ export default class extends React.Component {
     return (
       <ViewContainer>
         <StatusBarBackground/>
+        <Icon name="rocket" size={75} color="#FFF" />
         <TextContainer>{facebookMessage}</TextContainer>
         <TextContainer>{websocketMessage}</TextContainer>
+        <Login handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} handleLogout={facebookLogout} />
         <ListViewContainer data={[ {firstName: 'John'}, {firstName: 'Jane'} ]}></ListViewContainer>
-        <Icon name="rocket" size={75} color="#FFF"c />
       </ViewContainer>
     )
   }
