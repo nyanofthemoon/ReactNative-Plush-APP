@@ -9,6 +9,7 @@ import {facebookConnectionSuccess, facebookConnectionFailure, facebookLogout} fr
 import StatusBarBackground from './../components/StatusBarBackground'
 import ViewContainer from './../components/ViewContainer'
 import TextContainer from './../components/TextContainer'
+import ListViewContainer from './../components/ListViewContainer'
 import Login from './../components/Login'
 
 @connect(
@@ -27,50 +28,27 @@ export default class extends React.Component {
 
   render() {
     const {app, user} = this.props
-    switch(app.get('facebookStatus')) {
-      case 'authenticated':
-        switch(app.get('socketStatus')) {
-          case 'connected':
-            return (
-              <ViewContainer>
-                <StatusBarBackground/>
-                <TextContainer>Facebook Authenticated</TextContainer>
-                <TextContainer>Socket Connected</TextContainer>
-              </ViewContainer>
-            )
-          case 'connecting':
-            return (
-              <ViewContainer>
-                <StatusBarBackground/>
-                <TextContainer>Facebook Authenticated</TextContainer>
-                <TextContainer>Waiting for socket...</TextContainer>
-              </ViewContainer>
-            )
-          default:
-            return (
-              <ViewContainer>
-                <StatusBarBackground/>
-                <TextContainer>Facebook Authenticated</TextContainer>
-                <TextContainer>Websocket disconnected</TextContainer>
-              </ViewContainer>
-            )
-        }
-      case 'authenticating':
-        return (
-          <ViewContainer>
-            <StatusBarBackground/>
-            <TextContainer>Waiting for Facebook...</TextContainer>
-            <Login handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} handleLogout={facebookLogout} />
-          </ViewContainer>
-        )
-      default:
-        return (
-          <ViewContainer>
-            <StatusBarBackground/>
-            <TextContainer>Please Login with Facebook</TextContainer>
-            <Login handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} handleLogout={facebookLogout} />
-          </ViewContainer>
-        )
+
+    let facebookMessage;
+    if ('authenticated' === app.get('facebookStatus')) {
+      facebookMessage = 'FaceBook Unauthenticated'
+    } else {
+      facebookMessage = 'FaceBook Authenticated'
     }
+    let websocketMessage;
+    if ('connected' === app.get('socketStatus')) {
+      websocketMessage = 'Websocket Connected'
+    } else {
+      websocketMessage = 'Websocket Disconnected'
+    }
+
+    return (
+      <ViewContainer>
+        <StatusBarBackground/>
+        <TextContainer>{facebookMessage}</TextContainer>
+        <TextContainer>{websocketMessage}</TextContainer>
+        <ListViewContainer data={[ {firstName: 'John'}, {firstName: 'Jane'} ]}></ListViewContainer>
+      </ViewContainer>
+    )
   }
 }

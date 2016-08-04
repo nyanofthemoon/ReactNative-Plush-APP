@@ -8,7 +8,7 @@ import styles from './styles'
 export default class extends React.Component {
   render() {
     return (
-      <View style={styles.viewContainer}>
+      <View style={styles.container}>
         {this.props.children}
       </View>
     )

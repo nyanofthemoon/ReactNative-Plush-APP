@@ -8,7 +8,7 @@ import styles from './styles'
 export default class extends React.Component {
   render() {
     return (
-      <Text style={styles.textContainer}>
+      <Text style={styles.container}>
         {this.props.children}
       </Text>
     )

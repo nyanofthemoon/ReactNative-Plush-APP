@@ -8,8 +8,7 @@ import styles from './styles'
 export default class extends React.Component {
   render() {
     return (
-      <View style={styles.statusBarBackground}>
-      </View>
+      <View style={styles.container}></View>
     )
   }
 }
