@@ -9,10 +9,7 @@ import { facebookConnectionSuccess, facebookConnectionFailure } from './../actio
 import StatusBarBackground from './../components/StatusBarBackground'
 import ViewContainer from './../components/ViewContainer'
 import TextContainer from './../components/TextContainer'
-import ListViewContainer from './../components/ListViewContainer'
-import Login from './../components/Login'
-
-import Icon from 'react-native-vector-icons/FontAwesome';
+import FacebookButton from './../components/FacebookButton'
 
 @connect(
   state => ({
@@ -46,11 +43,9 @@ export default class extends React.Component {
     return (
       <ViewContainer>
         <StatusBarBackground/>
-        <Icon name="rocket" size={75} color="#FFF" />
         <TextContainer>{facebookMessage}</TextContainer>
         <TextContainer>{websocketMessage}</TextContainer>
-        <Login handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
-        <ListViewContainer data={[ {firstName: 'John'}, {firstName: 'Jane'} ]}></ListViewContainer>
+        <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
       </ViewContainer>
     )
   }

@@ -7,7 +7,7 @@ const { AccessToken, GraphRequest, GraphRequestManager } = FBSDK
 import * as types from './constants'
 import Store      from './configureStore'
 
-import {createSocketConnection, emitSocketUserLoginEvent, emitSocketUserQueryEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, emitSocketUserLoginEvent, emitSocketUserQueryEvent} from './helpers/socket'
 
 let socket
 let dispatch = Store.dispatch
@@ -19,6 +19,7 @@ export function facebookConnectionSuccess() {
 
 export function facebookConnectionFailure() {
   dispatch({type: types.FACEBOOK_LOGIN_FAILED})
+  destroySocketConnection();
   Actions.login()
 }
 

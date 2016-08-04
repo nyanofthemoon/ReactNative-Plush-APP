@@ -22,12 +22,12 @@ export default (state = initialState, action) => {
     case types.FACEBOOK_GRAPH_DATA_REQUESTED:
     case types.SOCKET_QUERY_USER_REQUESTED:
     case types.SOCKET_LOGIN_USER_REQUESTED:
-      break
-    case types.SOCKET_QUERY_USER_RECEIVED:
-      break
     case types.FACEBOOK_GRAPH_DATA_SUCCEEDED:
     case types.FACEBOOK_GRAPH_DATA_FAILED:
-      break;
+      break
+    case types.SOCKET_QUERY_USER_RECEIVED:
+      nextState = fromJS(state).merge(action.payload.data)
+      break
     default:
       break
   }

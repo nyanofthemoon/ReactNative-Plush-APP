@@ -19,7 +19,10 @@ export default (state = initialState, action) => {
       nextState = fromJS(state).set('facebookStatus', 'authenticated')
       break
     case types.FACEBOOK_LOGIN_FAILED:
-      nextState = fromJS(state).set('facebookStatus', 'unauthenticated')
+      nextState = fromJS(state).merge({
+        facebookStatus: 'unauthenticated',
+        socketStatus  : 'disconnected'
+      })
       break
     case types.SOCKET_CONNECTION_REQUESTED:
       nextState = fromJS(state).set('socketStatus', 'connecting')

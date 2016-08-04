@@ -16,6 +16,12 @@ export function createSocketConnection() {
   return socket
 }
 
+export function destroySocketConnection() {
+  if (socket && socket.connected) {
+    socket.disconnect();
+  }
+}
+
 export function emitSocketUserLoginEvent(data) {
   socket.emit('login', { data: data })
 }
