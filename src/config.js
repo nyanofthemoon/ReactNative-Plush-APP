@@ -1,10 +1,12 @@
+'use strict'
+
 module.exports = {
 
   environment: {
-    name:     'development',
+    name    : 'development',
     protocol: 'http',
-    host:     'localhost',
-    port:     8888
+    host    : 'localhost',
+    port    : 8888
   }
 
 }

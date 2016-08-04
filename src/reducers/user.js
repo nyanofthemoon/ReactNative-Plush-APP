@@ -1,4 +1,6 @@
-import {fromJS} from 'immutable';
+'use strict'
+
+import {fromJS} from 'immutable'
 
 import * as types from './../constants'
 
@@ -12,23 +14,23 @@ const initialState = fromJS({
   locale:          null,
   timezone:        null,
   contacts:        []
-});
+})
 
 export default (state = initialState, action) => {
-  let nextState;
+  let nextState
   switch (action.type) {
     case types.FACEBOOK_GRAPH_DATA_REQUESTED:
     case types.SOCKET_QUERY_USER_REQUESTED:
     case types.SOCKET_LOGIN_USER_REQUESTED:
-      break;
+      break
     case types.FACEBOOK_GRAPH_DATA_SUCCEEDED:
     case types.SOCKET_QUERY_USER_RECEIVED:
     case types.SOCKET_LOGIN_USER_SUCCEEDED:
-      break;
+      break
     case types.FACEBOOK_GRAPH_DATA_FAILED:
-      break;
+      break
     default:
-      break;
+      break
   }
-  return nextState || state;
+  return nextState || state
 }

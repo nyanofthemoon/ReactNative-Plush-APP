@@ -1,21 +1,17 @@
 // https://github.com/facebook/react-native-fbsdk
 // https://developers.facebook.com/docs/facebook-login/permissions#reference-email
 
-import React, { Component, PropTypes } from 'react';
-import { StyleSheet, View } from 'react-native';
-const FBSDK = require('react-native-fbsdk');
+'use strict'
+
+import React from 'react'
+import { View } from 'react-native'
+
+const FBSDK = require('react-native-fbsdk')
 const { LoginButton } = FBSDK;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-});
+import styles from './styles'
 
-export default class extends Component {
+export default class extends React.Component {
   render() {
     return (
       <View style={styles.container}>
@@ -32,6 +28,6 @@ export default class extends Component {
         >
         </LoginButton>
       </View>
-    );
+    )
   }
-};
+}
