@@ -6,7 +6,8 @@ import * as types from './../constants'
 
 const initialState = fromJS({
   facebookStatus: 'unauthenticated',
-  socketStatus  : 'disconnected'
+  socketStatus  : 'disconnected',
+  socket        : null
 })
 
 export default (state = initialState, action) => {
@@ -25,13 +26,22 @@ export default (state = initialState, action) => {
       })
       break
     case types.SOCKET_CONNECTION_REQUESTED:
-      nextState = fromJS(state).set('socketStatus', 'connecting')
+      nextState = fromJS(state).merge({
+        socketStatus: 'connecting',
+        socket      : null
+      })
       break
     case types.SOCKET_CONNECTION_SUCCEEDED:
-      nextState = fromJS(state).set('socketStatus', 'connected')
+      nextState = fromJS(state).merge({
+        socketStatus: 'connected',
+        socket      : action.payload.socket
+      })
       break
     case types.SOCKET_CONNECTION_FAILED:
-      nextState = fromJS(state).set('socketStatus', 'disconnected')
+      nextState = fromJS(state).merge({
+        socketStatus: 'disconnected',
+        socket      : null
+      })
       break
     default:
       break

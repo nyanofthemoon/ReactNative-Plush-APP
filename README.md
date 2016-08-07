@@ -3,7 +3,9 @@
 # Installation
 
 See [Getting Started](https://facebook.github.io/react-native/docs/getting-started.html) to install requirement tools.
-[React-Native-Vector-Icons](https://github.com/oblador/react-native-vector-icons)
+[React-Native-Vector-Icons Installation](https://github.com/oblador/react-native-vector-icons)
+[React-Native-WebRTC iOS Installation](https://github.com/oney/react-native-webrtc/blob/master/Documentation/iOSInstallation.md)
+[iOS Device Achitecture Compatibility Chart](https://developer.apple.com/library/ios/documentation/DeviceInformation/Reference/iOSDeviceCompatibility/DeviceCompatibilityMatrix/DeviceCompatibilityMatrix.html)
 
 ```bash
 $ npm install -g react-native-cli
