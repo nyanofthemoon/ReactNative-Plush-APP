@@ -1,3 +1,5 @@
+// @TODO This is just a working demo...
+
 'use strict'
 
 if (!window.navigator.userAgent) {
@@ -24,12 +26,6 @@ var { RTCPeerConnection, RTCMediaStream, RTCIceCandidate, RTCSessionDescription,
 
 let socket;
 
-//@connect(
-//  state => ({
-//    app : state.app,
-//    user: state.user
-//  })
-//)
 
 const styles = StyleSheet.create({
   selfView: {
@@ -247,6 +243,13 @@ function getStats() {
 
 let container;
 
+@connect(
+  state => ({
+    app : state.app,
+    user: state.user
+  })
+)
+
 export default class extends React.Component {
 
   constructor(props) {
@@ -265,21 +268,22 @@ export default class extends React.Component {
     }
   }
 
-  //static propTypes = {
-  //  app     : React.PropTypes.object.isRequired,
-  //  user    : React.PropTypes.object.isRequired
-  //}
+  static propTypes = {
+    app     : React.PropTypes.object.isRequired,
+    user    : React.PropTypes.object.isRequired
+  }
+
+  componentWillMount() {
+    container = this;
+  }
 
   componentDidMount() {
-    container = this;
-    //socket = app.get('socket');
+
+//    socket = io.connect('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
 
 
-    socket = io.connect('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
 
-
-    socket.on('connect', function(data) {
-
+    socket = this.props.app.get('socket');
       getLocalStream(true, function (stream) {
         localStream = stream;
         container.setState({selfViewSrc: stream.toURL()});
@@ -292,8 +296,6 @@ export default class extends React.Component {
         leave(socketId);
       });
 
-
-    })
 
   }
 

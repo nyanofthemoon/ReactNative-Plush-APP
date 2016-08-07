@@ -14,8 +14,7 @@ let dispatch = Store.dispatch
 
 export function facebookConnectionSuccess() {
   dispatch({type: types.FACEBOOK_LOGIN_SUCCEEDED})
-  Actions.video()
-  //socketConnectionRequest()
+  socketConnectionRequest()
 }
 
 export function facebookConnectionFailure() {
@@ -73,7 +72,10 @@ export function queryUser() {
 
 function queryUserReception(data) {
   dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
-  Actions.home()
+
+
+  Actions.video()
+  //Actions.home()
 }
 
 function queryUnknownReception(data) {

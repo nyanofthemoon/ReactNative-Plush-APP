@@ -8,15 +8,15 @@ import { Actions, ActionConst, Scene, Router } from 'react-native-router-flux';
 import Store from './configureStore'
 import Login from './containers/Login'
 import Home from './containers/Home'
-import Audio from './containers/Video'
 import Video from './containers/Video'
+import Error from './containers/Error'
 
 const scenes = Actions.create(
   <Scene key='root' hideNavBar='true'>
     <Scene key='login' component={Login} initial='true' type={ActionConst.RESET}/>
     <Scene key='home' component={Home} type={ActionConst.REPLACE}/>
-    <Scene key='audio' component={Audio} type={ActionConst.REPLACE}/>
     <Scene key='video' component={Video} type={ActionConst.REPLACE}/>
+    <Scene key='error' component={Error} type={ActionConst.REPLACE}/>
   </Scene>
 );
 
