@@ -46,7 +46,7 @@ function socketConnectionRequest() {
 export function facebookGraphGetProfile() {
   AccessToken.getCurrentAccessToken().then(function(data) {
     new GraphRequestManager().addRequest(new GraphRequest(
-      '/me?fields=email,gender,first_name,last_name,link,picture,locale,timezone',
+      '/me?fields=email,gender,birthday,first_name,last_name,link,picture,locale,timezone',
       null,
       function(error, result) {
         if (error) {

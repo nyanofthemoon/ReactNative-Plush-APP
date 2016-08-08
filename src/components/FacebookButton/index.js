@@ -37,7 +37,7 @@ export default class extends React.Component {
             }
           }}
           onLogoutFinished={this.props.handleFailure}
-          readPermissions={['public_profile', 'email']}
+          readPermissions={['public_profile', 'email', 'user_birthday']}
         >
         </LoginButton>
       </View>
