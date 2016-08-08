@@ -19,7 +19,7 @@ export default class extends React.Component {
         <Icon name='bug' size={256} color='black' style={{ paddingTop: 25, paddingBottom: 15 }} />
         <TextContainer>Error Scene</TextContainer>
         <TextContainer message={this.props.message || 'Oops!'} />
-        <Button text={'Home'} onPress={goToHomeScene} />
+        <Button text={'Home Button'} onPress={goToHomeScene} />
         <Footer />
       </ViewContainer>
     )

@@ -10,15 +10,16 @@ if (!window.navigator.userAgent) {
 const io = require('socket.io-client/socket.io')
 
 import React from 'react'
-import { AppRegistry, StyleSheet, Text, TouchableHighlight, View, TextInput, ListView } from 'react-native'
+import { AppRegistry, StyleSheet, Text, TouchableHighlight, View, TextInput, ListView, Dimensions } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+
+import { goToHomeScene } from './../actions'
 
 import StatusBarBackground from './../components/StatusBarBackground'
 import ViewContainer from './../components/ViewContainer'
 import TextContainer from './../components/TextContainer'
-
-
+import Button from './../components/Button'
 
 
 var WebRTC = require('react-native-webrtc');
@@ -31,28 +32,28 @@ const styles = StyleSheet.create({
   selfView: {
     width: 200,
     height: 150,
-    color: 'white'
+    color: 'black'
   },
   remoteView: {
     width: 200,
     height: 150,
-    color: 'white'
+    color: 'black'
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#F5FCFF',
-    color: 'white'
+    color: 'black'
   },
   welcome: {
-    fontSize: 20,
+    fontSize: 14,
     textAlign: 'center',
     margin: 10,
-    color: 'white'
+    color: 'grey'
   },
   listViewContainer: {
     height: 150,
-    color: 'white'
+    color: 'black'
   },
 });
 
@@ -263,7 +264,9 @@ export default class extends React.Component {
       remoteList: {},
       textRoomConnected: false,
       textRoomData: [],
-      textRoomValue: ''
+      textRoomValue: '',
+      windowWidth: Dimensions.get('window').width,
+      windowHeight: Dimensions.get('window').height
     }
   }
 
@@ -365,35 +368,27 @@ export default class extends React.Component {
 
   render() {
     //const {app, user} = this.props
+    var that = this
     return (
       <ViewContainer style={styles.container}>
         <StatusBarBackground/>
+        <Button text={'Home Button'} onPress={goToHomeScene} />
         <Text style={styles.welcome}>
           {this.state.info}
         </Text>
         {this.state.textRoomConnected && this._renderTextRoom()}
-        <View style={{flexDirection: 'row'}}>
-          <Text>
-            {this.state.isFront ? "Use front camera" : "Use back camera"}
-          </Text>
-          <TouchableHighlight
-            style={{borderWidth: 1, borderColor: 'black'}}
-            onPress={this._switchVideoType}>
-            <Text>Switch camera</Text>
-          </TouchableHighlight>
-        </View>
         { this.state.status == 'ready' ?
           (<View>
             <TouchableHighlight
               onPress={this._press}>
-              <Text style={{color: 'white'}}>[ Yes! I'm READY! ]</Text>
+              <Text style={{color: 'black'}}>[ CLICK ME TO JOIN ROOM ]</Text>
             </TouchableHighlight>
           </View>) : null
         }
-        <RTCView streamURL={this.state.selfViewSrc} style={styles.selfView}/>
+        <RTCView streamURL={this.state.selfViewSrc} style={[styles.selfView, {width: this.state.windowWidth, height: (this.state.windowHeight/2)}]} />
         {
           mapHash(this.state.remoteList, function(remote, index) {
-            return <RTCView key={index} streamURL={remote} style={styles.remoteView}/>
+            return <RTCView key={index} streamURL={remote} style={[styles.remoteView, {width: that.state.windowWidth, height: (that.state.windowHeight/2)}]}/>
           })
         }
       </ViewContainer>

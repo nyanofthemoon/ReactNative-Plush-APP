@@ -16,7 +16,7 @@ export default class extends React.Component {
       <ViewContainer>
         <Header showLogo={false} />
         <TextContainer>Profile Scene</TextContainer>
-        <Button text={'Home'} onPress={goToHomeScene} />
+        <Button text={'Home Button'} onPress={goToHomeScene} />
         <Footer />
       </ViewContainer>
     )
