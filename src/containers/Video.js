@@ -82,8 +82,8 @@ function getLocalStream(isFront, callback) {
   });
 }
 
-function join(roomID) {
-  socket.emit('join', roomID, function(socketIds){
+function join() {
+  socket.emit('join', 'qwerty', function(socketIds){
     console.log('join', socketIds);
     for (const i in socketIds) {
       const socketId = socketIds[i];
@@ -258,7 +258,6 @@ export default class extends React.Component {
     this.state = {
       info: 'Initializing',
       status: 'init',
-      roomID: 'bbb',
       isFront: true,
       selfViewSrc: null,
       remoteList: {},
@@ -287,7 +286,7 @@ export default class extends React.Component {
       getLocalStream(true, function (stream) {
         localStream = stream;
         container.setState({selfViewSrc: stream.toURL()});
-        container.setState({status: 'ready', info: 'Please enter or create room ID'});
+        container.setState({status: 'ready', info: 'Are you ready?'});
       });
       socket.on('exchange', function (data) {
         exchange(data);
@@ -300,9 +299,8 @@ export default class extends React.Component {
   }
 
   _press(event) {
-    //this.refs.roomID.blur();
-    container.setState({status: 'connect', info: 'Connecting'});
-    join('bbb');
+    container.setState({status: 'connect', info: 'Waiting For Someone'});
+    join();
   }
 
   _switchVideoType() {
@@ -371,7 +369,7 @@ export default class extends React.Component {
       <ViewContainer style={styles.container}>
         <StatusBarBackground/>
         <Text style={styles.welcome}>
-          {this.state.info} Test
+          {this.state.info}
         </Text>
         {this.state.textRoomConnected && this._renderTextRoom()}
         <View style={{flexDirection: 'row'}}>
@@ -386,16 +384,9 @@ export default class extends React.Component {
         </View>
         { this.state.status == 'ready' ?
           (<View>
-            <TextInput
-              ref='roomID'
-              autoCorrect={false}
-              style={{width: 200, height: 40, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={(text) => this.setState({roomID: text})}
-              value={this.state.roomID}
-            />
             <TouchableHighlight
               onPress={this._press}>
-              <Text style={{color: 'white'}}>Enter room</Text>
+              <Text style={{color: 'white'}}>[ Yes! I'm READY! ]</Text>
             </TouchableHighlight>
           </View>) : null
         }

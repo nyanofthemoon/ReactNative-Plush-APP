@@ -6,9 +6,10 @@ module.exports = {
     //name    : 'development',
     //protocol: 'http',
     //host    : 'localhost',
-    name    : 'staging',
+    //port    : ':8888'
+    name    : 'development',
     protocol: 'https',
     host    : 'camroulette-api.herokuapp.com',
-    port    : 8888
+    port    : ''
   }
 }
