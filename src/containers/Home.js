@@ -1,17 +1,17 @@
 'use strict'
 
 import React from 'react'
-import { Text } from 'react-native'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-import { facebookConnectionSuccess, facebookConnectionFailure } from './../actions'
-import StatusBarBackground from './../components/StatusBarBackground'
+import { facebookConnectionSuccess, facebookConnectionFailure, goToFriendsScene, goToProfileScene, goToVideoScene } from './../actions'
+
 import ViewContainer from './../components/ViewContainer'
-import TextContainer from './../components/TextContainer'
+import Header from './../components/Header'
+import Button from './../components/Button'
+import UserStatistics from './../components/UserStatistics'
 import FacebookButton from './../components/FacebookButton'
-import ListViewContainer from './../components/ListViewContainer'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Footer from './../components/Footer'
 
 @connect(
   state => ({
@@ -22,18 +22,21 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class extends React.Component {
   static propTypes = {
-    app     : React.PropTypes.object.isRequired,
-    user    : React.PropTypes.object.isRequired
+    app : React.PropTypes.object.isRequired,
+    user: React.PropTypes.object.isRequired
   };
 
   render() {
     const {app, user} = this.props
     return (
       <ViewContainer>
-        <StatusBarBackground/>
-        <TextContainer>Home Scene</TextContainer>
-        <ListViewContainer data={ user.toArray() }></ListViewContainer>
+        <Header showLogo={false} />
+        <Button text={'Friends Button'} onPress={goToFriendsScene} />
+        <Button text={'Profile Button'} onPress={goToProfileScene} />
+        <Button text={'Ready Button'} onPress={goToVideoScene} />
+        <UserStatistics user={user} />
         <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
+        <Footer />
       </ViewContainer>
     )
   }

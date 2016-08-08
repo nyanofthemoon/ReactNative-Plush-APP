@@ -7,9 +7,9 @@ export default StyleSheet.create({
   container: {
     flex           : 1,
     flexDirection  : 'column',
-    justifyContent : 'center', // flex-start
-    alignItems     : 'center', // stretch
-    backgroundColor: 'black'
+    justifyContent : 'flex-start', // center
+    alignItems     : 'center',     // stretch
+    backgroundColor: 'white'
   }
 
 })

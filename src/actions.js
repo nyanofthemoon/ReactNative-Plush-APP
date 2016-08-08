@@ -28,8 +28,8 @@ function socketConnectionRequest() {
   socket = createSocketConnection()
   socket.on('error', function(error) {
     dispatch({type: types.SOCKET_CONNECTION_FAILED})
+    Actions.login()
   })
-
   socket.on('connect', function() {
     dispatch({type: types.SOCKET_CONNECTION_SUCCEEDED, payload: { socket: socket }})
     socket.on('query', function(data) {
@@ -38,9 +38,14 @@ function socketConnectionRequest() {
         default    : return queryUnknownReception(data)
       }
     })
+    socket.on('disconnect', function() {
+      dispatch({type: types.SOCKET_CONNECTION_FAILED})
+      Actions.login()
+    })
     dispatch({type: types.FACEBOOK_GRAPH_DATA_REQUESTED})
     facebookGraphGetProfile()
   })
+
 }
 
 export function facebookGraphGetProfile() {
@@ -72,12 +77,39 @@ export function queryUser() {
 
 function queryUserReception(data) {
   dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
-
-
-  Actions.video()
-  //Actions.home()
+  goToHomeScene()
 }
 
 function queryUnknownReception(data) {
   dispatch({type: types.SOCKET_QUERY_UNKNOWN_RECEIVED, payload: data})
+}
+
+export function goToLoginScene(data) {
+  dispatch({type: types.SCENE_NAVIGATION_LOGIN, payload: data})
+  Actions.login()
+}
+
+export function goToHomeScene(data) {
+  dispatch({type: types.SCENE_NAVIGATION_HOME, payload: data})
+  Actions.home()
+}
+
+export function goToFriendsScene(data) {
+  dispatch({type: types.SCENE_NAVIGATION_FRIENDS, payload: data})
+  Actions.friends()
+}
+
+export function goToProfileScene(data) {
+  dispatch({type: types.SCENE_NAVIGATION_PROFILE, payload: data})
+  Actions.profile()
+}
+
+export function goToVideoScene(data) {
+  dispatch({type: types.SCENE_NAVIGATION_VIDEO, payload: data})
+  Actions.video()
+}
+
+export function goToErrorScene(data) {
+  dispatch({type: types.SCENE_NAVIGATION_ERROR, payload: data})
+  Actions.error()
 }
