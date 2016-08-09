@@ -26,6 +26,10 @@ export default class extends React.Component {
     user: React.PropTypes.object.isRequired
   };
 
+  _test() {
+    alert('ddd')
+  }
+
   render() {
     const {app, user} = this.props
     return (
@@ -34,7 +38,6 @@ export default class extends React.Component {
         <Button text={'Friends Button'} onPress={goToFriendsScene} />
         <Button text={'Profile Button'} onPress={goToProfileScene} />
         <Button text={'Ready Button'} onPress={goToVideoScene} />
-        <UserStatistics user={user} />
         <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
         <Footer />
       </ViewContainer>

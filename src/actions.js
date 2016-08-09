@@ -9,12 +9,18 @@ import Store      from './configureStore'
 
 import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent} from './helpers/socket'
 
-let socket
 let dispatch = Store.dispatch
 
+function _getState() {
+  return Store.getState();
+}
+
 export function facebookConnectionSuccess() {
-  dispatch({type: types.FACEBOOK_LOGIN_SUCCEEDED})
-  socketConnectionRequest()
+  let apiConnectionStatus = _getState().app.get('apiStatus')
+  if ('connected' != apiConnectionStatus) {
+    dispatch({type: types.FACEBOOK_LOGIN_SUCCEEDED})
+    socketConnectionRequest()
+  }
 }
 
 export function facebookConnectionFailure() {
@@ -25,7 +31,7 @@ export function facebookConnectionFailure() {
 
 function socketConnectionRequest() {
   dispatch({type: types.SOCKET_CONNECTION_REQUESTED})
-  socket = createSocketConnection()
+  let socket = createSocketConnection()
   socket.on('error', function(error) {
     dispatch({type: types.SOCKET_CONNECTION_FAILED})
     Actions.login()
