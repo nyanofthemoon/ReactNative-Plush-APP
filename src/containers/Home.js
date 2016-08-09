@@ -1,7 +1,6 @@
 'use strict'
 
 import React from 'react'
-import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { facebookConnectionSuccess, facebookConnectionFailure, goToFriendsScene, goToProfileScene, goToVideoScene } from './../actions'
@@ -25,10 +24,6 @@ export default class extends React.Component {
     app : React.PropTypes.object.isRequired,
     user: React.PropTypes.object.isRequired
   };
-
-  _test() {
-    alert('ddd')
-  }
 
   render() {
     const {app, user} = this.props

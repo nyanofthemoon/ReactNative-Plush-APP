@@ -8,7 +8,8 @@ const initialState = fromJS({
   facebookStatus: 'unauthenticated',
   socketStatus  : 'disconnected',
   socket        : null,
-  apiStatus     : 'disconnected'
+  apiStatus     : 'disconnected',
+  errorMessage  : null
 })
 
 export default (state = initialState, action) => {
@@ -31,8 +32,7 @@ export default (state = initialState, action) => {
     case types.SOCKET_CONNECTION_REQUESTED:
       nextState = fromJS(state).merge({
         socketStatus: 'connecting',
-        apiStatus   : 'disconnected',
-        socket      : null
+        apiStatus   : 'disconnected'
       })
       break
     case types.SOCKET_CONNECTION_SUCCEEDED:
@@ -45,8 +45,7 @@ export default (state = initialState, action) => {
     case types.SOCKET_CONNECTION_FAILED:
       nextState = fromJS(state).merge({
         socketStatus: 'disconnected',
-        apiStatus   : 'disconnected',
-        socket      : null
+        apiStatus   : 'disconnected'
       })
       break
     case types.SOCKET_LOGIN_USER_REQUESTED:
@@ -55,6 +54,14 @@ export default (state = initialState, action) => {
     case types.SOCKET_QUERY_USER_RECEIVED:
       nextState = fromJS(state).set('apiStatus', 'connected')
       break
+    case types.SCENE_NAVIGATION_ERROR:
+      nextState = fromJS(state).merge({
+        facebookStatus: 'unauthenticated',
+        socketStatus  : 'disconnected',
+        apiStatus     : 'disconnected',
+        socket        : null,
+        errorMessage  : action.payload.message
+      })
     default:
       break
   }

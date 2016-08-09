@@ -12,7 +12,10 @@ export function createSocketConnection() {
   if (false === isSocketConnected()) {
     socket = io(Config.environment.protocol + '://' + Config.environment.host + Config.environment.port, {
       transports: ['websocket'],
-      jsonp: false
+      jsonp     : false,
+      query     : {
+        token: Config.application.token
+      }
     })
   }
   return socket

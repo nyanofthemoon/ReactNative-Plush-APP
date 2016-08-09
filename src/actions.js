@@ -17,16 +17,14 @@ function _getState() {
 
 export function facebookConnectionSuccess() {
   let apiConnectionStatus = _getState().app.get('apiStatus')
-  if ('connected' != apiConnectionStatus) {
-    dispatch({type: types.FACEBOOK_LOGIN_SUCCEEDED})
-    socketConnectionRequest()
-  }
+  dispatch({type: types.FACEBOOK_LOGIN_SUCCEEDED})
+  socketConnectionRequest()
 }
 
 export function facebookConnectionFailure() {
   dispatch({type: types.FACEBOOK_LOGIN_FAILED})
   destroySocketConnection();
-  Actions.login()
+  goToLoginScene()
 }
 
 function socketConnectionRequest() {
@@ -34,24 +32,31 @@ function socketConnectionRequest() {
   let socket = createSocketConnection()
   socket.on('error', function(error) {
     dispatch({type: types.SOCKET_CONNECTION_FAILED})
-    Actions.login()
+    goToErrorScene({ message: 'Server Maintenance. Please come back again later.' })
   })
-  socket.on('connect', function() {
-    dispatch({type: types.SOCKET_CONNECTION_SUCCEEDED, payload: { socket: socket }})
-    socket.on('query', function(data) {
-      switch(data.type) {
-        case 'user': return queryUserReception(data)
-        default    : return queryUnknownReception(data)
-      }
-    })
-    socket.on('disconnect', function() {
-      dispatch({type: types.SOCKET_CONNECTION_FAILED})
-      Actions.login()
-    })
-    dispatch({type: types.FACEBOOK_GRAPH_DATA_REQUESTED})
-    facebookGraphGetProfile()
+  socket.on('upgrade', function(data) {
+    goToErrorScene({ message: 'New Version Available! Please upgrade to continue.' })
   })
-
+  let apiErrorMessage  = _getState().app.get('errorMessage')
+  if (!apiErrorMessage) {
+    socket.on('connect', function () {
+      dispatch({type: types.SOCKET_CONNECTION_SUCCEEDED, payload: {socket: socket}})
+      socket.on('query', function (data) {
+        switch (data.type) {
+          case 'user':
+            return queryUserReception(data)
+          default    :
+            return queryUnknownReception(data)
+        }
+      })
+      socket.on('disconnect', function () {
+        dispatch({type: types.SOCKET_CONNECTION_FAILED})
+        Actions.login()
+      })
+      dispatch({type: types.FACEBOOK_GRAPH_DATA_REQUESTED})
+      facebookGraphGetProfile()
+    })
+  }
 }
 
 export function facebookGraphGetProfile() {
@@ -122,6 +127,5 @@ export function goToVideoScene(data) {
 
 export function goToErrorScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_ERROR, payload: data})
-  emitSocketUserLeaveEvent()
   Actions.error()
 }
