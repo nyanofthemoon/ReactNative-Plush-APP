@@ -7,7 +7,7 @@ const { AccessToken, GraphRequest, GraphRequestManager } = FBSDK
 import * as types from './constants'
 import Store      from './configureStore'
 
-import {createSocketConnection, destroySocketConnection, emitSocketUserLoginEvent, emitSocketUserQueryEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent} from './helpers/socket'
 
 let socket
 let dispatch = Store.dispatch

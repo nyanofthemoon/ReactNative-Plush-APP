@@ -9,17 +9,26 @@ import * as types from './../constants'
 let socket
 
 export function createSocketConnection() {
-  socket = io(Config.environment.protocol + '://' + Config.environment.host + ':' + Config.environment.port, {
-    transports: ['websocket'],
-    jsonp     : false
-  })
+  if (false === isSocketConnected()) {
+    socket = io(Config.environment.protocol + '://' + Config.environment.host + ':' + Config.environment.port, {
+      transports: ['websocket'],
+      jsonp: false
+    })
+  }
   return socket
 }
 
 export function destroySocketConnection() {
-  if (socket && socket.connected) {
+  if (true === isSocketConnected()) {
     socket.disconnect();
   }
+}
+
+export function isSocketConnected() {
+  if (socket && socket.connected) {
+    return socket.connected
+  }
+  return false
 }
 
 export function emitSocketUserLoginEvent(data) {
