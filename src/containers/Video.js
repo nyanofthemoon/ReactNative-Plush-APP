@@ -208,14 +208,15 @@ function exchange(data) {
 function leave(socketId) {
   console.log('leave', socketId);
   const pc = pcPeers[socketId];
-  const viewIndex = pc.viewIndex;
-  pc.close();
-  delete pcPeers[socketId];
-
-  const remoteList = container.state.remoteList;
-  delete remoteList[socketId]
-  container.setState({ remoteList: remoteList });
-  container.setState({info: 'One peer leave!'});
+  if (pc && pc.viewIndex) {
+    const viewIndex = pc.viewIndex;
+    pc.close();
+    delete pcPeers[socketId];
+    const remoteList = container.state.remoteList;
+    delete remoteList[socketId]
+    container.setState({remoteList: remoteList});
+    container.setState({info: 'One peer leave!'});
+  }
 }
 
 function logError(error) {

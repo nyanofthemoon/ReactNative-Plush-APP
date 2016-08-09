@@ -7,7 +7,7 @@ const { AccessToken, GraphRequest, GraphRequestManager } = FBSDK
 import * as types from './constants'
 import Store      from './configureStore'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketUserLeaveEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -92,30 +92,36 @@ function queryUnknownReception(data) {
 
 export function goToLoginScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_LOGIN, payload: data})
+  emitSocketUserLeaveEvent()
   Actions.login()
 }
 
 export function goToHomeScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_HOME, payload: data})
+  emitSocketUserLeaveEvent()
   Actions.home()
 }
 
 export function goToFriendsScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_FRIENDS, payload: data})
+  emitSocketUserLeaveEvent()
   Actions.friends()
 }
 
 export function goToProfileScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_PROFILE, payload: data})
+  emitSocketUserLeaveEvent()
   Actions.profile()
 }
 
 export function goToVideoScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_VIDEO, payload: data})
+  emitSocketUserLeaveEvent()
   Actions.video()
 }
 
 export function goToErrorScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_ERROR, payload: data})
+  emitSocketUserLeaveEvent()
   Actions.error()
 }

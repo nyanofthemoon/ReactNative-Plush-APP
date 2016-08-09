@@ -10,7 +10,7 @@ let socket
 
 export function createSocketConnection() {
   if (false === isSocketConnected()) {
-    socket = io(Config.environment.protocol + '://' + Config.environment.host + ':' + Config.environment.port, {
+    socket = io(Config.environment.protocol + '://' + Config.environment.host + Config.environment.port, {
       transports: ['websocket'],
       jsonp: false
     })
@@ -37,4 +37,12 @@ export function emitSocketUserLoginEvent(data) {
 
 export function emitSocketUserQueryEvent() {
   socket.emit('query', { type: 'user' })
+}
+
+export function emitSocketUserJoinEvent() {
+  socket.emit('join', {})
+}
+
+export function emitSocketUserLeaveEvent() {
+  socket.emit('leave', {})
 }
