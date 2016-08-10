@@ -11,9 +11,6 @@ import React from 'react'
 // check imports
 import { Text, TouchableHighlight, View, TextInput, ListView, Dimensions } from 'react-native'
 
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-
 var WebRTC = require('react-native-webrtc');
 var { RTCPeerConnection, RTCIceCandidate, RTCSessionDescription, RTCView, MediaStreamTrack, getUserMedia } = WebRTC;
 
@@ -23,31 +20,11 @@ import Button from './../Button'
 
 import styles from './styles'
 
-
-// might not need this
-function mapHash(hash, func) {
-  const array = [];
-  for (const key in hash) {
-    const obj = hash[key];
-    array.push(func(obj, key));
-  }
-  return array;
-}
-
-@connect(
-  state => ({
-    app : state.app,
-    user: state.user
-  })
-)
-
 export default class extends React.Component {
 
   static propTypes = {
-    app     : React.PropTypes.object.isRequired,
-    user    : React.PropTypes.object.isRequired,
-    socket  : React.PropTypes.object.isRequired,
-    config  : React.PropTypes.object.isRequired
+    socket: React.PropTypes.object.isRequired,
+    config: React.PropTypes.object.isRequired
   }
 
   constructor(props) {
@@ -69,10 +46,6 @@ export default class extends React.Component {
     }
   }
 
-
-  componentWillMount() {
-  }
-
   componentDidMount() {
     let that = this
     this._getLocalStream(true, function(stream) {
@@ -82,7 +55,7 @@ export default class extends React.Component {
         status     : 'connect',
         info       : 'Waiting For Someone'
       })
-      that.props.socket.emit('join', '', function(socketIds){
+      that.props.socket.emit('join', that.props.data, function(socketIds){
         for (const i in socketIds) {
           const socketId = socketIds[i];
           that._createPC(socketId, true);
@@ -95,6 +68,14 @@ export default class extends React.Component {
     this.props.socket.on('leave', function(socketId) {
       that._leave(socketId);
     });
+  }
+
+  componentWillUnmount() {
+    if (this.props.socket && this.state.localStream) {
+      this.props.socket.off('exchange')
+      this.props.socket.off('leave')
+      //this.state.localStream.close()
+    }
   }
 
   _logError(message) {
@@ -152,7 +133,8 @@ export default class extends React.Component {
     };
 
     pc.onaddstream = function (event) {
-      that.setState({info: 'One peer join!'});
+      // peer joined
+      that.props.peerJoined()
       const remoteList = that.state.remoteList;
       remoteList[socketId] = event.stream.toURL();
       that.setState({ remoteList: remoteList });
@@ -166,12 +148,10 @@ export default class extends React.Component {
       const dataChannel = pc.createDataChannel('text');
 
       dataChannel.onmessage = function (event) {
-        //console.log("dataChannel.onmessage:", event.data);
         that._receiveTextData({user: socketId, message: event.data});
       };
 
       dataChannel.onopen = function () {
-        console.log('dataChannel.onopen');
         that.setState({textRoomConnected: true});
       };
 
@@ -183,22 +163,30 @@ export default class extends React.Component {
   _getLocalStream(isFront, callback) {
     let that = this
     MediaStreamTrack.getSources(sourceInfos => {
-      console.log(sourceInfos);
       let videoSourceId;
-      for (const i = 0; i < sourceInfos.length; i++) {
+      for (let i = 0; i < sourceInfos.length; i++) {
         const sourceInfo = sourceInfos[i];
         if(sourceInfo.kind == "video" && sourceInfo.facing == (isFront ? "front" : "back")) {
           videoSourceId = sourceInfo.id;
         }
       }
-      getUserMedia({
-        "audio": true,
-        "video": {
-          optional: [{sourceId: videoSourceId}]
-        }
-      }, function (stream) {
-        callback(stream);
-      }, that._logError);
+      if ('video' != that.props.data.type) {
+        getUserMedia({
+          "audio": true,
+          "video": false
+        }, function (stream) {
+          callback(stream);
+        }, that._logError);
+      } else {
+        getUserMedia({
+          "audio": true,
+          "video": {
+            optional: [{sourceId: videoSourceId}]
+          }
+        }, function (stream) {
+          callback(stream);
+        }, that._logError);
+      }
     });
   }
 
@@ -226,20 +214,18 @@ export default class extends React.Component {
   }
 
   _leave(socketId) {
+    // peer left booo
     const pc = this.state.pcPeers[socketId];
     if (pc) {
       pc.close();
-
       let newPeers = this.state.pcPeers
       delete newPeers[socketId];
-      this.setState({
-        pcPeers: newPeers
-      })
-
-      const remoteList = container.state.remoteList;
+      const remoteList = this.state.remoteList;
       delete remoteList[socketId]
-      container.setState({remoteList: remoteList});
-      container.setState({info: 'One peer leave!'});
+      this.setState({
+        pcPeers: newPeers,
+        remoteList: remoteList
+      });
     }
   }
 
@@ -262,6 +248,7 @@ export default class extends React.Component {
     this.setState({textRoomData, textRoomValue: ''});
   }
 
+  /*
   _renderTextRoom() {
     return (
       <View style={styles.listViewContainer}>
@@ -281,29 +268,43 @@ export default class extends React.Component {
       </View>
     );
   }
+  */
 
   render() {
-    //const {app, user} = this.props
-    var that = this
-    return (
-      <ViewContainer style={styles.container}>
-        <Text style={styles.welcome}>{this.state.info}</Text>
-        {this.state.textRoomConnected && this._renderTextRoom()}
-        { this.state.status == 'ready' ?
-          (<View>
-            <TouchableHighlight>
-              <Text style={{color: 'black'}}>[ CLICK ME TO JOIN ROOM ]</Text>
-            </TouchableHighlight>
-          </View>) : null
+    var remote = this.state.remoteList[Object.keys(this.state.remoteList)[0]]
+      if (remote) {
+        if ('video' != this.props.data.type) {
+          return (
+            <ViewContainer style={styles.container}>
+              <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
+              <RTCView key='2' streamURL={remote} style={styles.hidden}/>
+            </ViewContainer>
+          )
+        } else {
+          return (
+            <ViewContainer style={styles.container}>
+              <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
+              <RTCView key='2' streamURL={remote}
+                       style={[styles.remoteView, {width: (this.state.windowHeight/2), height: (this.state.windowHeight - 50)}]}/>
+            </ViewContainer>
+          )
         }
-        <RTCView streamURL={this.state.selfViewSrc} style={[styles.selfView, {width: this.state.windowWidth, height: (this.state.windowHeight/2)}]} />
-        {
-          mapHash(this.state.remoteList, function(remote, index) {
-            return <RTCView key={index} streamURL={remote} style={[styles.remoteView, {width: that.state.windowWidth, height: (that.state.windowHeight/2)}]}/>
-          })
+      } else {
+        if ('video' != this.props.data.type) {
+          return (
+            <ViewContainer style={styles.container}>
+              <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
+            </ViewContainer>
+          )
+        } else {
+          return (
+            <ViewContainer style={styles.container}>
+              <RTCView key='1' streamURL={this.state.selfViewSrc}
+                       style={[styles.selfView, {width: (this.state.windowHeight/2), height: (this.state.windowHeight - 50)}]}/>
+            </ViewContainer>
+          )
         }
-      </ViewContainer>
-    )
+      }
   }
 }
 

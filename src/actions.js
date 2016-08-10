@@ -45,6 +45,8 @@ function socketConnectionRequest() {
         switch (data.type) {
           case 'user':
             return queryUserReception(data)
+          case 'room':
+            return queryRoomReception(data)
           default    :
             return queryUnknownReception(data)
         }
@@ -89,6 +91,10 @@ export function queryUser() {
 function queryUserReception(data) {
   dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
   goToHomeScene()
+}
+
+function queryRoomReception(data) {
+  dispatch({type: types.SOCKET_QUERY_ROOM_RECEIVED, payload: data})
 }
 
 function queryUnknownReception(data) {
