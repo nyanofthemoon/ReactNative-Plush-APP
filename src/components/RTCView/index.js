@@ -20,6 +20,8 @@ import Button from './../Button'
 
 import styles from './styles'
 
+let globalStream = null
+
 export default class extends React.Component {
 
   static propTypes = {
@@ -47,39 +49,47 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    let that = this
-    this._getLocalStream(true, function(stream) {
-      that.setState({
-        localStream: stream,
-        selfViewSrc: stream.toURL(),
-        status     : 'connect',
-        info       : 'Waiting For Someone'
-      })
-      that.props.socket.emit('join', that.props.data, function(socketIds){
-        for (const i in socketIds) {
-          const socketId = socketIds[i];
-          that._createPC(socketId, true);
-        }
+    if (globalStream) {
+      let tracks = globalStream.getAudioTracks()
+      if (tracks[0]) {
+        tracks[0].enabled = true
+      }
+    } else {
+      let that = this
+      this._getLocalStream(true, function (stream) {
+        globalStream = stream
+        that.setState({
+          localStream: stream,
+          selfViewSrc: stream.toURL(),
+          status: 'connect',
+          info: 'Waiting For Someone'
+        })
+        that.props.socket.emit('join', that.props.data, function (socketIds) {
+          for (const i in socketIds) {
+            const socketId = socketIds[i];
+            that._createPC(socketId, true);
+          }
+        });
       });
-    });
-    this.props.socket.on('exchange', function(data) {
-      that._exchange(data);
-    });
-    this.props.socket.on('leave', function(socketId) {
-      that._leave(socketId);
-    });
+      this.props.socket.on('exchange', function(data) {
+        that._exchange(data);
+      });
+      this.props.socket.on('leave', function(socketId) {
+        that._leave(socketId);
+      });
+    }
   }
 
   componentWillUnmount() {
-    if (this.props.socket && this.state.localStream) {
-      this.props.socket.off('exchange')
-      this.props.socket.off('leave')
-      //this.state.localStream.close()
+    if (globalStream) {
+      let tracks = globalStream.getAudioTracks()
+      if (tracks[0]) {
+        tracks[0].enabled = false
+      }
     }
   }
 
   _logError(message) {
-    //alert(message)
   }
 
   _getStats() {
@@ -101,7 +111,6 @@ export default class extends React.Component {
     this.setState({ pcPeers: newPeers })
 
     pc.onicecandidate = function (event) {
-      console.log('onicecandidate', event.candidate);
       if (event.candidate) {
         that.props.socket.emit('exchange', {'to': socketId, 'candidate': event.candidate });
       }
