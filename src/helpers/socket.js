@@ -49,3 +49,7 @@ export function emitSocketUserJoinEvent() {
 export function emitSocketUserLeaveEvent() {
   socket.emit('leave', {})
 }
+
+export function emitSocketUpdateMatchEvent(data) {
+  socket.emit('update', { type: 'match', data: data })
+}

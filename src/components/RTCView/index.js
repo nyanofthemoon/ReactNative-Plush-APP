@@ -143,7 +143,6 @@ export default class extends React.Component {
 
     pc.onaddstream = function (event) {
       // peer joined
-      that.props.peerJoined()
       const remoteList = that.state.remoteList;
       remoteList[socketId] = event.stream.toURL();
       that.setState({ remoteList: remoteList });
@@ -223,7 +222,7 @@ export default class extends React.Component {
   }
 
   _leave(socketId) {
-    // peer left booo
+    // peer left
     const pc = this.state.pcPeers[socketId];
     if (pc) {
       pc.close();

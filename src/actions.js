@@ -7,7 +7,7 @@ const { AccessToken, GraphRequest, GraphRequestManager } = FBSDK
 import * as types from './constants'
 import Store      from './configureStore'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketUserLeaveEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -99,6 +99,11 @@ function queryRoomReception(data) {
 
 function queryUnknownReception(data) {
   dispatch({type: types.SOCKET_QUERY_UNKNOWN_RECEIVED, payload: data})
+}
+
+export function updateMatch(data) {
+  emitSocketUpdateMatchEvent(data)
+  return { type: types.SOCKET_UPDATE_MATCH_REQUESTED }
 }
 
 export function goToLoginScene(data) {

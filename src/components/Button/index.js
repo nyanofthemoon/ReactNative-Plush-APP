@@ -7,15 +7,15 @@ import styles from './styles'
 
 export default class extends React.Component {
 
-  _onPress() {
-    alert('Button Pressed!')
+  static propTypes = {
+    onPress: React.PropTypes.func.isRequired
   }
 
   render() {
     return (
       <TouchableHighlight
         style={styles.container}
-        onPress={this.props.onPress || this._onPress }>
+        onPress={this.props.onPress}>
         { this.props.source ?
           (
             <Image

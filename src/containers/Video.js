@@ -5,7 +5,7 @@ import { Dimensions } from 'react-native'
 
 import { connect } from 'react-redux'
 
-import { goToHomeScene } from './../actions'
+import { goToHomeScene, updateMatch } from './../actions'
 
 import ViewContainer from './../components/ViewContainer'
 import TextContainer from './../components/TextContainer'
@@ -14,6 +14,7 @@ import Footer from './../components/Footer'
 import Button from './../components/Button'
 import RTCView from './../components/RTCView'
 import Timer from './../components/Timer'
+import MatchVote from './../components/MatchVote'
 
 import Config from './../config'
 
@@ -28,18 +29,31 @@ export default class extends React.Component {
   static propTypes = {
     app : React.PropTypes.object.isRequired,
     room: React.PropTypes.object.isRequired
-  };
-
-  _peerJoinedAudio() {
-    //this.setState({
-    //  status: 'audio'
-    //})
   }
 
-  _peerJoinedVideo() {
-    //this.setState({
-    //  status: 'video'
-    //})
+  _handlePositiveAudioVote() {
+    updateMatch({
+      'step'  : 'audio',
+      'action': 'yes'
+    })
+  }
+  _handleNegativeAudioVote() {
+    updateMatch({
+      'step'  : 'audio',
+      'action': 'no'
+    })
+  }
+  _handlePositiveVideoVote() {
+    updateMatch({
+      'step'  : 'video',
+      'action': 'yes'
+    })
+  }
+  _handleNegativeVideoVote() {
+    updateMatch({
+      'step'  : 'video',
+      'action': 'no'
+    })
   }
 
   render() {
@@ -66,7 +80,7 @@ export default class extends React.Component {
                 </ViewContainer>
               )
             }
-            <RTCView key='rtc_audio' data={{ type: 'audio', kind: 'match' }} socket={app.get('socket')} config={Config.webrtc} peerJoined={this._peerJoinedAudio} />
+            <RTCView key='rtc_audio' data={{ type: 'audio', kind: 'match' }} socket={app.get('socket')} config={Config.webrtc} />
             <Footer />
           </ViewContainer>
         )
@@ -76,6 +90,7 @@ export default class extends React.Component {
           <ViewContainer>
             <Header showLogo={false} />
             <TextContainer>Selection Audio</TextContainer>
+            <MatchVote step='audio' handlePositiveVote={this._handlePositiveAudioVote} handleNegativeVote={this._handleNegativeAudioVote} />
             <Timer key='selection_audio' milliseconds={room.get('timer')} />
             <Footer />
           </ViewContainer>
@@ -86,6 +101,7 @@ export default class extends React.Component {
           <ViewContainer>
             <Header showLogo={false} />
             <TextContainer>Result Audio</TextContainer>
+            <TextContainer>{JSON.stringify(room.get('results'))}</TextContainer>
             <Timer key='results_audio' milliseconds={room.get('timer')} />
             <Footer />
           </ViewContainer>
@@ -95,7 +111,7 @@ export default class extends React.Component {
         return (
           <ViewContainer>
             <Header showLogo={false} />
-            <RTCView key='rtc_video' data={{ type: 'video', kind: 'match', name: room.get('name') }} socket={app.get('socket')} config={Config.webrtc} peerJoined={this._peerJoinedVideo} />
+            <RTCView key='rtc_video' data={{ type: 'video', kind: 'match', name: room.get('name') }} socket={app.get('socket')} config={Config.webrtc} />
             <Timer key='video' milliseconds={room.get('timer')} />
             <Footer />
           </ViewContainer>
@@ -106,6 +122,7 @@ export default class extends React.Component {
           <ViewContainer>
             <Header showLogo={false} />
             <TextContainer>Selection Video</TextContainer>
+            <MatchVote step='video' handlePositiveVote={this._handlePositiveVideoVote} handleNegativeVote={this._handleNegativeVideoVote} />
             <Timer key='selection_video' milliseconds={room.get('timer')} />
             <Footer />
           </ViewContainer>
@@ -116,6 +133,7 @@ export default class extends React.Component {
           <ViewContainer>
             <Header showLogo={false} />
             <TextContainer>Result Video</TextContainer>
+            <TextContainer>{JSON.stringify(room.get('results'))}</TextContainer>
             <Button text={'Home Button'} onPress={goToHomeScene} />
             <Footer />
           </ViewContainer>
