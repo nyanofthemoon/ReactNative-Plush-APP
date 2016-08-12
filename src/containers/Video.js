@@ -65,10 +65,12 @@ export default class extends React.Component {
     }
     let socketId = '/#' + getSocketId()
     Object.keys(results[step]).map(function(key) {
-      if (key === socketId) {
-        match.myself = 'yes'
-      } else {
-        match.other = 'yes'
+      if ('yes' === results[step][key]) {
+        if (key === socketId) {
+          match.myself = 'yes'
+        } else {
+          match.other = 'yes'
+        }
       }
     })
     if ('yes' === match.myself && match.other === 'yes') {

@@ -20,6 +20,9 @@ const initialState = fromJS({
 export default (state = initialState, action) => {
   let nextState
   switch (action.type) {
+    case types.SCENE_NAVIGATION_VIDEO:
+      nextState = fromJS(initialState)
+      break
     case types.SOCKET_QUERY_ROOM_REQUESTED:
       break
     case types.SOCKET_QUERY_ROOM_RECEIVED:
