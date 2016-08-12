@@ -6,6 +6,7 @@ import { Dimensions } from 'react-native'
 import { connect } from 'react-redux'
 
 import { goToHomeScene, updateMatch } from './../actions'
+import { getSocketId } from './../helpers/socket'
 
 import ViewContainer from './../components/ViewContainer'
 import TextContainer from './../components/TextContainer'
@@ -56,6 +57,26 @@ export default class extends React.Component {
     })
   }
 
+  _evaluateMatchResults(step, results) {
+    let match = {
+      positive: false,
+      myself  : 'no',
+      other   : 'no'
+    }
+    let socketId = '/#' + getSocketId()
+    Object.keys(results[step]).map(function(key) {
+      if (key === socketId) {
+        match.myself = 'yes'
+      } else {
+        match.other = 'yes'
+      }
+    })
+    if ('yes' === match.myself && match.other === 'yes') {
+      match.positive = true
+    }
+    return match
+  }
+
   render() {
     const {app, room} = this.props
     let status = room.get('status')
@@ -71,14 +92,13 @@ export default class extends React.Component {
                 <ViewContainer>
                   <Button text={'Home Button'} onPress={goToHomeScene}/>
                   <TextContainer>Waiting In Queue</TextContainer>
-                  <TextContainer>[ Interstitial Ad ]</TextContainer>
                 </ViewContainer>
               ) : (
-                <ViewContainer>
-                  <TextContainer>Audio Only</TextContainer>
-                  <Timer key='audio' milliseconds={room.get('timer')} />
-                </ViewContainer>
-              )
+              <ViewContainer>
+                <TextContainer>Audio Only</TextContainer>
+                <Timer key='audio' milliseconds={room.get('timer')} />
+              </ViewContainer>
+            )
             }
             <RTCView key='rtc_audio' data={{ type: 'audio', kind: 'match' }} socket={app.get('socket')} config={Config.webrtc} />
             <Footer />
@@ -97,12 +117,21 @@ export default class extends React.Component {
         )
         break
       case 'results_audio':
+        let matchAudio = this._evaluateMatchResults('audio', room.get('results').toJSON())
         return (
           <ViewContainer>
             <Header showLogo={false} />
             <TextContainer>Result Audio</TextContainer>
-            <TextContainer>{JSON.stringify(room.get('results'))}</TextContainer>
-            <Timer key='results_audio' milliseconds={room.get('timer')} />
+            <TextContainer>{JSON.stringify(matchAudio)}</TextContainer>
+            <TextContainer>You said {matchAudio.myself}</TextContainer>
+            <TextContainer>Other said {matchAudio.other}</TextContainer>
+            { true === matchAudio.positive ?
+              (
+                <Timer key='results_audio' milliseconds={room.get('timer')} />
+              ) : (
+                <Button text={'Home Button'} onPress={goToHomeScene} />
+              )
+            }
             <Footer />
           </ViewContainer>
         )
@@ -129,11 +158,20 @@ export default class extends React.Component {
         )
         break
       case 'results_video':
+        let matchVideo = this._evaluateMatchResults('video', room.get('results').toJSON())
         return (
           <ViewContainer>
             <Header showLogo={false} />
             <TextContainer>Result Video</TextContainer>
-            <TextContainer>{JSON.stringify(room.get('results'))}</TextContainer>
+            <TextContainer>You said {matchVideo.myself}</TextContainer>
+            <TextContainer>Other said {matchVideo.other}</TextContainer>
+            { true === matchVideo.positive ?
+              (
+                <TextContainer>Congratulation! It's A Match!</TextContainer>
+              ) : (
+                null
+              )
+            }
             <Button text={'Home Button'} onPress={goToHomeScene} />
             <Footer />
           </ViewContainer>

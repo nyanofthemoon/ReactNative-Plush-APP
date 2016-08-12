@@ -27,6 +27,13 @@ export function destroySocketConnection() {
   }
 }
 
+export function getSocketId() {
+  if (true === isSocketConnected()) {
+    return socket.id
+  }
+  return null
+}
+
 export function isSocketConnected() {
   if (socket && socket.connected) {
     return socket.connected
