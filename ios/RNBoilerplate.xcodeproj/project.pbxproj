@@ -924,7 +924,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.CamRoulette-App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hotchiwawa.extrememeetups;
 				PRODUCT_NAME = RNBoilerplate;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -967,7 +967,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.CamRoulette-App";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hotchiwawa.extrememeetups;
 				PRODUCT_NAME = RNBoilerplate;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";

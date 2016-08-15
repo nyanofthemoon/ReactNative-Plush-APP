@@ -102,7 +102,7 @@ export default class extends React.Component {
               </ViewContainer>
             )
             }
-            <RTCView key='rtc_audio' data={{ type: 'audio', kind: 'match' }} socket={app.get('socket')} config={Config.webrtc} />
+            <RTCView key='rtc_audio' data={{ mode: 'audio', kind: 'match', type: 'relationship' }} socket={app.get('socket')} config={Config.webrtc} />
             <Footer />
           </ViewContainer>
         )
@@ -142,7 +142,7 @@ export default class extends React.Component {
         return (
           <ViewContainer>
             <Header showLogo={false} />
-            <RTCView key='rtc_video' data={{ type: 'video', kind: 'match', name: room.get('name') }} socket={app.get('socket')} config={Config.webrtc} />
+            <RTCView key='rtc_video' data={{ mode: 'video', kind: 'match', type: 'relationship', name: room.get('name') }} socket={app.get('socket')} config={Config.webrtc} />
             <Timer key='video' milliseconds={room.get('timer')} />
             <Footer />
           </ViewContainer>

@@ -178,7 +178,7 @@ export default class extends React.Component {
           videoSourceId = sourceInfo.id;
         }
       }
-      if ('video' != that.props.data.type) {
+      if ('video' != that.props.data.mode) {
         getUserMedia({
           "audio": true,
           "video": false
@@ -281,7 +281,7 @@ export default class extends React.Component {
   render() {
     var remote = this.state.remoteList[Object.keys(this.state.remoteList)[0]]
       if (remote) {
-        if ('video' != this.props.data.type) {
+        if ('video' != this.props.data.mode) {
           return (
             <ViewContainer style={styles.container}>
               <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
@@ -298,7 +298,7 @@ export default class extends React.Component {
           )
         }
       } else {
-        if ('video' != this.props.data.type) {
+        if ('video' != this.props.data.mode) {
           return (
             <ViewContainer style={styles.container}>
               <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>

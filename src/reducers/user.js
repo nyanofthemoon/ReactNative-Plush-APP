@@ -5,15 +5,19 @@ import {fromJS} from 'immutable'
 import * as types from './../constants'
 
 const initialState = fromJS({
-  email:           null,
-  gender:          null,
-  firstName:       null,
-  lastName:        null,
+  email          : null,
+  gender         : null,
+  firstName      : null,
+  lastName       : null,
   facebookProfile: null,
   facebookPicture: null,
-  locale:          null,
-  timezone:        null,
-  contacts:        []
+  locale         : null,
+  timezone       : null,
+  orientation    : null,
+  contacts       : {
+    friendship  : {},
+    relationship: {}
+  }
 })
 
 export default (state = initialState, action) => {
