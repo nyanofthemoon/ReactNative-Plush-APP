@@ -1,9 +1,9 @@
 'use strict'
 
 import React, { Component } from 'react';
-import { Dimensions } from 'react-native'
-
+import { View, Dimensions } from 'react-native'
 import { connect } from 'react-redux'
+import Carousel from 'react-native-looped-carousel'
 
 import { goToHomeScene, updateMatch } from './../actions'
 import { getSocketId } from './../helpers/socket'
@@ -30,6 +30,14 @@ export default class extends React.Component {
   static propTypes = {
     app : React.PropTypes.object.isRequired,
     room: React.PropTypes.object.isRequired
+  }
+
+  constructor(props) {
+    super(props)
+    let {width, height} = Dimensions.get('window');
+    this.state = {
+      size: {width: width, height: height}
+    }
   }
 
   _handlePositiveAudioVote() {
@@ -94,6 +102,17 @@ export default class extends React.Component {
                 <ViewContainer>
                   <Button text={'Home Button'} onPress={goToHomeScene}/>
                   <TextContainer>Waiting In Queue</TextContainer>
+                  <Carousel delay={15000} style={this.state.size}>
+                    <View style={[{backgroundColor:'#BADA55'}, this.state.size]}>
+                      <TextContainer>Slide 1</TextContainer>
+                    </View>
+                    <View style={[{backgroundColor:'red'}, this.state.size]}>
+                      <TextContainer>Slide 2</TextContainer>
+                    </View>
+                    <View style={[{backgroundColor:'blue'}, this.state.size]}>
+                      <TextContainer>Slide 3</TextContainer>
+                    </View>
+                  </Carousel>
                 </ViewContainer>
               ) : (
               <ViewContainer>
