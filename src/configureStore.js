@@ -2,12 +2,11 @@
 
 import Immutable from 'immutable'
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
 import { Platform } from 'react-native'
 
 import reducer from './reducers'
 
-const middlewares = [thunk]
+const middlewares = []
 
 let enhancer
 if (__DEV__) {

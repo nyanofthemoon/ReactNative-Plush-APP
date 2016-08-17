@@ -49,6 +49,10 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
+    if (true === this.props.data.flush) {
+      globalStream = null
+    }
+
     if (globalStream) {
       let tracks = globalStream.getAudioTracks()
       if (tracks[0]) {

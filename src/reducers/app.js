@@ -60,7 +60,7 @@ export default (state = initialState, action) => {
         socketStatus  : 'disconnected',
         apiStatus     : 'disconnected',
         socket        : null,
-        errorMessage  : action.payload.message
+        errorMessage  : action.payload
       })
     default:
       break

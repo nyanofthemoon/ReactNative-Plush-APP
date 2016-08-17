@@ -42,21 +42,31 @@ export function isSocketConnected() {
 }
 
 export function emitSocketUserLoginEvent(data) {
-  socket.emit('login', { data: data })
+  if (true === isSocketConnected()) {
+    socket.emit('login', {data: data})
+  }
 }
 
 export function emitSocketUserQueryEvent() {
-  socket.emit('query', { type: 'user' })
+  if (true === isSocketConnected()) {
+    socket.emit('query', {type: 'user'})
+  }
 }
 
 export function emitSocketUserJoinEvent() {
-  socket.emit('join', {})
+  if (true === isSocketConnected()) {
+    socket.emit('join', {})
+  }
 }
 
 export function emitSocketUserLeaveEvent() {
-  socket.emit('leave', {})
+  if (true === isSocketConnected()) {
+    socket.emit('leave', {})
+  }
 }
 
 export function emitSocketUpdateMatchEvent(data) {
-  socket.emit('update', { type: 'match', data: data })
+  if (true === isSocketConnected()) {
+    socket.emit('update', {type: 'match', data: data})
+  }
 }

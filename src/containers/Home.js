@@ -23,7 +23,7 @@ export default class extends React.Component {
   static propTypes = {
     app : React.PropTypes.object.isRequired,
     user: React.PropTypes.object.isRequired
-  };
+  }
 
   render() {
     const {app, user} = this.props

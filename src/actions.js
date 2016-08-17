@@ -6,6 +6,7 @@ const { AccessToken, GraphRequest, GraphRequestManager } = FBSDK
 
 import * as types from './constants'
 import Store      from './configureStore'
+import * as Db    from './helpers/db'
 
 import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent} from './helpers/socket'
 
@@ -16,7 +17,6 @@ function _getState() {
 }
 
 export function facebookConnectionSuccess() {
-  let apiConnectionStatus = _getState().app.get('apiStatus')
   dispatch({type: types.FACEBOOK_LOGIN_SUCCEEDED})
   socketConnectionRequest()
 }
@@ -55,8 +55,16 @@ function socketConnectionRequest() {
         dispatch({type: types.SOCKET_CONNECTION_FAILED})
         Actions.login()
       })
-      dispatch({type: types.FACEBOOK_GRAPH_DATA_REQUESTED})
-      facebookGraphGetProfile()
+      Db.findFacebookUser(
+        function(user) {
+          if (!user) {
+            dispatch({type: types.FACEBOOK_GRAPH_DATA_REQUESTED})
+            facebookGraphGetProfile()
+          } else {
+            loginUser(user)
+          }
+        }
+      )
     })
   }
 }
@@ -70,8 +78,10 @@ export function facebookGraphGetProfile() {
         if (error) {
           dispatch({type: types.FACEBOOK_GRAPH_DATA_FAILED})
         } else {
-          dispatch({type: types.FACEBOOK_GRAPH_DATA_SUCCEEDED, payload: result})
-          loginUser(result)
+          Db.saveFacebookUser(result, function() {
+            dispatch({type: types.FACEBOOK_GRAPH_DATA_SUCCEEDED, payload: result})
+            loginUser(result)
+          })
         }
       }
     )).start()
@@ -139,4 +149,14 @@ export function goToVideoScene(data) {
 export function goToErrorScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_ERROR, payload: data})
   Actions.error()
+}
+
+export function handleAppStateChange(data) {
+  dispatch({type: types.APPLICATION_STATE_CHANGED, payload: data})
+  if ('active' !== data) {
+    goToHomeScene()
+  }
+}
+
+export function handleAppMemoryWarning() {
 }
