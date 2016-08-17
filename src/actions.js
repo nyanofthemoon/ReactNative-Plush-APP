@@ -100,8 +100,10 @@ export function queryUser() {
 
 function queryUserReception(data) {
   Db.saveUser(data, function() {
+    if (_getState().user.get('email') === null) {
+      goToHomeScene()
+    }
     dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
-    goToHomeScene()
   })
 }
 
