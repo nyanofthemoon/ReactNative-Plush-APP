@@ -1,24 +1,20 @@
 'use strict'
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Text } from 'react-native'
+import { Button } from 'native-base'
 
 import { goToHomeScene } from './../actions'
 
-import ViewContainer from './../components/ViewContainer'
-import TextContainer from './../components/TextContainer'
-import Header from './../components/Header'
-import Footer from './../components/Footer'
-import Button from './../components/Button'
+import Container from './../components/Container'
 
 export default class extends React.Component {
   render() {
     return (
-      <ViewContainer>
-        <Header showLogo={false} />
-        <TextContainer>Friends Scene</TextContainer>
-        <Button text={'Home Button'} onPress={goToHomeScene} />
-        <Footer />
-      </ViewContainer>
+      <Container header={true} footer={true}>
+        <Text>Friends Scene</Text>
+        <Button onPress={goToHomeScene}>Back</Button>
+      </Container>
     )
   }
 }

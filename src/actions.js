@@ -2,7 +2,7 @@
 
 import {Actions} from 'react-native-router-flux'
 const FBSDK = require('react-native-fbsdk')
-const { AccessToken, GraphRequest, GraphRequestManager } = FBSDK
+const { AccessToken, GraphRequest, GraphRequestManager, FBSDKManager } = FBSDK
 
 import * as types from './constants'
 import Store      from './configureStore'
@@ -24,7 +24,12 @@ export function facebookConnectionSuccess() {
 export function facebookConnectionFailure() {
   dispatch({type: types.FACEBOOK_LOGIN_FAILED})
   destroySocketConnection();
-  goToLoginScene()
+}
+
+export function facebookConnectionLogout() {
+  FBSDKManager.logout()
+  facebookConnectionFailure()
+  Actions.home()
 }
 
 function socketConnectionRequest() {
@@ -53,7 +58,7 @@ function socketConnectionRequest() {
       })
       socket.on('disconnect', function () {
         dispatch({type: types.SOCKET_CONNECTION_FAILED})
-        Actions.login()
+        Actions.home()
       })
       Db.findFacebookUser(
         function(user) {
@@ -118,12 +123,6 @@ function queryUnknownReception(data) {
 export function updateMatch(data) {
   emitSocketUpdateMatchEvent(data)
   return { type: types.SOCKET_UPDATE_MATCH_REQUESTED }
-}
-
-export function goToLoginScene(data) {
-  dispatch({type: types.SCENE_NAVIGATION_LOGIN, payload: data})
-  emitSocketUserLeaveEvent()
-  Actions.login()
 }
 
 export function goToHomeScene(data) {

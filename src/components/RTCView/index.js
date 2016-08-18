@@ -14,10 +14,6 @@ import { Text, TouchableHighlight, View, TextInput, ListView, Dimensions } from 
 var WebRTC = require('react-native-webrtc');
 var { RTCPeerConnection, RTCIceCandidate, RTCSessionDescription, RTCView, MediaStreamTrack, getUserMedia } = WebRTC;
 
-import ViewContainer from './../ViewContainer'
-import TextContainer from './../TextContainer'
-import Button from './../Button'
-
 import styles from './styles'
 
 let globalStream = null
@@ -287,33 +283,33 @@ export default class extends React.Component {
       if (remote) {
         if ('video' != this.props.data.mode) {
           return (
-            <ViewContainer style={styles.container}>
+            <View style={styles.container}>
               <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
               <RTCView key='2' streamURL={remote} style={styles.hidden}/>
-            </ViewContainer>
+            </View>
           )
         } else {
           return (
-            <ViewContainer style={styles.container}>
+            <View style={styles.container}>
               <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
               <RTCView key='2' streamURL={remote}
                        style={[styles.remoteView, {width: (this.state.windowHeight/2), height: (this.state.windowHeight - 50)}]}/>
-            </ViewContainer>
+            </View>
           )
         }
       } else {
         if ('video' != this.props.data.mode) {
           return (
-            <ViewContainer style={styles.container}>
+            <View style={styles.container}>
               <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
-            </ViewContainer>
+            </View>
           )
         } else {
           return (
-            <ViewContainer style={styles.container}>
+            <View style={styles.container}>
               <RTCView key='1' streamURL={this.state.selfViewSrc}
                        style={[styles.selfView, {width: (this.state.windowHeight/2), height: (this.state.windowHeight - 50)}]}/>
-            </ViewContainer>
+            </View>
           )
         }
       }

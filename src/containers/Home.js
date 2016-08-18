@@ -1,42 +1,52 @@
 'use strict'
 
 import React from 'react'
+import { View, Text } from 'react-native'
+import { Spinner, Button } from 'native-base'
 import { connect } from 'react-redux'
 
-import { facebookConnectionSuccess, facebookConnectionFailure, goToFriendsScene, goToProfileScene, goToVideoScene } from './../actions'
+import { facebookConnectionSuccess, facebookConnectionFailure, facebookConnectionLogout, goToFriendsScene, goToProfileScene, goToVideoScene, logout } from './../actions'
 
-import ViewContainer from './../components/ViewContainer'
-import Header from './../components/Header'
-import Button from './../components/Button'
+import Container from './../components/Container'
 import UserStatistics from './../components/UserStatistics'
 import FacebookButton from './../components/FacebookButton'
-import Footer from './../components/Footer'
+
+import renderIf from './../helpers/renderIf'
 
 @connect(
   state => ({
-    app : state.app,
-    user: state.user
+    app : state.app
   })
 )
 
 export default class extends React.Component {
   static propTypes = {
-    app : React.PropTypes.object.isRequired,
-    user: React.PropTypes.object.isRequired
+    app : React.PropTypes.object.isRequired
   }
 
   render() {
-    const {app, user} = this.props
-    return (
-      <ViewContainer>
-        <Header showLogo={false} />
-        <Button text={'Friends Button'} onPress={goToFriendsScene} />
-        <Button text={'Profile Button'} onPress={goToProfileScene} />
-        <Button text={'Ready Button'} onPress={goToVideoScene} />
-
-        <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
-        <Footer />
-      </ViewContainer>
-    )
+    const {app} = this.props
+    if ('authenticated' !== app.get('facebookStatus')) {
+      return (
+        <Container header={false} footer={false} cover={'splash'}>
+          <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
+        </Container>
+      )
+    } else if ('connected' === app.get('apiStatus')) {
+        return (
+          <Container header={true} footer={true}>
+            <Button success onPress={goToFriendsScene}>Friends</Button>
+            <Button success onPress={goToProfileScene}>Profile</Button>
+            <Button success onPress={goToVideoScene}>Ready!</Button>
+          </Container>
+        )
+    } else {
+      return (
+        <Container header={false} footer={false} cover={'splash'}>
+          <Spinner color='red' />
+          <FacebookButton handleLogout={facebookConnectionLogout}/>
+        </Container>
+      )
+    }
   }
 }

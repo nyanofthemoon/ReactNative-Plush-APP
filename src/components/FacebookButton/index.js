@@ -17,9 +17,13 @@ export default class extends React.Component {
     AccessToken.getCurrentAccessToken().then(
       (data) => {
         if (data) {
-          this.props.handleSuccess()
+          if (this.props.handleSuccess) {
+            this.props.handleSuccess()
+          }
         } else {
-          this.props.handleFailure()
+          if (this.props.handleFailure) {
+            this.props.handleFailure()
+          }
         }
       }
     )
@@ -36,7 +40,7 @@ export default class extends React.Component {
               this.props.handleSuccess();
             }
           }}
-          onLogoutFinished={this.props.handleFailure}
+          onLogoutFinished={this.props.handleLogout}
           readPermissions={['public_profile', 'email', 'user_birthday']}
         >
         </LoginButton>

@@ -1,15 +1,13 @@
 'use strict'
 
 import React from 'react'
+import { Text } from 'react-native'
+import { Button } from 'native-base'
 import { connect } from 'react-redux'
 
 import { goToHomeScene } from './../actions'
 
-import ViewContainer from './../components/ViewContainer'
-import TextContainer from './../components/TextContainer'
-import Header from './../components/Header'
-import Footer from './../components/Footer'
-import Button from './../components/Button'
+import Container from './../components/Container'
 
 @connect(
   state => ({
@@ -25,13 +23,11 @@ export default class extends React.Component {
   render() {
     const {user} = this.props
     return (
-      <ViewContainer>
-        <Header showLogo={false} />
-        <TextContainer>Profile Scene</TextContainer>
-        <TextContainer>{JSON.stringify(user.toJSON())}</TextContainer>
-        <Button text={'Home Button'} onPress={goToHomeScene} />
-        <Footer />
-      </ViewContainer>
+      <Container header={true} footer={true}>
+        <Text>Profile Scene</Text>
+        <Text>{JSON.stringify(user.toJSON())}</Text>
+        <Button onPress={goToHomeScene}>Back</Button>
+      </Container>
     )
   }
 }

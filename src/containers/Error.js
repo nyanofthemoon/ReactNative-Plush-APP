@@ -1,13 +1,13 @@
 'use strict'
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Text } from 'react-native'
+import { Button } from 'native-base'
 import { connect } from 'react-redux'
 
-import ViewContainer from './../components/ViewContainer'
-import TextContainer from './../components/TextContainer'
-import Header from './../components/Header'
-import Footer from './../components/Footer'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { goToHomeScene } from './../actions'
+
+import Container from './../components/Container'
 
 @connect(
   state => ({
@@ -23,13 +23,11 @@ export default class extends React.Component {
   render() {
     const {app} = this.props
     return (
-      <ViewContainer>
-        <Header showLogo={true} />
-        <Icon name='bug' size={256} color='black' style={{ paddingTop: 25, paddingBottom: 15 }} />
-        <TextContainer>Oops !</TextContainer>
-        <TextContainer>{app.get('errorMessage')}</TextContainer>
-        <Footer />
-      </ViewContainer>
+      <Container header={false} footer={false} cover={'splash'}>
+        <Text style={{fontSize: 20}}>Oops...</Text>
+        <Text>{app.get('errorMessage')}</Text>
+        <Button block success onPress={goToHomeScene}>Try Again</Button>
+      </Container>
     )
   }
 }

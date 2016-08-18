@@ -2,8 +2,7 @@
 
 import React from 'react'
 import { View, Text } from 'react-native'
-
-import Button from './../Button'
+import { Button } from 'native-base'
 
 import styles from './styles'
 
@@ -18,8 +17,8 @@ export default class extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Continue Meetup?</Text>
-        <Button onPress={this.props.handlePositiveVote} text={'Yes'} />
-        <Button onPress={this.props.handleNegativeVote} text={'No'} />
+        <Button onPress={this.props.handlePositiveVote}>Yes</Button>
+        <Button onPress={this.props.handleNegativeVote}>No</Button>
       </View>
     )
   }

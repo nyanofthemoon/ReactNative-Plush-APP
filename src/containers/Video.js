@@ -1,18 +1,15 @@
 'use strict'
 
 import React, { Component } from 'react';
-import { View, Dimensions } from 'react-native'
+import { View, Dimensions, Text } from 'react-native'
+import { Button } from 'native-base'
 import { connect } from 'react-redux'
 import Carousel from 'react-native-looped-carousel'
 
 import { goToHomeScene, updateMatch } from './../actions'
 import { getSocketId } from './../helpers/socket'
 
-import ViewContainer from './../components/ViewContainer'
-import TextContainer from './../components/TextContainer'
-import Header from './../components/Header'
-import Footer from './../components/Footer'
-import Button from './../components/Button'
+import Container from './../components/Container'
 import RTCView from './../components/RTCView'
 import Timer from './../components/Timer'
 import MatchVote from './../components/MatchVote'
@@ -95,118 +92,104 @@ export default class extends React.Component {
       case 'waiting':
       case 'audio':
         return (
-          <ViewContainer>
-            <Header showLogo={false} />
+          <Container header={true} footer={true}>
             { 'audio' !== status ?
               (
-                <ViewContainer>
-                  <Button text={'Home Button'} onPress={goToHomeScene}/>
-                  <TextContainer>Waiting In Queue</TextContainer>
+                <View>
+                  <Button onPress={goToHomeScene}>Back</Button>
+                  <Text>Waiting In Queue</Text>
                   <Carousel delay={15000} style={this.state.size}>
                     <View style={[{backgroundColor:'#BADA55'}, this.state.size]}>
-                      <TextContainer>Slide 1</TextContainer>
+                      <Text>Slide 1</Text>
                     </View>
                     <View style={[{backgroundColor:'red'}, this.state.size]}>
-                      <TextContainer>Slide 2</TextContainer>
+                      <Text>Slide 2</Text>
                     </View>
                     <View style={[{backgroundColor:'blue'}, this.state.size]}>
-                      <TextContainer>Slide 3</TextContainer>
+                      <Text>Slide 3</Text>
                     </View>
                   </Carousel>
-                </ViewContainer>
+                </View>
               ) : (
-              <ViewContainer>
-                <TextContainer>Audio Only</TextContainer>
+              <View>
+                <Text>Audio Only</Text>
                 <Timer key='audio' milliseconds={room.get('timer')} />
-              </ViewContainer>
+              </View>
             )
             }
             <RTCView key='rtc_audio' data={{ mode: 'audio', kind: 'match', type: 'relationship', name: room.get('name'), flush: true }} socket={app.get('socket')} config={Config.webrtc} />
-            <Footer />
-          </ViewContainer>
+          </Container>
         )
         break
       case 'selection_audio':
         return (
-          <ViewContainer>
-            <Header showLogo={false} />
-            <TextContainer>Selection Audio</TextContainer>
+          <Container header={true} footer={true}>
+            <Text>Selection Audio</Text>
             <MatchVote step='audio' handlePositiveVote={this._handlePositiveAudioVote} handleNegativeVote={this._handleNegativeAudioVote} />
             <Timer key='selection_audio' milliseconds={room.get('timer')} />
-            <Footer />
-          </ViewContainer>
+          </Container>
         )
         break
       case 'results_audio':
         let matchAudio = this._evaluateMatchResults('audio', room.get('results').toJSON())
         return (
-          <ViewContainer>
-            <Header showLogo={false} />
-            <TextContainer>Result Audio</TextContainer>
-            <TextContainer>{JSON.stringify(matchAudio)}</TextContainer>
-            <TextContainer>You said {matchAudio.myself}</TextContainer>
-            <TextContainer>Other said {matchAudio.other}</TextContainer>
+          <Container header={true} footer={true}>
+            <Text>Result Audio</Text>
+            <Text>{JSON.stringify(matchAudio)}</Text>
+            <Text>You said {matchAudio.myself}</Text>
+            <Text>Other said {matchAudio.other}</Text>
             { true === matchAudio.positive ?
               (
                 <Timer key='results_audio' milliseconds={room.get('timer')} />
               ) : (
-                <Button text={'Home Button'} onPress={goToHomeScene} />
+              <Button onPress={goToHomeScene}>Back</Button>
               )
             }
-            <Footer />
-          </ViewContainer>
+          </Container>
         )
         break
       case 'video':
         return (
-          <ViewContainer>
-            <Header showLogo={false} />
+          <Container header={true} footer={true}>
             <RTCView key='rtc_video' data={{ mode: 'video', kind: 'match', type: 'relationship', name: room.get('name'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
             <Timer key='video' milliseconds={room.get('timer')} />
-            <Footer />
-          </ViewContainer>
+          </Container>
         )
         break
       case 'selection_video':
         return (
-          <ViewContainer>
-            <Header showLogo={false} />
-            <TextContainer>Selection Video</TextContainer>
+          <Container header={true} footer={true}>
+            <Text>Selection Video</Text>
             <MatchVote step='video' handlePositiveVote={this._handlePositiveVideoVote} handleNegativeVote={this._handleNegativeVideoVote} />
             <Timer key='selection_video' milliseconds={room.get('timer')} />
-            <Footer />
-          </ViewContainer>
+          </Container>
         )
         break
       case 'results_video':
         let matchVideo = this._evaluateMatchResults('video', room.get('results').toJSON())
         return (
-          <ViewContainer>
-            <Header showLogo={false} />
-            <TextContainer>Result Video</TextContainer>
-            <TextContainer>You said {matchVideo.myself}</TextContainer>
-            <TextContainer>Other said {matchVideo.other}</TextContainer>
+          <Container header={true} footer={true}>
+            <Text>Result Video</Text>
+            <Text>You said {matchVideo.myself}</Text>
+            <Text>Other said {matchVideo.other}</Text>
             { true === matchVideo.positive ?
               (
-                <TextContainer>Congratulation! It's A Match!</TextContainer>
+                <Text>Congratulation! It's A Match!</Text>
               ) : (
                 null
               )
             }
-            <Button text={'Home Button'} onPress={goToHomeScene} />
-            <Footer />
-          </ViewContainer>
+            <Button onPress={goToHomeScene}>Back</Button>
+          </Container>
         )
         break
       case 'terminated':
         return (
-          <ViewContainer>
-            <Header showLogo={false} />
-            <TextContainer>Terminated</TextContainer>
-            <TextContainer>Sorry - Peer Left</TextContainer>
-            <Button text={'Home Button'} onPress={goToHomeScene} />
-            <Footer />
-          </ViewContainer>
+          <Container header={true} footer={true}>
+            <Text>Terminated</Text>
+            <Text>Sorry - Peer Left</Text>
+            <Button onPress={goToHomeScene}>Back</Button>
+          </Container>
         )
         break
     }
