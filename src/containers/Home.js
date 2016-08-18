@@ -44,7 +44,6 @@ export default class extends React.Component {
       return (
         <Container header={false} footer={false} cover={'splash'}>
           <Spinner color='red' />
-          <FacebookButton handleLogout={facebookConnectionLogout}/>
         </Container>
       )
     }
