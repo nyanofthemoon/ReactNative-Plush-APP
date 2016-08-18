@@ -9,15 +9,12 @@ export default StyleSheet.create({
   },
 
   statusBar: {
-
   },
 
   header: {
-
   },
 
   footer: {
-
   },
 
   cover: {

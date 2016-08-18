@@ -14,7 +14,7 @@ import Error from './containers/Error'
 
 const scenes = Actions.create(
   <Scene key='root' hideNavBar={true}>
-    <Scene key='home' component={Home} type={ActionConst.REPLACE} initial='true' />
+    <Scene key='home' component={Home} type={ActionConst.REPLACE} />
     <Scene key='friends' component={Friends} type={ActionConst.REPLACE}/>
     <Scene key='profile' component={Profile} type={ActionConst.REPLACE}/>
     <Scene key='video' component={Video} type={ActionConst.REPLACE}/>

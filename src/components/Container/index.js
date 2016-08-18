@@ -26,13 +26,13 @@ export default class extends Component {
   render() {
     return (
       <Container style={styles.container}>
-        <StatusBar style={styles.statusBar}/>
         {renderIf(this.props.header)(
           <Header style={styles.header}>
             <Title>Extreme Meetups</Title>
           </Header>
         )}
         <Content>
+          <StatusBar style={styles.statusBar}/>
           { !this.props.cover ?
             (
               <View>
