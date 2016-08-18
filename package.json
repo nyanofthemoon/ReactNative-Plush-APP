@@ -18,9 +18,11 @@
   "dependencies": {
     "immutable": "^3.7.6",
     "lodash": "^4.3.0",
+    "native-base": "^0.5.4",
     "react": "~15.2.1",
     "react-addons-pure-render-mixin": "^15.3.0",
     "react-native": "^0.30.0",
+    "react-native-animatable": "^0.6.1",
     "react-native-fbsdk": "^0.3.0",
     "react-native-looped-carousel": "0.0.12",
     "react-native-router-flux": "^3.33.0",
