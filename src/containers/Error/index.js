@@ -5,9 +5,11 @@ import { Text } from 'react-native'
 import { Button } from 'native-base'
 import { connect } from 'react-redux'
 
-import { goToHomeScene } from './../actions'
+import { goToHomeScene } from './../../actions'
 
-import Container from './../components/Container'
+import Container from './../../components/Container'
+
+import styles from './styles'
 
 @connect(
   state => ({

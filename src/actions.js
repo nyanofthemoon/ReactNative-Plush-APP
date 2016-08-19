@@ -27,7 +27,7 @@ export function facebookConnectionFailure() {
 }
 
 export function facebookConnectionLogout() {
-  FBSDKManager.logout()
+  destroySocketConnection()
   facebookConnectionFailure()
   Actions.home()
 }
@@ -147,6 +147,12 @@ export function goToVideoScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_VIDEO, payload: data})
   emitSocketUserLeaveEvent()
   Actions.video()
+}
+
+export function goToLogoutScene(data) {
+  dispatch({type: types.SCENE_NAVIGATION_LOGOUT, payload: data})
+  emitSocketUserLeaveEvent()
+  Actions.logout()
 }
 
 export function goToErrorScene(data) {

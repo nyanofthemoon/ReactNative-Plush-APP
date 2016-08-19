@@ -1,17 +1,25 @@
 'use strict'
 
 import React, { Component } from 'react'
-import{ AppState, StatusBar, View, Image } from 'react-native'
+import{ AppState, Dimensions, StatusBar, View, Image, NativeMethodsMixin } from 'react-native'
 import { Container, Header, Content, Footer, Title, Button, Icon } from 'native-base'
 
 import { handleAppStateChange, handleAppMemoryWarning } from './../../actions'
 
 import renderIf from './../../helpers/renderIf'
-import image from './../../helpers/image'
 
 import styles from './styles'
+import images from './images'
 
 export default class extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      width : Dimensions.get('window').width,
+      height: Dimensions.get('window').height
+    }
+  }
 
   componentWillUnmount() {
     AppState.removeEventListener('change', handleAppStateChange)
@@ -23,6 +31,13 @@ export default class extends Component {
     AppState.addEventListener('memoryWarning', handleAppMemoryWarning)
   }
 
+  _contentSizeDidChange(width, height) {
+    this.setState({
+      width : width,
+      height: height
+    })
+  }
+
   render() {
     return (
       <Container style={styles.container}>
@@ -31,7 +46,7 @@ export default class extends Component {
             <Title>Extreme Meetups</Title>
           </Header>
         )}
-        <Content>
+        <Content onContentSizeChange={this._contentSizeDidChange.bind(this)} scrollEnabled={this.props.scrollEnabled || false}>
           <StatusBar style={styles.statusBar}/>
           { !this.props.cover ?
             (
@@ -39,7 +54,7 @@ export default class extends Component {
                 {this.props.children}
               </View>
             ) : (
-              <Image source={image[this.props.cover]} style={styles.cover}>
+              <Image source={images[this.props.cover]} style={[styles.cover, {width: this.state.width, height: this.state.height}]}>
                 {this.props.children}
               </Image>
             )

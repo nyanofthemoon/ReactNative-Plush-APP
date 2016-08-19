@@ -5,13 +5,14 @@ import { View, Text } from 'react-native'
 import { Spinner, Button } from 'native-base'
 import { connect } from 'react-redux'
 
-import { facebookConnectionSuccess, facebookConnectionFailure, facebookConnectionLogout, goToFriendsScene, goToProfileScene, goToVideoScene, logout } from './../actions'
+import { facebookConnectionSuccess, facebookConnectionFailure, facebookConnectionLogout, goToFriendsScene, goToProfileScene, goToVideoScene, goToLogoutScene } from './../../actions'
 
-import Container from './../components/Container'
-import UserStatistics from './../components/UserStatistics'
-import FacebookButton from './../components/FacebookButton'
+import Container from './../../components/Container'
+import FacebookButton from './../../components/FacebookButton'
 
-import renderIf from './../helpers/renderIf'
+import renderIf from './../../helpers/renderIf'
+
+import styles from './styles'
 
 @connect(
   state => ({
@@ -38,6 +39,7 @@ export default class extends React.Component {
             <Button success onPress={goToFriendsScene}>Friends</Button>
             <Button success onPress={goToProfileScene}>Profile</Button>
             <Button success onPress={goToVideoScene}>Ready!</Button>
+            <Button warning onPress={goToLogoutScene}>Logout...</Button>
           </Container>
         )
     } else {

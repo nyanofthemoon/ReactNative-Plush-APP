@@ -6,15 +6,17 @@ import { Button } from 'native-base'
 import { connect } from 'react-redux'
 import Carousel from 'react-native-looped-carousel'
 
-import { goToHomeScene, updateMatch } from './../actions'
-import { getSocketId } from './../helpers/socket'
+import { goToHomeScene, updateMatch } from './../../actions'
+import { getSocketId } from './../../helpers/socket'
 
-import Container from './../components/Container'
-import RTCView from './../components/RTCView'
-import Timer from './../components/Timer'
-import MatchVote from './../components/MatchVote'
+import Container from './../../components/Container'
+import RTCView from './../../components/RTCView'
+import Timer from './../../components/Timer'
+import MatchVote from './../../components/MatchVote'
 
-import Config from './../config'
+import Config from './../../config'
+
+import styles from './styles'
 
 @connect(
   state => ({

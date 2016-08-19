@@ -4,9 +4,11 @@ import React, { Component } from 'react'
 import { Text } from 'react-native'
 import { Button } from 'native-base'
 
-import { goToHomeScene } from './../actions'
+import { goToHomeScene } from './../../actions'
 
-import Container from './../components/Container'
+import Container from './../../components/Container'
+
+import styles from './styles'
 
 export default class extends React.Component {
   render() {

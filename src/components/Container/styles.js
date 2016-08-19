@@ -1,6 +1,6 @@
 'use strict'
 
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
 
@@ -19,8 +19,6 @@ export default StyleSheet.create({
 
   cover: {
     resizeMode    : 'cover',
-    width         : Dimensions.get('window').width,
-    height        : Dimensions.get('window').height,
     alignItems    : 'center',
     justifyContent: 'center'
   }

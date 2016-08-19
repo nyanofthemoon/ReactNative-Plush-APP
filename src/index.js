@@ -10,6 +10,7 @@ import Home from './containers/Home'
 import Video from './containers/Video'
 import Profile from './containers/Profile'
 import Friends from './containers/Friends'
+import Logout from './containers/Logout'
 import Error from './containers/Error'
 
 const scenes = Actions.create(
@@ -18,6 +19,7 @@ const scenes = Actions.create(
     <Scene key='friends' component={Friends} type={ActionConst.REPLACE}/>
     <Scene key='profile' component={Profile} type={ActionConst.REPLACE}/>
     <Scene key='video' component={Video} type={ActionConst.REPLACE}/>
+    <Scene key='logout' component={Logout} type={ActionConst.REPLACE}/>
     <Scene key='error' component={Error} type={ActionConst.REPLACE} />
   </Scene>
 );
