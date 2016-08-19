@@ -46,7 +46,7 @@ export default class extends React.Component {
     } else {
       return (
         <Container header={false} footer={false} cover={'splash'}>
-          <Spinner color='red' />
+          <Spinner color='blue'/>
         </Container>
       )
     }
