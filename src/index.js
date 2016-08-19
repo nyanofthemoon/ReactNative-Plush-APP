@@ -3,7 +3,7 @@
 import React from 'react'
 import { AppRegistry } from 'react-native'
 import { Provider } from 'react-redux'
-import { Actions, ActionConst, Scene, Router } from 'react-native-router-flux';
+import { Actions, ActionConst, Scene, Router } from 'react-native-router-flux'
 
 import Store from './configureStore'
 import Home from './containers/Home'

@@ -2,10 +2,10 @@
 
 import React from 'react'
 import { View, Text } from 'react-native'
-import { Spinner, Button } from 'native-base'
+import { Spinner, Button, Title } from 'native-base'
 import { connect } from 'react-redux'
 
-import { facebookConnectionSuccess, facebookConnectionFailure, facebookConnectionLogout, goToFriendsScene, goToProfileScene, goToVideoScene, goToLogoutScene } from './../../actions'
+import { facebookConnectionSuccess, facebookConnectionFailure, goToFriendsScene, goToProfileScene, goToVideoScene, goToLogoutScene } from './../../actions'
 
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
@@ -30,6 +30,7 @@ export default class extends React.Component {
     if ('authenticated' !== app.get('facebookStatus')) {
       return (
         <Container header={false} footer={false} cover={'splash'}>
+          <Title style={styles.title}>Extreme Meetups</Title>
           <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
         </Container>
       )

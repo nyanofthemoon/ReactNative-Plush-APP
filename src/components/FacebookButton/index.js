@@ -35,9 +35,9 @@ export default class extends React.Component {
         <LoginButton
           onLoginFinished={(error, result) => {
             if (error || result.isCancelled) {
-              this.props.handleFailure();
+              this.props.handleFailure()
             } else {
-              this.props.handleSuccess();
+              this.props.handleSuccess()
             }
           }}
           onLogoutFinished={this.props.handleLogout}

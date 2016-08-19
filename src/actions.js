@@ -40,6 +40,7 @@ function socketConnectionRequest() {
     goToErrorScene({ message: 'Server Maintenance. Please come back again later.' })
   })
   socket.on('upgrade', function(data) {
+    dispatch({type: types.SOCKET_CONNECTION_FAILED})
     goToErrorScene({ message: 'New Version Available! Please upgrade to continue.' })
   })
   let apiErrorMessage  = _getState().app.get('errorMessage')
@@ -68,6 +69,10 @@ function socketConnectionRequest() {
           } else {
             loginUser(user)
           }
+        },
+        function() {
+          dispatch({type: types.FACEBOOK_GRAPH_DATA_REQUESTED})
+          facebookGraphGetProfile()
         }
       )
     })
@@ -104,12 +109,8 @@ export function queryUser() {
 }
 
 function queryUserReception(data) {
-  Db.saveUser(data, function() {
-    if (_getState().user.get('email') === null) {
-      goToHomeScene()
-    }
-    dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
-  })
+  dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
+  Db.saveUser(data)
 }
 
 function queryRoomReception(data) {

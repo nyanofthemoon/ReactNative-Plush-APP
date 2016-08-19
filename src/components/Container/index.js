@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react'
-import{ AppState, Dimensions, StatusBar, View, Image, NativeMethodsMixin } from 'react-native'
+import{ AppState, Dimensions, StatusBar, View, Image } from 'react-native'
 import { Container, Header, Content, Footer, Title, Button, Icon } from 'native-base'
 
 import { AdMobBanner } from 'react-native-admob'
@@ -12,6 +12,7 @@ import renderIf from './../../helpers/renderIf'
 
 import Config from './../../config'
 
+import theme  from './themes/default'
 import styles from './styles'
 import images from './images'
 
@@ -44,7 +45,7 @@ export default class extends Component {
 
   render() {
     return (
-      <Container key='container' style={styles.container}>
+      <Container key='container' theme={theme} style={styles.container}>
         {renderIf(this.props.header)(
           <Header key='header' style={styles.header}>
             <Title>Extreme Meetups</Title>
@@ -66,13 +67,6 @@ export default class extends Component {
         </Content>
         {renderIf(this.props.footer)(
           <Footer key='footer' style={styles.footer}>
-            { !Config.ads.test ?
-              (
-                <AdMobBanner key='ads-footer' bannerSize={Config.ads.footer.size} adUnitID={Config.ads.footer.id}/>
-              ) : (
-                <AdMobBanner key='ads-footer' bannerSize={Config.ads.footer.size} adUnitID={Config.ads.footer.id} testDeviceID={'EMULATOR'}/>
-              )
-            }
           </Footer>
         )}
       </Container>
