@@ -4,6 +4,7 @@
 package com.rnboilerplate;
 
 import com.facebook.react.ReactActivity;
+import com.sbugert.rnadmob.RNAdMobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 

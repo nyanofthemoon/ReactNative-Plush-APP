@@ -26,6 +26,14 @@ module.exports = {
     protocol: 'https',
     host    : 'camroulette-api.herokuapp.com',
     port    : ''
+  },
+
+  ads: {
+    test  : true,
+    footer: {
+      id  : 'ca-app-pub-5170625817624589/3051212557',
+      size: 'smartBannerPortrait'
+    }
   }
 
 }

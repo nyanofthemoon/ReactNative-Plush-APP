@@ -9,8 +9,6 @@ import { goToHomeScene } from './../../actions'
 
 import Container from './../../components/Container'
 
-import styles from './styles'
-
 @connect(
   state => ({
     app : state.app

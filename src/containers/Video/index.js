@@ -93,8 +93,13 @@ export default class extends React.Component {
       default:
       case 'waiting':
       case 'audio':
+        let header = true
+        let footer = true
+        if ('audio' === status) {
+          header = false
+        }
         return (
-          <Container header={true} footer={true}>
+          <Container header={header} footer={footer}>
             { 'audio' !== status ?
               (
                 <View>
@@ -125,7 +130,7 @@ export default class extends React.Component {
         break
       case 'selection_audio':
         return (
-          <Container header={true} footer={true}>
+          <Container header={false} footer={true}>
             <Text>Selection Audio</Text>
             <MatchVote step='audio' handlePositiveVote={this._handlePositiveAudioVote} handleNegativeVote={this._handleNegativeAudioVote} />
             <Timer key='selection_audio' milliseconds={room.get('timer')} />
@@ -135,7 +140,7 @@ export default class extends React.Component {
       case 'results_audio':
         let matchAudio = this._evaluateMatchResults('audio', room.get('results').toJSON())
         return (
-          <Container header={true} footer={true}>
+          <Container header={false} footer={true}>
             <Text>Result Audio</Text>
             <Text>{JSON.stringify(matchAudio)}</Text>
             <Text>You said {matchAudio.myself}</Text>
@@ -152,7 +157,7 @@ export default class extends React.Component {
         break
       case 'video':
         return (
-          <Container header={true} footer={true}>
+          <Container header={false} footer={true}>
             <RTCView key='rtc_video' data={{ mode: 'video', kind: 'match', type: 'relationship', name: room.get('name'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
             <Timer key='video' milliseconds={room.get('timer')} />
           </Container>
@@ -160,7 +165,7 @@ export default class extends React.Component {
         break
       case 'selection_video':
         return (
-          <Container header={true} footer={true}>
+          <Container header={false} footer={true}>
             <Text>Selection Video</Text>
             <MatchVote step='video' handlePositiveVote={this._handlePositiveVideoVote} handleNegativeVote={this._handleNegativeVideoVote} />
             <Timer key='selection_video' milliseconds={room.get('timer')} />

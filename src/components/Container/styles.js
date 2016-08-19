@@ -15,6 +15,8 @@ export default StyleSheet.create({
   },
 
   footer: {
+    backgroundColor: 'black',
+    height: 50
   },
 
   cover: {
