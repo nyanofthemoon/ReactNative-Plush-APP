@@ -28,6 +28,7 @@
     "react-native-looped-carousel": "0.0.12",
     "react-native-router-flux": "^3.35.0",
     "react-native-simple-store": "^1.0.1",
+    "react-native-sound": "^0.8.3",
     "react-native-vector-icons": "^2.0.3",
     "react-native-webrtc": "^0.10.0",
     "react-redux": "^4.4.0",

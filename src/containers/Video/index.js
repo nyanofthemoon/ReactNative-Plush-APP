@@ -5,6 +5,7 @@ import { View, Dimensions, Text, Vibration } from 'react-native'
 import { Button } from 'native-base'
 import { connect } from 'react-redux'
 import Carousel from 'react-native-looped-carousel'
+import {default as Sound} from 'react-native-sound'
 
 import { goToHomeScene, updateMatch } from './../../actions'
 import { getSocketId } from './../../helpers/socket'
@@ -17,6 +18,8 @@ import MatchVote from './../../components/MatchVote'
 import Config from './../../config'
 
 import styles from './styles'
+
+const notificationSound = new Sound('notification.mp3', Sound.MAIN_BUNDLE)
 
 @connect(
   state => ({
@@ -88,6 +91,7 @@ export default class extends React.Component {
 
   _vibrate() {
     Vibration.vibrate()
+    notificationSound.play()
   }
 
   render() {
