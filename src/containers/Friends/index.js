@@ -15,7 +15,7 @@ export default class extends React.Component {
     return (
       <Container header={true} footer={true}>
         <Text>Friends Scene</Text>
-        <Button onPress={goToHomeScene}>Back</Button>
+        <Button success onPress={goToHomeScene}>Back</Button>
       </Container>
     )
   }

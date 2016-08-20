@@ -109,8 +109,12 @@ export function queryUser() {
 }
 
 function queryUserReception(data) {
-  dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
-  Db.saveUser(data)
+  Db.saveUser(data, function () {
+    if (_getState().user.get('email') === null) {
+      goToHomeScene()
+    }
+    dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
+  })
 }
 
 function queryRoomReception(data) {

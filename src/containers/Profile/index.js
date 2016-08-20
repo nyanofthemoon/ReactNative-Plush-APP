@@ -28,7 +28,7 @@ export default class extends React.Component {
       <Container header={true} footer={true}>
         <Text>Profile Scene</Text>
         <Text>{JSON.stringify(user.toJSON())}</Text>
-        <Button onPress={goToHomeScene}>Back</Button>
+        <Button success onPress={goToHomeScene}>Back</Button>
       </Container>
     )
   }

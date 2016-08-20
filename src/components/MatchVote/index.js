@@ -17,8 +17,8 @@ export default class extends React.Component {
     return (
       <View style={styles.container}>
         <Text>Continue Meetup?</Text>
-        <Button onPress={this.props.handlePositiveVote}>Yes</Button>
-        <Button onPress={this.props.handleNegativeVote}>No</Button>
+        <Button block style={styles.buttonContainer}><Button success large style={styles.button} onPress={this.props.handlePositiveVote}>Yes</Button></Button>
+        <Button block style={styles.buttonContainer}><Button danger large style={styles.button} onPress={this.props.handleNegativeVote}>No</Button></Button>
       </View>
     )
   }

@@ -103,7 +103,7 @@ export default class extends React.Component {
             { 'audio' !== status ?
               (
                 <View>
-                  <Button onPress={goToHomeScene}>Back</Button>
+                  <Button success onPress={goToHomeScene}>Back</Button>
                   <Text>Waiting In Queue</Text>
                   <Carousel delay={15000} style={this.state.size}>
                     <View style={[{backgroundColor:'#BADA55'}, this.state.size]}>
@@ -149,7 +149,7 @@ export default class extends React.Component {
               (
                 <Timer key='results_audio' milliseconds={room.get('timer')} />
               ) : (
-              <Button onPress={goToHomeScene}>Back</Button>
+              <Button success onPress={goToHomeScene}>Back</Button>
               )
             }
           </Container>
@@ -186,7 +186,7 @@ export default class extends React.Component {
                 null
               )
             }
-            <Button onPress={goToHomeScene}>Back</Button>
+            <Button success onPress={goToHomeScene}>Back</Button>
           </Container>
         )
         break
@@ -195,7 +195,7 @@ export default class extends React.Component {
           <Container header={true} footer={true}>
             <Text>Terminated</Text>
             <Text>Sorry - Peer Left</Text>
-            <Button onPress={goToHomeScene}>Back</Button>
+            <Button success onPress={goToHomeScene}>Back</Button>
           </Container>
         )
         break

@@ -4,8 +4,13 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
 
-  button: {
-    width: 200
+
+  centered: {
+    alignSelf: 'center'
+  },
+
+  bottomPadded: {
+    marginBottom: 30
   },
 
   title: {
@@ -38,10 +43,6 @@ export default StyleSheet.create({
       height: 5,
       width: 0
     }
-  },
-
-  button: {
-    marginBottom: 50
   }
 
 })

@@ -27,10 +27,10 @@ export default class extends React.Component {
 
   render() {
     const {app} = this.props
-    if ('authenticated' !== app.get('facebookStatus')) {
+    if ('unauthenticated' === app.get('facebookStatus')) {
       return (
         <Container header={false} footer={false} cover={'splash'}>
-          <Title style={styles.title}>Extreme Meetups</Title>
+          <Title style={[styles.title, styles.bottomPadded]}>Extreme Meetups</Title>
           <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
         </Container>
       )
@@ -46,7 +46,8 @@ export default class extends React.Component {
     } else {
       return (
         <Container header={false} footer={false} cover={'splash'}>
-          <Spinner color='blue'/>
+          <Title style={styles.title}>Extreme Meetups</Title>
+          <Spinner color='yellow'/>
         </Container>
       )
     }

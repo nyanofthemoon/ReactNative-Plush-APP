@@ -67,6 +67,7 @@ export default class extends Component {
         </Content>
         {renderIf(this.props.footer)(
           <Footer key='footer' style={styles.footer}>
+
           </Footer>
         )}
       </Container>

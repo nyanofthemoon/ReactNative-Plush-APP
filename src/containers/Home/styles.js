@@ -8,7 +8,6 @@ export default StyleSheet.create({
   },
 
   title: {
-    padding      : 20,
     paddingLeft  : 40,
     color        : 'white',
     fontFamily   : 'IndieFlower',
@@ -21,6 +20,14 @@ export default StyleSheet.create({
       height: 5,
       width: 0
     }
+  },
+
+  centered: {
+    alignSelf: 'center'
+  },
+
+  bottomPadded: {
+    marginBottom: 50
   }
 
 })

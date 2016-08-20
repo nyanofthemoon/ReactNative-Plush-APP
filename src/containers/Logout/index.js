@@ -17,8 +17,8 @@ export default class extends React.Component {
       <Container header={false} footer={false} cover={'splashGrayscale'}>
         <Title style={styles.title}>Extreme Meetups</Title>
         <Title style={styles.subtitle}>We're sad to see you go!</Title>
-        <Button block style={styles.button}><Button success large onPress={goToHomeScene}> Wait! Go Back...</Button></Button>
-        <Button block><FacebookButton handleLogout={facebookConnectionLogout}/></Button>
+        <Button success large style={[styles.centered, styles.bottomPadded]} onPress={goToHomeScene}> Wait! Go Back...</Button>
+        <FacebookButton style={styles.centered} handleLogout={facebookConnectionLogout}/>
       </Container>
     )
   }
