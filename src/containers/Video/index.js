@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react';
-import { View, Dimensions, Text } from 'react-native'
+import { View, Dimensions, Text, Vibration } from 'react-native'
 import { Button } from 'native-base'
 import { connect } from 'react-redux'
 import Carousel from 'react-native-looped-carousel'
@@ -86,6 +86,10 @@ export default class extends React.Component {
     return match
   }
 
+  _vibrate() {
+    Vibration.vibrate()
+  }
+
   render() {
     const {app, room} = this.props
     let status = room.get('status')
@@ -97,6 +101,7 @@ export default class extends React.Component {
         let footer = true
         if ('audio' === status) {
           header = false
+          this._vibrate()
         }
         return (
           <Container header={header} footer={footer}>
