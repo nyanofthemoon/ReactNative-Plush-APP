@@ -14,12 +14,12 @@ export default StyleSheet.create({
   },
 
   title: {
-    padding      : 20,
-    paddingLeft  : 40,
+    paddingTop   : 20,
+    marginLeft   : 30,
     color        : 'white',
     fontFamily   : 'IndieFlower',
     fontSize     : 75,
-    lineHeight   : 75,
+    lineHeight   : 70,
     shadowColor  : 'black',
     shadowOpacity: 10,
     shadowRadius : 2,
@@ -30,8 +30,7 @@ export default StyleSheet.create({
   },
 
   subtitle: {
-    padding      : 20,
-    marginBottom : 40,
+    marginBottom : 75,
     color        : 'yellow',
     fontFamily   : 'IndieFlower',
     fontSize     : 25,

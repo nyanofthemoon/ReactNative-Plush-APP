@@ -174,3 +174,11 @@ export function handleAppStateChange(data) {
 
 export function handleAppMemoryWarning() {
 }
+
+export function canShowAd() {
+  let roomStatus = _getState().room.get('status')
+  if (roomStatus && 'waiting' !== roomStatus) {
+    return false
+  }
+  return true
+}

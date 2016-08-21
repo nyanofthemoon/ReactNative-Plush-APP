@@ -8,11 +8,12 @@ export default StyleSheet.create({
   },
 
   title: {
-    paddingLeft  : 40,
+    paddingTop   : 20,
+    marginLeft   : 30,
     color        : 'white',
     fontFamily   : 'IndieFlower',
     fontSize     : 75,
-    lineHeight   : 75,
+    lineHeight   : 70,
     shadowColor  : 'black',
     shadowOpacity: 10,
     shadowRadius : 2,

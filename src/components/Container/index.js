@@ -4,9 +4,9 @@ import React, { Component } from 'react'
 import{ AppState, Dimensions, StatusBar, View, Image } from 'react-native'
 import { Container, Header, Content, Footer, Title, Button, Icon } from 'native-base'
 
-import { AdMobBanner } from 'react-native-admob'
+import { AdMobInterstitial } from 'react-native-admob'
 
-import { handleAppStateChange, handleAppMemoryWarning } from './../../actions'
+import { handleAppStateChange, handleAppMemoryWarning, canShowAd } from './../../actions'
 
 import renderIf from './../../helpers/renderIf'
 
@@ -15,6 +15,9 @@ import Config from './../../config'
 import theme  from './themes/default'
 import styles from './styles'
 import images from './images'
+
+let adInterval
+let adClosed
 
 export default class extends Component {
 
@@ -34,6 +37,24 @@ export default class extends Component {
   componentDidMount() {
     AppState.addEventListener('change', handleAppStateChange)
     AppState.addEventListener('memoryWarning', handleAppMemoryWarning)
+    if (!adInterval) {
+      adClosed = true
+      if (Config.ads.test) {
+        AdMobInterstitial.setTestDeviceID('EMULATOR')
+      }
+      AdMobInterstitial.setAdUnitID(Config.ads.interstitial.id)
+      AdMobInterstitial.addEventListener('interstitialDidLoad', () => {})
+      AdMobInterstitial.addEventListener('interstitialDidClose', () => { adClosed = true; AdMobInterstitial.requestAd(() => {})})
+      AdMobInterstitial.addEventListener('interstitialDidFailToLoad', () => {})
+      AdMobInterstitial.addEventListener('interstitialDidOpen', () => {})
+      AdMobInterstitial.addEventListener('interstitialWillLeaveApplication', () => {})
+      AdMobInterstitial.requestAd(() => {})
+      adInterval = setInterval(function () {
+        if (true === adClosed && true === canShowAd()) {
+          AdMobInterstitial.showAd(() => {})
+        }
+      }, Config.ads.interstitial.interval)
+    }
   }
 
   _contentSizeDidChange(width, height) {
@@ -67,7 +88,6 @@ export default class extends Component {
         </Content>
         {renderIf(this.props.footer)(
           <Footer key='footer' style={styles.footer}>
-
           </Footer>
         )}
       </Container>

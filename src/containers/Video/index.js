@@ -21,6 +21,8 @@ import styles from './styles'
 
 const notificationSound = new Sound('notification.mp3', Sound.MAIN_BUNDLE)
 
+let adInterval = null
+
 @connect(
   state => ({
     app : state.app,
@@ -102,27 +104,29 @@ export default class extends React.Component {
       case 'waiting':
       case 'audio':
         let header = true
-        let footer = true
         if ('audio' === status) {
           header = false
           this._vibrate()
         }
         return (
-          <Container header={header} footer={footer}>
+          <Container header={header} footer={false}>
             { 'audio' !== status ?
               (
                 <View>
                   <Button success onPress={goToHomeScene}>Back</Button>
                   <Text>Waiting In Queue</Text>
-                  <Carousel delay={15000} style={this.state.size}>
-                    <View style={[{backgroundColor:'#BADA55'}, this.state.size]}>
+                  <Carousel delay={999999999} style={this.state.size}>
+                    <View style={[{backgroundColor:'green'}, this.state.size]}>
                       <Text>Slide 1</Text>
                     </View>
-                    <View style={[{backgroundColor:'red'}, this.state.size]}>
+                    <View style={[{backgroundColor:'pink'}, this.state.size]}>
                       <Text>Slide 2</Text>
                     </View>
-                    <View style={[{backgroundColor:'blue'}, this.state.size]}>
+                    <View style={[{backgroundColor:'orange'}, this.state.size]}>
                       <Text>Slide 3</Text>
+                    </View>
+                    <View style={[{backgroundColor:'purple'}, this.state.size]}>
+                      <Text>Slide 4</Text>
                     </View>
                   </Carousel>
                 </View>
@@ -131,7 +135,7 @@ export default class extends React.Component {
                 <Text>Audio Only</Text>
                 <Timer key='audio' milliseconds={room.get('timer')} />
               </View>
-            )
+              )
             }
             <RTCView key='rtc_audio' data={{ mode: 'audio', kind: 'match', type: 'relationship', name: room.get('name'), flush: true }} socket={app.get('socket')} config={Config.webrtc} />
           </Container>
@@ -139,7 +143,7 @@ export default class extends React.Component {
         break
       case 'selection_audio':
         return (
-          <Container header={false} footer={true}>
+          <Container header={false} footer={false}>
             <Text>Selection Audio</Text>
             <MatchVote step='audio' handlePositiveVote={this._handlePositiveAudioVote} handleNegativeVote={this._handleNegativeAudioVote} />
             <Timer key='selection_audio' milliseconds={room.get('timer')} />
@@ -149,7 +153,7 @@ export default class extends React.Component {
       case 'results_audio':
         let matchAudio = this._evaluateMatchResults('audio', room.get('results').toJSON())
         return (
-          <Container header={false} footer={true}>
+          <Container header={false} footer={false}>
             <Text>Result Audio</Text>
             <Text>{JSON.stringify(matchAudio)}</Text>
             <Text>You said {matchAudio.myself}</Text>
@@ -158,7 +162,7 @@ export default class extends React.Component {
               (
                 <Timer key='results_audio' milliseconds={room.get('timer')} />
               ) : (
-              <Button success onPress={goToHomeScene}>Back</Button>
+                <Button success onPress={goToHomeScene}>Back</Button>
               )
             }
           </Container>
@@ -166,7 +170,7 @@ export default class extends React.Component {
         break
       case 'video':
         return (
-          <Container header={false} footer={true}>
+          <Container header={false} footer={false}>
             <RTCView key='rtc_video' data={{ mode: 'video', kind: 'match', type: 'relationship', name: room.get('name'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
             <Timer key='video' milliseconds={room.get('timer')} />
           </Container>
@@ -174,7 +178,7 @@ export default class extends React.Component {
         break
       case 'selection_video':
         return (
-          <Container header={false} footer={true}>
+          <Container header={false} footer={false}>
             <Text>Selection Video</Text>
             <MatchVote step='video' handlePositiveVote={this._handlePositiveVideoVote} handleNegativeVote={this._handleNegativeVideoVote} />
             <Timer key='selection_video' milliseconds={room.get('timer')} />
@@ -184,7 +188,7 @@ export default class extends React.Component {
       case 'results_video':
         let matchVideo = this._evaluateMatchResults('video', room.get('results').toJSON())
         return (
-          <Container header={true} footer={true}>
+          <Container header={true} footer={false}>
             <Text>Result Video</Text>
             <Text>You said {matchVideo.myself}</Text>
             <Text>Other said {matchVideo.other}</Text>
@@ -201,7 +205,7 @@ export default class extends React.Component {
         break
       case 'terminated':
         return (
-          <Container header={true} footer={true}>
+          <Container header={true} footer={false}>
             <Text>Terminated</Text>
             <Text>Sorry - Peer Left</Text>
             <Button success onPress={goToHomeScene}>Back</Button>
