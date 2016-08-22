@@ -27,13 +27,9 @@ export default class extends React.Component {
 
     const {user} = this.props
     return (
-      <Container header={true} footer={true}>
-
+      <Container header={true} footer={true} scrollEnabled={true}>
         <Button success onPress={goToHomeScene}>Back</Button>
-
         <ProfileForm />
-
-
       </Container>
     )
   }
