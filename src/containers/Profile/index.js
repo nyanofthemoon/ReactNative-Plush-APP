@@ -2,12 +2,13 @@
 
 import React from 'react'
 import { Text } from 'react-native'
-import { Button } from 'native-base'
+import { List, ListItem, InputGroup, Input, Picker, CheckBox, Item, Icon, Button } from 'native-base'
 import { connect } from 'react-redux'
 
 import { goToHomeScene } from './../../actions'
 
 import Container from './../../components/Container'
+import ProfileForm from './../../components/ProfileForm'
 
 import styles from './styles'
 
@@ -23,12 +24,16 @@ export default class extends React.Component {
   };
 
   render() {
+
     const {user} = this.props
     return (
       <Container header={true} footer={true}>
-        <Text>Profile Scene</Text>
-        <Text>{JSON.stringify(user.toJSON())}</Text>
+
         <Button success onPress={goToHomeScene}>Back</Button>
+
+        <ProfileForm />
+
+
       </Container>
     )
   }

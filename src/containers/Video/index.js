@@ -115,18 +115,15 @@ export default class extends React.Component {
                 <View>
                   <Button success onPress={goToHomeScene}>Back</Button>
                   <Text>Waiting In Queue</Text>
-                  <Carousel delay={999999999} style={this.state.size}>
-                    <View style={[{backgroundColor:'green'}, this.state.size]}>
+                  <Carousel delay={60000} style={this.state.size}>
+                    <View style={[{backgroundColor:'lightgreen'}, this.state.size]}>
                       <Text>Slide 1</Text>
                     </View>
                     <View style={[{backgroundColor:'pink'}, this.state.size]}>
                       <Text>Slide 2</Text>
                     </View>
-                    <View style={[{backgroundColor:'orange'}, this.state.size]}>
+                    <View style={[{backgroundColor:'lightblue'}, this.state.size]}>
                       <Text>Slide 3</Text>
-                    </View>
-                    <View style={[{backgroundColor:'purple'}, this.state.size]}>
-                      <Text>Slide 4</Text>
                     </View>
                   </Carousel>
                 </View>
