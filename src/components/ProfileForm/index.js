@@ -72,9 +72,9 @@ export default class extends React.Component{
   }
 
   componentDidMount() {
-    this.refs.registrationForm.refs.first_name.setValue(this.props.user.firstName)
-    this.refs.registrationForm.refs.last_name.setValue(this.props.user.lastName)
+    this.refs.registrationForm.refs.nickname.setValue(this.props.user.nickname)
     this.refs.registrationForm.refs.gender.setValue(this.props.user.gender)
+    this.refs.registrationForm.refs.orientation.setValue(this.props.user.orientation)
     this.refs.registrationForm.refs.birthday.setDate(new Date(this.props.user.birthday))
   }
 
@@ -98,16 +98,10 @@ export default class extends React.Component{
     //console.log(e, component);
   }
   openTermsAndConditionsURL(){
+    alert('OPEN URL')
 
   }
-  resetForm(){
 
-    this.refs.registrationForm.refs.first_name.setValue("");
-    this.refs.registrationForm.refs.last_name.setValue("");
-    this.refs.registrationForm.refs.other_input.setValue("");
-    this.refs.registrationForm.refs.meeting.setDate(new Date());
-    this.refs.registrationForm.refs.has_accepted_conditions.setValue(false);
-  }
 
   render(){
     return (<ScrollView keyboardShouldPersistTaps={true} style={{paddingLeft:10,paddingRight:10}}>
@@ -117,64 +111,39 @@ export default class extends React.Component{
         onChange={this.handleFormChange.bind(this)}
         label="Personal Information">
         <Separator />
-        <InputField
-          ref='first_name'
-          label='First Name'
-          placeholder='First Name'
-          helpText={((self)=>{
 
-            if(Object.keys(self.refs).length !== 0){
-              if(!self.refs.registrationForm.refs.first_name.valid){
-                return self.refs.registrationForm.refs.first_name.validationErrors.join("\n");
-              }
-
-            }
-            // if(!!(self.refs && self.refs.first_name.valid)){
-            // }
-          })(this)}
-          validationFunction={[(value)=>{
-            /*
-            you can have multiple validators in a single function or an array of functions
-             */
-
-            if(value == '') return "Required";
-            //Initial state is null/undefined
-            if(!value) return true;
-            // Check if First Name Contains Numbers
-            var matches = value.match(/\d+/g);
-            if (matches != null) {
-                return "First Name can't contain numbers";
-            }
-
-            return true;
-          }, (value)=>{
-            ///Initial state is null/undefined
-            if(!value) return true;
-            if(value.indexOf('4')!=-1){
-              return "I can't stand number 4";
-            }
-            return true;
-          }]}
-        />
-        <InputField ref='last_name' label='Last Name' placeholder='Last Name'/>
-        <PickerField ref='gender'
-                     label='Gender'
-                     options={{
-            "": '',
-            M: 'Male',
-            F: 'Female'
-          }}/>
+        <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name'/>
         <DatePickerField ref='birthday'
                          minimumDate={new Date('1/1/1900')}
                          maximumDate={new Date()}
                          placeholder='Birthday'/>
-        <DatePickerField ref='meeting'
-                         minimumDate={new Date('1/1/1900')}
-                         maximumDate={new Date()} mode="datetime" placeholder='Meeting'/>
+        <PickerField ref='gender'
+                     label='Gender'
+                     options={{
+            F: 'Woman',
+            M: 'Man'
+          }}/>
+
+        <PickerField ref='orientation'
+                     label='Orientation'
+                     options={{
+            O: 'Opposite Gender',
+            S: 'Same Gender',
+            A: 'All Genders'
+          }}/>
+
+        <PickerField ref='friendship'
+                     label='Friendships'
+                     options={{
+            S: 'Same Gender',
+            O: 'Opposite Gender',
+            A: 'Any Genders'
+          }}/>
+
         <InputField
           multiline={true}
           ref='other_input'
-          placeholder='Other Input'
+          placeholder='A little about you'
           helpText='this is an helpful text it can be also very very long and it will wrap' />
         <SwitchField label='I accept Terms & Conditions'
                      ref="has_accepted_conditions"

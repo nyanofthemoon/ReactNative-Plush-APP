@@ -14,6 +14,9 @@ const initialState = fromJS({
   locale         : null,
   timezone       : null,
   orientation    : null,
+  friendship     : null,
+  latitude       : null,
+  longitude      : null,
   contacts       : {
     friendship  : {},
     relationship: {}
@@ -32,6 +35,14 @@ export default (state = initialState, action) => {
     case types.SOCKET_QUERY_USER_RECEIVED:
       nextState = fromJS(state).merge(action.payload.data)
       break
+
+    case types.GEOLOCATION_QUERY_RECEIVED:
+      //alert(JSON.stringify(action.payload))
+      //nextState = fromJS(state).merge({
+      //
+      //})
+      break
+
     default:
       break
   }

@@ -1,6 +1,7 @@
 'use strict'
 
-import {Actions} from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
+import { Geolocation } from 'react-native'
 const FBSDK = require('react-native-fbsdk')
 const { AccessToken, GraphRequest, GraphRequestManager, FBSDKManager } = FBSDK
 
@@ -68,6 +69,7 @@ function socketConnectionRequest() {
             facebookGraphGetProfile()
           } else {
             loginUser(user)
+            getGeoLocation()
           }
         },
         function() {
@@ -91,6 +93,7 @@ export function facebookGraphGetProfile() {
           Db.saveFacebookUser(result, function() {
             dispatch({type: types.FACEBOOK_GRAPH_DATA_SUCCEEDED, payload: result})
             loginUser(result)
+            getGeoLocation()
           })
         }
       }
@@ -101,6 +104,16 @@ export function facebookGraphGetProfile() {
 function loginUser(data) {
   emitSocketUserLoginEvent(data)
   return { type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data }
+}
+
+function getGeoLocation() {
+  navigator.geolocation.getCurrentPosition(
+    function(data) {
+      dispatch({type: types.GEOLOCATION_QUERY_RECEIVED, payload: data})
+    }, function(error) {} ,{
+      enableHighAccuracy: true
+    }
+  )
 }
 
 export function queryUser() {
