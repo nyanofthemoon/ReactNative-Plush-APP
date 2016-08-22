@@ -24,12 +24,11 @@ export default class extends React.Component {
   };
 
   render() {
-
     const {user} = this.props
     return (
       <Container header={true} footer={true} scrollEnabled={true}>
         <Button success onPress={goToHomeScene}>Back</Button>
-        <ProfileForm />
+        <ProfileForm user={user.toJSON()}/>
       </Container>
     )
   }

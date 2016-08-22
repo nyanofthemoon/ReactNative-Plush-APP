@@ -66,9 +66,18 @@ export default class extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      formData:{}
+      formData:{
+      }
     }
   }
+
+  componentDidMount() {
+    this.refs.registrationForm.refs.first_name.setValue(this.props.user.firstName)
+    this.refs.registrationForm.refs.last_name.setValue(this.props.user.lastName)
+    this.refs.registrationForm.refs.gender.setValue(this.props.user.gender)
+    this.refs.registrationForm.refs.birthday.setDate(new Date(this.props.user.birthday))
+  }
+
   handleFormChange(formData){
     /*
      formData will contain all the values of the form,
@@ -147,33 +156,29 @@ export default class extends React.Component{
             return true;
           }]}
         />
-        <InputField ref='last_name' placeholder='Last Name'/>
-        <LinkField label="test test test" onPress={()=>{}}/>
-        <SwitchField label='I accept Terms & Conditions'
-                     ref="has_accepted_conditions"
-                     helpText='Please read carefully the terms & conditions'/>
+        <InputField ref='last_name' label='Last Name' placeholder='Last Name'/>
         <PickerField ref='gender'
                      label='Gender'
                      options={{
             "": '',
-            male: 'Male',
-            female: 'Female'
+            M: 'Male',
+            F: 'Female'
           }}/>
         <DatePickerField ref='birthday'
                          minimumDate={new Date('1/1/1900')}
                          maximumDate={new Date()}
                          placeholder='Birthday'/>
-        <TimePickerField ref='alarm_time'
-                         placeholder='Set Alarm'/>
         <DatePickerField ref='meeting'
                          minimumDate={new Date('1/1/1900')}
                          maximumDate={new Date()} mode="datetime" placeholder='Meeting'/>
-        <Separator />
         <InputField
           multiline={true}
           ref='other_input'
           placeholder='Other Input'
           helpText='this is an helpful text it can be also very very long and it will wrap' />
+        <SwitchField label='I accept Terms & Conditions'
+                     ref="has_accepted_conditions"
+                     helpText='Please read carefully the terms & conditions'/>
 
 
       </Form>
