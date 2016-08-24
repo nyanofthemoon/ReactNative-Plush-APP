@@ -31,7 +31,7 @@ export default class extends React.Component {
     const {app, user} = this.props
     if ('unauthenticated' === app.get('facebookStatus')) {
       return (
-        <Container header={false} footer={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.get('gender'), orientation:user.get('orientation')}}}>
+        <Container header={false} footer={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
           <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
           <Title style={[styles.subtitle, styles.shadowed]}>Are you ready ?</Title>
           <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
@@ -48,7 +48,7 @@ export default class extends React.Component {
         )
     } else {
       return (
-        <Container header={false} footer={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.get('gender'), orientation:user.get('orientation')}}}>
+        <Container header={false} footer={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
           <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
           <Title style={[styles.subtitle, styles.shadowed]}>Almost there ...</Title>
           <Spinner style={styles.shadowed} color='white' />

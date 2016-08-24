@@ -25,7 +25,7 @@ export default class extends React.Component {
   render() {
     const {user} = this.props
     return (
-      <Container header={false} footer={false} cover={{type: 'splash', data:{subtype: 'logout', gender:user.get('gender'), orientation:user.get('orientation')}}}>
+      <Container header={false} footer={false} cover={{type: 'splash', data:{subtype: 'logout', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
         <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
         <Title style={[styles.subtitle, styles.shadowed]}>We're sad to see you go !</Title>
         <Button success large style={[styles.centered, styles.shadowed, styles.bottomPadded]} onPress={goToHomeScene}>Wait! Go Back...</Button>
