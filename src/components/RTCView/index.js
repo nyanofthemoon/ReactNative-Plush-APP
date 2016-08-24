@@ -14,6 +14,8 @@ import { Text, TouchableHighlight, View, TextInput, ListView, Dimensions } from 
 var WebRTC = require('react-native-webrtc');
 var { RTCPeerConnection, RTCIceCandidate, RTCSessionDescription, RTCView, MediaStreamTrack, getUserMedia } = WebRTC;
 
+import { goToErrorScene } from './../../actions'
+
 import styles from './styles'
 
 let globalStream = null
@@ -172,28 +174,34 @@ export default class extends React.Component {
     let that = this
     MediaStreamTrack.getSources(sourceInfos => {
       let videoSourceId;
+      let frontCameraExists = false
       for (let i = 0; i < sourceInfos.length; i++) {
         const sourceInfo = sourceInfos[i];
         if(sourceInfo.kind == "video" && sourceInfo.facing == (isFront ? "front" : "back")) {
           videoSourceId = sourceInfo.id;
+          frontCameraExists = true
         }
       }
-      if ('video' != that.props.data.mode) {
-        getUserMedia({
-          "audio": true,
-          "video": false
-        }, function (stream) {
-          callback(stream);
-        }, that._logError);
+      if (!frontCameraExists) {
+        return goToErrorScene('Unable to access camera. Please ensure that this device has both a functional front camera and the required permission to access it.')
       } else {
-        getUserMedia({
-          "audio": true,
-          "video": {
-            optional: [{sourceId: videoSourceId}]
-          }
-        }, function (stream) {
-          callback(stream);
-        }, that._logError);
+        if ('video' != that.props.data.mode) {
+          getUserMedia({
+            "audio": true,
+            "video": false
+          }, function (stream) {
+            callback(stream);
+          }, that._logError);
+        } else {
+          getUserMedia({
+            "audio": true,
+            "video": {
+              optional: [{sourceId: videoSourceId}]
+            }
+          }, function (stream) {
+            callback(stream);
+          }, that._logError);
+        }
       }
     });
   }

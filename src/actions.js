@@ -123,7 +123,7 @@ function loginUser(data) {
         lat: parseFloat(geo.coords.latitude.toFixed(1)),
         lng: parseFloat(geo.coords.longitude.toFixed(1))
       }
-      if (current.lng != _getState().user.getIn(['location','longitude']) && current.lat != _getState().user.getIn(['location','latitude'])) {
+      if (current.lng != _getState().user.getIn(['location','longitude']) || current.lat != _getState().user.getIn(['location','latitude'])) {
         Geocoder.geocodePosition(current).then(res => {
             data.country = res[0].country
             data.city = res[0].locality
@@ -132,9 +132,7 @@ function loginUser(data) {
             emitSocketUserLoginEvent(data)
             return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
           })
-          .catch(error => {
-            goToErrorScene('Unable to analyze location. The application might be run on an older device either unable or having difficulties analyzing "location" data.')
-          })
+          .catch(error => { goToErrorScene('Unable to analyze location. The application might be run on an older device either unable or having difficulties analyzing "location" data.') })
       } else {
         emitSocketUserLoginEvent(data)
         return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
