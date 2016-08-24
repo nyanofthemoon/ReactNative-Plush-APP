@@ -27,6 +27,8 @@ export default {
       login : [require('./splash-straight-1.png'), require('./splash-lesbian-2.png')],
       logout: [require('./splash-straight-1-grayscale.png'), require('./splash-lesbian-2-grayscale.png')]
     }
-  }
+  },
+
+  error: require('./error.png')
 
 }

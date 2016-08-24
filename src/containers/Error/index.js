@@ -1,11 +1,10 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { Text } from 'react-native'
-import { Button } from 'native-base'
+import { Title, Button } from 'native-base'
 import { connect } from 'react-redux'
 
-import { goToHomeScene } from './../../actions'
+import styles from './styles'
 
 import Container from './../../components/Container'
 
@@ -23,10 +22,10 @@ export default class extends React.Component {
   render() {
     const {app} = this.props
     return (
-      <Container header={false} footer={false} cover={'splash'}>
-        <Text style={{fontSize: 20}}>Oops...</Text>
-        <Text>{app.get('errorMessage')}</Text>
-        <Button block success onPress={goToHomeScene}>Try Again</Button>
+      <Container header={false} footer={false} cover={'error'}>
+        <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
+        <Title style={[styles.subtitle, styles.shadowed]}>Uhh? That was strange...</Title>
+        <Title style={[styles.message, styles.shadowed]}>{app.get('errorMessage')}</Title>
       </Container>
     )
   }

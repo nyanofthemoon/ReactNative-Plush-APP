@@ -50,14 +50,12 @@ function socketConnectionRequest() {
   let socket = createSocketConnection()
   socket.on('error', function(error) {
     dispatch({type: types.SOCKET_CONNECTION_FAILED})
-    goToErrorScene({ message: 'Server Maintenance. Please come back again later.' })
+    goToErrorScene('Connection error.')
   })
   socket.on('upgrade', function(data) {
     dispatch({type: types.SOCKET_CONNECTION_FAILED})
-    goToErrorScene({ message: 'New Version Available! Please upgrade to continue.' })
+    goToErrorScene('New Version Available! Upgrade to continue.')
   })
-
-
   let apiErrorMessage  = _getState().app.get('errorMessage')
   if (!apiErrorMessage) {
     socket.on('connect', function () {
