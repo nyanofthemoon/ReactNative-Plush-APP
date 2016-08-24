@@ -10,16 +10,20 @@ import * as types from './constants'
 import Store      from './configureStore'
 import * as Db    from './helpers/db'
 
+import Config from './config'
+
 import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
+
+Geocoder.fallbackToGoogle(Config.google.geocodingApiKey)
 
 function _getState() {
   return Store.getState();
 }
 
 export function loadUserData() {
-  if (_getState().user.get('profile').get('gender') === null) {
+  if (_getState().user.getIn(['profile','gender']) === null) {
     Db.findUser(
       function (user) {
         if (user) {
@@ -115,19 +119,27 @@ function loginUser(data) {
   navigator.geolocation.getCurrentPosition(
     function(geo) {
       var current = {
-        lat: geo.coords.latitude,
-        lng: geo.coords.longitude
+        // http://gis.stackexchange.com/questions/8650/measuring-accuracy-of-latitude-and-longitude
+        lat: parseFloat(geo.coords.latitude.toFixed(1)),
+        lng: parseFloat(geo.coords.longitude.toFixed(1))
       }
-      Geocoder.geocodePosition(current).then(res => {
-        data.country   = res[0].country
-        data.city      = res[0].locality
-        data.latitude  = res[0].position.lat
-        data.longitude = res[0].position.lng
+      if (current.lng != _getState().user.getIn(['location','longitude']) && current.lat != _getState().user.getIn(['location','latitude'])) {
+        Geocoder.geocodePosition(current).then(res => {
+            data.country = res[0].country
+            data.city = res[0].locality
+            data.latitude = current.lat
+            data.longitude = current.lng
+            emitSocketUserLoginEvent(data)
+            return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
+          })
+          .catch(error => {
+            goToErrorScene('Unable to analyze location. The application might be run on an older device either unable or having difficulties analyzing "location" data.')
+          })
+      } else {
         emitSocketUserLoginEvent(data)
-        return { type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data }
-      })
-      .catch(err => { goToErrorScene('Location data required for application to work.') })
-    }, function(error) {} ,{
+        return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
+      }
+    }, function(error) { goToErrorScene('Unable to retrieve location. Please ensure that the application on this device has permission to access "location" data.') } ,{
       enableHighAccuracy: true
     }
   )

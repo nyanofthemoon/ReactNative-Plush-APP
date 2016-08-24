@@ -17,6 +17,10 @@ module.exports = {
     ]
   },
 
+  google: {
+    geocodingApiKey: 'AIzaSyBX4aDbdxRjqlJe-6GCi33eaP8J91KaTww'
+  },
+
   ads: {
     test  : true,
     interstitial: {
