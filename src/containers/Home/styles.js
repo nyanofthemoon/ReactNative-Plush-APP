@@ -13,7 +13,23 @@ export default StyleSheet.create({
     color        : 'white',
     fontFamily   : 'IndieFlower',
     fontSize     : 75,
-    lineHeight   : 70,
+    lineHeight   : 70
+  },
+
+  subtitle: {
+    paddingTop   : 20,
+    marginBottom : 75,
+    color        : 'white',
+    fontFamily   : 'IndieFlower',
+    fontSize     : 25,
+    lineHeight   : 25
+  },
+
+  centered: {
+    alignSelf: 'center'
+  },
+
+  shadowed: {
     shadowColor  : 'black',
     shadowOpacity: 10,
     shadowRadius : 2,
@@ -21,14 +37,6 @@ export default StyleSheet.create({
       height: 5,
       width: 0
     }
-  },
-
-  centered: {
-    alignSelf: 'center'
-  },
-
-  bottomPadded: {
-    marginBottom: 50
   }
 
 })

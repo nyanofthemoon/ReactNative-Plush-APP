@@ -72,10 +72,11 @@ export default class extends React.Component{
   }
 
   componentDidMount() {
-    this.refs.registrationForm.refs.nickname.setValue(this.props.user.nickname)
-    this.refs.registrationForm.refs.gender.setValue(this.props.user.gender)
-    this.refs.registrationForm.refs.orientation.setValue(this.props.user.orientation)
-    this.refs.registrationForm.refs.birthday.setDate(new Date(this.props.user.birthday))
+    this.refs.registrationForm.refs.nickname.setValue(this.props.user.profile.nickname)
+    this.refs.registrationForm.refs.gender.setValue(this.props.user.profile.gender)
+    this.refs.registrationForm.refs.orientation.setValue(this.props.user.profile.orientation)
+    this.refs.registrationForm.refs.friendship.setValue(this.props.user.profile.friendship)
+    this.refs.registrationForm.refs.birthday.setDate(new Date(this.props.user.profile.birthday))
   }
 
   handleFormChange(formData){

@@ -26,6 +26,7 @@
     "react-native-animatable": "^0.6.1",
     "react-native-fbsdk": "^0.3.0",
     "react-native-form-generator": "^0.9.9",
+    "react-native-geocoder": "^0.4.4",
     "react-native-looped-carousel": "0.0.12",
     "react-native-router-flux": "^3.35.0",
     "react-native-simple-store": "^1.0.1",

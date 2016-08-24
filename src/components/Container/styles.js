@@ -18,9 +18,9 @@ export default StyleSheet.create({
   },
 
   cover: {
-    resizeMode    : 'cover',
-    alignItems    : 'center',
-    justifyContent: 'center'
+    resizeMode     : 'cover',
+    alignItems     : 'center',
+    justifyContent : 'center'
   }
 
 })

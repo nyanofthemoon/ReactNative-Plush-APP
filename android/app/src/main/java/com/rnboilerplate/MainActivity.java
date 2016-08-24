@@ -4,6 +4,7 @@
 package com.rnboilerplate;
 
 import com.facebook.react.ReactActivity;
+import com.devfd.RNGeocoder.RNGeocoderPackage;
 import com.zmxv.RNSound.RNSoundPackage;
 import com.sbugert.rnadmob.RNAdMobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
@@ -28,11 +29,12 @@ public class MainActivity extends ReactActivity {
         return "RNBoilerplate";
     }
 
-    //@Override
-    //  protected List<ReactPackage> getPackages() {
-    //    return Arrays.<ReactPackage>asList(
-    //        new MainReactPackage(),
-    //        new RNSoundPackage() // <-- New
-    //    );
-    //  }
+    @Override
+    protected List<ReactPackage> getPackages() {
+        return Arrays.<ReactPackage>asList(
+            new MainReactPackage(),
+            new RNSoundPackage(),
+            new RNGeocoderPackage()
+        );
+    }
 }

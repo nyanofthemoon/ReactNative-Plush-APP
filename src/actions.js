@@ -2,6 +2,7 @@
 
 import { Actions } from 'react-native-router-flux'
 import { Geolocation } from 'react-native'
+import Geocoder from 'react-native-geocoder'
 const FBSDK = require('react-native-fbsdk')
 const { AccessToken, GraphRequest, GraphRequestManager, FBSDKManager } = FBSDK
 
@@ -17,6 +18,18 @@ function _getState() {
   return Store.getState();
 }
 
+export function loadUserData() {
+  if (_getState().user.get('profile').get('gender') === null) {
+    Db.findUser(
+      function (user) {
+        if (user) {
+          dispatch({type: types.DB_LOAD_USER, payload: { data: user } })
+        }
+      }
+    )
+  }
+}
+
 export function facebookConnectionSuccess() {
   dispatch({type: types.FACEBOOK_LOGIN_SUCCEEDED})
   socketConnectionRequest()
@@ -28,7 +41,6 @@ export function facebookConnectionFailure() {
 }
 
 export function facebookConnectionLogout() {
-  destroySocketConnection()
   facebookConnectionFailure()
   Actions.home()
 }
@@ -44,6 +56,8 @@ function socketConnectionRequest() {
     dispatch({type: types.SOCKET_CONNECTION_FAILED})
     goToErrorScene({ message: 'New Version Available! Please upgrade to continue.' })
   })
+
+
   let apiErrorMessage  = _getState().app.get('errorMessage')
   if (!apiErrorMessage) {
     socket.on('connect', function () {
@@ -64,12 +78,11 @@ function socketConnectionRequest() {
       })
       Db.findFacebookUser(
         function(user) {
-          if (!user) {
+          if (!user || Math.floor((Math.random()*100)) == 50) {
             dispatch({type: types.FACEBOOK_GRAPH_DATA_REQUESTED})
             facebookGraphGetProfile()
           } else {
-            loginUser(user)
-            getGeoLocation()
+           loginUser(user)
           }
         },
         function() {
@@ -93,7 +106,6 @@ export function facebookGraphGetProfile() {
           Db.saveFacebookUser(result, function() {
             dispatch({type: types.FACEBOOK_GRAPH_DATA_SUCCEEDED, payload: result})
             loginUser(result)
-            getGeoLocation()
           })
         }
       }
@@ -102,14 +114,21 @@ export function facebookGraphGetProfile() {
 }
 
 function loginUser(data) {
-  emitSocketUserLoginEvent(data)
-  return { type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data }
-}
-
-function getGeoLocation() {
   navigator.geolocation.getCurrentPosition(
-    function(data) {
-      dispatch({type: types.GEOLOCATION_QUERY_RECEIVED, payload: data})
+    function(geo) {
+      var current = {
+        lat: geo.coords.latitude,
+        lng: geo.coords.longitude
+      }
+      Geocoder.geocodePosition(current).then(res => {
+        data.country   = res[0].country
+        data.city      = res[0].locality
+        data.latitude  = res[0].position.lat
+        data.longitude = res[0].position.lng
+        emitSocketUserLoginEvent(data)
+        return { type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data }
+      })
+      .catch(err => { goToErrorScene('Location data required for application to work.') })
     }, function(error) {} ,{
       enableHighAccuracy: true
     }
@@ -122,11 +141,14 @@ export function queryUser() {
 }
 
 function queryUserReception(data) {
-  Db.saveUser(data, function () {
-    if (_getState().user.get('email') === null) {
-      goToHomeScene()
+  Db.saveUser(data.data, function () {
+    if (_getState().app.get('apiStatus') !== 'connected') {
+      setTimeout(function() {
+        dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
+      }, 2500)
+    } else {
+      dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
     }
-    dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
   })
 }
 

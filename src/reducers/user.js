@@ -5,21 +5,49 @@ import {fromJS} from 'immutable'
 import * as types from './../constants'
 
 const initialState = fromJS({
-  email          : null,
-  gender         : null,
-  firstName      : null,
-  lastName       : null,
-  facebookProfile: null,
-  facebookPicture: null,
-  locale         : null,
-  timezone       : null,
-  orientation    : null,
-  friendship     : null,
-  latitude       : null,
-  longitude      : null,
-  contacts       : {
+  profile  : {
+    nickname   : null,
+    gender     : null,
+    birthday   : null,
+    orientation: null,
+    friendship : null,
+    headline   : null,
+    bio        : null,
+    career     : null,
+    diet       : null, // unhealthy, healthy, vegetarian, vegan, intolerant, other
+    picture    : null,
+    astrological: {
+      chinese   : null,
+      zodiac    : null,
+      birthstone: null,
+      planet    : null,
+      element   : null
+    }
+  },
+  personality: {
+  },
+  location: {
+    city     : null,
+    country  : null,
+    latitude : null,
+    longitude: null,
+    locale   : null,
+    timezone : null
+  },
+  providers  : {
+    facebook: {
+      url    : null,
+      picture: null
+    }
+  },
+  contacts: {
     friendship  : {},
-    relationship: {}
+    relationship: {},
+    blocked     : {}
+  },
+  reports: {
+    reported  : 0,
+    reportedby: 0
   }
 })
 
@@ -33,16 +61,9 @@ export default (state = initialState, action) => {
     case types.FACEBOOK_GRAPH_DATA_FAILED:
       break
     case types.SOCKET_QUERY_USER_RECEIVED:
+    case types.DB_LOAD_USER:
       nextState = fromJS(state).merge(action.payload.data)
       break
-
-    case types.GEOLOCATION_QUERY_RECEIVED:
-      //alert(JSON.stringify(action.payload))
-      //nextState = fromJS(state).merge({
-      //
-      //})
-      break
-
     default:
       break
   }

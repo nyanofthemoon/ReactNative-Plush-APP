@@ -16,21 +16,24 @@ import styles from './styles'
 
 @connect(
   state => ({
-    app : state.app
+    app : state.app,
+    user: state.user
   })
 )
 
 export default class extends React.Component {
   static propTypes = {
-    app : React.PropTypes.object.isRequired
+    app : React.PropTypes.object.isRequired,
+    user: React.PropTypes.object.isRequired
   }
 
   render() {
-    const {app} = this.props
+    const {app, user} = this.props
     if ('unauthenticated' === app.get('facebookStatus')) {
       return (
-        <Container header={false} footer={false} cover={'splash'}>
-          <Title style={[styles.title, styles.bottomPadded]}>Extreme Meetups</Title>
+        <Container header={false} footer={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.get('gender'), orientation:user.get('orientation')}}}>
+          <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
+          <Title style={[styles.subtitle, styles.shadowed]}>Are you ready ?</Title>
           <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
         </Container>
       )
@@ -40,14 +43,15 @@ export default class extends React.Component {
             <Button success onPress={goToFriendsScene}>Friends</Button>
             <Button success onPress={goToProfileScene}>Profile</Button>
             <Button success onPress={goToVideoScene}>Ready!</Button>
-            <Button warning onPress={goToLogoutScene}>Logout...</Button>
+            <Button warning onPress={goToLogoutScene}>Logout</Button>
           </Container>
         )
     } else {
       return (
-        <Container header={false} footer={false} cover={'splash'}>
-          <Title style={styles.title}>Extreme Meetups</Title>
-          <Spinner color='yellow'/>
+        <Container header={false} footer={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.get('gender'), orientation:user.get('orientation')}}}>
+          <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
+          <Title style={[styles.subtitle, styles.shadowed]}>Almost there ...</Title>
+          <Spinner style={styles.shadowed} color='white' />
         </Container>
       )
     }
