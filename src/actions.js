@@ -116,6 +116,12 @@ export function facebookGraphGetProfile() {
 }
 
 function loginUser(data) {
+
+
+  emitSocketUserLoginEvent(data)
+  return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
+
+  /*
   navigator.geolocation.getCurrentPosition(
     function(geo) {
       var current = {
@@ -137,10 +143,11 @@ function loginUser(data) {
         emitSocketUserLoginEvent(data)
         return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
       }
-    }, function(error) { goToErrorScene('Unable to retrieve location. Please ensure that the application on this device has permission to access "location" data.') } ,{
+    }, function(error) { alert(JSON.stringify(error)); goToErrorScene('Unable to retrieve location. Please ensure that the application on this device has permission to access "location" data.') } ,{
       enableHighAccuracy: true
     }
   )
+  */
 }
 
 export function queryUser() {

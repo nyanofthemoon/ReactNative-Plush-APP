@@ -83,7 +83,7 @@ export default {
 
     tabBgColor: '#F8F8F8',
     tabFontSize: 15,
-    tabTextColor: '#fff',
+    tabTextColor: '#000',
 
     btnDisabledBg: '#b5b5b5',
     btnDisabledClr: '#f1f1f1',
