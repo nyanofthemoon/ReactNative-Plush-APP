@@ -116,12 +116,6 @@ export function facebookGraphGetProfile() {
 }
 
 function loginUser(data) {
-
-
-  emitSocketUserLoginEvent(data)
-  return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
-
-  /*
   navigator.geolocation.getCurrentPosition(
     function(geo) {
       var current = {
@@ -147,7 +141,6 @@ function loginUser(data) {
       enableHighAccuracy: true
     }
   )
-  */
 }
 
 export function queryUser() {
