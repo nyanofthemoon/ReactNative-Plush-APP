@@ -15,10 +15,10 @@ import Error from './containers/Error'
 
 const scenes = Actions.create(
   <Scene key='root' hideNavBar={true}>
-    <Scene key='home' component={Home} type={ActionConst.PUSH_OR_POP} />
-    <Scene key='friends' component={Friends} type={ActionConst.PUSH_OR_POP}/>
-    <Scene key='profile' component={Profile} type={ActionConst.PUSH_OR_POP}/>
-    <Scene key='video' component={Video} type={ActionConst.PUSH_OR_POP}/>
+    <Scene key='home' component={Home} type={ActionConst.RESET} />
+    <Scene key='friends' component={Friends} type={ActionConst.REPLACE}/>
+    <Scene key='profile' component={Profile} type={ActionConst.REPLACE}/>
+    <Scene key='video' component={Video} type={ActionConst.REPLACE}/>
     <Scene key='logout' component={Logout} type={ActionConst.PUSH_OR_POP}/>
     <Scene key='error' component={Error} type={ActionConst.PUSH_OR_POP} />
   </Scene>
