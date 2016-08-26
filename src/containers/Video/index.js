@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import Carousel from 'react-native-looped-carousel'
 import {default as Sound} from 'react-native-sound'
 
-import { goToHomeScene, updateMatch } from './../../actions'
+import { updateMatch } from './../../actions'
 import { getSocketId } from './../../helpers/socket'
 
 import Container from './../../components/Container'
@@ -113,7 +113,6 @@ export default class extends React.Component {
             { 'audio' !== status ?
               (
                 <View>
-                  <Button success onPress={goToHomeScene}>Back</Button>
                   <Text>Waiting In Queue</Text>
                   <Carousel delay={60000} style={this.state.size}>
                     <View style={[{backgroundColor:'lightgreen'}, this.state.size]}>
@@ -159,7 +158,7 @@ export default class extends React.Component {
               (
                 <Timer key='results_audio' milliseconds={room.get('timer')} />
               ) : (
-                <Button success onPress={goToHomeScene}>Back</Button>
+                null
               )
             }
           </Container>
@@ -196,7 +195,6 @@ export default class extends React.Component {
                 null
               )
             }
-            <Button success onPress={goToHomeScene}>Back</Button>
           </Container>
         )
         break
@@ -205,7 +203,6 @@ export default class extends React.Component {
           <Container header={true} footer={false}>
             <Text>Terminated</Text>
             <Text>Sorry - Peer Left</Text>
-            <Button success onPress={goToHomeScene}>Back</Button>
           </Container>
         )
         break

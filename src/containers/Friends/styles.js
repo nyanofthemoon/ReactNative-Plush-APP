@@ -9,7 +9,8 @@ export default StyleSheet.create({
 
   searchBar: {
     paddingTop: -5,
-    marginLeft: 5
+    marginLeft: 5,
+    height: 40
   },
 
   searchInput: {

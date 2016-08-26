@@ -7,8 +7,6 @@ import { Header, InputGroup, Icon, Button, Input, Tabs, Title } from 'native-bas
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
-import { goToHomeScene } from './../../actions'
-
 import Container from './../../components/Container'
 import FriendTab from './../../components/FriendTab'
 import DateTab from './../../components/DateTab'
@@ -33,7 +31,6 @@ export default class extends React.Component {
           <FriendTab tabLabel='Friendships' />
           <DateTab tabLabel='Relationships' />
         </ScrollableTabView>
-        <Button success onPress={goToHomeScene}>Back</Button>
       </Container>
     )
   }

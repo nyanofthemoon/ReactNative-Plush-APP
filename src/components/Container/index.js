@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react'
-import{ AppState, Dimensions, StatusBar, View, Image } from 'react-native'
+import { AppState, Dimensions, StatusBar, View, Image } from 'react-native'
 import { Container, Header, Content, Footer, Title, Button, Icon } from 'native-base'
 
 import { AdMobInterstitial } from 'react-native-admob'
@@ -10,6 +10,7 @@ import { loadUserData, handleAppStateChange, handleAppMemoryWarning, canShowAd }
 
 import renderIf from './../../helpers/renderIf'
 
+import { goToFriendsScene, goToHomeScene, goToProfileScene, goToLogoutScene } from './../../actions'
 import Config from './../../config'
 
 import theme  from './themes/default'
@@ -64,12 +65,25 @@ export default class extends Component {
     }
   }
 
+  // icons : http://ionicframework.com/docs/v2/ionicons/
   render() {
     return (
       <Container key='container' theme={theme} style={styles.container}>
         {renderIf(this.props.header)(
           <Header key='header' style={styles.header}>
-            <Title>Extreme Meetups</Title>
+              <Button transparent onPress={goToHomeScene}>
+                <Icon name='md-home' />
+              </Button>
+              <Button transparent onPress={goToFriendsScene}>
+                <Icon name='md-contacts' />
+              </Button>
+              <Title>Extreme Meetups</Title>
+              <Button transparent onPress={goToProfileScene}>
+                <Icon name='md-settings' />
+              </Button>
+              <Button transparent onPress={goToLogoutScene}>
+                <Icon name='md-close-circle' />
+              </Button>
           </Header>
         )}
         <Content key='content' scrollEnabled={this.props.scrollEnabled || false}>

@@ -5,7 +5,7 @@ import { View, Text } from 'react-native'
 import { Spinner, Button, Title } from 'native-base'
 import { connect } from 'react-redux'
 
-import { facebookConnectionSuccess, facebookConnectionFailure, goToFriendsScene, goToProfileScene, goToVideoScene, goToLogoutScene } from './../../actions'
+import { facebookConnectionSuccess, facebookConnectionFailure, goToVideoScene } from './../../actions'
 
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
@@ -40,10 +40,7 @@ export default class extends React.Component {
     } else if ('connected' === app.get('apiStatus')) {
         return (
           <Container header={true} footer={true}>
-            <Button success onPress={goToFriendsScene}>Friends</Button>
-            <Button success onPress={goToProfileScene}>Profile</Button>
             <Button success onPress={goToVideoScene}>Ready!</Button>
-            <Button warning onPress={goToLogoutScene}>Logout</Button>
           </Container>
         )
     } else {
