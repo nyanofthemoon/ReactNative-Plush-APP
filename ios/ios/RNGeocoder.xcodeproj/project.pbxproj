@@ -5,10 +5,14 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		BF8FCF981BFFB184000FCD37 /* RNGeocoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = BF8FCF971BFFB184000FCD37 /* RNGeocoder.h */; };
 		BF8FCF9A1BFFB184000FCD37 /* RNGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = BF8FCF991BFFB184000FCD37 /* RNGeocoder.m */; };
+		46E09FA0434B4073A0013A9F /* libRNAdMobManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DD553FF75647868C78DE9F /* libRNAdMobManager.a */; };
+		0E7FB899D30049C0BCBDF47A /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15D0E2B6CA57445A8BB41C6D /* libRCTFBSDK.a */; };
+		F224EE26AA624A988DE29FC6 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFBC986736CA4485871D5A20 /* libRNSound.a */; };
+		2DB0805878EE44F7BAD1E29F /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5CA2BDE3B1D4AB888B78C3F /* libRNVectorIcons.a */; };
+		2CC895CD5E504C03ADD24D7A /* libRCTWebRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D47121BEA14B29A276BD02 /* libRCTWebRTC.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +32,17 @@
 		BF8FCF941BFFB184000FCD37 /* libRNGeocoder.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNGeocoder.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8FCF971BFFB184000FCD37 /* RNGeocoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNGeocoder.h; sourceTree = "<group>"; };
 		BF8FCF991BFFB184000FCD37 /* RNGeocoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNGeocoder.m; sourceTree = "<group>"; };
+		19EEF011253D48E9B1812DCB /* RNAdMobManager.xcodeproj */ = {isa = PBXFileReference; name = "RNAdMobManager.xcodeproj"; path = "../../node_modules/react-native-admob/ios/RNAdMobManager.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		F7DD553FF75647868C78DE9F /* libRNAdMobManager.a */ = {isa = PBXFileReference; name = "libRNAdMobManager.a"; path = "libRNAdMobManager.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		E3295EDE78FB4B8385E6A669 /* RCTFBSDK.xcodeproj */ = {isa = PBXFileReference; name = "RCTFBSDK.xcodeproj"; path = "../../node_modules/react-native-fbsdk/ios/RCTFBSDK.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		15D0E2B6CA57445A8BB41C6D /* libRCTFBSDK.a */ = {isa = PBXFileReference; name = "libRCTFBSDK.a"; path = "libRCTFBSDK.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		0756EE2FFDD5455597452C1D /* RNGeocoder.xcodeproj */ = {isa = PBXFileReference; name = "RNGeocoder.xcodeproj"; path = "../../node_modules/react-native-geocoder/ios/RNGeocoder.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		7521CE1B23BD4DCEB65B05B9 /* RNSound.xcodeproj */ = {isa = PBXFileReference; name = "RNSound.xcodeproj"; path = "../../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		BFBC986736CA4485871D5A20 /* libRNSound.a */ = {isa = PBXFileReference; name = "libRNSound.a"; path = "libRNSound.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		3B06316D2ED8446EBF5F1E68 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; name = "RNVectorIcons.xcodeproj"; path = "../../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		E5CA2BDE3B1D4AB888B78C3F /* libRNVectorIcons.a */ = {isa = PBXFileReference; name = "libRNVectorIcons.a"; path = "libRNVectorIcons.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		6B2DB851558B4852BDAD17F7 /* RCTWebRTC.xcodeproj */ = {isa = PBXFileReference; name = "RCTWebRTC.xcodeproj"; path = "../../node_modules/react-native-webrtc/ios/RCTWebRTC.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		49D47121BEA14B29A276BD02 /* libRCTWebRTC.a */ = {isa = PBXFileReference; name = "libRCTWebRTC.a"; path = "libRCTWebRTC.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +50,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46E09FA0434B4073A0013A9F /* libRNAdMobManager.a in Frameworks */,
+				0E7FB899D30049C0BCBDF47A /* libRCTFBSDK.a in Frameworks */,
+				F224EE26AA624A988DE29FC6 /* libRNSound.a in Frameworks */,
+				2DB0805878EE44F7BAD1E29F /* libRNVectorIcons.a in Frameworks */,
+				2CC895CD5E504C03ADD24D7A /* libRCTWebRTC.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +66,7 @@
 			children = (
 				BF8FCF961BFFB184000FCD37 /* RNGeocoder */,
 				BF8FCF951BFFB184000FCD37 /* Products */,
+				A793F0C0EBA8442AA2E1C876 /* Libraries */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +85,20 @@
 				BF8FCF991BFFB184000FCD37 /* RNGeocoder.m */,
 			);
 			path = RNGeocoder;
+			sourceTree = "<group>";
+		};
+		A793F0C0EBA8442AA2E1C876 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				19EEF011253D48E9B1812DCB /* RNAdMobManager.xcodeproj */,
+				E3295EDE78FB4B8385E6A669 /* RCTFBSDK.xcodeproj */,
+				0756EE2FFDD5455597452C1D /* RNGeocoder.xcodeproj */,
+				7521CE1B23BD4DCEB65B05B9 /* RNSound.xcodeproj */,
+				3B06316D2ED8446EBF5F1E68 /* RNVectorIcons.xcodeproj */,
+				6B2DB851558B4852BDAD17F7 /* RCTWebRTC.xcodeproj */,
+			);
+			name = Libraries;
+			path = "";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -92,7 +127,7 @@
 		BF8FCF8C1BFFB184000FCD37 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 710;
 				ORGANIZATIONNAME = devfd;
 				TargetAttributes = {
 					BF8FCF931BFFB184000FCD37 = {
@@ -216,6 +251,14 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 			};
 			name = Debug;
 		};
@@ -226,6 +269,14 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 			};
 			name = Release;
 		};

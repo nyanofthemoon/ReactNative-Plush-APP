@@ -10,6 +10,10 @@ export default StyleSheet.create({
   searchBar: {
     paddingTop: -5,
     marginLeft: 5
+  },
+
+  searchInput: {
+    paddingTop: -7
   }
 
 })

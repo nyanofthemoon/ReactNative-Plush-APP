@@ -16,6 +16,8 @@ var { RTCPeerConnection, RTCIceCandidate, RTCSessionDescription, RTCView, MediaS
 
 import { goToErrorScene } from './../../actions'
 
+import Config from './../../config'
+
 import styles from './styles'
 
 let globalStream = null
@@ -182,7 +184,7 @@ export default class extends React.Component {
           frontCameraExists = true
         }
       }
-      if (!frontCameraExists) {
+      if (!Config.environment.isDevelopment() && !frontCameraExists) {
         return goToErrorScene('Unable to access camera. Please ensure that this device has both a functional front camera and the required permission to access it.')
       } else {
         if ('video' != that.props.data.mode) {

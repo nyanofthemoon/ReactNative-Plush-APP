@@ -10,7 +10,7 @@ let socket
 
 export function createSocketConnection() {
   if (false === isSocketConnected()) {
-    socket = io(Config.environment.protocol + '://' + Config.environment.host + Config.environment.port, {
+    socket = io(Config.environment.getServerUrl(), {
       transports: ['websocket'],
       jsonp     : false,
       query     : {

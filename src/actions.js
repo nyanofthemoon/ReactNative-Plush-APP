@@ -70,7 +70,7 @@ function socketConnectionRequest() {
             return queryUserReception(data)
           case 'room':
             return queryRoomReception(data)
-          default    :
+          default:
             return queryUnknownReception(data)
         }
       })
@@ -116,31 +116,41 @@ export function facebookGraphGetProfile() {
 }
 
 function loginUser(data) {
-  navigator.geolocation.getCurrentPosition(
-    function(geo) {
-      var current = {
-        // http://gis.stackexchange.com/questions/8650/measuring-accuracy-of-latitude-and-longitude
-        lat: parseFloat(geo.coords.latitude.toFixed(1)),
-        lng: parseFloat(geo.coords.longitude.toFixed(1))
+  if (false === Config.environment.isDevelopment()) {
+    navigator.geolocation.getCurrentPosition(
+      function (geo) {
+        var current = {
+          // http://gis.stackexchange.com/questions/8650/measuring-accuracy-of-latitude-and-longitude
+          lat: parseFloat(geo.coords.latitude.toFixed(1)),
+          lng: parseFloat(geo.coords.longitude.toFixed(1))
+        }
+        if (current.lng != _getState().user.getIn(['location', 'longitude']) || current.lat != _getState().user.getIn(['location', 'latitude'])) {
+          Geocoder.geocodePosition(current).then(res => {
+              data.country = res[0].country
+              data.city = res[0].locality
+              data.latitude = current.lat
+              data.longitude = current.lng
+              emitSocketUserLoginEvent(data)
+              return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
+            })
+            .catch(error => {
+              goToErrorScene('Unable to analyze location. The application might be run on an older device either unable or having difficulties analyzing "location" data.')
+            })
+        } else {
+          emitSocketUserLoginEvent(data)
+          return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
+        }
+      }, function (error) {
+        alert(JSON.stringify(error));
+        goToErrorScene('Unable to retrieve location. Please ensure that the application on this device has permission to access "location" data.')
+      }, {
+        enableHighAccuracy: true
       }
-      if (current.lng != _getState().user.getIn(['location','longitude']) || current.lat != _getState().user.getIn(['location','latitude'])) {
-        Geocoder.geocodePosition(current).then(res => {
-            data.country = res[0].country
-            data.city = res[0].locality
-            data.latitude = current.lat
-            data.longitude = current.lng
-            emitSocketUserLoginEvent(data)
-            return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
-          })
-          .catch(error => { goToErrorScene('Unable to analyze location. The application might be run on an older device either unable or having difficulties analyzing "location" data.') })
-      } else {
-        emitSocketUserLoginEvent(data)
-        return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
-      }
-    }, function(error) { alert(JSON.stringify(error)); goToErrorScene('Unable to retrieve location. Please ensure that the application on this device has permission to access "location" data.') } ,{
-      enableHighAccuracy: true
-    }
-  )
+    )
+  } else {
+    emitSocketUserLoginEvent(data)
+    return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
+  }
 }
 
 export function queryUser() {
@@ -151,9 +161,13 @@ export function queryUser() {
 function queryUserReception(data) {
   Db.saveUser(data.data, function () {
     if (_getState().app.get('apiStatus') !== 'connected') {
-      setTimeout(function() {
+      if (!Config.environment.isDevelopment()) {
         dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
-      }, 2500)
+      } else {
+        setTimeout(function() {
+          dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
+        }, 2000)
+      }
     } else {
       dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
     }

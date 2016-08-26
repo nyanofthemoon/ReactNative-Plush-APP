@@ -19,7 +19,7 @@ export default class extends React.Component {
         <Header searchBar rounded style={styles.searchBar}>
           <InputGroup>
             <Icon name='ios-search' />
-            <Input placeholder='Search' />
+            <Input placeholder='Search' style={styles.searchInput} />
             <Icon name='ios-people' />
           </InputGroup>
           <Button transparent>

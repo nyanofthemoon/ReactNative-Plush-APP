@@ -1,5 +1,16 @@
 'use strict'
 
+let environment = {
+  //name    : 'development',
+  //protocol: 'http',
+  //host    : 'localhost',
+  //port    : ':8888'
+  name    : 'development',
+  protocol: 'https',
+  host    : 'camroulette-api.herokuapp.com',
+  port    : ''
+}
+
 module.exports = {
 
   // paid version will have another id - force people to have the latest version
@@ -34,14 +45,12 @@ module.exports = {
   },
 
   environment: {
-    //name    : 'development',
-    //protocol: 'http',
-    //host    : 'localhost',
-    //port    : ':8888'
-    name    : 'development',
-    protocol: 'https',
-    host    : 'camroulette-api.herokuapp.com',
-    port    : ''
+    isDevelopment: function() {
+      return ('development' === environment.name)
+    },
+    getServerUrl: function() {
+      return environment.protocol + '://' + environment.host + environment.port
+    }
   }
 
 }
