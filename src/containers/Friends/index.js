@@ -4,6 +4,9 @@ import React, { Component } from 'react'
 import { Text } from 'react-native'
 import { Header, InputGroup, Icon, Button, Input, Tabs, Title } from 'native-base'
 
+
+import ScrollableTabView from 'react-native-scrollable-tab-view'
+
 import { goToHomeScene } from './../../actions'
 
 import Container from './../../components/Container'
@@ -26,12 +29,10 @@ export default class extends React.Component {
             Search
           </Button>
         </Header>
-        <Tabs>
-          <FriendTab tabLabel='Friends' />
-          <DateTab tabLabel='Dates' />
-        </Tabs>
-
-
+        <ScrollableTabView tabBarBackgroundColor='#f8f8f8' tabBarActiveTextColor='black' tabBarInactiveTextColor='black' tabBarUnderlineColor='black' tabBarTextStyle={styles.tabBarTextStyle}>
+          <FriendTab tabLabel='Friendships' />
+          <DateTab tabLabel='Relationships' />
+        </ScrollableTabView>
         <Button success onPress={goToHomeScene}>Back</Button>
       </Container>
     )

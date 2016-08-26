@@ -4134,6 +4134,11 @@
         }
       }
     },
+    "react-native-scrollable-tab-view": {
+      "version": "0.5.4",
+      "from": "react-native-scrollable-tab-view@latest",
+      "resolved": "https://registry.npmjs.org/react-native-scrollable-tab-view/-/react-native-scrollable-tab-view-0.5.4.tgz"
+    },
     "react-native-simple-store": {
       "version": "1.1.0",
       "from": "react-native-simple-store@>=1.0.1 <2.0.0",

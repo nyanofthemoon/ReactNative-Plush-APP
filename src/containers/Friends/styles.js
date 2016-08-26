@@ -14,6 +14,12 @@ export default StyleSheet.create({
 
   searchInput: {
     paddingTop: -7
+  },
+
+  tabBarTextStyle: {
+    fontSize: 15,
+    lineHeight: 20,
+    fontFamily: 'Helvetica'
   }
 
 })

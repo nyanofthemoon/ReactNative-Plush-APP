@@ -16,7 +16,7 @@ export default class extends React.Component {
   render() {
     return (
       <View>
-        <Text></Text>
+        <Text>Date Tab Content</Text>
       </View>
     )
   }
