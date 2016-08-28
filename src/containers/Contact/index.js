@@ -8,28 +8,19 @@ import { Header, InputGroup, Icon, Button, Input, Tabs, Title } from 'native-bas
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
 import Container from './../../components/Container'
-import FriendTab from './../../components/FriendTab'
-import DateTab from './../../components/DateTab'
+import ProfileTab from './../../components/ProfileTab'
+import ConversationTab from './../../components/ConversationTab'
 
 import styles from './styles'
 
 export default class extends React.Component {
   render() {
+    let type = 'Relationship'
     return (
-      <Container header={true} footer={false}>
-        <Header searchBar rounded style={styles.searchBar}>
-          <InputGroup>
-            <Icon name='ios-search' />
-            <Input placeholder='Search' style={styles.searchInput} />
-            <Icon name='ios-people' />
-          </InputGroup>
-          <Button transparent>
-            Search
-          </Button>
-        </Header>
+      <Container header={true} headerTitle={type}>
         <ScrollableTabView tabBarBackgroundColor='#f8f8f8' tabBarActiveTextColor='black' tabBarInactiveTextColor='black' tabBarUnderlineColor='black' tabBarTextStyle={styles.tabBarTextStyle}>
-          <FriendTab tabLabel='Friendships' />
-          <DateTab tabLabel='Relationships' />
+          <ProfileTab tabLabel='Profile' />
+          <ConversationTab tabLabel='Conversation' />
         </ScrollableTabView>
       </Container>
     )

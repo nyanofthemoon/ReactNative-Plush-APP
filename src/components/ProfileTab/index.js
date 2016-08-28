@@ -1,15 +1,22 @@
 'use strict'
 
 import React from 'react'
-import { View, Text } from 'react-native'
+import { Text, View } from 'react-native'
 
 import styles from './styles'
 
 export default class extends React.Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+    }
+  }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>[ User Statistics Component ]</Text>
+      <View>
+        <Text>Profile Tab</Text>
       </View>
     )
   }

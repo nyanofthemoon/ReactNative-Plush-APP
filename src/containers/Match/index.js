@@ -14,6 +14,7 @@ import Container from './../../components/Container'
 import RTCView from './../../components/RTCView'
 import Timer from './../../components/Timer'
 import MatchVote from './../../components/MatchVote'
+import LatestOutcome from './../../components/LatestOutcome'
 
 import Config from './../../config'
 
@@ -99,21 +100,23 @@ export default class extends React.Component {
   render() {
     const {app, room} = this.props
     let status = room.get('status')
+    let footer = null
     switch(status) {
       default:
       case 'waiting':
       case 'audio':
         let header = true
+        footer = <LatestOutcome />
         if ('audio' === status) {
           header = false
+          footer = <Timer key='audio' milliseconds={room.get('timer')} />
           this._vibrate()
         }
         return (
-          <Container header={header} footer={false}>
+          <Container header={header} footer={footer} headerTitle='Waiting Room'>
             { 'audio' !== status ?
               (
                 <View>
-                  <Text>Waiting In Queue</Text>
                   <Carousel delay={60000} style={this.state.size}>
                     <View style={[{backgroundColor:'lightgreen'}, this.state.size]}>
                       <Text>Slide 1</Text>
@@ -129,79 +132,66 @@ export default class extends React.Component {
               ) : (
               <View>
                 <Text>Audio Only</Text>
-                <Timer key='audio' milliseconds={room.get('timer')} />
               </View>
               )
             }
-            <RTCView key='rtc_audio' data={{ mode: 'audio', kind: 'match', type: 'relationship', name: room.get('name'), flush: true }} socket={app.get('socket')} config={Config.webrtc} />
+            <RTCView key='rtc_audio' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), flush: true }} socket={app.get('socket')} config={Config.webrtc} />
           </Container>
         )
         break
       case 'selection_audio':
+        footer = <Timer key='selection_audio' milliseconds={room.get('timer')} />
         return (
-          <Container header={false} footer={false}>
-            <Text>Selection Audio</Text>
+          <Container header={true} footer={footer} headerTitle='Your Thoughts'>
             <MatchVote step='audio' handlePositiveVote={this._handlePositiveAudioVote} handleNegativeVote={this._handleNegativeAudioVote} />
             <Timer key='selection_audio' milliseconds={room.get('timer')} />
           </Container>
         )
         break
       case 'results_audio':
+        if (true === matchAudio.positive) {
+          footer = <Timer key='results_audio' milliseconds={room.get('timer')} />
+        }
         let matchAudio = this._evaluateMatchResults('audio', room.get('results').toJSON())
         return (
-          <Container header={false} footer={false}>
-            <Text>Result Audio</Text>
+          <Container header={true} footer={footer} headerTitle='The Outcome'>
             <Text>{JSON.stringify(matchAudio)}</Text>
             <Text>You said {matchAudio.myself}</Text>
             <Text>Other said {matchAudio.other}</Text>
-            { true === matchAudio.positive ?
-              (
-                <Timer key='results_audio' milliseconds={room.get('timer')} />
-              ) : (
-                null
-              )
-            }
           </Container>
         )
         break
       case 'video':
+        footer = <Timer key='video' milliseconds={room.get('timer')} />
         return (
-          <Container header={false} footer={false}>
-            <RTCView key='rtc_video' data={{ mode: 'video', kind: 'match', type: 'relationship', name: room.get('name'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
-            <Timer key='video' milliseconds={room.get('timer')} />
+          <Container header={false}>
+            <RTCView key='rtc_video' footer={footer} data={{ mode: 'video', kind: 'match', type: app.get('matchMode'), name: room.get('name'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
           </Container>
         )
         break
       case 'selection_video':
+        footer = <Timer key='selection_video' milliseconds={room.get('timer')} />
         return (
-          <Container header={false} footer={false}>
-            <Text>Selection Video</Text>
+          <Container header={true} footer={footer} headerTitle='Your Thoughts'>
             <MatchVote step='video' handlePositiveVote={this._handlePositiveVideoVote} handleNegativeVote={this._handleNegativeVideoVote} />
-            <Timer key='selection_video' milliseconds={room.get('timer')} />
           </Container>
         )
         break
       case 'results_video':
         let matchVideo = this._evaluateMatchResults('video', room.get('results').toJSON())
+        if (true === matchVideo.positive) {
+          footer = <Text>Congratulation! It's A Match!</Text>
+        }
         return (
-          <Container header={true} footer={false}>
-            <Text>Result Video</Text>
+          <Container header={true} footer={footer} headerTitle='The Outcome'>
             <Text>You said {matchVideo.myself}</Text>
             <Text>Other said {matchVideo.other}</Text>
-            { true === matchVideo.positive ?
-              (
-                <Text>Congratulation! It's A Match!</Text>
-              ) : (
-                null
-              )
-            }
           </Container>
         )
         break
       case 'terminated':
         return (
-          <Container header={true} footer={false}>
-            <Text>Terminated</Text>
+          <Container header={true} headerTitle='Oops!'>
             <Text>Sorry - Peer Left</Text>
           </Container>
         )

@@ -9,7 +9,9 @@ const initialState = fromJS({
   socketStatus  : 'disconnected',
   socket        : null,
   apiStatus     : 'disconnected',
-  errorMessage  : null
+  errorMessage  : null,
+  currentScene  : null,
+  matchMode     : null
 })
 
 export default (state = initialState, action) => {
@@ -54,13 +56,35 @@ export default (state = initialState, action) => {
     case types.SOCKET_QUERY_USER_RECEIVED:
       nextState = fromJS(state).set('apiStatus', 'connected')
       break
+    case types.SCENE_NAVIGATION_CONTACTS:
+      nextState = fromJS(state).set('currentScene', 'contacts')
+      break
+    case types.SCENE_NAVIGATION_CONTACT:
+      nextState = fromJS(state).set('currentScene', 'contact')
+      break
+    case types.SCENE_NAVIGATION_PROFILE:
+      nextState = fromJS(state).set('currentScene', 'profile')
+      break
+    case types.SCENE_NAVIGATION_HOME:
+      nextState = fromJS(state).set('currentScene', 'home')
+      break
+    case types.SCENE_NAVIGATION_LOGOUT:
+      nextState = fromJS(state).set('currentScene', 'logout')
+      break
+    case types.SCENE_NAVIGATION_MATCH:
+      nextState = fromJS(state).merge({
+        currentScene: 'match',
+        matchMode   : action.payload
+      })
+      break
     case types.SCENE_NAVIGATION_ERROR:
       nextState = fromJS(state).merge({
         facebookStatus: 'unauthenticated',
         socketStatus  : 'disconnected',
         apiStatus     : 'disconnected',
         socket        : null,
-        errorMessage  : action.payload
+        errorMessage  : action.payload,
+        currentScene  : 'error'
       })
     default:
       break

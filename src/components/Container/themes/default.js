@@ -1,6 +1,10 @@
+'use strict'
+
+// http://nativebase.io/docs/v0.4.6/customize
+
 import Color from 'color';
 
-import {Platform} from 'react-native'
+import {Platform} from 'react-native';
 
 export default {
     brandPrimary : 'transparent',
@@ -10,14 +14,14 @@ export default {
     brandWarning: '#f0ad4e',
     brandSidebar: '#252932',
 
-    fontFamily: (Platform.OS === 'ios' ) ? 'Helvetica' : 'Roboto',
-    btnFontFamily: (Platform.OS === 'ios' ) ? 'Helvetica' : 'Roboto_medium',
+    fontFamily: (Platform.OS === 'ios' ) ? 'HelveticaNeue' : 'Roboto',
+    btnFontFamily: (Platform.OS === 'ios' ) ? 'HelveticaNeue' : 'Roboto_medium',
     iconFamily: 'Ionicons',
 
-    inverseTextColor: '#fff',
-    textColor: '#000',
+    inverseTextColor: '#ffffff',
+    textColor: '#ffffff',
 
-    subtitleColor: '#8e8e93',
+    subtitleColor: '#ffffff',
 
     fontSizeBase: 15,
     titleFontSize: (Platform.OS === 'ios' ) ? 17 : 19,
@@ -65,9 +69,9 @@ export default {
     toolbarDefaultBg: (Platform.OS === 'ios' ) ? '#F8F8F8' : '#039BE5',
     toolbarInverseBg: '#222',
 
-    iosToolbarBtnColor: '#007aff',
+    iosToolbarBtnColor: '#ffffff',
 
-    toolbarTextColor: (Platform.OS==='ios') ? '#000' : '#fff',
+    toolbarTextColor: (Platform.OS==='ios') ? '#fff' : '#fff',
 
     checkboxBgColor: '#039BE5',
     checkboxTickColor: '#fff',
@@ -81,9 +85,9 @@ export default {
 
     radioBtnSize: (Platform.OS === 'ios') ? 25 : 23,
 
-    tabBgColor: '#F8F8F8',
+    tabBgColor: '#262672',
     tabFontSize: 15,
-    tabTextColor: '#000',
+    tabTextColor: '#fff',
 
     btnDisabledBg: '#b5b5b5',
     btnDisabledClr: '#f1f1f1',
@@ -156,6 +160,7 @@ export default {
     listBorderColor: '#ddd',
     listDividerBg: '#ddd',
     listItemPadding: 9,
+    listItemHeight: 45,
     listNoteColor: '#808080',
     listNoteSize: 13,
 

@@ -5,7 +5,7 @@ import { View, Text } from 'react-native'
 import { Spinner, Button, Title } from 'native-base'
 import { connect } from 'react-redux'
 
-import { facebookConnectionSuccess, facebookConnectionFailure, goToVideoScene } from './../../actions'
+import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchScene } from './../../actions'
 
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
@@ -27,11 +27,19 @@ export default class extends React.Component {
     user: React.PropTypes.object.isRequired
   }
 
+  _launchFrienshipSearch() {
+    goToMatchScene('friendship')
+  }
+
+  _launchRelationshipSearch() {
+    goToMatchScene('relationship')
+  }
+
   render() {
     const {app, user} = this.props
     if ('unauthenticated' === app.get('facebookStatus')) {
       return (
-        <Container header={false} footer={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
+        <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
           <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
           <Title style={[styles.subtitle, styles.shadowed]}>Are you ready ?</Title>
           <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
@@ -39,13 +47,14 @@ export default class extends React.Component {
       )
     } else if ('connected' === app.get('apiStatus')) {
         return (
-          <Container header={true} footer={true}>
-            <Button success onPress={goToVideoScene}>Ready!</Button>
+          <Container header={true}>
+            <Button large success onPress={this._launchRelationshipSearch}>Find Relationships</Button>
+            <Button large info onPress={this._launchFrienshipSearch}>Find Friendships</Button>
           </Container>
         )
     } else {
       return (
-        <Container header={false} footer={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
+        <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
           <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
           <Title style={[styles.subtitle, styles.shadowed]}>Almost there ...</Title>
           <Spinner style={styles.shadowed} color='white' />

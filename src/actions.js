@@ -193,10 +193,16 @@ export function goToHomeScene(data) {
   Actions.home()
 }
 
-export function goToFriendsScene(data) {
-  dispatch({type: types.SCENE_NAVIGATION_FRIENDS, payload: data})
+export function goToContactsScene(data) {
+  dispatch({type: types.SCENE_NAVIGATION_CONTACTS, payload: data})
   emitSocketUserLeaveEvent()
-  Actions.friends()
+  Actions.contacts()
+}
+
+export function goToContact(data) {
+  dispatch({type: types.SCENE_NAVIGATION_CONTACT, payload: data})
+  emitSocketUserLeaveEvent()
+  Actions.contact()
 }
 
 export function goToProfileScene(data) {
@@ -205,10 +211,10 @@ export function goToProfileScene(data) {
   Actions.profile()
 }
 
-export function goToVideoScene(data) {
-  dispatch({type: types.SCENE_NAVIGATION_VIDEO, payload: data})
+export function goToMatchScene(data) {
+  dispatch({type: types.SCENE_NAVIGATION_MATCH, payload: data})
   emitSocketUserLeaveEvent()
-  Actions.video()
+  Actions.matchs()
 }
 
 export function goToLogoutScene(data) {

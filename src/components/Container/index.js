@@ -10,7 +10,7 @@ import { loadUserData, handleAppStateChange, handleAppMemoryWarning, canShowAd }
 
 import renderIf from './../../helpers/renderIf'
 
-import { goToFriendsScene, goToHomeScene, goToProfileScene, goToLogoutScene } from './../../actions'
+import { goToContactsScene, goToHomeScene, goToProfileScene, goToLogoutScene } from './../../actions'
 import Config from './../../config'
 
 import theme  from './themes/default'
@@ -71,18 +71,15 @@ export default class extends Component {
       <Container key='container' theme={theme} style={styles.container}>
         {renderIf(this.props.header)(
           <Header key='header' style={styles.header}>
-              <Button transparent onPress={goToHomeScene}>
-                <Icon name='md-home' />
+              <Button onPress={goToHomeScene}>
+                <Icon white name='md-home' />
               </Button>
-              <Button transparent onPress={goToFriendsScene}>
+              <Button onPress={goToContactsScene}>
                 <Icon name='md-contacts' />
               </Button>
-              <Title>Extreme Meetups</Title>
-              <Button transparent onPress={goToProfileScene}>
+              <Title style={styles.title}>{this.props.headerTitle || 'Extreme Meetups'}</Title>
+              <Button onPress={goToProfileScene}>
                 <Icon name='md-settings' />
-              </Button>
-              <Button transparent onPress={goToLogoutScene}>
-                <Icon name='md-close-circle' />
               </Button>
           </Header>
         )}
@@ -100,10 +97,15 @@ export default class extends Component {
             )
           }
         </Content>
-        {renderIf(this.props.footer)(
-          <Footer key='footer' style={styles.footer}>
-          </Footer>
-        )}
+        { this.props.footer ?
+          (
+            <Footer key='footer' style={styles.footer}>
+              {this.props.footer}
+            </Footer>
+          ) : (
+            null
+          )
+        }
       </Container>
     )
   }

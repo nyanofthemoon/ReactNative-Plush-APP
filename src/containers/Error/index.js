@@ -22,7 +22,7 @@ export default class extends React.Component {
   render() {
     const {app} = this.props
     return (
-      <Container header={false} footer={false} cover={'error'}>
+      <Container header={false} cover={'error'}>
         <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
         <Title style={[styles.subtitle, styles.shadowed]}>Uhh? That was strange...</Title>
         <Title style={[styles.message, styles.shadowed]}>{app.get('errorMessage')}</Title>

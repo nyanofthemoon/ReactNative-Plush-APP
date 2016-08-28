@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import Container from './../../components/Container'
 import ProfileForm from './../../components/ProfileForm'
 
+import { goToLogoutScene } from './../../actions'
+
 import styles from './styles'
 
 @connect(
@@ -24,8 +26,9 @@ export default class extends React.Component {
   render() {
     const {user} = this.props
     return (
-      <Container header={true} footer={true} scrollEnabled={true}>
+      <Container header={true} headerTitle='Profile' scrollEnabled={true}>
         <ProfileForm user={user.toJSON()}/>
+        <Button success onPress={goToLogoutScene}>Logout</Button>
       </Container>
     )
   }
