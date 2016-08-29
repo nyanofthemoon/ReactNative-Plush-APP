@@ -3,6 +3,8 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 
+import * as Animatable from 'react-native-animatable'
+
 import styles from './styles'
 
 export default class extends React.Component {
@@ -11,6 +13,7 @@ export default class extends React.Component {
     super(props)
     this.state = {
       remaining: null,
+      halfway  : null,
       interval : null
     }
   }
@@ -19,6 +22,7 @@ export default class extends React.Component {
     let that = this
     this.setState({
       remaining: (parseInt(this.props.milliseconds) + 1),
+      halfway  : Math.floor((parseInt(this.props.milliseconds) / 2)),
       interval : setInterval(function() {
         that._update()
       }, 1000)
@@ -55,9 +59,17 @@ export default class extends React.Component {
   }
 
   render() {
+
+    let animation = null
+    if (this.state.remaining < this.state.halfway && this.state.remaining > 1000) {
+      animation = 'zoomOut'
+    }
+
     return (
       <View style={styles.container}>
-        <Text>{this._mmss()}</Text>
+        <Animatable.Text key={this.state.remaining} animation={animation} duration={1000} iterationCount={1} style={styles.timer}>
+          {this._mmss()}
+        </Animatable.Text>
       </View>
     )
   }

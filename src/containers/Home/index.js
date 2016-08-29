@@ -10,6 +10,8 @@ import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchScene } 
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
 
+import Timer from './../../components/Timer'
+
 import renderIf from './../../helpers/renderIf'
 
 import styles from './styles'
