@@ -14,6 +14,7 @@ import Container from './../../components/Container'
 import RTCView from './../../components/RTCView'
 import Timer from './../../components/Timer'
 import MatchVote from './../../components/MatchVote'
+import MatchResult from './../../components/MatchResult'
 import LatestOutcome from './../../components/LatestOutcome'
 
 import Config from './../../config'
@@ -21,8 +22,6 @@ import Config from './../../config'
 import styles from './styles'
 
 const notificationSound = new Sound('notification.mp3', Sound.MAIN_BUNDLE)
-
-let adInterval = null
 
 @connect(
   state => ({
@@ -45,51 +44,11 @@ export default class extends React.Component {
     }
   }
 
-  _handlePositiveAudioVote() {
+  _handleVote(feeling, step) {
     updateMatch({
-      'step'  : 'audio',
-      'action': 'yes'
+      step   : step,
+      feeling: feeling
     })
-  }
-  _handleNegativeAudioVote() {
-    updateMatch({
-      'step'  : 'audio',
-      'action': 'no'
-    })
-  }
-  _handlePositiveVideoVote() {
-    updateMatch({
-      'step'  : 'video',
-      'action': 'yes'
-    })
-  }
-  _handleNegativeVideoVote() {
-    updateMatch({
-      'step'  : 'video',
-      'action': 'no'
-    })
-  }
-
-  _evaluateMatchResults(step, results) {
-    let match = {
-      positive: false,
-      myself  : 'no',
-      other   : 'no'
-    }
-    let socketId = '/#' + getSocketId()
-    Object.keys(results[step]).map(function(key) {
-      if ('yes' === results[step][key]) {
-        if (key === socketId) {
-          match.myself = 'yes'
-        } else {
-          match.other = 'yes'
-        }
-      }
-    })
-    if ('yes' === match.myself && match.other === 'yes') {
-      match.positive = true
-    }
-    return match
   }
 
   _vibrate() {
@@ -143,7 +102,7 @@ export default class extends React.Component {
         footer = <Timer key='selection_audio' milliseconds={room.get('timer')} />
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>
-            <MatchVote step='audio' handlePositiveVote={this._handlePositiveAudioVote} handleNegativeVote={this._handleNegativeAudioVote} />
+            <MatchVote step='audio' type={app.get('matchMode')} handleVote={this._handleVote} />
             <Timer key='selection_audio' milliseconds={room.get('timer')} />
           </Container>
         )
@@ -152,12 +111,9 @@ export default class extends React.Component {
         if (true === matchAudio.positive) {
           footer = <Timer key='results_audio' milliseconds={room.get('timer')} />
         }
-        let matchAudio = this._evaluateMatchResults('audio', room.get('results').toJSON())
         return (
           <Container header={true} footer={footer} headerTitle='The Outcome'>
-            <Text>{JSON.stringify(matchAudio)}</Text>
-            <Text>You said {matchAudio.myself}</Text>
-            <Text>Other said {matchAudio.other}</Text>
+            <MatchResult step='audio' results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} />
           </Container>
         )
         break
@@ -173,19 +129,17 @@ export default class extends React.Component {
         footer = <Timer key='selection_video' milliseconds={room.get('timer')} />
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>
-            <MatchVote step='video' handlePositiveVote={this._handlePositiveVideoVote} handleNegativeVote={this._handleNegativeVideoVote} />
+            <MatchVote step='video' type={app.get('matchMode')} handleVote={this._handleVote} />
           </Container>
         )
         break
       case 'results_video':
-        let matchVideo = this._evaluateMatchResults('video', room.get('results').toJSON())
         if (true === matchVideo.positive) {
           footer = <Text>Congratulation! It's A Match!</Text>
         }
         return (
           <Container header={true} footer={footer} headerTitle='The Outcome'>
-            <Text>You said {matchVideo.myself}</Text>
-            <Text>Other said {matchVideo.other}</Text>
+            <MatchResult step='video' results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} />
           </Container>
         )
         break

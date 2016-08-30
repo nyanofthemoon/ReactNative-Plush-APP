@@ -8,10 +8,14 @@ const initialState = fromJS({
   name       : null,
   type       : null,
   status     : null,
+  timer      : null,
   video      : null,
   genderMatch: null,
-  timer      : null,
   ageGroup   : null,
+  scores     : {
+    audio: 0,
+    video: 0
+  },
   results    : {
     audio: {},
     video: {}

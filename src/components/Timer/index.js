@@ -13,7 +13,6 @@ export default class extends React.Component {
     super(props)
     this.state = {
       remaining: null,
-      halfway  : null,
       interval : null
     }
   }
@@ -22,7 +21,6 @@ export default class extends React.Component {
     let that = this
     this.setState({
       remaining: (parseInt(this.props.milliseconds) + 1),
-      halfway  : Math.floor((parseInt(this.props.milliseconds) / 2)),
       interval : setInterval(function() {
         that._update()
       }, 1000)
@@ -59,10 +57,9 @@ export default class extends React.Component {
   }
 
   render() {
-
     let animation = null
-    if (this.state.remaining < this.state.halfway && this.state.remaining > 1000) {
-      animation = 'zoomOut'
+    if (this.state.remaining <= 10000) {
+      animation = 'tada'
     }
 
     return (

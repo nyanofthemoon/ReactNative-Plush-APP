@@ -5,23 +5,22 @@ import { StyleSheet, Dimensions } from 'react-native'
 export default StyleSheet.create({
 
   container: {
-    flex: 1,
+    flex: 0.5,
+    flexWrap: 'wrap',
     flexDirection: 'row',
     height: Dimensions.get('window').height - 115,
     justifyContent: 'center'
   },
 
-  subcontainer: {
-    justifyContent: 'center'
-  },
-
   icon: {
     width : 105,
-    height: 120
+    height: 120,
+    margin: 10
   },
 
-  button: {
-    height: 133,
+  largeicon: {
+    width : 200,
+    height: 200
   }
 
 })

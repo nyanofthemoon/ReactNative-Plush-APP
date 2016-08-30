@@ -15,7 +15,7 @@ import Config from './../../config'
 
 import theme  from './themes/default'
 import styles from './styles'
-import images from './images'
+import images from './../../helpers/images/covers'
 
 let adInterval
 let adClosed
