@@ -44,7 +44,7 @@ export default class extends React.Component {
     }
   }
 
-  _handleVote(feeling, step) {
+  _handleVote(step, feeling) {
     updateMatch({
       step   : step,
       feeling: feeling
@@ -108,7 +108,7 @@ export default class extends React.Component {
         )
         break
       case 'results_audio':
-        if (true === matchAudio.positive) {
+        if (room.getIn(['scores', 'audio']) >= 1) {
           footer = <Timer key='results_audio' milliseconds={room.get('timer')} />
         }
         return (
@@ -134,9 +134,6 @@ export default class extends React.Component {
         )
         break
       case 'results_video':
-        if (true === matchVideo.positive) {
-          footer = <Text>Congratulation! It's A Match!</Text>
-        }
         return (
           <Container header={true} footer={footer} headerTitle='The Outcome'>
             <MatchResult step='video' results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} />

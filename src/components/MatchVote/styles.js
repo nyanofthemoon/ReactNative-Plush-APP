@@ -16,12 +16,12 @@ export default StyleSheet.create({
   },
 
   icon: {
-    width : 105,
-    height: 120
+    width : 90,
+    height: 100
   },
 
   button: {
-    height: 133,
+    height: 110
   }
 
 })

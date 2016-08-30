@@ -38,7 +38,7 @@ export default class extends React.Component {
       animations[key] = null
     })
     animations[key] = 'pulse'
-    this.props.handleVote(feeling, this.props.step)
+    this.props.handleVote(this.props.step, feeling)
     this.setState({ animations: animations })
   }
 
