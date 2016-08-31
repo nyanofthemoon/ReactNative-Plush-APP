@@ -12,25 +12,26 @@ export default StyleSheet.create({
     paddingTop   : 20,
     marginLeft   : 30,
     color        : 'white',
-    fontFamily   : 'PermanentMarker',
+    fontFamily   : 'Condiment',
     fontSize     : 75,
-    lineHeight   : 70
+    lineHeight   : 90,
+    letterSpacing: 3
   },
 
   subtitle: {
-    paddingTop   : 20,
+    paddingTop   : 40,
     marginBottom : 75,
-    color        : 'red',
+    color        : 'white',
     fontFamily   : 'IndieFlower',
-    fontSize     : 30,
-    lineHeight   : 30
+    fontSize     : 25,
+    lineHeight   : 25
   },
 
   message: {
     marginTop    : 25,
     padding      : 10,
     color        : 'red',
-    fontFamily   : 'VarelaRound-Regular',
+    fontFamily   : 'Comfortaa',
     fontSize     : 12,
     lineHeight   : 12
   },

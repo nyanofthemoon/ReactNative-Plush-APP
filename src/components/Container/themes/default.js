@@ -24,7 +24,7 @@ export default {
     subtitleColor: '#ffffff',
 
     fontSizeBase: 12,
-    titleFontSize: (Platform.OS === 'ios' ) ? 17 : 19,
+    titleFontSize: (Platform.OS === 'ios' ) ? 18 : 19,
     subTitleFontSize: (Platform.OS === 'ios' ) ? 12 : 14,
 
     inputFontSize: 15,
@@ -65,7 +65,7 @@ export default {
     },
 
     footerHeight: 55,
-    toolbarHeight: (Platform.OS === 'ios' ) ? 64 : 56,
+    toolbarHeight: (Platform.OS === 'ios' ) ? 75 : 75,
     toolbarDefaultBg: (Platform.OS === 'ios' ) ? '#F8F8F8' : '#039BE5',
     toolbarInverseBg: '#222',
 

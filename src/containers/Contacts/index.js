@@ -16,10 +16,10 @@ const tabStyle = StyleSheet.flatten(styles.tab)
 export default class extends React.Component {
   render() {
     return (
-      <Container header={true} scene='contacts' headerTitle='Contacts'>
-        <ScrollableTabView tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={tabStyle.container}>
-          <FriendTab tabLabel='Friendships' />
-          <DateTab tabLabel='Relationships' />
+      <Container header={true} scene='contacts' headerTitle='Contact List'>
+        <ScrollableTabView tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}}>
+          <FriendTab tabLabel='Friendship' />
+          <DateTab tabLabel='Relationship' />
         </ScrollableTabView>
       </Container>
     )

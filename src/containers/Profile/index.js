@@ -26,7 +26,7 @@ export default class extends React.Component {
   render() {
     const {user} = this.props
     return (
-      <Container header={true} scene='profile' headerTitle='Profile' scrollEnabled={true}>
+      <Container header={true} scene='profile' headerTitle='Personal Profile' scrollEnabled={true}>
         <ProfileForm user={user.toJSON()}/>
         <Button danger onPress={goToLogoutScene}>Logout</Button>
       </Container>

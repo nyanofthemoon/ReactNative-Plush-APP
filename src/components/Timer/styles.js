@@ -9,7 +9,10 @@ export default StyleSheet.create({
 
   timer: {
     fontSize: 45,
-    color: 'white'
+    letterSpacing: 5,
+    fontFamily: 'IndieFlower',
+    color: 'white',
+    marginTop: -3
   }
 
 })

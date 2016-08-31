@@ -41,7 +41,7 @@ export default class extends React.Component {
       return (
         <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
           <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
-          <Title style={[styles.subtitle, styles.shadowed]}>Are you ready ?</Title>
+          <Title style={[styles.subtitle, styles.shadowed]}>Time is precious.</Title>
           <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
         </Container>
       )
@@ -56,7 +56,7 @@ export default class extends React.Component {
       return (
         <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
           <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
-          <Title style={[styles.subtitle, styles.shadowed]}>Almost there ...</Title>
+          <Title style={[styles.subtitle, styles.shadowed]}>Are you ready?</Title>
           <Spinner style={styles.shadowed} color='white' />
         </Container>
       )

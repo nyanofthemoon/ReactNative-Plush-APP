@@ -77,7 +77,7 @@ export default class extends Component {
               <Button onPress={goToContactsScene}>
                 <Icon name='md-contacts' style={('contacts' === this.props.scene ? ( styles.selected ) : ( null ))} />
               </Button>
-              <Title style={styles.title}>{this.props.headerTitle || 'Extreme Meetups'}</Title>
+              <Title style={styles.title}>{this.props.headerTitle || 'Extreme Meetups'} </Title>
               <Button onPress={goToProfileScene}>
                 <Icon name='md-settings' style={('profile' === this.props.scene ? ( styles.selected ) : ( null ))} />
               </Button>

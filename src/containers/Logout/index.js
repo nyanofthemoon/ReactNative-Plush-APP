@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Title, Button } from 'native-base'
 
-import { facebookConnectionLogout, goToHomeScene } from './../../actions'
+import { facebookConnectionLogout, goToProfileScene } from './../../actions'
 
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
@@ -28,7 +28,7 @@ export default class extends React.Component {
       <Container header={false} cover={{type: 'splash', data:{subtype: 'logout', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
         <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
         <Title style={[styles.subtitle, styles.shadowed]}>We're sad to see you go !</Title>
-        <Button info large style={[styles.centered, styles.shadowed, styles.bottomPadded, styles.logout]} onPress={goToHomeScene}>I'm Not Done</Button>
+        <Button info large style={[styles.centered, styles.shadowed, styles.bottomPadded, styles.logout]} onPress={goToProfileScene}>I'm Not Done</Button>
         <FacebookButton style={styles.centered} handleLogout={facebookConnectionLogout}/>
       </Container>
     )

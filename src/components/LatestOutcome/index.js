@@ -12,17 +12,31 @@ import styles from './styles'
 
 export default class extends React.Component {
 
+  /*
+  constructor(props) {
+    super(props)
+    this.state = {
+      anim: 'fadeInUp'
+    }
+  }
+  */
+
   componentWillMount() {
     subscribeToMatchNotifications()
   }
 
   componentWillUnmount() {
+    /*
+    this.setState({
+      anim: 'fadeOutDown'
+    })
+    */
     unsubscribeFromMatchNotifications()
   }
 
   render() {
     return (
-      <Animatable.View style={styles.container} animation='rubberBand' duration={1000} iterationCount={1}>
+      <Animatable.View style={styles.container} animation='fadeInUp' duration={1000} iterationCount={1}>
         <Text style={styles.text}>Last Match</Text>
         <View style={styles.itemLeft}>
           <Text style={styles.text}>{this.props.data.get('leftGender')}</Text>

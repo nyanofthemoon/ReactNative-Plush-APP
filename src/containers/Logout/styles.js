@@ -16,13 +16,14 @@ export default StyleSheet.create({
     paddingTop   : 20,
     marginLeft   : 30,
     color        : 'white',
-    fontFamily   : 'PermanentMarker',
+    fontFamily   : 'Condiment',
     fontSize     : 75,
-    lineHeight   : 70
+    lineHeight   : 90,
+    letterSpacing: 3
   },
 
   subtitle: {
-    paddingTop   : 20,
+    paddingTop   : 50,
     marginBottom : 75,
     color        : 'white',
     fontFamily   : 'IndieFlower',

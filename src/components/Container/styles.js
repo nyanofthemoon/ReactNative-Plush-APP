@@ -12,9 +12,18 @@ export default StyleSheet.create({
     backgroundColor: '#262672'
   },
 
+  title: {
+    fontFamily: 'IndieFlower',
+    fontSize  : 28,
+    lineHeight: 34,
+    marginTop : 16,
+    marginLeft: -28
+  },
+
   tab: {
     backgroundColor: '#262672',
-    color: 'white'
+    color: 'white',
+    fontFamily: 'Comfortaa'
   },
 
   container: {

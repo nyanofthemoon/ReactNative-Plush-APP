@@ -67,7 +67,7 @@ export default class extends React.Component {
       case 'waiting':
       case 'audio':
         let header = true
-        footer = <LatestOutcome data={notification.get('data')}/>
+        footer = <LatestOutcome key={notification.getIn(['data', 'lastUpdated'])} data={notification.get('data')}/>
         if ('audio' === status) {
           header = false
           footer = <Timer key='audio' milliseconds={room.get('timer')} />
@@ -78,7 +78,7 @@ export default class extends React.Component {
             { 'audio' !== status ?
               (
                 <View>
-                  <Carousel delay={60000} style={this.state.size}>
+                  <Carousel delay={10000} style={this.state.size}>
                     <View style={[{backgroundColor:'lightgreen'}, this.state.size]}>
                       <Text>Slide 1</Text>
                     </View>
