@@ -29,6 +29,10 @@ export default StyleSheet.create({
     resizeMode     : 'cover',
     alignItems     : 'center',
     justifyContent : 'center'
+  },
+
+  selected: {
+    color: 'orange'
   }
 
 })

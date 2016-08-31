@@ -16,7 +16,7 @@ export default StyleSheet.create({
     paddingTop   : 20,
     marginLeft   : 30,
     color        : 'white',
-    fontFamily   : 'IndieFlower',
+    fontFamily   : 'PermanentMarker',
     fontSize     : 75,
     lineHeight   : 70
   },
@@ -38,6 +38,11 @@ export default StyleSheet.create({
       height: 5,
       width: 0
     }
+  },
+
+  logout: {
+    width: 182,
+    height: 75
   }
 
 })

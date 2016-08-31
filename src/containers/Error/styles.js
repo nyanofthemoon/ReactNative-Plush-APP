@@ -12,7 +12,7 @@ export default StyleSheet.create({
     paddingTop   : 20,
     marginLeft   : 30,
     color        : 'white',
-    fontFamily   : 'IndieFlower',
+    fontFamily   : 'PermanentMarker',
     fontSize     : 75,
     lineHeight   : 70
   },

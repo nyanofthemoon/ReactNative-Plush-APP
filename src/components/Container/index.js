@@ -72,14 +72,14 @@ export default class extends Component {
         {renderIf(this.props.header)(
           <Header key='header' style={styles.header}>
               <Button onPress={goToHomeScene}>
-                <Icon white name='md-home' />
+                <Icon white name='md-home' style={('home' === this.props.scene ? ( styles.selected ) : ( null ))} />
               </Button>
               <Button onPress={goToContactsScene}>
-                <Icon name='md-contacts' />
+                <Icon name='md-contacts' style={('contacts' === this.props.scene ? ( styles.selected ) : ( null ))} />
               </Button>
               <Title style={styles.title}>{this.props.headerTitle || 'Extreme Meetups'}</Title>
               <Button onPress={goToProfileScene}>
-                <Icon name='md-settings' />
+                <Icon name='md-settings' style={('profile' === this.props.scene ? ( styles.selected ) : ( null ))} />
               </Button>
           </Header>
         )}

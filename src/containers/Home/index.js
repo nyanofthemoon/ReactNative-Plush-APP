@@ -47,9 +47,9 @@ export default class extends React.Component {
       )
     } else if ('connected' === app.get('apiStatus')) {
         return (
-          <Container header={true}>
-            <Button large success onPress={this._launchRelationshipSearch}>Find Relationships</Button>
-            <Button large info onPress={this._launchFrienshipSearch}>Find Friendships</Button>
+          <Container header={true} scene='home'>
+            <Button info onPress={this._launchRelationshipSearch}>Find Relationships</Button>
+            <Button info onPress={this._launchFrienshipSearch}>Find Friendships</Button>
           </Container>
         )
     } else {

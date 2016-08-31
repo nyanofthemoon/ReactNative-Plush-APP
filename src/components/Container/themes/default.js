@@ -8,14 +8,14 @@ import {Platform} from 'react-native';
 
 export default {
     brandPrimary : 'transparent',
-    brandInfo: '#5bc0de',
-    brandSuccess: '#5cb85c',
-    brandDanger: '#d9534f',
-    brandWarning: '#f0ad4e',
+    brandInfo: '#262672',
+    brandSuccess: '#006600',
+    brandDanger: '#990000',
+    brandWarning: '#CC3300',
     brandSidebar: '#252932',
 
-    fontFamily: (Platform.OS === 'ios' ) ? 'HelveticaNeue' : 'Roboto',
-    btnFontFamily: (Platform.OS === 'ios' ) ? 'HelveticaNeue' : 'Roboto_medium',
+    fontFamily: (Platform.OS === 'ios' ) ? 'Comfortaa' : 'Comfortaa',
+    btnFontFamily: (Platform.OS === 'ios' ) ? 'Comfortaa' : 'Comfortaa',
     iconFamily: 'Ionicons',
 
     inverseTextColor: '#ffffff',
@@ -23,7 +23,7 @@ export default {
 
     subtitleColor: '#ffffff',
 
-    fontSizeBase: 15,
+    fontSizeBase: 12,
     titleFontSize: (Platform.OS === 'ios' ) ? 17 : 19,
     subTitleFontSize: (Platform.OS === 'ios' ) ? 12 : 14,
 
