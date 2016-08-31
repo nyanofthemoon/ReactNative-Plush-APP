@@ -18,7 +18,7 @@ export default StyleSheet.create({
   },
 
   subtitle: {
-    paddingTop   : 60,
+    paddingTop   : 70,
     marginBottom : 75,
     color        : 'white',
     fontFamily   : 'IndieFlower',
