@@ -23,7 +23,7 @@ export default StyleSheet.create({
   },
 
   subtitle: {
-    paddingTop   : 50,
+    paddingTop   : 70,
     marginBottom : 75,
     color        : 'white',
     fontFamily   : 'IndieFlower',
