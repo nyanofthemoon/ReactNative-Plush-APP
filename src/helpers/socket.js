@@ -70,3 +70,15 @@ export function emitSocketUpdateMatchEvent(data) {
     socket.emit('update', {type: 'match', data: data})
   }
 }
+
+export function subscribeToMatchNotifications() {
+  if (true === isSocketConnected()) {
+    socket.emit('subscribe', {room: 'matches'})
+  }
+}
+
+export function unsubscribeFromMatchNotifications() {
+  if (true === isSocketConnected()) {
+    socket.emit('unsubscribe', {room: 'matches'})
+  }
+}

@@ -74,6 +74,14 @@ function socketConnectionRequest() {
             return queryUnknownReception(data)
         }
       })
+      socket.on('notification', function (data) {
+        switch (data.type) {
+          case 'room':
+            return roomNotificationReception(data)
+          default:
+            return unknownNotificationReception(data)
+        }
+      })
       socket.on('disconnect', function () {
         dispatch({type: types.SOCKET_CONNECTION_FAILED})
         Actions.home()
@@ -180,6 +188,14 @@ function queryRoomReception(data) {
 
 function queryUnknownReception(data) {
   dispatch({type: types.SOCKET_QUERY_UNKNOWN_RECEIVED, payload: data})
+}
+
+export function roomNotificationReception(data) {
+  dispatch({type: types.SOCKET_NOTIFICATION_ROOM_RECEIVED, payload: data.data})
+}
+
+export function unknownNotificationReception(data) {
+  dispatch({type: types.SOCKET_NOTIFICATION_UNKNOWN_RECEIVED, payload: data})
 }
 
 export function updateMatch(data) {

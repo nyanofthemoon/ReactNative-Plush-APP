@@ -25,15 +25,17 @@ const notificationSound = new Sound('notification.mp3', Sound.MAIN_BUNDLE)
 
 @connect(
   state => ({
-    app : state.app,
-    room: state.room
+    app         : state.app,
+    room        : state.room,
+    notification: state.notification
   })
 )
 
 export default class extends React.Component {
   static propTypes = {
-    app : React.PropTypes.object.isRequired,
-    room: React.PropTypes.object.isRequired
+    app         : React.PropTypes.object.isRequired,
+    room        : React.PropTypes.object.isRequired,
+    notification: React.PropTypes.object.isRequired
   }
 
   constructor(props) {
@@ -57,7 +59,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const {app, room} = this.props
+    const {app, room, notification} = this.props
     let status = room.get('status')
     let footer = null
     switch(status) {
@@ -65,7 +67,7 @@ export default class extends React.Component {
       case 'waiting':
       case 'audio':
         let header = true
-        footer = <LatestOutcome />
+        footer = <LatestOutcome data={notification.get('data')}/>
         if ('audio' === status) {
           header = false
           footer = <Timer key='audio' milliseconds={room.get('timer')} />
