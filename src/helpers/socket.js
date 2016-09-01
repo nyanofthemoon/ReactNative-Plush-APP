@@ -53,6 +53,12 @@ export function emitSocketUserQueryEvent() {
   }
 }
 
+export function emitSocketContactQueryEvent(id) {
+  if (true === isSocketConnected()) {
+    socket.emit('query', {type: 'user', id: id})
+  }
+}
+
 export function emitSocketUserJoinEvent() {
   if (true === isSocketConnected()) {
     socket.emit('join', {})

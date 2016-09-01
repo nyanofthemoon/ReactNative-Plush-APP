@@ -20,4 +20,6 @@ export function saveUser(data, success, failed) {
   storage.save('user', data).then(success, failed)
 }
 
-// storage.delete(key).then(success, failed)
+export function deleteUser(success, failed) {
+  storage.delete('user').then(success, failed)
+}

@@ -12,7 +12,7 @@ import * as Db    from './helpers/db'
 
 import Config from './config'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -166,20 +166,39 @@ export function queryUser() {
   return { type: types.SOCKET_QUERY_USER_REQUESTED, payload: {} }
 }
 
+export function queryContact(id) {
+  emitSocketContactQueryEvent(id)
+  return { type: types.SOCKET_QUERY_CONTACT_REQUESTED, payload: {} }
+}
+
 function queryUserReception(data) {
-  Db.saveUser(data.data, function () {
-    if (_getState().app.get('apiStatus') !== 'connected') {
-      if (!Config.environment.isDevelopment()) {
+  if (true === data.self) {
+    data.data.friendshipData   = _getState().user.get('friendshipData')
+    data.data.relationshipData = _getState().user.get('relationshipData')
+    Db.saveUser(data.data, function () {
+      if (_getState().app.get('apiStatus') !== 'connected') {
         dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
-      } else {
         setTimeout(function() {
-          dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
-        }, 2000)
+          // Query Contact Information
+          Object.keys(data.data.contacts.relationship).forEach(function(id) {
+            if (!data.data.relationshipData[id] || Math.floor(Math.random() * 5) === 3) {
+              queryContact(id)
+            }
+          })
+          Object.keys(data.data.contacts.friendship).forEach(function(id) {
+            if (!data.data.friendshipData[id] || Math.floor(Math.random() * 5) === 3) {
+              queryContact(id)
+            }
+          })
+        }, 1000)
+      } else {
+        dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
       }
-    } else {
-      dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
-    }
-  })
+    })
+  } else {
+    dispatch({type: types.SOCKET_QUERY_CONTACT_RECEIVED, payload: data})
+    Db.saveUser(_getState().user.toJSON(), function() {})
+  }
 }
 
 function queryRoomReception(data) {

@@ -17,14 +17,9 @@ export default class extends React.Component {
   }
 
   render() {
-    var data = [
-      {id: 1, name: 'Friend A'},
-      {id: 2, name: 'Friend B'},
-    ]
-
     return (
       <View>
-        <ListView data={data} />
+        <ListView data={this.props.data} />
       </View>
     )
   }
