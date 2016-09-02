@@ -157,17 +157,17 @@ export default {
 
     contentPadding: 10,
 
-    listBorderColor: '#ddd',
-    listDividerBg: '#ddd',
-    listItemPadding: 9,
-    listItemHeight: 45,
-    listNoteColor: '#808080',
-    listNoteSize: 13,
+    listBorderColor: '#DDDDDD',
+    listDividerBg: '#DDDDDD',
+    listItemPadding: 15,
+    listItemHeight: 60,
+    listNoteColor: '#AAAAAA',
+    listNoteSize: 12,
 
     iconFontSize: (Platform.OS === 'ios' ) ? 30 : 28,
 
-    badgeColor: '#fff',
-    badgeBg: '#ED1727',
+    badgeColor: '#FFF',
+    badgeBg: '#262672',
 
     lineHeight: (Platform.OS === 'ios' ) ? 20 : 24,
     iconLineHeight: (Platform.OS === 'ios' ) ? 37 : 30,

@@ -7,17 +7,13 @@ import styles from './styles'
 
 export default class extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-    }
-  }
-
   render() {
     return (
       <View>
-        <Text>Conversation Tab</Text>
+        <Text>{this.props.profile.nickname}</Text>
+        <Text>{JSON.stringify(this.props.data)}</Text>
       </View>
     )
   }
+
 }

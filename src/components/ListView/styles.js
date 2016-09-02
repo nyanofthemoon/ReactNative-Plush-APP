@@ -1,14 +1,12 @@
 'use strict'
 
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 export default StyleSheet.create({
 
   container: {
-  },
 
-  row: {
-    backgroundColor: 'yellow'
+    height: Dimensions.get('window').height
   }
 
 })

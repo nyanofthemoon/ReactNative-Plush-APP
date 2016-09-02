@@ -11,6 +11,7 @@ const initialState = fromJS({
   apiStatus     : 'disconnected',
   errorMessage  : null,
   currentScene  : null,
+  currentSceneId: null,
   matchMode     : null
 })
 
@@ -60,7 +61,10 @@ export default (state = initialState, action) => {
       nextState = fromJS(state).set('currentScene', 'contacts')
       break
     case types.SCENE_NAVIGATION_CONTACT:
-      nextState = fromJS(state).set('currentScene', 'contact')
+      nextState = fromJS(state).merge({
+        'currentScene'  : 'contact',
+        'currentSceneId': action.payload
+      })
       break
     case types.SCENE_NAVIGATION_PROFILE:
       nextState = fromJS(state).set('currentScene', 'profile')

@@ -23,3 +23,15 @@ export function saveUser(data, success, failed) {
 export function deleteUser(success, failed) {
   storage.delete('user').then(success, failed)
 }
+
+export function findContacts(success, failed) {
+  storage.get('contacts').then(success, failed)
+}
+
+export function saveContacts(data, success, failed) {
+  storage.save('contacts', data).then(success, failed)
+}
+
+export function deleteContacts(success, failed) {
+  storage.delete('contacts').then(success, failed)
+}

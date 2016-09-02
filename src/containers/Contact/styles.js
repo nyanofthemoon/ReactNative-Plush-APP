@@ -1,18 +1,10 @@
 'use strict'
 
 import { StyleSheet } from 'react-native'
+import base from './../../components/Container/styles'
 
 export default StyleSheet.create({
 
-  container: {
-  },
-
-  tabBarTextStyle: {
-    fontSize: 15,
-    lineHeight: 20,
-    fontFamily: 'Helvetica'
-  }
+  tab: StyleSheet.flatten(base.tab)
 
 })
-
-

@@ -7,16 +7,10 @@ import styles from './styles'
 
 export default class extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-    }
-  }
-
   render() {
     return (
       <View>
-        <Text>Profile Tab</Text>
+        <Text>{JSON.stringify(this.props.profile)}</Text>
       </View>
     )
   }

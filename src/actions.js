@@ -28,6 +28,13 @@ export function loadUserData() {
       function (user) {
         if (user) {
           dispatch({type: types.DB_LOAD_USER, payload: { data: user } })
+          Db.findContacts(
+            function (contacts) {
+              if (contacts) {
+                dispatch({type: types.DB_LOAD_CONTACTS, payload: { data: contacts } })
+              }
+            }
+          )
         }
       }
     )
@@ -173,20 +180,22 @@ export function queryContact(id) {
 
 function queryUserReception(data) {
   if (true === data.self) {
-    data.data.friendshipData   = _getState().user.get('friendshipData')
-    data.data.relationshipData = _getState().user.get('relationshipData')
+    // @NOTE Add yourself as a friend in dev mode
+    if (true === Config.environment.isDevelopment()) {
+      data.data.contacts.friendship[data.data.id] = data.data.id
+    }
     Db.saveUser(data.data, function () {
       if (_getState().app.get('apiStatus') !== 'connected') {
         dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
         setTimeout(function() {
           // Query Contact Information
           Object.keys(data.data.contacts.relationship).forEach(function(id) {
-            if (!data.data.relationshipData[id] || Math.floor(Math.random() * 5) === 3) {
+            if (Math.floor(Math.random() * 5) === 3) {
               queryContact(id)
             }
           })
           Object.keys(data.data.contacts.friendship).forEach(function(id) {
-            if (!data.data.friendshipData[id] || Math.floor(Math.random() * 5) === 3) {
+            if (Math.floor(Math.random() * 5) === 3) {
               queryContact(id)
             }
           })
@@ -197,7 +206,9 @@ function queryUserReception(data) {
     })
   } else {
     dispatch({type: types.SOCKET_QUERY_CONTACT_RECEIVED, payload: data})
-    Db.saveUser(_getState().user.toJSON(), function() {})
+    let contacts = _getState().contact.toJSON()
+    contacts.profiles[data.data.id] = data.data
+    Db.saveContacts(contacts, function() {})
   }
 }
 
@@ -250,6 +261,14 @@ export function goToMatchScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_MATCH, payload: data})
   emitSocketUserLeaveEvent()
   Actions.matchs()
+}
+
+export function goToMatchRelationshipScene() {
+  goToMatchScene('relationship')
+}
+
+export function goToMatchFriendshipScene() {
+  goToMatchScene('friendship')
 }
 
 export function goToLogoutScene(data) {

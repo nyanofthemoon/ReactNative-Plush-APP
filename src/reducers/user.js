@@ -49,9 +49,7 @@ const initialState = fromJS({
   reports: {
     reported  : 0,
     reportedby: 0
-  },
-  friendshipData  : {},
-  relationshipData: {}
+  }
 })
 
 export default (state = initialState, action) => {
@@ -67,18 +65,6 @@ export default (state = initialState, action) => {
     case types.SOCKET_QUERY_USER_RECEIVED:
     case types.DB_LOAD_USER:
       nextState = fromJS(state).merge(action.payload.data)
-      break
-    case types.SOCKET_QUERY_CONTACT_RECEIVED:
-      let prevState = fromJS(state).toJS()
-      let contactId = action.payload.data.id
-      if (prevState.contacts.friendship[contactId]) {
-        prevState.friendshipData[contactId] = action.payload.data
-        nextState = fromJS(state).set('friendshipData', prevState.friendshipData)
-      }
-      if (prevState.contacts.relationship[contactId]) {
-        prevState.relationshipData[contactId] = action.payload.data
-        nextState = fromJS(state).set('relationshipData', prevState.relationshipData)
-      }
       break
     default:
       break

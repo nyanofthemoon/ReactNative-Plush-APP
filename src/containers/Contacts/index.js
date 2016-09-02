@@ -8,8 +8,7 @@ import { connect } from 'react-redux'
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
 import Container from './../../components/Container'
-import FriendTab from './../../components/FriendTab'
-import DateTab from './../../components/DateTab'
+import ContactTab from './../../components/ContactTab'
 
 import styles from './styles'
 const tabStyle = StyleSheet.flatten(styles.tab)
@@ -30,8 +29,8 @@ export default class extends React.Component {
     return (
       <Container header={true} scene='contacts' headerTitle='Contact List'>
         <ScrollableTabView tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}}>
-          <FriendTab tabLabel='Friendship' data={user.get('friendshipData')} />
-          <DateTab tabLabel='Relationship' data={user.get('relationshipData')} />
+          <ContactTab tabLabel='Friendship' type='friendship' list={user.getIn(['contacts','friendship']).toJSON()} />
+          <ContactTab tabLabel='Relationship' type='relationship' list={user.getIn(['contacts','relationship']).toJSON()} />
         </ScrollableTabView>
       </Container>
     )

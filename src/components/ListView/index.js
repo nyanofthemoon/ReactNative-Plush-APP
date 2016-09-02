@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Text, View, ListView } from 'react-native'
+import { ListItem } from 'native-base'
 
 import styles from './styles'
 
@@ -19,9 +20,9 @@ export default class extends React.Component {
 
   _renderRow(row) {
     return (
-      <View>
+      <ListItem>
         <Text style={styles.row}>{JSON.stringify(row)}</Text>
-      </View>
+      </ListItem>
     )
   }
 
