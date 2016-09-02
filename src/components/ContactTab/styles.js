@@ -23,11 +23,23 @@ export default StyleSheet.create({
     lineHeight: 34
   },
 
+  gender: {
+    marginTop: 4,
+    marginLeft: 5
+  },
+
   ready: {
     alignSelf: 'center',
-    height: 100,
-    width: 200,
-    marginTop: 50
+    height: 80,
+    width: 180,
+    marginTop: 50,
+    shadowColor  : 'black',
+    shadowOpacity: 10,
+    shadowRadius : 4,
+    shadowOffset : {
+      height: 5,
+      width: 0
+    }
   },
 
   row: {

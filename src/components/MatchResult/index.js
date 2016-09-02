@@ -6,7 +6,7 @@ import { Button } from 'native-base'
 
 import * as Animatable from 'react-native-animatable'
 
-import {getSocketId}  from './../../helpers/socket'
+import { getSocketId }  from './../../helpers/socket'
 
 import emoticons from './../../helpers/images/emoticons'
 import results from './../../helpers/images/results'

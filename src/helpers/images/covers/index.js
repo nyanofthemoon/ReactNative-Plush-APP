@@ -12,12 +12,12 @@ export default {
       logout: [require('./splash-lesbian-1-grayscale.png'), require('./splash-lesbian-2-grayscale.png')]
     },
     MO: {
-      login : [require('./splash-straight-1.png'), require('./splash-straight-2.png')],
-      logout: [require('./splash-straight-1-grayscale.png'), require('./splash-straight-2-grayscale.png')]
+      login : [require('./splash-straight-1.png')],
+      logout: [require('./splash-straight-1-grayscale.png')]
     },
     FO: {
-      login : [require('./splash-straight-1.png'), require('./splash-straight-2.png')],
-      logout: [require('./splash-straight-1-grayscale.png'), require('./splash-straight-2-grayscale.png')]
+      login : [require('./splash-straight-1.png')],
+      logout: [require('./splash-straight-1-grayscale.png')]
     },
     MA: {
       login : [require('./splash-straight-1.png'), require('./splash-gay-2.png')],

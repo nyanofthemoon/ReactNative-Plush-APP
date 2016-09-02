@@ -14,8 +14,9 @@ const initialState = fromJS({
     friendship : null,
     headline   : null,
     bio        : null,
-    career     : null,
-    diet       : null, // unhealthy, healthy, vegetarian, vegan, intolerant, other
+    education  : null,
+    employment : null,
+    diet       : null, // unhealthy, healthy, vegetarian, vegan, other
     picture    : null,
     astrological: {
       chinese   : null,

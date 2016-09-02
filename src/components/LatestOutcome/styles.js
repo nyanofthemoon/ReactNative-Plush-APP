@@ -10,11 +10,16 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
 
+  leftGender:{
+    marginTop: 5,
+    paddingRight: 24
+  },
+
   itemLeft: {
     flex: 1,
     flexWrap: 'wrap',
     flexDirection: 'column',
-    marginLeft: 40
+    marginLeft: 45
   },
 
   itemRight: {
@@ -22,6 +27,10 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'column',
     marginLeft: 50
+  },
+
+  rightGender:{
+    marginTop: 5
   },
 
   icon: {

@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { goToContact, goToMatchFriendshipScene, goToMatchRelationshipScene } from './../../actions'
 
 import renderIf from './../../helpers/renderIf'
+import { genderIcon } from './../../helpers/icons'
 
 import styles from './styles'
 
@@ -43,7 +44,8 @@ export default class extends React.Component {
         <ListItem key={id} button onPress={this._onPress.bind(this, id)} style={styles.container}>
           <View style={styles.row}>
             <Thumbnail size={40} style={styles.thumbnail} source={{uri:profile.profile.picture}}/>
-            <Text style={styles.text}>{profile.profile.nickname} {profile.profile.gender}</Text>
+            {genderIcon(profile.profile.gender, styles.gender)}
+            <Text style={styles.text}>{profile.profile.nickname}</Text>
           </View>
           <Badge style={badgeStyle}>{badgeCount}</Badge>
         </ListItem>
@@ -61,12 +63,12 @@ export default class extends React.Component {
       if (this.props.type === 'relationship') {
         return <View style={styles.emptyContainer}>
           <Title style={styles.title}>It's time to meet people.</Title>
-          <Button large warning style={styles.ready} onPress={goToMatchRelationshipScene}>I'm Ready</Button>
+          <Button large info style={styles.ready} onPress={goToMatchRelationshipScene}>I'm Ready</Button>
         </View>
       } else {
         return <View style={styles.emptyContainer}>
           <Title style={styles.title}>It's time to make friends.</Title>
-          <Button large warning style={styles.ready} onPress={goToMatchFriendshipScene}>Let's Do This!</Button>
+          <Button large success style={styles.ready} onPress={goToMatchFriendshipScene}>Let's Go!</Button>
         </View>
       }
     }
