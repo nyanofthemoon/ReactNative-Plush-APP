@@ -7,6 +7,13 @@ import styles from './styles'
 
 export default class extends React.Component{
 
+  constructor(props){
+    super(props);
+    this.state = {
+      data:{}
+    }
+  }
+
   componentDidMount() {
     this.refs.form.refs.nickname.setValue(this.props.user.profile.nickname)
     this.refs.form.refs.orientation.setValue(this.props.user.profile.orientation)
@@ -18,9 +25,17 @@ export default class extends React.Component{
     this.refs.form.refs.bio.setValue(this.props.user.profile.bio)
   }
 
+  handleFormChange(data){
+    this.setState({data:data})
+  }
+
+  getData() {
+    return this.state.data
+  }
+
   render(){
     return (
-        <Form ref='form' style={styles.container}>
+        <Form ref='form' style={styles.container} onChange={this.handleFormChange.bind(this)}>
           <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' labelStyle={styles.label} style={styles.value} />
           <PickerField ref='orientation' labelStyle={styles.label} valueStyle={[styles.value, styles.select]}
                        label='Relationships'

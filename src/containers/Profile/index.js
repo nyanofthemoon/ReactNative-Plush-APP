@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import Container from './../../components/Container'
 import ProfileForm from './../../components/ProfileForm'
 
-import { goToLogoutScene } from './../../actions'
+import { goToLogoutScene, updateProfile } from './../../actions'
 
 import styles from './styles'
 
@@ -24,7 +24,7 @@ export default class extends React.Component {
   }
 
   _saveProfile() {
-    // this.refs.form
+    updateProfile(this.refs.form.getData())
   }
 
   render() {
@@ -32,7 +32,7 @@ export default class extends React.Component {
     let footer = (
       <View style={styles.container}>
         <Button danger style={styles.logoutButton} onPress={goToLogoutScene}>Logout</Button>
-        <Button success style={styles.saveButton} onPress={this._saveProfile}>Save</Button>
+        <Button success style={styles.saveButton} onPress={this._saveProfile.bind(this)}>Save</Button>
       </View>
     )
     return (

@@ -77,6 +77,12 @@ export function emitSocketUpdateMatchEvent(data) {
   }
 }
 
+export function emitSocketUpdateProfileEvent(data) {
+  if (true === isSocketConnected()) {
+    socket.emit('update', {type: 'profile', data: data})
+  }
+}
+
 export function subscribeToMatchNotifications() {
   if (true === isSocketConnected()) {
     socket.emit('subscribe', {room: 'matches'})

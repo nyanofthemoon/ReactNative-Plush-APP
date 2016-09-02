@@ -12,7 +12,7 @@ import * as Db    from './helpers/db'
 
 import Config from './config'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent, emitSocketUpdateProfileEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -231,6 +231,22 @@ export function unknownNotificationReception(data) {
 export function updateMatch(data) {
   emitSocketUpdateMatchEvent(data)
   return { type: types.SOCKET_UPDATE_MATCH_REQUESTED }
+}
+
+export function updateProfile(data) {
+  emitSocketUpdateProfileEvent({
+    profile: {
+      nickname   : data.nickname,
+      orientation: data.orientation,
+      friendship : data.friendship,
+      headline   : data.headline,
+      bio        : data.bio,
+      education  : data.education,
+      employment : data.employment,
+      diet       : data.diet
+    }
+  })
+  return { type: types.SOCKET_UPDATE_PROFILE_REQUESTED }
 }
 
 export function goToHomeScene(data) {

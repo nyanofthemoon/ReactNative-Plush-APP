@@ -62,6 +62,7 @@ export default (state = initialState, action) => {
     case types.SOCKET_LOGIN_USER_REQUESTED:
     case types.FACEBOOK_GRAPH_DATA_SUCCEEDED:
     case types.FACEBOOK_GRAPH_DATA_FAILED:
+    case types.SOCKET_UPDATE_PROFILE_REQUESTED:
       break
     case types.SOCKET_QUERY_USER_RECEIVED:
     case types.DB_LOAD_USER:
