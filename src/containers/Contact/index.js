@@ -7,9 +7,12 @@ import { Header, InputGroup, Icon, Button, Input, Tabs, Title } from 'native-bas
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
+import { goToContactsScene } from './../../actions'
+
 import Container from './../../components/Container'
 import ProfileTab from './../../components/ProfileTab'
 import ConversationTab from './../../components/ConversationTab'
+import BlockReportFooter from './../../components/BlockReportFooter'
 
 import styles from './styles'
 const tabStyle = StyleSheet.flatten(styles.tab)
@@ -48,12 +51,12 @@ export default class extends React.Component {
   }
 
   render() {
-    const {contact} = this.props
+    const {app, contact} = this.props
     let id      = this._getProfileId()
     let profile = contact.getIn(['profiles', id]).toJSON()
     let message = contact.getIn(['messages', id])
     return (
-      <Container header={true} headerTitle={this._getProfileType()}>
+      <Container header={true} footer={<BlockReportFooter id={app.get('currentSceneId')} redirect={goToContactsScene} />}  headerTitle={this._getProfileType()}>
         <ScrollableTabView tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}}>
           <ProfileTab tabLabel='Profile' profile={profile} />
           <ConversationTab tabLabel='Conversation' data={message} profile={profile} />

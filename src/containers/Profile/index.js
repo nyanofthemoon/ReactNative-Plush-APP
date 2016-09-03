@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { View, Text, Alert } from 'react-native'
-import { Spinner, Button } from 'native-base'
+import { Button } from 'native-base'
 import { connect } from 'react-redux'
 
 import Container from './../../components/Container'

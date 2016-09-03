@@ -83,6 +83,18 @@ export function emitSocketUpdateProfileEvent(data) {
   }
 }
 
+export function emitSocketBlockEvent(id) {
+  if (true === isSocketConnected()) {
+    socket.emit('update', {type: 'block', id: id})
+  }
+}
+
+export function emitSocketReportEvent(id) {
+  if (true === isSocketConnected()) {
+    socket.emit('update', {type: 'report', id: id})
+  }
+}
+
 export function subscribeToMatchNotifications() {
   if (true === isSocketConnected()) {
     socket.emit('subscribe', {room: 'matches'})

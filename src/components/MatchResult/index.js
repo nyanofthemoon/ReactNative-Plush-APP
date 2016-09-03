@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { View, Text, Image } from 'react-native'
-import { Button } from 'native-base'
+import { Button, Footer } from 'native-base'
 
 import * as Animatable from 'react-native-animatable'
 
@@ -30,10 +30,15 @@ export default class extends React.Component {
     }
   }
 
+  isMatch() {
+    return this.state.match
+  }
+
   componentWillMount() {
     let result = this.state
     let socketId = '/#' + getSocketId()
     let that = this
+    result.match = false
     Object.keys(this.props.results[this.props.step]).map(function(key) {
       if (key === socketId) {
         result.left  = that.props.results[that.props.step][key]
@@ -41,8 +46,15 @@ export default class extends React.Component {
         result.right = that.props.results[that.props.step][key]
       }
     })
-    if (this.props.scores[this.props.step] >= 1) {
-      result.match = true
+
+    if ('audio' === this.props.step) {
+      if (this.props.scores[this.props.step] >= 1) {
+        result.match = true
+      }
+    } else {
+      if (this.props.scores[this.props.step] >= 2) {
+        result.match = true
+      }
     }
     this.setState(result)
   }
@@ -52,8 +64,10 @@ export default class extends React.Component {
   render() {
     return (
     <View style={styles.container}>
-      <Animatable.Image source={emoticons.left[this.state.left]} animation='bounce' style={styles.icon} duration={1000} iterationCount={1} />
-      <Animatable.Image source={emoticons.right[this.state.right]} animation='lightSpeedIn' style={styles.icon} duration={1000} iterationCount={1} delay={1500} />
+      <View style={styles.subcontainer}>
+        <Animatable.Image source={emoticons.left[this.state.left]} animation='bounce' style={styles.icon} duration={1000} iterationCount={1} />
+        <Animatable.Image source={emoticons.right[this.state.right]} animation='lightSpeedIn' style={styles.icon} duration={1000} iterationCount={1} delay={1500} />
+      </View>
       { true === this.state.match ?
         (
           <Animatable.Image source={results.positive} animation='zoomInDown' style={styles.largeicon} duration={1000} iterationCount={1} delay={2500} />

@@ -87,7 +87,7 @@ export default class extends Component {
           <StatusBar style={styles.statusBar}/>
           { !this.props.cover ?
             (
-              <View>
+              <View style={styles.content}>
                 {this.props.children}
               </View>
             ) : (

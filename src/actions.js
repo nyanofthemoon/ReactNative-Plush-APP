@@ -12,7 +12,7 @@ import * as Db    from './helpers/db'
 
 import Config from './config'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent, emitSocketUpdateProfileEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent, emitSocketUpdateProfileEvent, emitSocketReportEvent, emitSocketBlockEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -297,6 +297,14 @@ export function goToMatchFriendshipScene() {
 
 export function goToStealthMatchFriendshipScene() {
   goToMatchScene({ type: 'friendship', stealth: 'yes' })
+}
+
+export function blockUser(id) {
+  emitSocketBlockEvent(id)
+}
+
+export function reportUser(id) {
+  emitSocketReportEvent(id)
 }
 
 export function goToLogoutScene(data) {

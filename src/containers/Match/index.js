@@ -2,12 +2,12 @@
 
 import React, { Component } from 'react';
 import { View, Dimensions, Text, Vibration } from 'react-native'
-import { Button } from 'native-base'
+import { Title, Button } from 'native-base'
 import { connect } from 'react-redux'
 import Carousel from 'react-native-looped-carousel'
 import {default as Sound} from 'react-native-sound'
 
-import { updateMatch } from './../../actions'
+import { updateMatch, goToHomeScene } from './../../actions'
 import { getSocketId } from './../../helpers/socket'
 
 import Container from './../../components/Container'
@@ -16,6 +16,7 @@ import Timer from './../../components/Timer'
 import MatchVote from './../../components/MatchVote'
 import MatchResult from './../../components/MatchResult'
 import LatestOutcome from './../../components/LatestOutcome'
+import BlockReportFooter from './../../components/BlockReportFooter'
 
 import Config from './../../config'
 
@@ -115,10 +116,12 @@ export default class extends React.Component {
       case 'results_audio':
         if (room.getIn(['scores', 'audio']) >= 1) {
           footer = <Timer key='results_audio' milliseconds={room.get('timer')} />
+        } else {
+          footer = <BlockReportFooter id={this.props.currentSceneId} />
         }
         return (
           <Container header={true} footer={footer} headerTitle='The Outcome'>
-            <MatchResult step='audio' results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} />
+            <MatchResult step='audio' results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} currentSceneId={app.get('currentSceneId')} />
           </Container>
         )
         break
@@ -139,16 +142,25 @@ export default class extends React.Component {
         )
         break
       case 'results_video':
+        if (room.getIn(['scores', 'video']) >= 2) {
+          footer = null
+        } else {
+          footer = <BlockReportFooter id={this.props.currentSceneId} />
+        }
         return (
           <Container header={true} footer={footer} headerTitle='The Outcome'>
-            <MatchResult step='video' results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} />
+            <MatchResult step='video' results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} currentSceneId={app.get('currentSceneId')} />
           </Container>
         )
         break
       case 'terminated':
         return (
-          <Container header={true} headerTitle='Oops!'>
-            <Text>Sorry - Peer Left</Text>
+          <Container header={true} footer={<BlockReportFooter style={{ marginTop: 50 }} id={app.get('currentSceneId')} redirect={goToHomeScene} />} headerTitle='Escaped !'>
+            <Title style={{ marginTop: 25 }}>Your Match Left Early...</Title>
+            <Text style={{ color: 'white', padding: 25 }}>Sorry, it appears that your match had to leave in the middle of your conversation.</Text>
+            <Text style={{ color: 'white', paddingLeft: 25, paddingRight: 25 }}>Please assume positive intent as a random life event might have happened to your match!</Text>
+            <Text style={{ color: 'white', padding: 25 }}>If you feel you have been OFFENDED or ANNOYED by this member in any way, you can choose to BLOCK them and prevent any future communication.</Text>
+            <Text style={{ color: 'white', paddingLeft: 25, paddingRight: 25 }}>If you feel you have been ABUSED or BULLIED by this member in any way, you can choose to REPORT them to the community and prevent any future communication.</Text>
           </Container>
         )
         break

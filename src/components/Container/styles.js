@@ -1,6 +1,6 @@
 'use strict'
 
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 export default StyleSheet.create({
 
@@ -28,6 +28,10 @@ export default StyleSheet.create({
 
   container: {
     backgroundColor: 'rgba(25, 25, 76, 0.7)'
+  },
+
+  content: {
+    height: Dimensions.get('window').height - 120
   },
 
   footer: {

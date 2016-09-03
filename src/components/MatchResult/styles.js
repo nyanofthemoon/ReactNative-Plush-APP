@@ -5,17 +5,21 @@ import { StyleSheet, Dimensions } from 'react-native'
 export default StyleSheet.create({
 
   container: {
-    flex: 0.5,
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    height: Dimensions.get('window').height - 115,
+    flexDirection: 'column',
+    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center'
+  },
+
+  subcontainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: 50
   },
 
   icon: {
     width : 105,
-    height: 120,
-    margin: 10
+    height: 120
   },
 
   largeicon: {
