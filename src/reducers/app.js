@@ -3,6 +3,7 @@
 import {fromJS} from 'immutable'
 
 import * as types from './../constants'
+import { getSocketId } from './../helpers/socket'
 
 const initialState = fromJS({
   facebookStatus: 'unauthenticated',
@@ -66,6 +67,15 @@ export default (state = initialState, action) => {
         'currentScene'  : 'contact',
         'currentSceneId': action.payload
       })
+      break
+    case types.SOCKET_QUERY_ROOM_RECEIVED:
+      if (action.payload.data.users) {
+        Object.keys(action.payload.data.users).forEach(function(socketId) {
+          if (('/#' + getSocketId()) != socketId) {
+            nextState = fromJS(state).set('currentSceneId', action.payload.data.users[socketId])
+          }
+        })
+      }
       break
     case types.SCENE_NAVIGATION_PROFILE:
       nextState = fromJS(state).set('currentScene', 'profile')

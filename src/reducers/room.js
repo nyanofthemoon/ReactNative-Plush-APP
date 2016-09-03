@@ -13,6 +13,7 @@ const initialState = fromJS({
   stealth    : null,
   genderMatch: null,
   ageGroup   : null,
+  users      : {},
   scores     : {
     audio: 0,
     video: 0

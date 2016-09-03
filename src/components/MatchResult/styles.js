@@ -14,12 +14,13 @@ export default StyleSheet.create({
   subcontainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 50
+    marginBottom: 20
   },
 
   icon: {
     width : 105,
-    height: 120
+    height: 120,
+    margin: 25
   },
 
   largeicon: {
