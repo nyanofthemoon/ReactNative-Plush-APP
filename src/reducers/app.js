@@ -12,7 +12,8 @@ const initialState = fromJS({
   errorMessage  : null,
   currentScene  : null,
   currentSceneId: null,
-  matchMode     : null
+  matchMode     : null,
+  matchIsShy    : null
 })
 
 export default (state = initialState, action) => {
@@ -77,8 +78,9 @@ export default (state = initialState, action) => {
       break
     case types.SCENE_NAVIGATION_MATCH:
       nextState = fromJS(state).merge({
-        currentScene: 'match',
-        matchMode   : action.payload
+        currentScene  : 'match',
+        matchMode     : action.payload.type,
+        matchIsStealth: action.payload.stealth || 'no'
       })
       break
     case types.SCENE_NAVIGATION_ERROR:

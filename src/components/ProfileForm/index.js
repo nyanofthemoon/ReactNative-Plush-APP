@@ -1,9 +1,13 @@
 import React from 'react'
 
+import { View } from 'react-native'
 import { Button } from 'native-base'
-import { Form,InputField,PickerField,Separator } from 'react-native-form-generator'
+import { Form,InputField,PickerField,SwitchField } from 'react-native-form-generator'
 
 import styles from './styles'
+
+//@TODO Fix placeholder color
+//@TODO Fix select text color
 
 export default class extends React.Component{
 
@@ -23,6 +27,11 @@ export default class extends React.Component{
     this.refs.form.refs.employment.setValue(this.props.user.profile.employment)
     this.refs.form.refs.headline.setValue(this.props.user.profile.headline)
     this.refs.form.refs.bio.setValue(this.props.user.profile.bio)
+    if (!this.props.user.profile.agegroup || 'no' === this.props.user.profile.agegroup) {
+      this.refs.form.refs.agegroup.setValue(false)
+    } else {
+      this.refs.form.refs.agegroup.setValue(true)
+    }
   }
 
   handleFormChange(data){
@@ -33,42 +42,43 @@ export default class extends React.Component{
     return this.state.data
   }
 
-  render(){
+  render() {
     return (
-        <Form ref='form' style={styles.container} onChange={this.handleFormChange.bind(this)}>
-          <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' labelStyle={styles.label} style={styles.value} />
-          <PickerField ref='orientation' labelStyle={styles.label} valueStyle={[styles.value, styles.select]}
-                       label='Relationships'
-            options={{ O: 'Opposite Gender', S: 'Same Gender', A: 'Any Gender' }}
-          />
-          <PickerField ref='friendship' labelStyle={styles.label} valueStyle={[styles.value, styles.select]}
-            label='Friendships'
-            options={{ S: 'Same Gender', O: 'Opposite Gender', A: 'Any Gender'}}
-          />
-          <PickerField ref='diet' labelStyle={styles.label} valueStyle={[styles.value, styles.select]}
-                       label='Regular Diet'
-                       options={{ healthy: 'Healthy', unhealthy: 'Unhealthy', vegetarian: 'Vegetarian', vegan: 'Vegan', other: 'Other'}}
-          />
-          <PickerField ref='education' labelStyle={styles.label} valueStyle={[styles.value, styles.select]}
-                       label='Education'
-                       options={{ 'Secondary': 'Secondary', 'Post-Secondary': 'Post-Secondary', 'College': 'College', 'University': 'University', autodidact: 'Autodidact'}}
-          />
-          <PickerField ref='employment' labelStyle={styles.label} valueStyle={[styles.value, styles.select]}
-                       label='Employment'
-                       options={{ 'Student': 'Student', 'Unemployed': 'Unemployed', 'Employed': 'Employed', 'Freelancer': 'Freelancer', 'Stay-At-Home': 'Stay-At-Home'}}
-          />
-          <InputField labelStyle={styles.label} style={styles.value}
-            ref='headline'
-            placeholder='Think of a short and catchy headline!'
-            maxLength={50}
-          />
-          <InputField style={[styles.bio, styles.value]}
-            ref='bio'
-            placeholder='Your most complete bio, shorthened.'
-            multiline={true}
-            maxLength={256}
-          />
-        </Form>
+      <Form ref='form' style={styles.container} onChange={this.handleFormChange.bind(this)}>
+        <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' labelStyle={styles.label} style={styles.value} containerStyle={styles.container} />
+        <PickerField ref='education' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.value} containerStyle={styles.container}
+                     label='Education'
+                     options={{ 'Secondary': 'Secondary', 'Post-Secondary': 'Post-Secondary', 'College': 'College', 'University': 'University', autodidact: 'Autodidact'}}
+        />
+        <PickerField ref='employment' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.value} containerStyle={styles.container}
+                     label='Employment'
+                     options={{ 'Student': 'Student', 'Unemployed': 'Unemployed', 'Employed': 'Employed', 'Freelancer': 'Freelancer', 'Stay-At-Home': 'Stay-At-Home'}}
+        />
+        <PickerField ref='diet' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container}
+                     label='Regular Diet'
+                     options={{ healthy: 'Healthy', unhealthy: 'Unhealthy', vegetarian: 'Vegetarian', vegan: 'Vegan', other: 'Other'}}
+        />
+        <SwitchField label='Match Within Age Group' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} ref='agegroup'/>
+        <PickerField ref='orientation' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container}
+                     label='Relationships'
+                     options={{ O: 'Opposite Gender', S: 'Same Gender', A: 'Any Gender' }}
+        />
+        <PickerField ref='friendship' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container}
+                     label='Friendships'
+                     options={{ S: 'Same Gender', O: 'Opposite Gender', A: 'Any Gender'}}
+        />
+        <InputField labelStyle={styles.label} style={styles.value} containerStyle={styles.container}
+          ref='headline'
+          placeholder='Think of a short and catchy headline!'
+          maxLength={50}
+        />
+        <InputField style={[styles.bio, styles.value]} containerStyle={styles.container}
+          ref='bio'
+          placeholder='Your most complete bio, shorthened.'
+          multiline={true}
+          maxLength={256}
+        />
+      </Form>
     )
   }
 

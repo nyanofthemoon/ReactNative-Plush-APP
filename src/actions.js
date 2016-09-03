@@ -182,7 +182,10 @@ function queryUserReception(data) {
   if (true === data.self) {
     // @NOTE Add yourself as a friend in dev mode
     if (true === Config.environment.isDevelopment()) {
-      data.data.contacts.friendship[data.data.id] = data.data.id
+     data.data.contacts.friendship[data.data.id] = data.data.id
+     let contacts = _getState().contact.toJSON()
+     contacts.profiles[data.data.id] = data.data
+     Db.saveContacts(contacts, function() {})
     }
     Db.saveUser(data.data, function () {
       if (_getState().app.get('apiStatus') !== 'connected') {
@@ -190,12 +193,12 @@ function queryUserReception(data) {
         setTimeout(function() {
           // Query Contact Information
           Object.keys(data.data.contacts.relationship).forEach(function(id) {
-            if (Math.floor(Math.random() * 5) === 3) {
+            if (undefined === _getState().contact.getIn(['profiles', id]) || Math.floor(Math.random() * 5) === 3) {
               queryContact(id)
             }
           })
           Object.keys(data.data.contacts.friendship).forEach(function(id) {
-            if (Math.floor(Math.random() * 5) === 3) {
+            if (undefined === _getState().contact.getIn(['profiles', id]) || Math.floor(Math.random() * 5) === 3) {
               queryContact(id)
             }
           })
@@ -239,6 +242,7 @@ export function updateProfile(data) {
       nickname   : data.nickname,
       orientation: data.orientation,
       friendship : data.friendship,
+      agegroup   : (true === data.agegroup) ? 'yes' : 'no',
       headline   : data.headline,
       bio        : data.bio,
       education  : data.education,
@@ -273,18 +277,26 @@ export function goToProfileScene(data) {
   Actions.profile()
 }
 
-export function goToMatchScene(data) {
+function goToMatchScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_MATCH, payload: data})
   emitSocketUserLeaveEvent()
   Actions.matchs()
 }
 
 export function goToMatchRelationshipScene() {
-  goToMatchScene('relationship')
+  goToMatchScene({ type: 'relationship', stealth: 'no' })
+}
+
+export function goToStealthMatchRelationshipScene() {
+  goToMatchScene({ type: 'relationship', stealth: 'yes' })
 }
 
 export function goToMatchFriendshipScene() {
-  goToMatchScene('friendship')
+  goToMatchScene({ type: 'friendship', stealth: 'no' })
+}
+
+export function goToStealthMatchFriendshipScene() {
+  goToMatchScene({ type: 'friendship', stealth: 'yes' })
 }
 
 export function goToLogoutScene(data) {

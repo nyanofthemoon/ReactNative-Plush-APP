@@ -11,12 +11,13 @@ const initialState = fromJS({
     gender     : null,
     birthday   : null,
     orientation: null,
+    agegroup   : null,
     friendship : null,
     headline   : null,
     bio        : null,
     education  : null,
     employment : null,
-    diet       : null, // unhealthy, healthy, vegetarian, vegan, other
+    diet       : null,
     picture    : null,
     astrological: {
       chinese   : null,

@@ -1,30 +1,34 @@
 'use strict'
 
-import { Dimensions, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
 
   container: {
-    backgroundColor: 'white',
-    height: Dimensions.get('window').height - 100
+    backgroundColor: 'transparent'
   },
 
   label: {
+    backgroundColor: 'transparent',
     fontFamily: 'IndieFlower',
     fontSize: 20,
-    marginTop: 7
+    marginTop: 7,
+    color: 'white'
   },
 
   value: {
     fontFamily: 'Comfortaa',
     fontSize: 15,
     marginTop: 2,
-    color: '#262672'
+    color: 'orange',
+    backgroundColor: 'transparent',
   },
 
   select: {
     paddingRight: 0,
-    marginRight: 0
+    marginRight: 0,
+    backgroundColor: 'transparent',
+    color: 'orange'
   },
 
   bio: {

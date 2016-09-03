@@ -47,6 +47,8 @@ export default class extends React.Component {
     this.setState(result)
   }
 
+  // @TODO Match Result Failed: Say "Don't Give Up!" with button to try again.
+
   render() {
     return (
     <View style={styles.container}>

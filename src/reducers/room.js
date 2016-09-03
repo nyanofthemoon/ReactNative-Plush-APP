@@ -10,6 +10,7 @@ const initialState = fromJS({
   status     : null,
   timer      : null,
   video      : null,
+  stealth    : null,
   genderMatch: null,
   ageGroup   : null,
   scores     : {

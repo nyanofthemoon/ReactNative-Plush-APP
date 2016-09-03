@@ -5,7 +5,7 @@ import { View, Text } from 'react-native'
 import { Spinner, Button, Title } from 'native-base'
 import { connect } from 'react-redux'
 
-import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchScene } from './../../actions'
+import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchFriendshipScene, goToMatchRelationshipScene } from './../../actions'
 
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
@@ -27,14 +27,6 @@ export default class extends React.Component {
     user: React.PropTypes.object.isRequired
   }
 
-  _launchFrienshipSearch() {
-    goToMatchScene('friendship')
-  }
-
-  _launchRelationshipSearch() {
-    goToMatchScene('relationship')
-  }
-
   render() {
     const {app, user} = this.props
     if ('unauthenticated' === app.get('facebookStatus')) {
@@ -48,8 +40,8 @@ export default class extends React.Component {
     } else if ('connected' === app.get('apiStatus')) {
         return (
           <Container header={true} scene='home'>
-            <Button info onPress={this._launchRelationshipSearch}>Find Relationships</Button>
-            <Button info onPress={this._launchFrienshipSearch}>Find Friendships</Button>
+            <Button info onPress={goToMatchRelationshipScene}>Find Relationships</Button>
+            <Button info onPress={goToMatchFriendshipScene}>Find Friendships</Button>
           </Container>
         )
     } else {

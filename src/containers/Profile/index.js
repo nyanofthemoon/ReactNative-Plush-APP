@@ -1,8 +1,8 @@
 'use strict'
 
 import React from 'react'
-import { View, Text } from 'react-native'
-import { Button } from 'native-base'
+import { View, Text, Alert } from 'react-native'
+import { Spinner, Button } from 'native-base'
 import { connect } from 'react-redux'
 
 import Container from './../../components/Container'
@@ -25,6 +25,12 @@ export default class extends React.Component {
 
   _saveProfile() {
     updateProfile(this.refs.form.getData())
+    setTimeout(function() {
+      Alert.alert(
+        'Awesome!',
+        'Your profile has been updated.'
+      )
+    }, 500)
   }
 
   render() {
@@ -36,7 +42,7 @@ export default class extends React.Component {
       </View>
     )
     return (
-      <Container header={true} footer={footer} scene='profile' headerTitle='Personal Profile' scrollEnabled={true}>
+      <Container header={true} footer={footer} scene='profile' headerTitle='My Profile' scrollEnabled={true}>
         <ProfileForm ref='form' user={user.toJSON()}/>
       </Container>
     )

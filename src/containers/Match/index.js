@@ -60,6 +60,9 @@ export default class extends React.Component {
 
   render() {
     const {app, room, notification} = this.props
+
+    // @TODO app.get('matchIsStealth')
+
     let status = room.get('status')
     let footer = null
     switch(status) {
@@ -96,7 +99,7 @@ export default class extends React.Component {
               </View>
               )
             }
-            <RTCView key='rtc_audio' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), flush: true }} socket={app.get('socket')} config={Config.webrtc} />
+            <RTCView key='rtc_audio' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: true }} socket={app.get('socket')} config={Config.webrtc} />
           </Container>
         )
         break
@@ -123,7 +126,7 @@ export default class extends React.Component {
         footer = <Timer key='video' milliseconds={room.get('timer')} />
         return (
           <Container header={false}>
-            <RTCView key='rtc_video' footer={footer} data={{ mode: 'video', kind: 'match', type: app.get('matchMode'), name: room.get('name'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
+            <RTCView key='rtc_video' footer={footer} data={{ mode: 'video', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
           </Container>
         )
         break
