@@ -72,7 +72,7 @@ export default class extends React.Component {
             <Text style={[styles.text, education]}>{ this.props.profile.profile.education } Education</Text>
             <Text style={[styles.text, employment]}>{ this.props.profile.profile.employment }</Text>
             <View>
-              <Text style={[styles.text, bio, { marginTop: 10 }]}>{ this.props.profile.profile.bio }</Text>
+              <Text style={[styles.text, bio, { marginTop: 20 }]}>{ this.props.profile.profile.bio }</Text>
             </View>
           </CardItem>
         </Card>

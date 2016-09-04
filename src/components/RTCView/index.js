@@ -293,32 +293,34 @@ export default class extends React.Component {
       if (remote) {
         if ('video' != this.props.data.mode) {
           return (
-            <View style={styles.container}>
+            <View style={[styles.container, {flex: 1, alignItems: 'center', justifyContent: 'center', height:this.state.windowHeight, width: this.state.windowWidth}]}>
+              <Text style={{ alignSelf: 'center', color: 'white', marginTop: -80, fontSize: 50, fontFamily:'IndieFlower' }}>Audio Only</Text>
               <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
               <RTCView key='2' streamURL={remote} style={styles.hidden}/>
             </View>
           )
         } else {
           return (
-            <View style={styles.container}>
+            <View style={[styles.container, {flex: 1, alignItems: 'center', justifyContent: 'center', height:this.state.windowHeight, width: this.state.windowWidth, backgroundColor: 'black'}]}>
               <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
               <RTCView key='2' streamURL={remote}
-                       style={[styles.remoteView, {width: (this.state.windowHeight/2), height: (this.state.windowHeight - 50)}]}/>
+                       style={[styles.remoteView, {width: (this.state.windowHeight/2), height: (this.state.windowHeight - 100), alignSelf: 'center'}]}/>
             </View>
           )
         }
       } else {
         if ('video' != this.props.data.mode) {
           return (
-            <View style={styles.container}>
+          <View style={[styles.container, {flex: 1, alignItems: 'center', justifyContent: 'center', height:this.state.windowHeight, width: this.state.windowWidth}]}>
+              <Text style={{ alignSelf: 'center', color: 'white', marginTop: -80, fontSize: 50, fontFamily:'IndieFlower' }}>Audio Only</Text>
               <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
             </View>
           )
         } else {
           return (
-            <View style={styles.container}>
+            <View style={[styles.container, {flex: 1, alignItems: 'center', justifyContent: 'center', height:this.state.windowHeight, width: this.state.windowWidth, backgroundColor: 'black'}]}>
               <RTCView key='1' streamURL={this.state.selfViewSrc}
-                       style={[styles.selfView, {width: (this.state.windowHeight/2), height: (this.state.windowHeight - 50)}]}/>
+                       style={[styles.selfView, {width: (this.state.windowHeight/2), height: (this.state.windowHeight - 100), alignSelf: 'center'}]}/>
             </View>
           )
         }

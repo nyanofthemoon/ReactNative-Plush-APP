@@ -14,7 +14,7 @@ export default StyleSheet.create({
   subcontainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 20
+    marginTop: -35
   },
 
   icon: {

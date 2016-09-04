@@ -11,6 +11,7 @@ export default StyleSheet.create({
   },
 
   selfView: {
+    alignSelf: 'center'
   },
 
   hidden: {

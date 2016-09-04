@@ -18,15 +18,15 @@ export default StyleSheet.create({
 
   text: {
     fontFamily: 'IndieFlower',
-    fontSize: 18,
-    lineHeight: 24,
-    letterSpacing: 1
+    fontSize: 16,
+    lineHeight: 22,
+    letterSpacing: 2
   },
 
   headline: {
     fontFamily: 'IndieFlower',
-    fontSize: 24,
-    lineHeight: 28,
+    fontSize: 20,
+    lineHeight: 24,
     paddingBottom: 10,
     marginBottom: 30,
     marginTop: -25
@@ -49,7 +49,7 @@ export default StyleSheet.create({
   head: {
     flex: 1,
     flexDirection: 'row',
-    marginTop: -20
+    marginTop: -20,
   },
 
   profile: {

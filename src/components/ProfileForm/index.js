@@ -43,7 +43,7 @@ export default class extends React.Component{
         <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' maxLength={25} labelStyle={styles.label} style={styles.value} containerStyle={styles.container} />
         <PickerField ref='education' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.value} containerStyle={styles.container}
                      label='Education'
-                     options={{ 'Secondary': 'Secondary', 'Post-Secondary': 'Post-Secondary', 'College': 'College', 'University': 'University', autodidact: 'Autodidact'}}
+                     options={{ 'Secondary': 'Secondary', 'Post-Secondary': 'Post-Secondary', 'College': 'College', 'University': 'University', Autodidact: 'Autodidact'}}
         />
         <PickerField ref='employment' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.value} containerStyle={styles.container}
                      label='Employment'
@@ -51,7 +51,7 @@ export default class extends React.Component{
         />
         <PickerField ref='diet' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container}
                      label='Regular Diet'
-                     options={{ healthy: 'Healthy', unhealthy: 'Unhealthy', vegetarian: 'Vegetarian', vegan: 'Vegan', other: 'Other'}}
+                     options={{ Healthy: 'Healthy', Unhealthy: 'Unhealthy', Vegetarian: 'Vegetarian', Vegan: 'Vegan', Other: 'Other'}}
         />
         <PickerField ref='orientation' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container}
                      label='Relationships'

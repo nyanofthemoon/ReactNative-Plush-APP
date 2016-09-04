@@ -128,8 +128,8 @@ export default class extends React.Component {
       case 'video':
         footer = <Timer key='video' milliseconds={room.get('timer')} />
         return (
-          <Container header={false}>
-            <RTCView key='rtc_video' footer={footer} data={{ mode: 'video', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
+          <Container header={false} footer={footer}>
+            <RTCView key='rtc_video' data={{ mode: 'video', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
           </Container>
         )
         break
