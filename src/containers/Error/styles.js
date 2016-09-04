@@ -14,8 +14,9 @@ export default StyleSheet.create({
     color        : 'white',
     fontFamily   : 'Condiment',
     fontSize     : 75,
-    lineHeight   : 90,
-    letterSpacing: 3
+    letterSpacing: 5,
+    lineHeight   : 95,
+    paddingRight : 20
   },
 
   subtitle: {

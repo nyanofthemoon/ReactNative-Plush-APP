@@ -26,7 +26,7 @@ export default class extends React.Component {
     const {user} = this.props
     return (
       <Container header={false} cover={{type: 'splash', data:{subtype: 'logout', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
-        <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
+        <Title style={[styles.title, styles.shadowed]}>Plush</Title>
         <Title style={[styles.subtitle, styles.shadowed]}>We're sad to see you go !</Title>
         <Button info large style={[styles.centered, styles.shadowed, styles.bottomPadded, styles.logout]} onPress={goToProfileScene}>I'm Not Done</Button>
         <FacebookButton style={styles.centered} handleLogout={facebookConnectionLogout}/>

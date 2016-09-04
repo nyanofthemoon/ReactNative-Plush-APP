@@ -13,8 +13,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
-    height: Dimensions.get('window').height - 110
+    alignItems: 'center'
   },
 
   title: {

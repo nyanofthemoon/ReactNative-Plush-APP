@@ -14,6 +14,19 @@ import renderIf from './../../helpers/renderIf'
 
 import styles from './styles'
 
+const greetings = [
+  "You are beautiful.",
+  "You are worthy.",
+  "You are important.",
+  "You are special.",
+  "You are unique.",
+  "You are wonderful.",
+  "You are talented.",
+  "You are brave.",
+  "You are lovable.",
+  "You are irreplaceable."
+]
+
 @connect(
   state => ({
     app : state.app,
@@ -32,23 +45,25 @@ export default class extends React.Component {
     if ('unauthenticated' === app.get('facebookStatus')) {
       return (
         <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
-          <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
-          <Title style={[styles.subtitle, styles.shadowed]}>Time is precious.</Title>
+          <Title style={[styles.title, styles.shadowed, { marginBottom: 65 }]}>Plush</Title>
+          <Title style={[styles.subtitle, styles.shadowed]}></Title>
           <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
         </Container>
       )
     } else if ('connected' === app.get('apiStatus')) {
         return (
           <Container header={true} scene='home'>
-            <Button info onPress={goToMatchRelationshipScene}>Find Relationships</Button>
-            <Button info onPress={goToMatchFriendshipScene}>Find Friendships</Button>
+            <View style={styles.container}>
+              <Button info style={[styles.button, styles.shadowed]} onPress={goToMatchFriendshipScene}><Title style={styles.subtitle}>Friendship</Title></Button>
+              <Button info style={[styles.button, styles.shadowed]} onPress={goToMatchRelationshipScene}><Title style={styles.subtitle}>Relationship</Title></Button>
+            </View>
           </Container>
         )
     } else {
       return (
         <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
-          <Title style={[styles.title, styles.shadowed]}>Extreme Meetups</Title>
-          <Title style={[styles.subtitle, styles.shadowed]}>Are you ready?</Title>
+          <Title style={[styles.title, styles.shadowed]}>Plush</Title>
+          <Title style={[styles.subtitle, styles.shadowed]}>{'"' + greetings[Math.floor((Math.random()*greetings.length))] + '"'}</Title>
           <Spinner style={styles.shadowed} color='white' />
         </Container>
       )

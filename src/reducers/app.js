@@ -6,15 +6,16 @@ import * as types from './../constants'
 import { getSocketId } from './../helpers/socket'
 
 const initialState = fromJS({
-  facebookStatus: 'unauthenticated',
-  socketStatus  : 'disconnected',
-  socket        : null,
-  apiStatus     : 'disconnected',
-  errorMessage  : null,
-  currentScene  : null,
-  currentSceneId: null,
-  matchMode     : null,
-  matchIsShy    : null
+  facebookStatus : 'unauthenticated',
+  socketStatus   : 'disconnected',
+  socket         : null,
+  apiStatus      : 'disconnected',
+  errorMessage   : null,
+  currentScene   : null,
+  currentSceneTab: null,
+  currentSceneId : null,
+  matchMode      : null,
+  matchIsShy     : null
 })
 
 export default (state = initialState, action) => {
@@ -76,6 +77,9 @@ export default (state = initialState, action) => {
           }
         })
       }
+      break
+    case types.SCENE_NAVIGATION_TAB_CHANGE:
+      nextState = fromJS(state).set('currentSceneTab', action.payload)
       break
     case types.SCENE_NAVIGATION_PROFILE:
       nextState = fromJS(state).set('currentScene', 'profile')

@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -13,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>XMeetups</string>
+	<string>Plush</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -34,7 +32,9 @@
 	<key>FacebookAppID</key>
 	<string>1569774163325188</string>
 	<key>FacebookDisplayName</key>
-	<string>Extreme Meetups</string>
+	<string>Plush</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -44,6 +44,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NNSLocationAlwaysUsageDescription</key>
+	<string>This application requires location services to work.</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -52,8 +54,6 @@
 	<key>NSLocationUsageDescription</key>
 	<string>This application requires location services to work.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This application requires location services to work.</string>
-	<key>NNSLocationAlwaysUsageDescription</key>
 	<string>This application requires location services to work.</string>
 	<key>UIAppFonts</key>
 	<array>

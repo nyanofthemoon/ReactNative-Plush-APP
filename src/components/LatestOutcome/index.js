@@ -38,7 +38,7 @@ export default class extends React.Component {
   render() {
     return (
       <Animatable.View style={styles.container} animation='fadeInUp' duration={1000} iterationCount={1}>
-        <Text style={styles.text}>Last Match</Text>
+        <Text style={styles.text}>Last Plush</Text>
         <View style={styles.itemLeft}>
           {genderIcon(this.props.data.get('leftGender'), styles.leftGender)}
           <Image style={styles.icon} source={emoticons.left[this.props.data.get('leftEmoticon')]} />

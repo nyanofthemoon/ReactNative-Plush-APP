@@ -27,11 +27,6 @@ export default class extends React.Component{
     this.refs.form.refs.employment.setValue(this.props.user.profile.employment)
     this.refs.form.refs.headline.setValue(this.props.user.profile.headline)
     this.refs.form.refs.bio.setValue(this.props.user.profile.bio)
-    if (!this.props.user.profile.agegroup || 'no' === this.props.user.profile.agegroup) {
-      this.refs.form.refs.agegroup.setValue(false)
-    } else {
-      this.refs.form.refs.agegroup.setValue(true)
-    }
   }
 
   handleFormChange(data){
@@ -58,7 +53,6 @@ export default class extends React.Component{
                      label='Regular Diet'
                      options={{ healthy: 'Healthy', unhealthy: 'Unhealthy', vegetarian: 'Vegetarian', vegan: 'Vegan', other: 'Other'}}
         />
-        <SwitchField label='Match Within Age Group' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} ref='agegroup'/>
         <PickerField ref='orientation' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container}
                      label='Relationships'
                      options={{ O: 'Opposite Gender', S: 'Same Gender', A: 'Any Gender' }}

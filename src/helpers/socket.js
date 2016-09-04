@@ -95,6 +95,12 @@ export function emitSocketReportEvent(id) {
   }
 }
 
+export function emitSocketMessageEvent(id, message) {
+  if (true === isSocketConnected()) {
+    socket.emit('message', {id: id, message: message})
+  }
+}
+
 export function subscribeToMatchNotifications() {
   if (true === isSocketConnected()) {
     socket.emit('subscribe', {room: 'matches'})

@@ -7,12 +7,13 @@ import { Header, InputGroup, Icon, Button, Input, Tabs, Title } from 'native-bas
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
-import { goToContactsScene } from './../../actions'
+import { goToContactsScene, goToTab } from './../../actions'
 
 import Container from './../../components/Container'
 import ProfileTab from './../../components/ProfileTab'
 import ConversationTab from './../../components/ConversationTab'
 import BlockReportFooter from './../../components/BlockReportFooter'
+import SendMessageFooter from './../../components/SendMessageFooter'
 
 import styles from './styles'
 const tabStyle = StyleSheet.flatten(styles.tab)
@@ -33,9 +34,17 @@ export default class extends React.Component {
     contact: React.PropTypes.object.isRequired
   }
 
+  componentDidMount() {
+    goToTab(0)
+  }
+
   _getProfileId() {
     const {app} = this.props
     return app.get('currentSceneId')
+  }
+
+  _onChangeTab(e) {
+    goToTab(e.i)
   }
 
   _getProfileType() {
@@ -55,13 +64,23 @@ export default class extends React.Component {
     let id      = this._getProfileId()
     let profile = contact.getIn(['profiles', id]).toJSON()
     let message = contact.getIn(['messages', id])
+    if (message) {
+      message = message.toJSON()
+    }
+    let footer
+    if (0 == app.get('currentSceneTab')) {
+      footer = <BlockReportFooter id={app.get('currentSceneId')} redirect={goToContactsScene} />
+    } else {
+      footer = <SendMessageFooter id={app.get('currentSceneId')} />
+    }
     return (
-      <Container header={true} footer={<BlockReportFooter id={app.get('currentSceneId')} redirect={goToContactsScene} />}  headerTitle={this._getProfileType()}>
-        <ScrollableTabView tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}}>
+      <Container header={true} footer={footer} headerTitle={this._getProfileType()}>
+        <ScrollableTabView onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}}>
           <ProfileTab tabLabel='Profile' profile={profile} />
           <ConversationTab tabLabel='Conversation' data={message} profile={profile} />
         </ScrollableTabView>
       </Container>
     )
   }
+
 }

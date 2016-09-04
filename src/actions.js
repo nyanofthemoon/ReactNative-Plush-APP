@@ -12,7 +12,7 @@ import * as Db    from './helpers/db'
 
 import Config from './config'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent, emitSocketUpdateProfileEvent, emitSocketReportEvent, emitSocketBlockEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent, emitSocketUpdateProfileEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -88,6 +88,9 @@ function socketConnectionRequest() {
           default:
             return unknownNotificationReception(data)
         }
+      })
+      socket.on('message', function (data) {
+         return messageReception(data)
       })
       socket.on('disconnect', function () {
         dispatch({type: types.SOCKET_CONNECTION_FAILED})
@@ -182,6 +185,7 @@ function queryUserReception(data) {
   if (true === data.self) {
     // @NOTE Add yourself as a friend in dev mode
     if (true === Config.environment.isDevelopment()) {
+      data.data.contacts.blocked                 = {}
      data.data.contacts.friendship[data.data.id] = data.data.id
      let contacts = _getState().contact.toJSON()
      contacts.profiles[data.data.id] = data.data
@@ -242,7 +246,6 @@ export function updateProfile(data) {
       nickname   : data.nickname,
       orientation: data.orientation,
       friendship : data.friendship,
-      agegroup   : (true === data.agegroup) ? 'yes' : 'no',
       headline   : data.headline,
       bio        : data.bio,
       education  : data.education,
@@ -299,12 +302,27 @@ export function goToStealthMatchFriendshipScene() {
   goToMatchScene({ type: 'friendship', stealth: 'yes' })
 }
 
+export function goToTab(id) {
+  dispatch({type: types.SCENE_NAVIGATION_TAB_CHANGE, payload: id})
+}
+
 export function blockUser(id) {
   emitSocketBlockEvent(id)
 }
 
 export function reportUser(id) {
   emitSocketReportEvent(id)
+}
+
+export function messageUser(id, message) {
+  dispatch({type: types.SOCKET_MESSAGE_USER_REQUESTED, payload: { id: id, message: message } })
+  emitSocketMessageEvent(id, message)
+}
+
+function messageReception(data) {
+  setTimeout(function() {
+    dispatch({type: types.SOCKET_MESSAGE_USER_RECEIVED, payload: data})
+  }, 1000)
 }
 
 export function goToLogoutScene(data) {

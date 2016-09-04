@@ -42,7 +42,7 @@ export default class extends React.Component {
       </View>
     )
     return (
-      <Container header={true} footer={footer} scene='profile' headerTitle='My Profile' scrollEnabled={true}>
+      <Container header={true} footer={footer} scene='profile' headerTitle='Plush Profile' scrollEnabled={true}>
         <ProfileForm ref='form' user={user.toJSON()}/>
       </Container>
     )

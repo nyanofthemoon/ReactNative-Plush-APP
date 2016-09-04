@@ -1105,7 +1105,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hotchiwawa.extrememeetups;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hotchiwawa.plush;
 				PRODUCT_NAME = RNBoilerplate;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";
@@ -1152,7 +1152,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hotchiwawa.extrememeetups;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hotchiwawa.plush;
 				PRODUCT_NAME = RNBoilerplate;
 				PROVISIONING_PROFILE = "";
 				VALID_ARCHS = "arm64 armv7 armv7s";

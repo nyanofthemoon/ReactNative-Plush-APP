@@ -5,6 +5,11 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
 
   container: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginTop: 40
   },
 
   title: {
@@ -13,8 +18,9 @@ export default StyleSheet.create({
     color        : 'white',
     fontFamily   : 'Condiment',
     fontSize     : 75,
-    lineHeight   : 90,
-    letterSpacing: 3
+    letterSpacing: 5,
+    lineHeight   : 95,
+    paddingRight : 20
   },
 
   subtitle: {
@@ -22,8 +28,16 @@ export default StyleSheet.create({
     marginBottom : 75,
     color        : 'white',
     fontFamily   : 'IndieFlower',
-    fontSize     : 25,
-    lineHeight   : 25
+    fontSize     : 26,
+    lineHeight   : 28,
+    marginLeft   : 10,
+    marginRight  : 10
+  },
+
+  button: {
+    alignSelf: 'center',
+    height: 150,
+    width: 250
   },
 
   centered: {

@@ -19,7 +19,7 @@ export default StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     flexDirection: 'column',
-    marginLeft: 45
+    marginLeft: 40
   },
 
   itemRight: {
@@ -43,7 +43,8 @@ export default StyleSheet.create({
   text: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 14
+    fontSize: 20,
+    fontFamily: 'IndieFlower'
   }
 
 })
