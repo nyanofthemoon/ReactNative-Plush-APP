@@ -40,7 +40,7 @@ export default class extends React.Component{
   render() {
     return (
       <Form ref='form' style={styles.container} onChange={this.handleFormChange.bind(this)}>
-        <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' labelStyle={styles.label} style={styles.value} containerStyle={styles.container} />
+        <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' maxLength={25} labelStyle={styles.label} style={styles.value} containerStyle={styles.container} />
         <PickerField ref='education' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.value} containerStyle={styles.container}
                      label='Education'
                      options={{ 'Secondary': 'Secondary', 'Post-Secondary': 'Post-Secondary', 'College': 'College', 'University': 'University', autodidact: 'Autodidact'}}
@@ -64,13 +64,13 @@ export default class extends React.Component{
         <InputField labelStyle={styles.label} style={styles.value} containerStyle={styles.container}
           ref='headline'
           placeholder='Think of a short and catchy headline!'
-          maxLength={50}
+          maxLength={32}
         />
         <InputField style={[styles.bio, styles.value]} containerStyle={styles.container}
           ref='bio'
           placeholder='Your most complete bio, shorthened.'
           multiline={true}
-          maxLength={256}
+          maxLength={300}
         />
       </Form>
     )

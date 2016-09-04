@@ -32,14 +32,16 @@ export default class extends React.Component {
 
   _renderRow(id) {
     const {contact} = this.props
-    let profile = contact.getIn(['profiles', id]).toJSON()
+    let profiles = contact.get('profiles')
+    let profile  = profiles[id]
     if (profile) {
-      let lastRead   = contact.getIn(['messages', id, 'last'])
+      let messages = contact.get('messages')
+      //let lastRead   = messages[id].last || null
       let badgeCount = 0
       let badgeStyle = styles.hidden
-      if (lastRead && lastRead < new Date().getTime()) {
-        badgeStyle = styles.badge
-      }
+      //if (lastRead && lastRead < new Date().getTime()) {
+      //  badgeStyle = styles.badge
+      //}
       return (
         <ListItem key={id} button onPress={this._onPress.bind(this, id)} style={styles.container}>
           <View style={styles.row}>
@@ -51,12 +53,11 @@ export default class extends React.Component {
         </ListItem>
       )
     } else {
-      return <ListItem/>
+      return <ListItem key={id}><View></View></ListItem>
     }
   }
 
   render() {
-    //const {contact} = this.props
     if (Object.keys(this.props.list).length > 0) {
       return <List dataArray={this.props.list} renderRow={this._renderRow.bind(this)}/>
     } else {
@@ -68,7 +69,7 @@ export default class extends React.Component {
       } else {
         return <View style={styles.emptyContainer}>
           <Title style={styles.title}>It's time to make friends.</Title>
-          <Button large success style={styles.ready} onPress={goToMatchFriendshipScene}>Let's Go!</Button>
+          <Button large info style={styles.ready} onPress={goToMatchFriendshipScene}>Let's Go!</Button>
         </View>
       }
     }

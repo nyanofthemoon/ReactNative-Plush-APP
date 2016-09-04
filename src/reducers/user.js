@@ -5,7 +5,7 @@ import {fromJS} from 'immutable'
 import * as types from './../constants'
 
 const initialState = fromJS({
-  id       : null,
+  id         : null,
   profile  : {
     nickname   : null,
     gender     : null,

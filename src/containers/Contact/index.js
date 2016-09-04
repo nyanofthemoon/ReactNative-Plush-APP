@@ -62,11 +62,8 @@ export default class extends React.Component {
   render() {
     const {app, contact} = this.props
     let id      = this._getProfileId()
-    let profile = contact.getIn(['profiles', id]).toJSON()
-    let message = contact.getIn(['messages', id])
-    if (message) {
-      message = message.toJSON()
-    }
+    let profiles = contact.get('profiles')
+    let messages = contact.get('messages')
     let footer
     if (0 == app.get('currentSceneTab')) {
       footer = <BlockReportFooter id={app.get('currentSceneId')} redirect={goToContactsScene} />
@@ -75,9 +72,9 @@ export default class extends React.Component {
     }
     return (
       <Container header={true} footer={footer} headerTitle={this._getProfileType()}>
-        <ScrollableTabView onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}}>
-          <ProfileTab tabLabel='Profile' profile={profile} />
-          <ConversationTab tabLabel='Conversation' data={message} profile={profile} />
+        <ScrollableTabView onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}} style={styles.container}>
+          <ProfileTab tabLabel='Profile' id={id} profile={profiles[id]} />
+          <ConversationTab tabLabel='Conversation' data={messages[id]} id={id} profile={profiles[id]} />
         </ScrollableTabView>
       </Container>
     )

@@ -34,6 +34,11 @@ export default StyleSheet.create({
     marginRight  : 10
   },
 
+  buttonText: {
+    fontSize: 38,
+    lineHeight: 34
+  },
+
   button: {
     alignSelf: 'center',
     height: 150,

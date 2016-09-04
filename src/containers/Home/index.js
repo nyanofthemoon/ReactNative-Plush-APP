@@ -54,8 +54,8 @@ export default class extends React.Component {
         return (
           <Container header={true} scene='home'>
             <View style={styles.container}>
-              <Button info style={[styles.button, styles.shadowed]} onPress={goToMatchFriendshipScene}><Title style={styles.subtitle}>Friendship</Title></Button>
-              <Button info style={[styles.button, styles.shadowed]} onPress={goToMatchRelationshipScene}><Title style={styles.subtitle}>Relationship</Title></Button>
+              <Button info style={[styles.button, styles.shadowed]} onPress={goToMatchFriendshipScene}><Title style={[styles.subtitle, styles.buttonText]}>Friendship</Title></Button>
+              <Button info style={[styles.button, styles.shadowed]} onPress={goToMatchRelationshipScene}><Title style={[styles.subtitle, styles.buttonText]}>Relationship</Title></Button>
             </View>
           </Container>
         )
@@ -63,7 +63,7 @@ export default class extends React.Component {
       return (
         <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
           <Title style={[styles.title, styles.shadowed]}>Plush</Title>
-          <Title style={[styles.subtitle, styles.shadowed]}>{'"' + greetings[Math.floor((Math.random()*greetings.length))] + '"'}</Title>
+          <Title style={[styles.subtitle, styles.shadowed]}>{greetings[Math.floor((Math.random()*greetings.length))]}</Title>
           <Spinner style={styles.shadowed} color='white' />
         </Container>
       )

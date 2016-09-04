@@ -185,11 +185,13 @@ function queryUserReception(data) {
   if (true === data.self) {
     // @NOTE Add yourself as a friend in dev mode
     if (true === Config.environment.isDevelopment()) {
-      data.data.contacts.blocked                 = {}
-     data.data.contacts.friendship[data.data.id] = data.data.id
-     let contacts = _getState().contact.toJSON()
-     contacts.profiles[data.data.id] = data.data
-     Db.saveContacts(contacts, function() {})
+      data.data.contacts.blocked                  = {}
+      data.data.contacts.friendship[data.data.id] = data.data.id
+      data.data.lastUpdated                       = new Date().getTime()
+      let contacts = _getState().contact.toJSON()
+      contacts.profiles[data.data.id] = data.data
+      dispatch({type: types.SOCKET_QUERY_CONTACT_RECEIVED, payload: data})
+      Db.saveContacts(contacts, function() {})
     }
     Db.saveUser(data.data, function () {
       if (_getState().app.get('apiStatus') !== 'connected') {
@@ -197,12 +199,12 @@ function queryUserReception(data) {
         setTimeout(function() {
           // Query Contact Information
           Object.keys(data.data.contacts.relationship).forEach(function(id) {
-            if (undefined === _getState().contact.getIn(['profiles', id]) || Math.floor(Math.random() * 5) === 3) {
+            if (undefined === _getState().contact.getIn(['profiles', id])) {
               queryContact(id)
             }
           })
           Object.keys(data.data.contacts.friendship).forEach(function(id) {
-            if (undefined === _getState().contact.getIn(['profiles', id]) || Math.floor(Math.random() * 5) === 3) {
+            if (undefined === _getState().contact.getIn(['profiles', id])) {
               queryContact(id)
             }
           })
@@ -214,6 +216,7 @@ function queryUserReception(data) {
   } else {
     dispatch({type: types.SOCKET_QUERY_CONTACT_RECEIVED, payload: data})
     let contacts = _getState().contact.toJSON()
+    data.data.lastUpdated = new Date().getTime()
     contacts.profiles[data.data.id] = data.data
     Db.saveContacts(contacts, function() {})
   }

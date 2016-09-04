@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { Title, Button, List, ListItem, Text, Thumbnail, Badge } from 'native-base'
 import { connect } from 'react-redux'
 
@@ -49,10 +49,11 @@ export default class extends React.Component {
   }
 
   render() {
-    //alert(this.props.data)
-
     if (this.props.data) {
-      return <List dataArray={this.props.data} renderRow={this._renderRow.bind(this)}/>
+      return
+      <ScrollView scrollEnabled={true}>
+        <List dataArray={this.props.data} renderRow={this._renderRow.bind(this)}/>
+      </ScrollView>
     } else {
         return <View style={styles.emptyContainer}>
           <Title style={styles.title}>Start Conversation!</Title>

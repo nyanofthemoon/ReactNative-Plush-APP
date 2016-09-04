@@ -28,6 +28,9 @@ export default (state = initialState, action) => {
       nextState = fromJS(state).set('profiles', prevState.profiles)
       break
 
+
+
+
     case types.SOCKET_MESSAGE_USER_REQUESTED:
       let prevStateMMsg = fromJS(state).toJS()
       let contactIdMMsg = action.payload.id
