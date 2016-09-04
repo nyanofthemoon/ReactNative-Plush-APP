@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>Plush</string>
+	<string>Plush!</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -32,7 +32,7 @@
 	<key>FacebookAppID</key>
 	<string>1569774163325188</string>
 	<key>FacebookDisplayName</key>
-	<string>Plush</string>
+	<string>Plush!</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
