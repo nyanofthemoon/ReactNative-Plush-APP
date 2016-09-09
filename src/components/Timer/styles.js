@@ -12,7 +12,7 @@ export default StyleSheet.create({
     letterSpacing: 5,
     fontFamily: 'IndieFlower',
     color: 'white',
-    marginTop: -3
+    marginTop: -5
   }
 
 })

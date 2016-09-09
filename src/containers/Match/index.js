@@ -5,7 +5,7 @@ import { View, Dimensions, Text, Vibration } from 'react-native'
 import { Title, Button } from 'native-base'
 import { connect } from 'react-redux'
 import Carousel from 'react-native-looped-carousel'
-import {default as Sound} from 'react-native-sound'
+import { default as Sound } from 'react-native-sound'
 
 import { updateMatch, goToHomeScene } from './../../actions'
 import { getSocketId } from './../../helpers/socket'
@@ -74,7 +74,7 @@ export default class extends React.Component {
         footer = <LatestOutcome key={notification.getIn(['data', 'lastUpdated'])} data={notification.get('data')}/>
         if ('audio' === status) {
           header = false
-          footer = <Timer key='audio' milliseconds={room.get('timer')} />
+          footer = <Timer key='audio' notify={true} milliseconds={room.get('timer')} />
           this._vibrate()
         }
         return (
@@ -108,6 +108,7 @@ export default class extends React.Component {
         footer = <Timer key='selection_audio' milliseconds={room.get('timer')} />
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>
+            <Title style={styles.title}>How do you feel after this plush?</Title>
             <MatchVote step='audio' type={app.get('matchMode')} handleVote={this._handleVote} />
             <Timer key='selection_audio' milliseconds={room.get('timer')} />
           </Container>
@@ -121,12 +122,12 @@ export default class extends React.Component {
         }
         return (
           <Container header={true} footer={footer} headerTitle='The Outcome'>
-            <MatchResult step='audio' results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} currentSceneId={app.get('currentSceneId')} />
+            <MatchResult step='audio' type={app.get('matchMode')} results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} currentSceneId={app.get('currentSceneId')} />
           </Container>
         )
         break
       case 'video':
-        footer = <Timer key='video' milliseconds={room.get('timer')} />
+        footer = <Timer key='video' notify={true} milliseconds={room.get('timer')} />
         return (
           <Container header={false} footer={footer}>
             <RTCView key='rtc_video' data={{ mode: 'video', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
@@ -137,6 +138,7 @@ export default class extends React.Component {
         footer = <Timer key='selection_video' milliseconds={room.get('timer')} />
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>
+            <Title style={styles.title}>How do you feel after this plush?</Title>
             <MatchVote step='video' type={app.get('matchMode')} handleVote={this._handleVote} />
           </Container>
         )
@@ -149,7 +151,7 @@ export default class extends React.Component {
         }
         return (
           <Container header={true} footer={footer} headerTitle='The Outcome'>
-            <MatchResult step='video' results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} currentSceneId={app.get('currentSceneId')} />
+            <MatchResult step='video' type={app.get('matchMode')} results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} currentSceneId={app.get('currentSceneId')} />
           </Container>
         )
         break

@@ -34,8 +34,7 @@ export default StyleSheet.create({
     fontFamily: 'IndieFlower',
     fontSize: 20,
     lineHeight: 24,
-    marginTop: 8,
-    marginLeft: -8
+    marginTop: 8
   },
 
   gender: {

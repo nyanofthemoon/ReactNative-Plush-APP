@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, Vibration } from 'react-native'
 
 import * as Animatable from 'react-native-animatable'
 
@@ -13,7 +13,8 @@ export default class extends React.Component {
     super(props)
     this.state = {
       remaining: null,
-      interval : null
+      interval : null,
+      vibration: 0
     }
   }
 
@@ -35,7 +36,8 @@ export default class extends React.Component {
     clearInterval(this.state.interval)
     this.setState({
       remaining: 0,
-      interval : null
+      interval : null,
+      vibration: 0
     })
   }
 
@@ -43,7 +45,8 @@ export default class extends React.Component {
     let remaining = this.state.remaining - 1000
     if (remaining > 99) {
       this.setState({
-        remaining: remaining
+        remaining: remaining,
+        vibration: (this.state.vibration + 1)
       })
     } else {
       this._clearInterval()
@@ -58,8 +61,11 @@ export default class extends React.Component {
 
   render() {
     let animation = null
-    if (this.state.remaining <= 10000) {
+    if (this.state.remaining < 11000) {
       animation = 'tada'
+      if (true === this.props.notify && this.state.vibration < 1) {
+        Vibration.vibrate()
+      }
     }
 
     return (

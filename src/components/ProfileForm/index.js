@@ -63,12 +63,12 @@ export default class extends React.Component{
         />
         <InputField labelStyle={styles.label} style={[styles.value, {marginTop: 10}]} containerStyle={styles.container} placeholderTextColor='#a3a3c2'
           ref='headline'
-          placeholder='Think of a short and catchy headline!'
+          placeholder='Think of a catchy headline!'
           maxLength={32}
         />
         <InputField style={[styles.bio, styles.value]} containerStyle={styles.container} placeholderTextColor='#a3a3c2'
           ref='bio'
-          placeholder='Your most complete bio, shorthened.'
+          placeholder='Write your biography here.'
           multiline={true}
           maxLength={300}
         />

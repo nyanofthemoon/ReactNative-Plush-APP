@@ -52,7 +52,7 @@ export default class extends React.Component {
               {genderIcon(profile.profile.gender, styles.gender)}
             </Col>
             <Col sm={2}>
-              <Thumbnail size={40} source={{uri:profile.profile.picture}}/>
+              <Thumbnail style={{marginLeft:5}} size={40} source={{uri:profile.profile.picture}}/>
             </Col>
             <Col sm={8} style={{ justifyContent: 'center' }}>
               <Text style={styles.nickname}>{profile.profile.nickname}</Text>

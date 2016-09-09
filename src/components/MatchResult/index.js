@@ -2,11 +2,12 @@
 
 import React from 'react'
 import { View, Text, Image } from 'react-native'
-import { Button, Footer } from 'native-base'
+import { Title, Button, Footer } from 'native-base'
 
 import * as Animatable from 'react-native-animatable'
 
-import { getSocketId }  from './../../helpers/socket'
+import { getSocketId } from './../../helpers/socket'
+import { goToMatchFriendshipScene, goToMatchRelationshipScene, goToContact } from './../../actions'
 
 import emoticons from './../../helpers/images/emoticons'
 import results from './../../helpers/images/results'
@@ -17,6 +18,7 @@ export default class extends React.Component {
 
   static propTypes = {
     step   : React.PropTypes.string.isRequired,
+    type   : React.PropTypes.string.isRequired,
     results: React.PropTypes.object.isRequired,
     scores : React.PropTypes.object.isRequired
   }
@@ -59,9 +61,19 @@ export default class extends React.Component {
     this.setState(result)
   }
 
-  // @TODO Match Result Failed: Say "Don't Give Up!" with button to try again.
+  _goToProfile() {
+    goToContact(this.props.currentSceneId)
+  }
 
-  render() {
+render() {
+    let retryButton
+    if ('relationship' === this.props.type) {
+      retryButton = <Button style={styles.button} info onPress={goToMatchRelationshipScene}><Title style={styles.title}>Try Again!</Title></Button>
+    } else {
+      retryButton = <Button style={styles.button} info onPress={goToMatchFriendshipScene}><Title style={styles.title}>Try Again!</Title></Button>
+    }
+    let profileButton = <Button style={styles.button} info onPress={this._goToProfile}><Title style={styles.title}>View Contact</Title></Button>
+
     return (
     <View style={styles.container}>
       <View style={styles.subcontainer}>
@@ -70,9 +82,19 @@ export default class extends React.Component {
       </View>
       { true === this.state.match ?
         (
-          <Animatable.Image source={results.positive} animation='zoomInDown' style={styles.largeicon} duration={1000} iterationCount={1} delay={2500} />
+          <View>
+            <Title style={styles.title}>It's a Plush!</Title>
+            <Animatable.View animation='zoomInDown' duration={1000} iterationCount={1} delay={2000}>
+              {profileButton}
+            </Animatable.View>
+          </View>
         ) : (
-          <Animatable.Image source={results.negative} animation='zoomInDown' style={styles.largeicon} duration={1000} iterationCount={1} delay={2500} />
+          <View>
+            <Title style={styles.title}>Aww... No Plush.</Title>
+            <Animatable.View animation='zoomInDown' duration={1000} iterationCount={1} delay={2000}>
+              {retryButton}
+            </Animatable.View>
+          </View>
         )
       }
     </View>

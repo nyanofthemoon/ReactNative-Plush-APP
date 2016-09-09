@@ -266,65 +266,45 @@ export default class extends React.Component {
     this.setState({textRoomData, textRoomValue: ''});
   }
 
-  /*
-  _renderTextRoom() {
-    return (
-      <View style={styles.listViewContainer}>
-        <ListView
-          dataSource={this.ds.cloneWithRows(this.state.textRoomData)}
-          renderRow={rowData => <Text>{`${rowData.user}: ${rowData.message}`}</Text>}
-        />
-        <TextInput
-          style={{width: 200, height: 30, borderColor: 'gray', borderWidth: 1}}
-          onChangeText={value => this.setState({textRoomValue: value})}
-          value={this.state.textRoomValue}
-        />
-        <TouchableHighlight
-          onPress={this._textRoomPress}>
-          <Text>Send</Text>
-        </TouchableHighlight>
-      </View>
-    );
-  }
-  */
-
   render() {
+    let height = this.state.windowHeight
+    let width  = Math.floor((height * 3 / 4))
+    let miniTop  = height - 175
+    let miniLeft = this.state.windowWidth - 90
     var remote = this.state.remoteList[Object.keys(this.state.remoteList)[0]]
-      if (remote) {
-        if ('video' != this.props.data.mode) {
-          return (
-            <View style={[styles.container, {flex: 1, alignItems: 'center', justifyContent: 'center', height:this.state.windowHeight, width: this.state.windowWidth}]}>
-              <Text style={{ alignSelf: 'center', color: 'white', marginTop: -80, fontSize: 50, fontFamily:'IndieFlower' }}>Audio Only</Text>
-              <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
-              <RTCView key='2' streamURL={remote} style={styles.hidden}/>
-            </View>
-          )
-        } else {
-          return (
-            <View style={[styles.container, {flex: 1, alignItems: 'center', justifyContent: 'center', height:this.state.windowHeight, width: this.state.windowWidth, backgroundColor: 'black'}]}>
-              <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
-              <RTCView key='2' streamURL={remote}
-                       style={[styles.remoteView, {width: (this.state.windowHeight/2), height: (this.state.windowHeight - 100), alignSelf: 'center'}]}/>
-            </View>
-          )
-        }
+    if (remote) {
+      if ('video' != this.props.data.mode) {
+        return (
+          <View style={styles.container}>
+            <Text style={styles.audio}>Audio Only</Text>
+            <RTCView key='2' streamURL={remote} style={styles.hidden}/>
+            <RTCView key='1' streamURL={this.state.selfViewSrc} style={[styles.mini, styles.hidden]}/>
+          </View>
+        )
       } else {
-        if ('video' != this.props.data.mode) {
-          return (
-          <View style={[styles.container, {flex: 1, alignItems: 'center', justifyContent: 'center', height:this.state.windowHeight, width: this.state.windowWidth}]}>
-              <Text style={{ alignSelf: 'center', color: 'white', marginTop: -80, fontSize: 50, fontFamily:'IndieFlower' }}>Audio Only</Text>
-              <RTCView key='1' streamURL={this.state.selfViewSrc} style={styles.hidden}/>
-            </View>
-          )
-        } else {
-          return (
-            <View style={[styles.container, {flex: 1, alignItems: 'center', justifyContent: 'center', height:this.state.windowHeight, width: this.state.windowWidth, backgroundColor: 'black'}]}>
-              <RTCView key='1' streamURL={this.state.selfViewSrc}
-                       style={[styles.selfView, {width: (this.state.windowHeight/2), height: (this.state.windowHeight - 100), alignSelf: 'center'}]}/>
-            </View>
-          )
-        }
+        return (
+          <View style={{flex:1, justifyContent: 'flex-end', backgroundColor: 'black', height: height}}>
+            <RTCView key='2' streamURL={remote} style={{width: width, height: height}}/>
+            <RTCView key='1' streamURL={this.state.selfViewSrc} style={[styles.mini, {top: miniTop, left: miniLeft}]}/>
+          </View>
+        )
       }
+    } else {
+      if ('video' != this.props.data.mode) {
+        return (
+        <View style={styles.container}>
+            <Text style={styles.audio}>Audio Only</Text>
+            <RTCView key='1' streamURL={this.state.selfViewSrc} style={[styles.mini, styles.hidden]}/>
+        </View>
+        )
+      } else {
+        return (
+          <View style={{flex:1, justifyContent: 'flex-end', backgroundColor: 'black', height: height}}>
+            <RTCView key='2' streamURL={remote} style={{width: width, height: height}}/>
+            <RTCView key='1' streamURL={this.state.selfViewSrc} style={[styles.mini, {top: miniTop, left: miniLeft}]}/>
+          </View>
+        )
+      }
+    }
   }
 }
-
