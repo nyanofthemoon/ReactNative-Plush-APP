@@ -4,23 +4,22 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
 
-  container: {
+  card: {
     backgroundColor: 'transparent',
     borderLeftColor: 'transparent',
     borderRightColor: 'transparent',
-    borderTopColor: 'transparent'
+    borderTopColor: 'transparent',
   },
 
-  card: {
+  cardItem: {
     borderBottomColor: 'transparent',
-    marginTop: 0
+    padding: 10
   },
 
-  text: {
-    fontFamily: 'IndieFlower',
-    fontSize: 16,
-    lineHeight: 22,
-    letterSpacing: 2
+  picture: {
+    resizeMode: 'cover',
+    height:200,
+    marginBottom: 10
   },
 
   headline: {
@@ -28,32 +27,27 @@ export default StyleSheet.create({
     fontSize: 20,
     lineHeight: 24,
     paddingBottom: 10,
-    marginBottom: 30,
     marginTop: -25
   },
 
-  gender: {
-    paddingTop: 10,
-    marginTop: -6
+  text: {
+    fontFamily: 'IndieFlower',
+    fontSize: 16,
+    lineHeight: 20,
+    letterSpacing: 2,
   },
 
-  location: {
-    flexDirection: 'row'
+  info: {
+    marginTop: 5
+  },
+
+  bio: {
+    marginTop: 15
   },
 
   hidden: {
     height:0,
-    width:0,
-  },
-
-  head: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: -20,
-  },
-
-  profile: {
-    marginTop: 20
+    width:0
   }
 
 })

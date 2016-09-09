@@ -10,8 +10,6 @@ import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchFriendsh
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
 
-import renderIf from './../../helpers/renderIf'
-
 import styles from './styles'
 
 const unisexGreets = [
@@ -76,7 +74,7 @@ export default class extends React.Component {
     if ('unauthenticated' === app.get('facebookStatus')) {
       return (
         <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
-          <Title style={[styles.title, styles.shadowed, { marginBottom: 65 }]}>Plush !</Title>
+          <Title style={[styles.title, styles.shadowed, { marginBottom: 65 }]}>Plush!</Title>
           <Title style={[styles.subtitle, styles.shadowed]}></Title>
           <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
         </Container>
@@ -93,7 +91,7 @@ export default class extends React.Component {
     } else {
       return (
         <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
-          <Title style={[styles.title, styles.shadowed]}>Plush !</Title>
+          <Title style={[styles.title, styles.shadowed]}>Plush!</Title>
           <Title style={[styles.subtitle, styles.shadowed]}>{this._getGreeting(user.getIn(['profile', 'gender']))}</Title>
           <Spinner style={styles.shadowed} color='white' />
         </Container>

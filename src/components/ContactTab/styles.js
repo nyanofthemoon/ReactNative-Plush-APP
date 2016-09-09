@@ -4,16 +4,9 @@ import { StyleSheet, Dimensions } from 'react-native'
 
 export default StyleSheet.create({
 
-  container: {
+  listItem: {
     marginRight: 5,
     marginLeft: 5,
-  },
-
-  emptyContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
   },
 
   title: {
@@ -22,15 +15,11 @@ export default StyleSheet.create({
     lineHeight: 34
   },
 
-  gender: {
-    marginTop: 4,
-    marginLeft: 5
-  },
-
-  ready: {
+  button: {
     alignSelf: 'center',
     height: 80,
     width: 180,
+    paddingTop: 18,
     marginTop: 50,
     shadowColor  : 'black',
     shadowOpacity: 10,
@@ -41,32 +30,23 @@ export default StyleSheet.create({
     }
   },
 
-  row: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingLeft: 10,
-  },
-
-  thumbnail: {
-  },
-
-  text: {
+  nickname: {
     fontFamily: 'IndieFlower',
     fontSize: 20,
     lineHeight: 24,
-    alignSelf: 'flex-start',
-    marginTop: 6,
-    marginLeft: 12
+    marginTop: 8,
+    marginLeft: -8
   },
 
-  note: {
-    flexDirection: 'column'
+  gender: {
+    marginTop: 4,
+    marginLeft: 8
   },
 
   badge: {
     alignSelf: 'flex-end',
-    marginRight: -8
+    paddingTop: 2,
+    marginRight: -6
   },
 
   hidden: {

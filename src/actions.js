@@ -188,10 +188,21 @@ function queryUserReception(data) {
       data.data.contacts.blocked                  = {}
       data.data.contacts.friendship[data.data.id] = data.data.id
       data.data.lastUpdated                       = new Date().getTime()
+      data.data.location.city = 'Montreal'
+      data.data.location.country = 'Canada'
       let contacts = _getState().contact.toJSON()
       contacts.profiles[data.data.id] = data.data
       dispatch({type: types.SOCKET_QUERY_CONTACT_RECEIVED, payload: data})
-      Db.saveContacts(contacts, function() {})
+      contacts.messages = []
+      contacts.messages[data.data.id] = [{
+        id: data.data.id,
+        data: {
+          date: new Date().getTime(),
+          text: 'First Message'
+        }
+      }]
+      Db.saveContacts(contacts)
+      dispatch({type: types.SOCKET_MESSAGE_USER_RECEIVED, payload: contacts.messages[data.data.id][0] })
     }
     Db.saveUser(data.data, function () {
       if (_getState().app.get('apiStatus') !== 'connected') {

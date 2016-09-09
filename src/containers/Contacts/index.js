@@ -27,7 +27,7 @@ export default class extends React.Component {
   render() {
     const {user} = this.props
     return (
-      <Container header={true} scene='contacts' headerTitle='Contact List' scrollEnabled={true}>
+      <Container header={true} scene='contacts' headerTitle='Contact List'>
         <ScrollableTabView tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}}>
           <ContactTab tabLabel='Friendship' type='friendship' list={user.getIn(['contacts','friendship']).toJSON()} />
           <ContactTab tabLabel='Relationship' type='relationship' list={user.getIn(['contacts','relationship']).toJSON()} />

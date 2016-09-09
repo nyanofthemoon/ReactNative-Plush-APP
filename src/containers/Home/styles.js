@@ -13,14 +13,12 @@ export default StyleSheet.create({
   },
 
   title: {
-    paddingTop   : 20,
     marginLeft   : 30,
     color        : 'white',
-    fontFamily   : 'Condiment',
-    fontSize     : 75,
-    letterSpacing: 5,
-    lineHeight   : 95,
-    paddingRight : 20
+    fontFamily   : 'MidnightConstellations',
+    fontSize     : 95,
+    lineHeight   : 100,
+    paddingRight : 30
   },
 
   subtitle: {

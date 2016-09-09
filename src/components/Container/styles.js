@@ -35,7 +35,8 @@ export default StyleSheet.create({
   },
 
   footer: {
-    backgroundColor: 'rgba(25, 25, 76, 0.9)'
+    backgroundColor: 'rgba(25, 25, 76, 0.9)',
+    borderTopColor: 'transparent'
   },
 
   cover: {

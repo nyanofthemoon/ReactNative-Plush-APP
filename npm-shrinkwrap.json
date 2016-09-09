@@ -285,6 +285,18 @@
       "from": "babel-plugin-external-helpers@>=6.8.0 <7.0.0",
       "resolved": "https://registry.npmjs.org/babel-plugin-external-helpers/-/babel-plugin-external-helpers-6.8.0.tgz"
     },
+    "babel-plugin-external-helpers-2": {
+      "version": "6.3.13",
+      "from": "babel-plugin-external-helpers-2@>=6.1.4 <7.0.0",
+      "resolved": "https://registry.npmjs.org/babel-plugin-external-helpers-2/-/babel-plugin-external-helpers-2-6.3.13.tgz",
+      "dependencies": {
+        "babel-runtime": {
+          "version": "5.8.38",
+          "from": "babel-runtime@>=5.0.0 <6.0.0",
+          "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-5.8.38.tgz"
+        }
+      }
+    },
     "babel-plugin-react-transform": {
       "version": "2.0.2",
       "from": "babel-plugin-react-transform@2.0.2",
@@ -354,6 +366,17 @@
       "version": "6.8.0",
       "from": "babel-plugin-transform-es2015-computed-properties@>=6.8.0 <7.0.0",
       "resolved": "https://registry.npmjs.org/babel-plugin-transform-es2015-computed-properties/-/babel-plugin-transform-es2015-computed-properties-6.8.0.tgz"
+    },
+    "babel-plugin-transform-es2015-constants": {
+      "version": "6.1.4",
+      "from": "babel-plugin-transform-es2015-constants@>=6.0.15 <7.0.0",
+      "resolved": "https://registry.npmjs.org/babel-plugin-transform-es2015-constants/-/babel-plugin-transform-es2015-constants-6.1.4.tgz",
+      "dependencies": {
+        "babel-runtime": {
+          "version": "5.8.38",
+          "from": "babel-runtime@>=5.0.0 <6.0.0"
+        }
+      }
     },
     "babel-plugin-transform-es2015-destructuring": {
       "version": "6.9.0",
@@ -925,9 +948,9 @@
       "resolved": "https://registry.npmjs.org/color/-/color-0.11.3.tgz"
     },
     "color-convert": {
-      "version": "1.4.0",
+      "version": "1.5.0",
       "from": "color-convert@>=1.3.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-1.4.0.tgz"
+      "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-1.5.0.tgz"
     },
     "color-name": {
       "version": "1.1.1",
@@ -1275,6 +1298,11 @@
           "resolved": "https://registry.npmjs.org/vinyl/-/vinyl-1.2.0.tgz"
         }
       }
+    },
+    "deep-equal": {
+      "version": "1.0.1",
+      "from": "deep-equal@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/deep-equal/-/deep-equal-1.0.1.tgz"
     },
     "deep-extend": {
       "version": "0.4.1",
@@ -3624,9 +3652,9 @@
       "resolved": "https://registry.npmjs.org/nan/-/nan-2.4.0.tgz"
     },
     "native-base": {
-      "version": "0.5.7",
-      "from": "native-base@0.5.7",
-      "resolved": "https://registry.npmjs.org/native-base/-/native-base-0.5.7.tgz",
+      "version": "0.5.8",
+      "from": "native-base@0.5.8",
+      "resolved": "https://registry.npmjs.org/native-base/-/native-base-0.5.8.tgz",
       "dependencies": {
         "lodash": {
           "version": "4.11.2",
@@ -4083,6 +4111,11 @@
       "from": "react-native-animatable@>=0.6.1 <0.7.0",
       "resolved": "https://registry.npmjs.org/react-native-animatable/-/react-native-animatable-0.6.1.tgz"
     },
+    "react-native-button": {
+      "version": "1.7.0",
+      "from": "react-native-button@>=1.5.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/react-native-button/-/react-native-button-1.7.0.tgz"
+    },
     "react-native-checkbox": {
       "version": "1.0.15",
       "from": "react-native-checkbox@>=1.0.8 <1.1.0",
@@ -4103,6 +4136,11 @@
       "from": "react-native-fbsdk@>=0.3.0 <0.4.0",
       "resolved": "https://registry.npmjs.org/react-native-fbsdk/-/react-native-fbsdk-0.3.0.tgz"
     },
+    "react-native-flexbox-grid": {
+      "version": "0.2.2",
+      "from": "react-native-flexbox-grid@latest",
+      "resolved": "https://registry.npmjs.org/react-native-flexbox-grid/-/react-native-flexbox-grid-0.2.2.tgz"
+    },
     "react-native-form-generator": {
       "version": "0.9.9",
       "from": "react-native-form-generator@>=0.9.9 <0.10.0"
@@ -4112,15 +4150,37 @@
       "from": "react-native-geocoder@>=0.4.4 <0.5.0",
       "resolved": "https://registry.npmjs.org/react-native-geocoder/-/react-native-geocoder-0.4.4.tgz"
     },
+    "react-native-gifted-messenger": {
+      "version": "0.1.4",
+      "from": "react-native-gifted-messenger@latest",
+      "resolved": "https://registry.npmjs.org/react-native-gifted-messenger/-/react-native-gifted-messenger-0.1.4.tgz"
+    },
+    "react-native-gifted-spinner": {
+      "version": "0.0.4",
+      "from": "react-native-gifted-spinner@>=0.0.4 <0.0.5",
+      "resolved": "https://registry.npmjs.org/react-native-gifted-spinner/-/react-native-gifted-spinner-0.0.4.tgz"
+    },
     "react-native-keyboard-aware-scroll-view": {
-      "version": "0.1.2",
-      "from": "react-native-keyboard-aware-scroll-view@0.1.2",
-      "resolved": "https://registry.npmjs.org/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.1.2.tgz"
+      "version": "0.2.0",
+      "from": "react-native-keyboard-aware-scroll-view@0.2.0",
+      "resolved": "https://registry.npmjs.org/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.2.0.tgz"
     },
     "react-native-looped-carousel": {
       "version": "0.0.12",
-      "from": "react-native-looped-carousel@0.0.12",
+      "from": "react-native-looped-carousel@latest",
       "resolved": "https://registry.npmjs.org/react-native-looped-carousel/-/react-native-looped-carousel-0.0.12.tgz"
+    },
+    "react-native-parsed-text": {
+      "version": "0.0.12",
+      "from": "react-native-parsed-text@0.0.12",
+      "resolved": "https://registry.npmjs.org/react-native-parsed-text/-/react-native-parsed-text-0.0.12.tgz",
+      "dependencies": {
+        "babel": {
+          "version": "6.5.2",
+          "from": "babel@>=6.3.13 <7.0.0",
+          "resolved": "https://registry.npmjs.org/babel/-/babel-6.5.2.tgz"
+        }
+      }
     },
     "react-native-router-flux": {
       "version": "3.35.0",

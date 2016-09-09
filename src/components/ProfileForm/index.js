@@ -40,33 +40,33 @@ export default class extends React.Component{
   render() {
     return (
       <Form ref='form' style={styles.container} onChange={this.handleFormChange.bind(this)}>
-        <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' maxLength={25} labelStyle={styles.label} style={styles.value} containerStyle={styles.container} />
-        <PickerField ref='education' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.value} containerStyle={styles.container}
+        <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' maxLength={25} labelStyle={styles.label} style={[styles.value, { marginTop:4, marginBottom: -10 }]} containerStyle={styles.container} />
+        <PickerField ref='education' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
                      label='Education'
-                     options={{ 'Secondary': 'Secondary', 'Post-Secondary': 'Post-Secondary', 'College': 'College', 'University': 'University', Autodidact: 'Autodidact'}}
+                     options={{ '':'', 'Secondary': 'Secondary', 'Post-Secondary': 'Post-Secondary', 'College': 'College', 'University': 'University', Autodidact: 'Autodidact'}}
         />
-        <PickerField ref='employment' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.value} containerStyle={styles.container}
+        <PickerField ref='employment' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
                      label='Employment'
-                     options={{ 'Student': 'Student', 'Unemployed': 'Unemployed', 'Employed': 'Employed', 'Freelancer': 'Freelancer', 'Stay-At-Home': 'Stay-At-Home'}}
+                     options={{ '':'', 'Student': 'Student', 'Unemployed': 'Unemployed', 'Employed': 'Employed', 'Freelancer': 'Freelancer', 'Stay-At-Home': 'Stay-At-Home'}}
         />
-        <PickerField ref='diet' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container}
+        <PickerField ref='diet' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
                      label='Regular Diet'
-                     options={{ Healthy: 'Healthy', Unhealthy: 'Unhealthy', Vegetarian: 'Vegetarian', Vegan: 'Vegan', Other: 'Other'}}
+                     options={{ '':'', Healthy: 'Healthy', Unhealthy: 'Unhealthy', Vegetarian: 'Vegetarian', Vegan: 'Vegan', Other: 'Other'}}
         />
-        <PickerField ref='orientation' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container}
+        <PickerField ref='orientation' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
                      label='Relationships'
                      options={{ O: 'Opposite Gender', S: 'Same Gender', A: 'Any Gender' }}
         />
-        <PickerField ref='friendship' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container}
+        <PickerField ref='friendship' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
                      label='Friendships'
                      options={{ S: 'Same Gender', O: 'Opposite Gender', A: 'Any Gender'}}
         />
-        <InputField labelStyle={styles.label} style={styles.value} containerStyle={styles.container}
+        <InputField labelStyle={styles.label} style={[styles.value, {marginTop: 10}]} containerStyle={styles.container} placeholderTextColor='#a3a3c2'
           ref='headline'
           placeholder='Think of a short and catchy headline!'
           maxLength={32}
         />
-        <InputField style={[styles.bio, styles.value]} containerStyle={styles.container}
+        <InputField style={[styles.bio, styles.value]} containerStyle={styles.container} placeholderTextColor='#a3a3c2'
           ref='bio'
           placeholder='Your most complete bio, shorthened.'
           multiline={true}

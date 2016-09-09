@@ -57,6 +57,7 @@
 	<string>This application requires location services to work.</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>MidnightConstellations.ttf</string>
 		<string>IndieFlower.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>

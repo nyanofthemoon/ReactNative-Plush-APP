@@ -1,7 +1,8 @@
 'use strict'
 
 import React from 'react'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
+import { Column as Col, Row } from 'react-native-flexbox-grid'
 import { Title, Button, List, ListItem, Text, Thumbnail, Badge } from 'native-base'
 import { connect } from 'react-redux'
 
@@ -9,6 +10,7 @@ import { goToContact, goToMatchFriendshipScene, goToMatchRelationshipScene } fro
 
 import renderIf from './../../helpers/renderIf'
 import { genderIcon } from './../../helpers/icons'
+
 
 import styles from './styles'
 
@@ -42,14 +44,23 @@ export default class extends React.Component {
       //if (lastRead && lastRead < new Date().getTime()) {
       //  badgeStyle = styles.badge
       //}
+
       return (
-        <ListItem key={id} button onPress={this._onPress.bind(this, id)} style={styles.container}>
-          <View style={styles.row}>
-            <Thumbnail size={40} style={styles.thumbnail} source={{uri:profile.profile.picture}}/>
-            {genderIcon(profile.profile.gender, styles.gender)}
-            <Text style={styles.text}>{profile.profile.nickname}</Text>
-          </View>
-          <Badge style={badgeStyle}>{badgeCount}</Badge>
+        <ListItem key={id} button onPress={this._onPress.bind(this, id)} style={styles.listItem}>
+          <Row style={{ flex: 1 }} nowrap>
+            <Col sm={1} style={{ justifyContent: 'center' }}>
+              {genderIcon(profile.profile.gender, styles.gender)}
+            </Col>
+            <Col sm={2}>
+              <Thumbnail size={40} source={{uri:profile.profile.picture}}/>
+            </Col>
+            <Col sm={8} style={{ justifyContent: 'center' }}>
+              <Text style={styles.nickname}>{profile.profile.nickname}</Text>
+            </Col>
+            <Col sm={1} style={{ justifyContent: 'center' }}>
+              <Badge style={badgeStyle}>{badgeCount}</Badge>
+            </Col>
+          </Row>
         </ListItem>
       )
     } else {
@@ -58,18 +69,28 @@ export default class extends React.Component {
   }
 
   render() {
-    if (Object.keys(this.props.list).length > 0) {
-      return <List dataArray={this.props.list} renderRow={this._renderRow.bind(this)}/>
+    if (this.props.list && Object.keys(this.props.list).length > 0) {
+      return <ScrollView>
+        <List dataArray={this.props.list} renderRow={this._renderRow.bind(this)}/>
+      </ScrollView>
     } else {
       if (this.props.type === 'relationship') {
-        return <View style={styles.emptyContainer}>
-          <Title style={styles.title}>It's time to meet people.</Title>
-          <Button large info style={styles.ready} onPress={goToMatchRelationshipScene}>I'm Ready</Button>
+        return <View style={{ flex:1 }}>
+          <Col style={{ flex: 1, justifyContent:'center'}}>
+            <Title style={styles.title}>It's time to meet people.</Title>
+            <Button large info style={styles.button} onPress={goToMatchRelationshipScene}>
+              <Text style={styles.title}>I'm Ready.</Text>
+            </Button>
+          </Col>
         </View>
       } else {
-        return <View style={styles.emptyContainer}>
-          <Title style={styles.title}>It's time to make friends.</Title>
-          <Button large info style={styles.ready} onPress={goToMatchFriendshipScene}>Let's Go!</Button>
+        return <View style={{ flex:1 }}>
+          <Col style={{ flex: 1, justifyContent:'center'}}>
+            <Title style={styles.title}>It's time to make friends.</Title>
+            <Button large info style={styles.button} onPress={goToMatchFriendshipScene}>
+              <Text style={styles.title}>Let's Go!</Text>
+            </Button>
+          </Col>
         </View>
       }
     }

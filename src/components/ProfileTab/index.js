@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { ScrollView, View, Image } from 'react-native'
+import { Column as Col, Row } from 'react-native-flexbox-grid'
 import { Card, CardItem, Button, Text } from 'native-base'
 
 import { queryContact } from './../../actions'
@@ -26,10 +27,7 @@ export default class extends React.Component {
     if (this.props.profile.profile.headline && this.props.profile.profile.headline.length > 1) {
       headline = null
     }
-    let bio = styles.hidden
-    if (this.props.profile.profile.bio && this.props.profile.profile.bio.length > 1) {
-      bio = null
-    }
+
     let country = styles.hidden
     if (this.props.profile.location.country) {
       country = null
@@ -40,50 +38,55 @@ export default class extends React.Component {
     }
     let diet = styles.hidden
     if (this.props.profile.profile.diet) {
-      diet = null
+      diet = styles.info
     }
     let education = styles.hidden
     if (this.props.profile.profile.education) {
-      education = null
+      education = styles.info
     }
     let employment = styles.hidden
     if (this.props.profile.profile.employment) {
-      employment = null
+      employment = styles.info
     }
 
     return (
       <ScrollView scrollEnabled={true}>
-        <Card style={styles.container}>
-          <CardItem cardBody style={styles.card}>
-            <Image style={{ resizeMode: 'cover' }} source={{ uri: this.props.profile.profile.picture }} />
+        <Card style={styles.card}>
+          <CardItem cardBody style={styles.cardItem}>
+            <Image style={styles.picture} source={{ uri: this.props.profile.profile.picture }} />
             <Text style={styles.hidden}></Text>
           </CardItem>
-          <CardItem style={styles.card}>
-            <Text style={[styles.headline, headline]}>{ this.props.profile.profile.headline }</Text>
-            <View style={styles.head}>
-              <Text style={styles.gender}>{ genderIcon(this.props.profile.profile.gender) }</Text>
-              <Text style={styles.text}> { this.props.profile.profile.nickname }</Text>
-            </View>
-            <View style={styles.location}>
+          <CardItem style={styles.cardItem}>
+            <Row>
+              <Text style={[styles.headline, headline]}>{ this.props.profile.profile.headline }</Text>
+            </Row>
+            <Row nowrap>
+              <Col sm={1}>
+                { genderIcon(this.props.profile.profile.gender) }
+              </Col>
+              <Col sm={11} style={{ justifyContent:'center'}}>
+                <Text style={styles.text}>{ this.props.profile.profile.nickname }</Text>
+              </Col>
+            </Row>
+            <Row style={styles.info}>
               <Text style={[styles.text, city]}>{ this.props.profile.location.city },</Text>
               <Text style={[styles.text, country]}> { this.props.profile.location.country }</Text>
-            </View>
-            <Text style={[styles.text, diet]}>{ this.props.profile.profile.diet } Diet</Text>
-            <Text style={[styles.text, education]}>{ this.props.profile.profile.education } Education</Text>
-            <Text style={[styles.text, employment]}>{ this.props.profile.profile.employment }</Text>
-            <View>
-              <Text style={[styles.text, bio, { marginTop: 20 }]}>{ this.props.profile.profile.bio }</Text>
-            </View>
+            </Row>
+            <Row style={diet}>
+              <Text style={styles.text}>{ this.props.profile.profile.diet } Diet</Text>
+            </Row>
+            <Row style={education}>
+              <Text style={styles.text}>{ this.props.profile.profile.education } Education</Text>
+            </Row>
+            <Row style={employment}>
+              <Text style={styles.text}>{ this.props.profile.profile.employment }</Text>
+            </Row>
+            <Row style={styles.info}>
+              <Text style={[styles.text, styles.bio]}>{ this.props.profile.profile.bio }</Text>
+            </Row>
           </CardItem>
         </Card>
       </ScrollView>
     )
   }
 }
-
-/*
- <View style={styles.profile}>
- <Text style={[styles.text, city]}>Montreal{ this.props.profile.location.city }</Text>
- <Text style={[styles.text, country]}>Canada{ this.props.profile.location.country }</Text>
- </View>
- */
