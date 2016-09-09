@@ -67,13 +67,15 @@ export default class extends React.Component {
 
 render() {
     let retryButton
-    if ('relationship' === this.props.type) {
-      retryButton = <Button style={styles.button} info onPress={goToMatchRelationshipScene}><Title style={styles.title}>Try Again!</Title></Button>
-    } else {
-      retryButton = <Button style={styles.button} info onPress={goToMatchFriendshipScene}><Title style={styles.title}>Try Again!</Title></Button>
+    let profileButton
+    if ('video' === this.props.step) {
+      if ('relationship' === this.props.type) {
+        retryButton = <Button style={styles.button} info onPress={goToMatchRelationshipScene}><Title style={styles.title}>Try Again!</Title></Button>
+      } else {
+        retryButton = <Button style={styles.button} info onPress={goToMatchFriendshipScene}><Title style={styles.title}>Try Again!</Title></Button>
+      }
+      profileButton = <Button style={styles.button} info onPress={this._goToProfile}><Title style={styles.title}>View Contact</Title></Button>
     }
-    let profileButton = <Button style={styles.button} info onPress={this._goToProfile}><Title style={styles.title}>View Contact</Title></Button>
-
     return (
     <View style={styles.container}>
       <View style={styles.subcontainer}>

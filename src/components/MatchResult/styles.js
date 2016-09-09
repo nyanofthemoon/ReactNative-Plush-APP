@@ -8,7 +8,8 @@ export default StyleSheet.create({
     flexDirection: 'column',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop    : 25
   },
 
   subcontainer: {
