@@ -4,28 +4,19 @@ import { StyleSheet, Dimensions } from 'react-native'
 
 export default StyleSheet.create({
 
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: Dimensions.get('window').width
-  },
-
   reportButton: {
+    width: 75,
     marginTop: 5,
-    width: 60,
-    height: 45,
-    marginLeft: 10
+    marginLeft: 5,
+    height: 45
   },
 
   value: {
     fontFamily: 'Comfortaa',
     fontSize: 14,
-    width: Dimensions.get('window').width - 79,
-    marginLeft: 5,
-    alignSelf: 'flex-start',
+    width: Dimensions.get('window').width - 89,
     backgroundColor: '#262672',
-    color: 'orange',
+    color: '#80bfff',
     borderBottomColor: 'transparent'
   }
 

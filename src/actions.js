@@ -4,7 +4,7 @@ import { Actions } from 'react-native-router-flux'
 import { Geolocation } from 'react-native'
 import Geocoder from 'react-native-geocoder'
 const FBSDK = require('react-native-fbsdk')
-const { AccessToken, GraphRequest, GraphRequestManager, FBSDKManager } = FBSDK
+const { AccessToken, GraphRequest, GraphRequestManager } = FBSDK
 
 import * as types from './constants'
 import Store      from './configureStore'
@@ -192,17 +192,9 @@ function queryUserReception(data) {
       data.data.location.country = 'Canada'
       let contacts = _getState().contact.toJSON()
       contacts.profiles[data.data.id] = data.data
+      //contacts.message = {}
       dispatch({type: types.SOCKET_QUERY_CONTACT_RECEIVED, payload: data})
-      contacts.messages = []
-      contacts.messages[data.data.id] = [{
-        id: data.data.id,
-        data: {
-          date: new Date().getTime(),
-          text: 'First Message'
-        }
-      }]
       Db.saveContacts(contacts)
-      dispatch({type: types.SOCKET_MESSAGE_USER_RECEIVED, payload: contacts.messages[data.data.id][0] })
     }
     Db.saveUser(data.data, function () {
       if (_getState().app.get('apiStatus') !== 'connected') {

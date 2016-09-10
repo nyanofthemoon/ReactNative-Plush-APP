@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { AppRegistry } from 'react-native'
+import './compat'
 import { Provider } from 'react-redux'
 import { Actions, ActionConst, Scene, Router } from 'react-native-router-flux'
 

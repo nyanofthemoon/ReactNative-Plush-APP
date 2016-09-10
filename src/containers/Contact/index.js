@@ -65,9 +65,14 @@ export default class extends React.Component {
     let profiles = contact.get('profiles') || {}
     let messages = contact.get('messages') || {}
 
+
+    /*
     messages[id] = [
-      {id: id, data: {date: new Date().getTime(), text: 'Hello'}}
-    ]
+       {id: id, data: {date: new Date().getTime(), text: 'Hello First'}},
+       {id: id, data: {date: new Date().getTime(), text: 'Hello Second'}},
+       {id: id, data: {date: new Date().getTime(), text: 'Hello Third'}}
+     ]
+    */
 
     let footer
     if (0 == app.get('currentSceneTab')) {
@@ -79,7 +84,7 @@ export default class extends React.Component {
       <Container header={true} footer={footer} headerTitle={this._getProfileType()}>
         <ScrollableTabView onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}} style={styles.container}>
           <ProfileTab tabLabel='Profile' id={id} profile={profiles[id]} />
-          <ConversationTab tabLabel='Conversation' id={id} profile={profiles[id]} data={messages[id]} />
+          <ConversationTab tabLabel='Conversation' id={id} profile={profiles[id]} conversation={messages[id]} />
         </ScrollableTabView>
       </Container>
     )

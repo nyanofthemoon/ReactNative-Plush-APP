@@ -1,9 +1,5 @@
 'use strict'
 
-if (!window.navigator.userAgent) {
-  window.navigator.userAgent = 'react-native';
-}
-
 const io = require('socket.io-client/socket.io')
 
 import React from 'react'
@@ -300,7 +296,6 @@ export default class extends React.Component {
       } else {
         return (
           <View style={{flex:1, justifyContent: 'flex-end', backgroundColor: 'black', height: height}}>
-            <RTCView key='2' streamURL={remote} style={{width: width, height: height}}/>
             <RTCView key='1' streamURL={this.state.selfViewSrc} style={[styles.mini, {top: miniTop, left: miniLeft}]}/>
           </View>
         )

@@ -99,17 +99,3 @@ export default class extends React.Component {
     }
   }
 }
-
-
-/*
- <Container header={true} scene='home'>
- <View style={styles.container}>
- <Button info style={[styles.button, styles.shadowed]} onPress={goToMatchFriendshipScene}><Title style={[styles.subtitle, styles.buttonText]}>Friendship</Title></Button>
- <Button info style={[styles.button, styles.shadowed]} onPress={goToMatchRelationshipScene}><Title style={[styles.subtitle, styles.buttonText]}>Relationship</Title></Button>
- </View>
- </Container>
-
- <Container header={false} scene='home' footer={<Timer key='video' milliseconds={11000} />}>
- <RTCView key='rtc_video' data={{ mode: 'audio', kind: 'match', type: 'friendship', name: 'debug', stealth: 'no', flush: false }} socket={app.get('socket')} config={Config.webrtc} />
- </Container>
- */

@@ -35,9 +35,9 @@ export default class extends React.Component {
 
   render() {
       return (
-        <Form ref='form' style={styles.container} onChange={this.handleFormChange.bind(this)}>
-          <InputField ref='message' placeholder='Type your message here' style={styles.value} containerStyle={styles.value} />
-          <Button info style={styles.reportButton} onPress={this._sendMessage.bind(this)}>Send</Button>
+        <Form ref='form' style={{ flex:1, flexDirection:'row', flexWrap:'nowrap', alignItems:'center'}} onChange={this.handleFormChange.bind(this)}>
+          <InputField ref='message' placeholder='Type your message here' placeholderTextColor='#a3a3c2' style={styles.value} containerStyle={styles.value} />
+          <Button success style={styles.reportButton} onPress={this._sendMessage.bind(this)}>Send</Button>
         </Form>
       )
   }

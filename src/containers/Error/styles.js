@@ -12,8 +12,8 @@ export default StyleSheet.create({
     marginLeft   : 30,
     color        : 'white',
     fontFamily   : 'MidnightConstellations',
-    fontSize     : 95,
-    lineHeight   : 100,
+    fontSize     : 90,
+    lineHeight   : 95,
     paddingRight : 30
   },
 

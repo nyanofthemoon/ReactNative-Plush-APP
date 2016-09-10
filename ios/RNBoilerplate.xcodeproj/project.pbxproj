@@ -35,6 +35,7 @@
 		880737B71D578807002EE12F /* libWebRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 880737B61D578807002EE12F /* libWebRTC.a */; };
 		8815FC6E1D53BCC1004BAB3C /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 8815FC6D1D53BCC1004BAB3C /* Fonts */; };
 		8815FC751D53BEDF004BAB3C /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8815FC741D53BEC1004BAB3C /* libRNVectorIcons.a */; };
+		883213781D846E4000EA22A6 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		88387E551D7EFB2D00E0F90C /* MidnightConstellations.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88387E401D7EFA6200E0F90C /* MidnightConstellations.ttf */; };
 		888081D31D776A5700441A7B /* Comfortaa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 888081D21D776A5700441A7B /* Comfortaa.ttf */; };
 		88A3C0161D68857E001A72BA /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 88A3C0131D688558001A72BA /* libRNSound.a */; };
@@ -49,12 +50,11 @@
 		88AAC0931D57713800D4BE85 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AAC0921D57713800D4BE85 /* GLKit.framework */; };
 		88AAC0951D57714200D4BE85 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AAC0941D57714200D4BE85 /* CoreAudio.framework */; };
 		88AAC0971D57714800D4BE85 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AAC0961D57714800D4BE85 /* CoreVideo.framework */; };
-		88AAC0991D57715000D4BE85 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AAC0981D57715000D4BE85 /* VideoToolbox.framework */; };
+		88AAC0991D57715000D4BE85 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AAC0981D57715000D4BE85 /* VideoToolbox.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		88AAC09B1D57715C00D4BE85 /* libc.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AAC09A1D57715C00D4BE85 /* libc.tbd */; };
 		88AAC09D1D57716700D4BE85 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AAC09C1D57716700D4BE85 /* libsqlite3.tbd */; };
 		88AAC09F1D57717000D4BE85 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 88AAC09E1D57717000D4BE85 /* libstdc++.tbd */; };
 		88BB9C681D577A3A0095611E /* libjingle_peerconnection in Resources */ = {isa = PBXBuildFile; fileRef = 88BB9C671D577A3A0095611E /* libjingle_peerconnection */; };
-		88BB9C981D5780DF0095611E /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		88FA34D01D50FF94007D0E66 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88FA34CE1D50FF94007D0E66 /* FBSDKCoreKit.framework */; };
 		88FA34D11D50FF94007D0E66 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88FA34CF1D50FF94007D0E66 /* FBSDKLoginKit.framework */; };
 		88FA34D31D50FF9C007D0E66 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88FA34D21D50FF9C007D0E66 /* FBSDKShareKit.framework */; };
@@ -294,6 +294,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				883213781D846E4000EA22A6 /* libReact.a in Frameworks */,
 				88A3C0161D68857E001A72BA /* libRNSound.a in Frameworks */,
 				88AA0D311D6750B90040F537 /* libRNAdMobManager.a in Frameworks */,
 				88AAC09F1D57717000D4BE85 /* libstdc++.tbd in Frameworks */,
@@ -312,7 +313,6 @@
 				88FA34D31D50FF9C007D0E66 /* FBSDKShareKit.framework in Frameworks */,
 				8815FC751D53BEDF004BAB3C /* libRNVectorIcons.a in Frameworks */,
 				880737B51D578758002EE12F /* libRCTWebRTC.a in Frameworks */,
-				88BB9C981D5780DF0095611E /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
@@ -1071,11 +1071,79 @@
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					arm64,
+				);
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_NOTICES = YES;
+				ASSETCATALOG_WARNINGS = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_BITCODE = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/**",
+					"$(PROJECT_DIR)/RNBoilerplate/**",
+					"~/Documents/FacebookSDK/**",
+					"~/Documents/Firebase/AdMob/**",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
+					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
+					"$(SRCROOT)/../node_modules/react-native-webrtc/ios/RCTWebRTC/**",
+					"$(SRCROOT)/RNBoilerplate/**",
+					"$(SRCROOT)/../node_modules/react-native-admob/ios",
+					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
+					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
+				);
+				IBC_ERRORS = NO;
+				INFOPLIST_FILE = RNBoilerplate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(SRCROOT)/../node_modules/react-native-webrtc/**",
+					"$(PROJECT_DIR)/**",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hotchiwawa.plush;
+				PRODUCT_NAME = RNBoilerplate;
+				PROVISIONING_PROFILE = "";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 arm64";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					armv7,
+					arm64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_NOTICES = NO;
+				ASSETCATALOG_WARNINGS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = YES;
@@ -1098,54 +1166,9 @@
 					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
 					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
 				);
+				IBC_ERRORS = NO;
 				INFOPLIST_FILE = RNBoilerplate/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(SRCROOT)/../node_modules/react-native-webrtc/**",
-					"$(PROJECT_DIR)/**",
-				);
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-ObjC",
-					"-lc++",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hotchiwawa.plush;
-				PRODUCT_NAME = RNBoilerplate;
-				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "arm64 armv7 armv7s";
-			};
-			name = Debug;
-		};
-		13B07F951A680F5B00A75B9A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEAD_CODE_STRIPPING = YES;
-				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/**",
-					"$(PROJECT_DIR)/RNBoilerplate/**",
-					"~/Documents/FacebookSDK/**",
-					"~/Documents/Firebase/AdMob/**",
-				);
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					"$(SRCROOT)/../node_modules/react-native/React/**",
-					"$(SRCROOT)/../node_modules/react-native-fbsdk/ios/RCTFBSDK/**",
-					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-webrtc/ios/RCTWebRTC/**",
-					"$(SRCROOT)/RNBoilerplate/**",
-					"$(SRCROOT)/../node_modules/react-native-admob/ios",
-					"$(SRCROOT)/../node_modules/react-native-sound/RNSound",
-					"$(SRCROOT)/../node_modules/react-native-geocoder/ios/RNGeocoder",
-				);
-				INFOPLIST_FILE = RNBoilerplate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(SRCROOT)/../node_modules/react-native-webrtc/**",
@@ -1159,7 +1182,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hotchiwawa.plush;
 				PRODUCT_NAME = RNBoilerplate;
 				PROVISIONING_PROFILE = "";
-				VALID_ARCHS = "arm64 armv7 armv7s";
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv7 arm64";
 			};
 			name = Release;
 		};

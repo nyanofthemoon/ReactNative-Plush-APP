@@ -9,35 +9,34 @@ import styles from './styles'
 export default class extends React.Component {
 
   static propTypes = {
-    //profile: React.PropTypes.object.isRequired,
-    //data   : React.PropTypes.array.isRequired
+    id          : React.PropTypes.string.isRequired,
+    profile     : React.PropTypes.object.isRequired,
+    conversation: React.PropTypes.array.isRequired
   }
 
-  _renderRow(data) {
+  _renderRow(message) {
     return
       <ListItem>
-        <View style={styles.row}>
-          <Text>AAA</Text>
+        <View style={styles.message}>
+          <Text>{JSON.stringify(message)}</Text>
         </View>
       </ListItem>
   }
 
   render() {
     if (this.props.data && this.props.data.length > 0) {
-      return
-        <ScrollView ref='scrollView' onContentSizeChange={(newSize)=>{ this.refs.scrollView.scrollTo(newSize) }}>
-          <List dataArray={this.props.data} renderRow={this._renderRow.bind(this)}/>
+      return (
+        <ScrollView scrollEnabled={true}>
+          <List dataArray={this.props.conversation} renderRow={this._renderRow.bind(this)}/>
         </ScrollView>
+      )
     } else {
-        return
-          <View style={styles.emptyContainer}>
-            <Title style={styles.title}>Start Conversation!</Title>
-          </View>
+      return (
+        <ScrollView scrollEnabled={true} contentContainerStyle={{ flex:1, justifyContent:'center'}}>
+          <Title style={styles.title}>Start Conversation!</Title>
+        </ScrollView>
+      )
     }
   }
+
 }
-/*
- <ScrollView ref='scrollView' onContentSizeChange={(newSize)=>{ this.refs.scrollView.scrollTo(newSize) }}>
- <List dataArray={this.props.data} renderRow={this._renderRow.bind(this)}/>
- </ScrollView>
- */

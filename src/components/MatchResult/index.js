@@ -10,7 +10,6 @@ import { getSocketId } from './../../helpers/socket'
 import { goToMatchFriendshipScene, goToMatchRelationshipScene, goToContact } from './../../actions'
 
 import emoticons from './../../helpers/images/emoticons'
-import results from './../../helpers/images/results'
 
 import styles from './styles'
 
@@ -86,14 +85,14 @@ render() {
         (
           <View>
             <Title style={styles.title}>It's a Plush!</Title>
-            <Animatable.View animation='zoomInDown' duration={1000} iterationCount={1} delay={2000}>
+            <Animatable.View animation='zoomInDown' duration={1000} iterationCount={1} delay={2250}>
               {profileButton}
             </Animatable.View>
           </View>
         ) : (
           <View>
             <Title style={styles.title}>Aww... No Plush.</Title>
-            <Animatable.View animation='zoomInDown' duration={1000} iterationCount={1} delay={2000}>
+            <Animatable.View animation='zoomInDown' duration={1000} iterationCount={1} delay={2250}>
               {retryButton}
             </Animatable.View>
           </View>
