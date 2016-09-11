@@ -51,7 +51,8 @@ const initialState = fromJS({
   reports: {
     reported  : 0,
     reportedby: 0
-  }
+  },
+  offlineMessages: []
 })
 
 export default (state = initialState, action) => {

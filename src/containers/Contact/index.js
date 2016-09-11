@@ -54,7 +54,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const {app, contact} = this.props
+    const {app, user, contact} = this.props
     let id      = app.get('currentSceneId')
     let profile = contact.getIn(['profiles', id])
     if (!profile) {
@@ -78,7 +78,7 @@ export default class extends React.Component {
       <Container header={true} footer={footer} headerTitle={this._getProfileType(id)}>
         <ScrollableTabView onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}} style={styles.container}>
           <ProfileTab tabLabel='Profile' id={id} profile={profile} />
-          <ConversationTab tabLabel='Conversation' id={id} profile={profile} conversation={message} />
+          <ConversationTab tabLabel='Conversation' id={id} user={user.toJSON()} profile={profile} conversation={message} />
         </ScrollableTabView>
       </Container>
     )
