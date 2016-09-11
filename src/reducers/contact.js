@@ -19,7 +19,7 @@ export default (state = initialState, action) => {
     case types.SOCKET_QUERY_CONTACT_RECEIVED:
       var tempState = state.toJS()
       tempState.profiles[action.payload.data.id] = action.payload.data
-      nextState = fromJS(tempState).set('profiles', tempState.profiles)
+      nextState = fromJS(tempState).set('profiles', fromJS(tempState.profiles))
       break
 
     case types.SOCKET_MESSAGE_USER_REQUESTED:
@@ -31,14 +31,14 @@ export default (state = initialState, action) => {
       action.payload.date = new Date().getTime()
       delete(action.payload.message)
       tempState.messages[senderId].unshift(action.payload);
-      nextState = fromJS(tempState).set('messages', tempState.messages)
+      nextState = fromJS(tempState).set('messages', fromJS(tempState.messages))
       break
 
     case types.SOCKET_MESSAGE_USER_RECEIVED:
       var tempState = state.toJS();
       tempState.messages[action.payload.id] = tempState.messages[action.payload.id] || [];
       tempState.messages[action.payload.id].unshift(action.payload);
-      nextState = fromJS(tempState).set('messages', tempState.messages)
+      nextState = fromJS(tempState).set('messages', fromJS(tempState.messages))
       break
 
     default:

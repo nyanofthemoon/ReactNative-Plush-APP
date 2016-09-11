@@ -34,9 +34,9 @@ export default class extends React.Component {
 
   _renderRow(id) {
     const {contact} = this.props
-    let profiles = contact.get('profiles')
-    let profile  = profiles[id]
+    let profile = contact.getIn(['profiles', id])
     if (profile) {
+      profile = profile.toJSON()
       let messages = contact.get('messages')
       //let lastRead   = messages[id].last || null
       let badgeCount = 0
