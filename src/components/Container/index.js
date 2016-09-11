@@ -1,16 +1,15 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { AppState, Dimensions, StatusBar, View, Image } from 'react-native'
-import { Container, Header, Content, Footer, Title, Button, Icon } from 'native-base'
+import { AppState, Dimensions, StatusBar, View, Image, Text } from 'react-native'
+import { Container, Header, Content, Footer, Title, Button, Icon, Badge } from 'native-base'
 
 import { AdMobInterstitial } from 'react-native-admob'
 
-import { loadUserData, handleAppStateChange, handleAppMemoryWarning, canShowAd } from './../../actions'
+import { loadUserData, handleAppStateChange, handleAppMemoryWarning, canShowAd, goToContactsScene, goToHomeScene, goToProfileScene, goToLogoutScene, calculateUnreadMessages } from './../../actions'
 
 import renderIf from './../../helpers/renderIf'
 
-import { goToContactsScene, goToHomeScene, goToProfileScene, goToLogoutScene } from './../../actions'
 import Config from './../../config'
 
 import theme  from './themes/default'
@@ -67,6 +66,15 @@ export default class extends Component {
 
   // icons : http://ionicframework.com/docs/v2/ionicons/
   render() {
+    let count = ''
+    if (this.props.header) {
+      count = calculateUnreadMessages()
+      if (count < 1) {
+        count = ''
+      } else {
+        count = <Text>{count}</Text>
+      }
+    }
     return (
       <Container key='container' theme={theme} style={styles.container}>
         {renderIf(this.props.header)(
@@ -76,6 +84,7 @@ export default class extends Component {
               </Button>
               <Button onPress={goToContactsScene}>
                 <Icon name='md-contacts' style={('contacts' === this.props.scene ? ( styles.selected ) : ( null ))} />
+                {count}
               </Button>
               <Title style={styles.title}>{this.props.headerTitle || 'Plush !'} </Title>
               <Button onPress={goToProfileScene}>

@@ -37,14 +37,11 @@ export default class extends React.Component {
     let profile = contact.getIn(['profiles', id])
     if (profile) {
       profile = profile.toJSON()
-      let messages = contact.get('messages')
-      //let lastRead   = messages[id].last || null
-      let badgeCount = 0
-      let badgeStyle = styles.hidden
-      //if (lastRead && lastRead < new Date().getTime()) {
-      //  badgeStyle = styles.badge
-      //}
-
+      let badgeCount = contact.getIn(['count', id])
+      let badgeStyle = styles.badge
+      if (!badgeCount || badgeCount < 1) {
+        badgeStyle = styles.hidden
+      }
       return (
         <ListItem key={id} button onPress={this._onPress.bind(this, id)} style={styles.listItem}>
           <Row style={{ flex: 1 }} nowrap>

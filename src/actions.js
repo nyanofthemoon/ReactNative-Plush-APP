@@ -326,6 +326,9 @@ export function messageUser(id, message) {
 }
 
 function messageReception(data) {
+  data.scene    = _getState().app.get('currentScene')
+  data.sceneId  = _getState().app.get('currentSceneId')
+  data.sceneTab = _getState().app.get('currentSceneTab')
   dispatch({type: types.SOCKET_MESSAGE_USER_RECEIVED, payload: data})
   Db.saveContacts(_getState().contact.toJSON(), function() {})
 }
@@ -357,4 +360,16 @@ export function canShowAd() {
     return false
   }
   return true
+}
+
+export function calculateUnreadMessages() {
+  let total  = 0
+  let counts = _getState().contact.get('count')
+  if (counts) {
+    counts = JSON.parse(JSON.stringify(counts))
+    Object.keys(counts).forEach(function(id) {
+      total = total + counts[id]
+    })
+  }
+  return total
 }
