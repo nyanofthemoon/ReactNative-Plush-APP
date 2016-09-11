@@ -67,7 +67,7 @@ export default (state = initialState, action) => {
       break
     case types.SOCKET_QUERY_USER_RECEIVED:
     case types.DB_LOAD_USER:
-      nextState = fromJS(state).merge(action.payload.data)
+      nextState = fromJS(action.payload.data)
       break
     default:
       break

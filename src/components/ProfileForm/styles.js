@@ -32,7 +32,7 @@ export default StyleSheet.create({
   },
 
   bio: {
-    marginBottom: 500
+    marginBottom: 100
   }
 
 })

@@ -6,9 +6,6 @@ import { Form,InputField,PickerField,SwitchField } from 'react-native-form-gener
 
 import styles from './styles'
 
-//@TODO Fix placeholder color
-//@TODO Fix select text color
-
 export default class extends React.Component{
 
   constructor(props){

@@ -4160,6 +4160,11 @@
       "from": "react-native-gifted-spinner@>=0.0.4 <0.0.5",
       "resolved": "https://registry.npmjs.org/react-native-gifted-spinner/-/react-native-gifted-spinner-0.0.4.tgz"
     },
+    "react-native-invertible-scroll-view": {
+      "version": "1.0.0",
+      "from": "react-native-invertible-scroll-view@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/react-native-invertible-scroll-view/-/react-native-invertible-scroll-view-1.0.0.tgz"
+    },
     "react-native-keyboard-aware-scroll-view": {
       "version": "0.2.0",
       "from": "react-native-keyboard-aware-scroll-view@0.2.0",
@@ -4193,6 +4198,11 @@
           "resolved": "https://registry.npmjs.org/react-addons-pure-render-mixin/-/react-addons-pure-render-mixin-15.0.2.tgz"
         }
       }
+    },
+    "react-native-scrollable-mixin": {
+      "version": "1.0.1",
+      "from": "react-native-scrollable-mixin@>=1.0.1 <2.0.0",
+      "resolved": "https://registry.npmjs.org/react-native-scrollable-mixin/-/react-native-scrollable-mixin-1.0.1.tgz"
     },
     "react-native-scrollable-tab-view": {
       "version": "0.5.4",

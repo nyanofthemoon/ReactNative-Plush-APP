@@ -192,7 +192,6 @@ function queryUserReception(data) {
       data.data.location.country = 'Canada'
       let contacts = _getState().contact.toJSON()
       contacts.profiles[data.data.id] = data.data
-      //contacts.message = {}
       dispatch({type: types.SOCKET_QUERY_CONTACT_RECEIVED, payload: data})
       Db.saveContacts(contacts)
     }
@@ -326,9 +325,7 @@ export function messageUser(id, message) {
 }
 
 function messageReception(data) {
-  setTimeout(function() {
-    dispatch({type: types.SOCKET_MESSAGE_USER_RECEIVED, payload: data})
-  }, 1000)
+  dispatch({type: types.SOCKET_MESSAGE_USER_RECEIVED, payload: data})
 }
 
 export function goToLogoutScene(data) {

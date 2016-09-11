@@ -20,8 +20,8 @@ const tabStyle = StyleSheet.flatten(styles.tab)
 
 @connect(
   state => ({
-    app: state.app,
-    user: state.user,
+    app    : state.app,
+    user   : state.user,
     contact: state.contact
   })
 )
@@ -38,18 +38,12 @@ export default class extends React.Component {
     goToTab(0)
   }
 
-  _getProfileId() {
-    const {app} = this.props
-    return app.get('currentSceneId')
-  }
-
   _onChangeTab(e) {
     goToTab(e.i)
   }
 
-  _getProfileType() {
+  _getProfileType(id) {
     const {user} = this.props
-    let id = this._getProfileId()
     if (user.getIn(['contacts', 'relationship', id])) {
       return 'Relationship'
     } else if (user.getIn(['contacts', 'friendship', id])) {
@@ -61,19 +55,9 @@ export default class extends React.Component {
 
   render() {
     const {app, contact} = this.props
-    let id      = this._getProfileId()
+    let id       = app.get('currentSceneId')
     let profiles = contact.get('profiles') || {}
     let messages = contact.get('messages') || {}
-
-
-    /*
-    messages[id] = [
-       {id: id, data: {date: new Date().getTime(), text: 'Hello First'}},
-       {id: id, data: {date: new Date().getTime(), text: 'Hello Second'}},
-       {id: id, data: {date: new Date().getTime(), text: 'Hello Third'}}
-     ]
-    */
-
     let footer
     if (0 == app.get('currentSceneTab')) {
       footer = <BlockReportFooter id={app.get('currentSceneId')} redirect={goToContactsScene} />
@@ -81,7 +65,7 @@ export default class extends React.Component {
       footer = <SendMessageFooter id={app.get('currentSceneId')} />
     }
     return (
-      <Container header={true} footer={footer} headerTitle={this._getProfileType()}>
+      <Container header={true} footer={footer} headerTitle={this._getProfileType(id)}>
         <ScrollableTabView onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}} style={styles.container}>
           <ProfileTab tabLabel='Profile' id={id} profile={profiles[id]} />
           <ConversationTab tabLabel='Conversation' id={id} profile={profiles[id]} conversation={messages[id]} />

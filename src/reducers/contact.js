@@ -13,52 +13,34 @@ export default (state = initialState, action) => {
   let nextState
   switch (action.type) {
     case types.DB_LOAD_CONTACTS:
-      nextState = fromJS(state).merge(action.payload.data)
+      nextState = fromJS(action.payload.data)
       break
+
     case types.SOCKET_QUERY_CONTACT_RECEIVED:
-      let prevState = fromJS(state).toJS()
-      let contactId = action.payload.data.id
-      prevState.profiles[contactId] = action.payload.data
-      nextState = fromJS(state).set('profiles', prevState.profiles)
+      var tempState = state.toJS()
+      tempState.profiles[action.payload.data.id] = action.payload.data
+      nextState = fromJS(tempState).set('profiles', tempState.profiles)
       break
+
     case types.SOCKET_MESSAGE_USER_REQUESTED:
-      let prevStateMMsg = fromJS(state).toJS()
-      let contactIdMMsg = action.payload.id
-
-
-      alert('SENT '+JSON.stringify(contactIdMMsg))
-
-      if (!prevStateMMsg.messages[contactIdMMsg]) {
-        prevStateMMsg.messages[contactIdMMsg] = []
-      }
+      var tempState = state.toJS();
+      var senderId  = action.payload.id
+      tempState.messages[senderId] = tempState.messages[senderId] || [];
       action.payload.id   = null
       action.payload.text = action.payload.message
       action.payload.date = new Date().getTime()
-
-      //alert('MERGED '+JSON.stringify(action.payload)
-
-
-
       delete(action.payload.message)
-      prevStateMMsg.messages[contactIdMMsg].push(action.payload)
-
-
-      nextState = fromJS(state).set('messages', prevStateMMsg.messages)
-
-
-
+      tempState.messages[senderId].unshift(action.payload);
+      nextState = fromJS(tempState).set('messages', tempState.messages)
       break
+
     case types.SOCKET_MESSAGE_USER_RECEIVED:
-      let prevStateMsg = fromJS(state).toJS()
-      let contactIdMsg = action.payload.id
-      if (action.payload.data) {
-        if (!prevStateMsg.messages[contactIdMsg]) {
-          prevStateMsg.messages[contactIdMsg] = []
-        }
-        prevStateMsg.messages[contactIdMsg].push(action.payload.data)
-        nextState = fromJS(state).set('messages', prevStateMsg.messages)
-      }
+      var tempState = state.toJS();
+      tempState.messages[action.payload.id] = tempState.messages[action.payload.id] || [];
+      tempState.messages[action.payload.id].unshift(action.payload);
+      nextState = fromJS(tempState).set('messages', tempState.messages)
       break
+
     default:
       break
   }

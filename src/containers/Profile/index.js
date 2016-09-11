@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { View, Text, Alert } from 'react-native'
+import { View, Text, Alert, ScrollView } from 'react-native'
 import { Button } from 'native-base'
 import { connect } from 'react-redux'
 
@@ -43,7 +43,9 @@ export default class extends React.Component {
     )
     return (
       <Container header={true} footer={footer} scene='profile' headerTitle='Plush Profile'>
-        <ProfileForm ref='form' user={user.toJSON()}/>
+        <ScrollView scrollEnabled={true}>
+          <ProfileForm ref='form' user={user.toJSON()}/>
+        </ScrollView>
       </Container>
     )
   }
