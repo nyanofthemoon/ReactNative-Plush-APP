@@ -322,10 +322,12 @@ export function reportUser(id) {
 export function messageUser(id, message) {
   dispatch({type: types.SOCKET_MESSAGE_USER_REQUESTED, payload: { id: id, message: message } })
   emitSocketMessageEvent(id, message)
+  Db.saveContacts(_getState().contact.toJSON(), function() {})
 }
 
 function messageReception(data) {
   dispatch({type: types.SOCKET_MESSAGE_USER_RECEIVED, payload: data})
+  Db.saveContacts(_getState().contact.toJSON(), function() {})
 }
 
 export function goToLogoutScene(data) {

@@ -19,14 +19,18 @@ export default class extends React.Component {
   _renderRow(message) {
     if (message.id) {
       return (
-        <ListItem style={styles.contactMessageContainer}>
-          <Text style={styles.contactMessage}>{JSON.stringify(message)}</Text>
+        <ListItem style={styles.listItem}>
+          <View style={styles.contactMessageContainer}>
+            <Text style={styles.contactMessage}>{message.text}</Text>
+          </View>
         </ListItem>
       )
     } else {
       return (
-      <ListItem style={styles.selfMessageContainer}>
-        <Text style={styles.selfMessage}>{JSON.stringify(message)}</Text>
+      <ListItem style={styles.listItem}>
+        <View style={styles.selfMessageContainer}>
+          <Text style={styles.selfMessage}>{message.text}</Text>
+        </View>
       </ListItem>
       )
     }

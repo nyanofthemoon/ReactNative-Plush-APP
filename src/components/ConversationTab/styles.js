@@ -10,29 +10,36 @@ export default StyleSheet.create({
     lineHeight: 34
   },
 
-  contactMessageContainer: {
+  listItem: {
     borderBottomColor: 'transparent',
+    padding: 0,
+    marginTop: 10
+  },
+
+  contactMessageContainer: {
     backgroundColor: 'white',
     borderRadius: 12,
-    marginBottom: 1
+    padding: 10
   },
 
   contactMessage: {
     color: 'black',
-    fontFamily: 'Comfortaa'
+    fontFamily: 'Comfortaa',
+    fontSize: 14,
+    letterSpacing: 0.25
   },
 
   selfMessageContainer: {
-    borderBottomColor: 'transparent',
     borderRadius: 12,
     backgroundColor: '#CCC',
-    marginBottom: 1
+    padding: 10
   },
 
   selfMessage: {
     color: 'black',
     fontFamily: 'Comfortaa',
-    fontSize: 14
+    fontSize: 14,
+    letterSpacing: 0.25
   }
 
 })

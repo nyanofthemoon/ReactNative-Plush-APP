@@ -30,14 +30,20 @@ export default (state = initialState, action) => {
       action.payload.text = action.payload.message
       action.payload.date = new Date().getTime()
       delete(action.payload.message)
-      tempState.messages[senderId].unshift(action.payload);
+      tempState.messages[senderId].unshift(action.payload)
+      if (tempState.messages[senderId].length > 200) {
+        tempState.messages[senderId] = tempState.messages[senderId].slice(0, 200)
+      }
       nextState = fromJS(tempState).set('messages', fromJS(tempState.messages))
       break
 
     case types.SOCKET_MESSAGE_USER_RECEIVED:
       var tempState = state.toJS();
       tempState.messages[action.payload.id] = tempState.messages[action.payload.id] || [];
-      tempState.messages[action.payload.id].unshift(action.payload);
+      tempState.messages[action.payload.id].unshift(action.payload)
+      if (tempState.messages[action.payload.id].length > 200) {
+        tempState.messages[action.payload.id] = tempState.messages[action.payload.id].slice(0, 200)
+      }
       nextState = fromJS(tempState).set('messages', fromJS(tempState.messages))
       break
 

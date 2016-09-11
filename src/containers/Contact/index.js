@@ -19,7 +19,7 @@ import styles from './styles'
 const tabStyle = StyleSheet.flatten(styles.tab)
 
 @connect(
-  state => (console.log(state), {
+  state => ({
     app    : state.app,
     user   : state.user,
     contact: state.contact
@@ -54,7 +54,6 @@ export default class extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     const {app, contact} = this.props
     let id      = app.get('currentSceneId')
     let profile = contact.getIn(['profiles', id])
