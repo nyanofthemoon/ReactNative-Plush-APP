@@ -11,6 +11,7 @@ const initialState = fromJS({
   socket         : null,
   apiStatus      : 'disconnected',
   errorMessage   : null,
+  previousScene  : null,
   currentScene   : null,
   currentSceneTab: null,
   currentSceneId : null,
@@ -61,12 +62,16 @@ export default (state = initialState, action) => {
       nextState = fromJS(state).set('apiStatus', 'connected')
       break
     case types.SCENE_NAVIGATION_CONTACTS:
-      nextState = fromJS(state).set('currentScene', 'contacts')
+      nextState = fromJS(state).merge({
+        previousScene: state.get('currentScene'),
+        currentScene : 'contacts'
+      })
       break
     case types.SCENE_NAVIGATION_CONTACT:
       nextState = fromJS(state).merge({
-        'currentScene'  : 'contact',
-        'currentSceneId': action.payload
+        previousScene : state.get('currentScene'),
+        currentScene  : 'contact',
+        currentSceneId: action.payload
       })
       break
     case types.SOCKET_QUERY_ROOM_RECEIVED:
@@ -82,16 +87,26 @@ export default (state = initialState, action) => {
       nextState = fromJS(state).set('currentSceneTab', action.payload)
       break
     case types.SCENE_NAVIGATION_PROFILE:
-      nextState = fromJS(state).set('currentScene', 'profile')
+      nextState = fromJS(state).merge({
+        previousScene: state.get('currentScene'),
+        currentScene : 'profile'
+      })
       break
     case types.SCENE_NAVIGATION_HOME:
-      nextState = fromJS(state).set('currentScene', 'home')
+      nextState = fromJS(state).merge({
+        previousScene: state.get('currentScene'),
+        currentScene : 'home'
+      })
       break
     case types.SCENE_NAVIGATION_LOGOUT:
-      nextState = fromJS(state).set('currentScene', 'logout')
+      nextState = fromJS(state).merge({
+        previousScene: state.get('currentScene'),
+        currentScene : 'logout'
+      })
       break
     case types.SCENE_NAVIGATION_MATCH:
       nextState = fromJS(state).merge({
+        previousScene : state.get('currentScene'),
         currentScene  : 'match',
         matchMode     : action.payload.type,
         matchIsStealth: action.payload.stealth || 'no'
@@ -104,13 +119,14 @@ export default (state = initialState, action) => {
         apiStatus     : 'disconnected',
         socket        : null,
         errorMessage  : action.payload,
+        previousScene : state.get('currentScene'),
         currentScene  : 'error'
       })
     case types.SOCKET_QUERY_CONTACT_RECEIVED:
       if ('match' === state.get('currentScene')) {
         nextState = fromJS(state).set('currentSceneId', action.payload.data.id)
       }
-      break;
+      break
     default:
       break
   }

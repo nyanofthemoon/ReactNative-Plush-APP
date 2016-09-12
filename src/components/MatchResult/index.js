@@ -7,7 +7,7 @@ import { Title, Button, Footer } from 'native-base'
 import * as Animatable from 'react-native-animatable'
 
 import { getSocketId } from './../../helpers/socket'
-import { goToMatchFriendshipScene, goToMatchRelationshipScene, goToContact } from './../../actions'
+import { goToMatchFriendshipScene, goToMatchRelationshipScene, goToContact, goToTab } from './../../actions'
 
 import emoticons from './../../helpers/images/emoticons'
 
@@ -64,16 +64,16 @@ export default class extends React.Component {
     goToContact(this.props.id)
   }
 
-render() {
+  render() {
     let retryButton
     let profileButton
+    if ('relationship' === this.props.type) {
+      retryButton = <Button style={styles.button} info onPress={goToMatchRelationshipScene}><Title style={styles.title}>Try Again!</Title></Button>
+    } else {
+      retryButton = <Button style={styles.button} info onPress={goToMatchFriendshipScene}><Title style={styles.title}>Try Again!</Title></Button>
+    }
     if ('video' === this.props.step) {
-      if ('relationship' === this.props.type) {
-        retryButton = <Button style={styles.button} info onPress={goToMatchRelationshipScene}><Title style={styles.title}>Try Again!</Title></Button>
-      } else {
-        retryButton = <Button style={styles.button} info onPress={goToMatchFriendshipScene}><Title style={styles.title}>Try Again!</Title></Button>
-      }
-      profileButton = <Button style={styles.button} info onPress={this._goToProfile}><Title style={styles.title}>View Contact</Title></Button>
+      profileButton = <Button style={styles.button} info onPress={this._goToProfile.bind(this)}><Title style={styles.title}>View Contact</Title></Button>
     }
     return (
     <View style={styles.container}>

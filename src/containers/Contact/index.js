@@ -35,10 +35,6 @@ export default class extends React.Component {
     contact: React.PropTypes.object.isRequired
   }
 
-  componentDidMount() {
-    goToTab(1)
-  }
-
   _onChangeTab(e) {
     goToTab(e.i)
   }
@@ -50,7 +46,7 @@ export default class extends React.Component {
     } else if (user.getIn(['contacts', 'friendship', id])) {
       return 'Friendship'
     } else {
-      return 'Unknown'
+      return 'New Contact'
     }
   }
 
@@ -71,14 +67,18 @@ export default class extends React.Component {
     }
     let footer
     if (0 == app.get('currentSceneTab')) {
-      footer = <BlockReportFooter id={app.get('currentSceneId')} redirect={goToContactsScene} />
+      footer = <BlockReportFooter id={id} redirect={goToContactsScene} />
     } else {
-      footer = <SendMessageFooter id={app.get('currentSceneId')} />
+      footer = <SendMessageFooter id={id} />
+    }
+    let initialPage = 1
+    if ('match' === app.get('previousScene')) {
+      initialPage = 0
     }
     return (
       <View style={{flex: 1}}>
         <Container header={true} footer={footer} headerTitle={this._getProfileType(id)}>
-          <ScrollableTabView initialPage={1} onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily, fontSize:tabStyle.fontSize, lineHeight:tabStyle.lineHeight}} style={styles.container}>
+          <ScrollableTabView initialPage={initialPage} onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily, fontSize:tabStyle.fontSize, lineHeight:tabStyle.lineHeight}} style={styles.container}>
             <ProfileTab tabLabel='Profile' id={id} profile={profile} />
             <ConversationTab tabLabel='Conversation' id={id} user={user.toJSON()} profile={profile} conversation={message} />
           </ScrollableTabView>
