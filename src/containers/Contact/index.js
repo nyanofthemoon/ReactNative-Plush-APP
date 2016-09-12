@@ -35,7 +35,7 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    goToTab(0)
+    goToTab(1)
   }
 
   _onChangeTab(e) {
@@ -76,7 +76,7 @@ export default class extends React.Component {
     }
     return (
       <Container header={true} footer={footer} headerTitle={this._getProfileType(id)}>
-        <ScrollableTabView onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily}} style={styles.container}>
+        <ScrollableTabView initialPage={1} onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily, fontSize:tabStyle.fontSize, lineHeight:tabStyle.lineHeight}} style={styles.container}>
           <ProfileTab tabLabel='Profile' id={id} profile={profile} />
           <ConversationTab tabLabel='Conversation' id={id} user={user.toJSON()} profile={profile} conversation={message} />
         </ScrollableTabView>

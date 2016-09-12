@@ -2,12 +2,14 @@
 
 import { StyleSheet, Dimensions } from 'react-native'
 
+import { getCorrectFontSizeForResolution } from './../../helpers/font'
+
 export default StyleSheet.create({
 
   title: {
     fontFamily: 'IndieFlower',
-    fontSize  : 28,
-    lineHeight: 34
+    fontSize  : getCorrectFontSizeForResolution(28),
+    lineHeight: getCorrectFontSizeForResolution(34)
   },
 
   listItem: {
@@ -22,47 +24,55 @@ export default StyleSheet.create({
   },
 
   contactMessageContainer: {
-    backgroundColor: '#262672',
+    backgroundColor: '#DDD',
     borderRadius: 6,
-    padding: 10,
+    padding: getCorrectFontSizeForResolution(10),
     flex: 1,
     flexWrap:'wrap',
-    flexDirection:'row'
+    flexDirection:'row',
+    justifyContent: 'center'
   },
 
   contactMessage: {
-    color: '#DDD',
+    color: 'black',
     fontFamily: 'Comfortaa',
-    fontSize: 14,
+    fontSize: getCorrectFontSizeForResolution(14),
     flexWrap: 'wrap',
-    marginBottom: 3
+  },
+
+  contactPictureContainer: {
+    alignSelf: 'flex-start'
   },
 
   contactPicture: {
-    height:40,
-    width:40,
-    borderRadius: 20,
+    height:getCorrectFontSizeForResolution(40),
+    width:getCorrectFontSizeForResolution(40),
+    borderRadius: getCorrectFontSizeForResolution(20),
     marginLeft: 8
   },
 
   selfMessageContainer: {
     borderRadius: 6,
-    backgroundColor: '#DDD',
-    padding: 10,
+    backgroundColor: '#262672',
+    padding: getCorrectFontSizeForResolution(10),
     flex: 1,
     flexWrap:'wrap',
-    flexDirection:'row'
+    flexDirection:'row',
+    justifyContent: 'center'
   },
 
   selfMessage: {
-    color: 'black',
+    color: '#DDD',
     fontFamily: 'Comfortaa',
-    fontSize: 12,
+    fontSize: getCorrectFontSizeForResolution(14),
     letterSpacing: 0.5,
-    flexWrap: 'wrap',
-    marginTop: -2,
-    marginBottom: 3
+    flexWrap: 'wrap'
   },
+
+  selfPictureContainer: {
+    alignSelf: 'flex-start'
+  },
+
 
   selfPicture: {
     height:40,

@@ -45,13 +45,13 @@ export default class extends React.Component {
       return (
         <ListItem key={id} button onPress={this._onPress.bind(this, id)} style={styles.listItem}>
           <Row style={{ flex: 1 }} nowrap>
-            <Col sm={1} style={{ justifyContent: 'center' }}>
+            <Col sm={2} style={{ justifyContent: 'center', paddingLeft: 8 }}>
               {genderIcon(profile.profile.gender, styles.gender)}
             </Col>
             <Col sm={2}>
-              <Thumbnail style={{marginLeft:5}} size={40} source={{uri:profile.profile.picture}}/>
+              <Thumbnail style={{ marginLeft: -10 }} size={40} source={{uri:profile.profile.picture}}/>
             </Col>
-            <Col sm={8} style={{ justifyContent: 'center' }}>
+            <Col sm={7} style={{ justifyContent: 'center' }}>
               <Text style={styles.nickname}>{profile.profile.nickname}</Text>
             </Col>
             <Col sm={1} style={{ justifyContent: 'center' }}>

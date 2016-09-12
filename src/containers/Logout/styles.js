@@ -2,6 +2,8 @@
 
 import { StyleSheet } from 'react-native'
 
+import { getCorrectFontSizeForResolution } from './../../helpers/font'
+
 export default StyleSheet.create({
 
   centered: {
@@ -16,8 +18,8 @@ export default StyleSheet.create({
     marginLeft   : 30,
     color        : 'white',
     fontFamily   : 'MidnightConstellations',
-    fontSize     : 90,
-    lineHeight   : 95,
+    fontSize     : getCorrectFontSizeForResolution(90),
+    lineHeight   : getCorrectFontSizeForResolution(95),
     paddingRight : 30
   },
 
@@ -26,8 +28,8 @@ export default StyleSheet.create({
     marginBottom : 75,
     color        : 'white',
     fontFamily   : 'IndieFlower',
-    fontSize     : 25,
-    lineHeight   : 25
+    fontSize     : getCorrectFontSizeForResolution(25),
+    lineHeight   : getCorrectFontSizeForResolution(25)
   },
 
   shadowed: {

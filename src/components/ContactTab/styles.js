@@ -2,6 +2,8 @@
 
 import { StyleSheet, Dimensions } from 'react-native'
 
+import { getCorrectFontSizeForResolution } from './../../helpers/font'
+
 export default StyleSheet.create({
 
   listItem: {
@@ -11,8 +13,8 @@ export default StyleSheet.create({
 
   title: {
     fontFamily: 'IndieFlower',
-    fontSize  : 28,
-    lineHeight: 34
+    fontSize  : getCorrectFontSizeForResolution(28),
+    lineHeight: getCorrectFontSizeForResolution(34)
   },
 
   button: {
@@ -32,20 +34,21 @@ export default StyleSheet.create({
 
   nickname: {
     fontFamily: 'IndieFlower',
-    fontSize: 20,
-    lineHeight: 24,
-    marginTop: 8
+    fontSize: getCorrectFontSizeForResolution(20),
+    lineHeight: getCorrectFontSizeForResolution(24),
+    marginTop: 8,
+    marginLeft: -8
   },
 
   gender: {
-    marginTop: 4,
-    marginLeft: 8
+    marginTop: 4
   },
 
   badge: {
     alignSelf: 'flex-end',
-    paddingTop: 2,
-    marginRight: -6
+    marginRight: -6,
+    width: 28,
+    height: 28
   },
 
   hidden: {

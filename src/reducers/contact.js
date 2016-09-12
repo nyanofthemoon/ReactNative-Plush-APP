@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
       break
 
     case types.SOCKET_MESSAGE_USER_RECEIVED:
-      var tempState = state.toJS();
+      var tempState = state.toJS()
       var scene    = action.payload.scene
       var sceneId  = action.payload.sceneId
       var sceneTab = action.payload.sceneTab
@@ -65,7 +65,7 @@ export default (state = initialState, action) => {
       break
 
     case types.SCENE_NAVIGATION_CONTACT:
-      var tempState = state.toJS();
+      var tempState = state.toJS()
       tempState.count[action.payload] = 0
       nextState = fromJS(tempState).set('count', tempState.count)
       break

@@ -6,6 +6,8 @@ import Color from 'color';
 
 import {Platform} from 'react-native';
 
+import { getCorrectFontSizeForResolution } from './../../../helpers/font'
+
 export default {
     brandPrimary : 'transparent',
     brandInfo: '#262672',
@@ -23,12 +25,12 @@ export default {
 
     subtitleColor: '#ffffff',
 
-    fontSizeBase: 12,
+    fontSizeBase: getCorrectFontSizeForResolution(12),
     titleFontSize: (Platform.OS === 'ios' ) ? 18 : 19,
     subTitleFontSize: (Platform.OS === 'ios' ) ? 12 : 14,
 
-    inputFontSize: 15,
-    inputLineHeight: 24,
+    inputFontSize: getCorrectFontSizeForResolution(15),
+    inputLineHeight: getCorrectFontSizeForResolution(24),
 
     get fontSizeH1 () {
         return this.fontSizeBase*1.8;
@@ -56,7 +58,7 @@ export default {
         return this.iconFontSize* .6;
     },
 
-    buttonPadding: 6,
+    buttonPadding: getCorrectFontSizeForResolution(6),
 
     borderRadiusBase: (Platform.OS === 'ios' ) ? 5 : 2,
 
@@ -76,14 +78,14 @@ export default {
     checkboxBgColor: '#039BE5',
     checkboxTickColor: '#fff',
 
-    checkboxSize: 23,
+    checkboxSize: getCorrectFontSizeForResolution(23),
 
     radioColor: '#7e7e7e',
     get radioSelectedColor() {
         return Color(this.radioColor).darken(0.2).hexString();
     },
 
-    radioBtnSize: (Platform.OS === 'ios') ? 25 : 23,
+    radioBtnSize: (Platform.OS === 'ios') ? getCorrectFontSizeForResolution(25) : getCorrectFontSizeForResolution(23),
 
     tabBgColor: '#262672',
     tabFontSize: 15,
@@ -147,22 +149,22 @@ export default {
         return this.inputPaddingLeft* 8;
     },
 
-    btnLineHeight: 19,
+    btnLineHeight: getCorrectFontSizeForResolution(19),
 
     dropdownBg: '#000',
     dropdownLinkColor: '#414142',
 
-    jumbotronPadding: 30,
+    jumbotronPadding: getCorrectFontSizeForResolution(30),
     jumbotronBg: '#C9C9CE',
 
     contentPadding: 10,
 
     listBorderColor: '#DDDDDD',
     listDividerBg: '#DDDDDD',
-    listItemPadding: 15,
-    listItemHeight: 60,
+    listItemPadding: getCorrectFontSizeForResolution(15),
+    listItemHeight: getCorrectFontSizeForResolution(60),
     listNoteColor: '#AAAAAA',
-    listNoteSize: 12,
+    listNoteSize: getCorrectFontSizeForResolution(12),
 
     iconFontSize: (Platform.OS === 'ios' ) ? 30 : 28,
 

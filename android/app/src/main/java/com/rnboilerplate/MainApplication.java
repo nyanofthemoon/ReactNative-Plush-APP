@@ -7,6 +7,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import com.oney.ReactNativeWebRTC.WebRTCModulePackage;
 import com.gcrabtree.rctsocketio.SocketIoPackage;
 import com.facebook.react.ReactInstanceManager;
@@ -50,7 +51,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new WebRTCModulePackage(),
+          new RNDeviceInfo(),
+          new WebRTCModulePackage(),
           new FBSDKPackage(mCallbackManager),
           new VectorIconsPackage()
       );

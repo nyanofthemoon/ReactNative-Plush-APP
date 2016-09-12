@@ -25,7 +25,7 @@ export default class extends React.Component {
             <Col sm={10} style={styles.contactMessageContainer}>
               <Text style={styles.contactMessage}>{message.text}</Text>
             </Col>
-            <Col sm={2}>
+            <Col sm={2} style={styles.contactPictureContainer}>
               <Image style={styles.contactPicture} source={{uri:this.props.profile.profile.picture}}/>
             </Col>
           </View>
@@ -35,7 +35,7 @@ export default class extends React.Component {
       return (
       <ListItem style={styles.listItem}>
         <View style={styles.listItemContainer}>
-          <Col sm={2}>
+          <Col sm={2} style={styles.selfPictureContainer}>
             <Image style={styles.selfPicture} source={{uri:this.props.user.profile.picture}}/>
           </Col>
           <Col sm={10} style={styles.selfMessageContainer}>

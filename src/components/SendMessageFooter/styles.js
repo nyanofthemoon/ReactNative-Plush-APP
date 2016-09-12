@@ -2,9 +2,11 @@
 
 import { StyleSheet, Dimensions } from 'react-native'
 
+import { getCorrectFontSizeForResolution } from './../../helpers/font'
+
 export default StyleSheet.create({
 
-  reportButton: {
+  sendButton: {
     width: 75,
     marginTop: 5,
     marginLeft: 5,

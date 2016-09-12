@@ -36,8 +36,8 @@ export default class extends React.Component{
 
   render() {
     return (
-      <Form ref='form' style={styles.container} onChange={this.handleFormChange.bind(this)}>
-        <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' maxLength={25} labelStyle={styles.label} style={[styles.value, { marginTop:4, marginBottom: -10 }]} containerStyle={styles.container} />
+      <Form ref='form' style={[styles.container, { marginTop: 10}]} onChange={this.handleFormChange.bind(this)}>
+        <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' maxLength={25} labelStyle={styles.label} valueStyle={styles.value} style={styles.value} containerStyle={styles.container} />
         <PickerField ref='education' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
                      label='Education'
                      options={{ '':'', 'Secondary': 'Secondary', 'Post-Secondary': 'Post-Secondary', 'College': 'College', 'University': 'University', Autodidact: 'Autodidact'}}

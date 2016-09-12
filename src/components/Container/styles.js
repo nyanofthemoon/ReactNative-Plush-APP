@@ -2,6 +2,8 @@
 
 import { StyleSheet, Dimensions } from 'react-native'
 
+import { getCorrectFontSizeForResolution } from './../../helpers/font'
+
 export default StyleSheet.create({
 
   statusBar: {
@@ -14,8 +16,8 @@ export default StyleSheet.create({
 
   title: {
     fontFamily: 'IndieFlower',
-    fontSize  : 28,
-    lineHeight: 34,
+    fontSize  : getCorrectFontSizeForResolution(28),
+    lineHeight: getCorrectFontSizeForResolution(34),
     marginTop : 16,
     marginLeft: -28
   },
@@ -23,7 +25,9 @@ export default StyleSheet.create({
   tab: {
     backgroundColor: '#262672',
     color: 'white',
-    fontFamily: 'Comfortaa'
+    fontFamily: 'Comfortaa',
+    fontSize: getCorrectFontSizeForResolution(15),
+    lineHeight: getCorrectFontSizeForResolution(18)
   },
 
   container: {

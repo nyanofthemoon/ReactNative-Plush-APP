@@ -13,6 +13,7 @@
 		F224EE26AA624A988DE29FC6 /* libRNSound.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFBC986736CA4485871D5A20 /* libRNSound.a */; };
 		2DB0805878EE44F7BAD1E29F /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5CA2BDE3B1D4AB888B78C3F /* libRNVectorIcons.a */; };
 		2CC895CD5E504C03ADD24D7A /* libRCTWebRTC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D47121BEA14B29A276BD02 /* libRCTWebRTC.a */; };
+		9C86D5BD5A784239B016915D /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05BF5DDDFC104F78A5F4C9DE /* libRNDeviceInfo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -43,6 +44,8 @@
 		E5CA2BDE3B1D4AB888B78C3F /* libRNVectorIcons.a */ = {isa = PBXFileReference; name = "libRNVectorIcons.a"; path = "libRNVectorIcons.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		6B2DB851558B4852BDAD17F7 /* RCTWebRTC.xcodeproj */ = {isa = PBXFileReference; name = "RCTWebRTC.xcodeproj"; path = "../../node_modules/react-native-webrtc/ios/RCTWebRTC.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		49D47121BEA14B29A276BD02 /* libRCTWebRTC.a */ = {isa = PBXFileReference; name = "libRCTWebRTC.a"; path = "libRCTWebRTC.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		63A8E86612B4463E991FB059 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; name = "RNDeviceInfo.xcodeproj"; path = "../../node_modules/react-native-device-info/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		05BF5DDDFC104F78A5F4C9DE /* libRNDeviceInfo.a */ = {isa = PBXFileReference; name = "libRNDeviceInfo.a"; path = "libRNDeviceInfo.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +58,7 @@
 				F224EE26AA624A988DE29FC6 /* libRNSound.a in Frameworks */,
 				2DB0805878EE44F7BAD1E29F /* libRNVectorIcons.a in Frameworks */,
 				2CC895CD5E504C03ADD24D7A /* libRCTWebRTC.a in Frameworks */,
+				9C86D5BD5A784239B016915D /* libRNDeviceInfo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +100,7 @@
 				7521CE1B23BD4DCEB65B05B9 /* RNSound.xcodeproj */,
 				3B06316D2ED8446EBF5F1E68 /* RNVectorIcons.xcodeproj */,
 				6B2DB851558B4852BDAD17F7 /* RCTWebRTC.xcodeproj */,
+				63A8E86612B4463E991FB059 /* RNDeviceInfo.xcodeproj */,
 			);
 			name = Libraries;
 			path = "";
@@ -258,6 +263,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -271,6 +277,7 @@
 				SKIP_INSTALL = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

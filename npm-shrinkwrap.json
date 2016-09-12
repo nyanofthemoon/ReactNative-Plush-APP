@@ -4121,6 +4121,11 @@
       "from": "react-native-checkbox@>=1.0.8 <1.1.0",
       "resolved": "https://registry.npmjs.org/react-native-checkbox/-/react-native-checkbox-1.0.15.tgz"
     },
+    "react-native-device-info": {
+      "version": "0.9.5",
+      "from": "react-native-device-info@latest",
+      "resolved": "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-0.9.5.tgz"
+    },
     "react-native-easy-grid": {
       "version": "0.1.5",
       "from": "react-native-easy-grid@0.1.5",

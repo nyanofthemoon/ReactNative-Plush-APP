@@ -64,8 +64,8 @@ export default class extends React.Component {
               <Col sm={1}>
                 { genderIcon(this.props.profile.profile.gender) }
               </Col>
-              <Col sm={11} style={{justifyContent:'center'}}>
-                <Text style={styles.text}>{ this.props.profile.profile.nickname }</Text>
+              <Col sm={10} style={{justifyContent:'center'}}>
+                <Text style={styles.text}> { this.props.profile.profile.nickname }</Text>
               </Col>
             </Row>
             <Row style={styles.info}>

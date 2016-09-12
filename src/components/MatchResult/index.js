@@ -61,7 +61,7 @@ export default class extends React.Component {
   }
 
   _goToProfile() {
-    goToContact(this.props.currentSceneId)
+    goToContact(this.props.id)
   }
 
 render() {

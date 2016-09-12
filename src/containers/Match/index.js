@@ -109,7 +109,7 @@ export default class extends React.Component {
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>
             <Title style={styles.title}>How do you feel after this plush?</Title>
-            <MatchVote step='audio' type={app.get('matchMode')} handleVote={this._handleVote} />
+            <MatchVote key='audio' step='audio' type={app.get('matchMode')} handleVote={this._handleVote} />
             <Timer key='selection_audio' milliseconds={room.get('timer')} />
           </Container>
         )
@@ -139,7 +139,7 @@ export default class extends React.Component {
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>
             <Title style={styles.title}>How do you feel after this plush?</Title>
-            <MatchVote step='video' type={app.get('matchMode')} handleVote={this._handleVote} />
+            <MatchVote key='video' step='video' type={app.get('matchMode')} handleVote={this._handleVote} />
           </Container>
         )
         break
@@ -151,7 +151,7 @@ export default class extends React.Component {
         }
         return (
           <Container header={true} footer={footer} headerTitle='The Outcome'>
-            <MatchResult step='video' type={app.get('matchMode')} results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} currentSceneId={app.get('currentSceneId')} />
+            <MatchResult step='video' type={app.get('matchMode')} results={room.get('results').toJSON()} scores={room.get('scores').toJSON()} id={app.get('currentSceneId')} />
           </Container>
         )
         break

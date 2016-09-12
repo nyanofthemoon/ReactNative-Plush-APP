@@ -2,6 +2,8 @@
 
 import { StyleSheet } from 'react-native'
 
+import { getCorrectFontSizeForResolution } from './../../helpers/font'
+
 export default StyleSheet.create({
 
   card: {
@@ -24,17 +26,17 @@ export default StyleSheet.create({
 
   headline: {
     fontFamily: 'IndieFlower',
-    fontSize: 20,
-    lineHeight: 24,
+    fontSize: getCorrectFontSizeForResolution(20),
+    lineHeight: getCorrectFontSizeForResolution(24),
     paddingBottom: 10,
     marginTop: -25
   },
 
   text: {
     fontFamily: 'IndieFlower',
-    fontSize: 16,
-    lineHeight: 20,
-    letterSpacing: 2,
+    fontSize: getCorrectFontSizeForResolution(18),
+    lineHeight: getCorrectFontSizeForResolution(26),
+    letterSpacing: 2
   },
 
   info: {

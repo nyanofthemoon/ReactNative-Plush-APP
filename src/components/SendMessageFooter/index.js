@@ -37,7 +37,7 @@ export default class extends React.Component {
       return (
         <Form ref='form' style={{ flex:1, flexDirection:'row', flexWrap:'nowrap', alignItems:'center'}} onChange={this.handleFormChange.bind(this)}>
           <InputField ref='message' placeholder='Type your message here' maxLength={140} multiline={true} placeholderTextColor='#a3a3c2' style={styles.value} containerStyle={styles.value} />
-          <Button success style={styles.reportButton} onPress={this._sendMessage.bind(this)}>Send</Button>
+          <Button success style={styles.sendButton} onPress={this._sendMessage.bind(this)}>Send</Button>
         </Form>
       )
   }

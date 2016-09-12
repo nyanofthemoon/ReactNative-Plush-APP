@@ -2,6 +2,8 @@
 
 import { StyleSheet, Dimensions } from 'react-native'
 
+import { getCorrectFontSizeForResolution } from './../../helpers/font'
+
 export default StyleSheet.create({
 
   container: {
@@ -21,21 +23,15 @@ export default StyleSheet.create({
   title: {
     color        : 'white',
     fontFamily   : 'IndieFlower',
-    fontSize     : 28,
-    lineHeight   : 35,
+    fontSize     : getCorrectFontSizeForResolution(28),
+    lineHeight   : getCorrectFontSizeForResolution(35),
     marginBottom : 50
   },
 
   icon: {
-    width : 105,
-    height: 120,
+    width : getCorrectFontSizeForResolution(105),
+    height: getCorrectFontSizeForResolution(120),
     margin: 25
-  },
-
-  largeicon: {
-    width : 100,
-    height: 100,
-    alignSelf: 'center'
   },
 
   button: {

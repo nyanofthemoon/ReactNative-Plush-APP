@@ -183,18 +183,6 @@ export function queryContact(id) {
 
 function queryUserReception(data) {
   if (true === data.self) {
-    // @NOTE Add yourself as a friend in dev mode
-    if (true === Config.environment.isDevelopment()) {
-      data.data.contacts.blocked                  = {}
-      data.data.contacts.friendship[data.data.id] = data.data.id
-      data.data.lastUpdated                       = new Date().getTime()
-      data.data.location.city = 'Montreal'
-      data.data.location.country = 'Canada'
-      let contacts = _getState().contact.toJSON()
-      contacts.profiles[data.data.id] = data.data
-      dispatch({type: types.SOCKET_QUERY_CONTACT_RECEIVED, payload: data})
-      Db.saveContacts(contacts)
-    }
     Db.saveUser(data.data, function () {
       if (_getState().app.get('apiStatus') !== 'connected') {
         dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})

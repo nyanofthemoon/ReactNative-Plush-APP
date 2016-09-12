@@ -2,6 +2,8 @@
 
 import { StyleSheet, Dimensions } from 'react-native'
 
+import { getCorrectFontSizeForResolution } from './../../helpers/font'
+
 export default StyleSheet.create({
 
   container: {
@@ -16,8 +18,8 @@ export default StyleSheet.create({
   },
 
   icon: {
-    width : 90,
-    height: 100
+    width : getCorrectFontSizeForResolution(90),
+    height: getCorrectFontSizeForResolution(100)
   },
 
   button: {
