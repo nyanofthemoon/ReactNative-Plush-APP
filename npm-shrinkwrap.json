@@ -4175,6 +4175,11 @@
       "from": "react-native-keyboard-aware-scroll-view@0.2.0",
       "resolved": "https://registry.npmjs.org/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.2.0.tgz"
     },
+    "react-native-keyboard-spacer": {
+      "version": "0.3.0",
+      "from": "react-native-keyboard-spacer@latest",
+      "resolved": "https://registry.npmjs.org/react-native-keyboard-spacer/-/react-native-keyboard-spacer-0.3.0.tgz"
+    },
     "react-native-looped-carousel": {
       "version": "0.0.12",
       "from": "react-native-looped-carousel@latest",

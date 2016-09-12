@@ -31,6 +31,7 @@
     "react-native-geocoder": "^0.4.4",
     "react-native-gifted-messenger": "^0.1.4",
     "react-native-invertible-scroll-view": "^1.0.0",
+    "react-native-keyboard-spacer": "^0.3.0",
     "react-native-looped-carousel": "0.0.12",
     "react-native-router-flux": "^3.35.0",
     "react-native-scrollable-tab-view": "^0.5.4",

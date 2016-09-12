@@ -38,6 +38,7 @@ export default class extends React.Component{
     return (
       <Form ref='form' style={[styles.container, { marginTop: 10}]} onChange={this.handleFormChange.bind(this)}>
         <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' maxLength={25} labelStyle={styles.label} valueStyle={styles.value} style={styles.value} containerStyle={styles.container} />
+
         <PickerField ref='education' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
                      label='Education'
                      options={{ '':'', 'Secondary': 'Secondary', 'Post-Secondary': 'Post-Secondary', 'College': 'College', 'University': 'University', Autodidact: 'Autodidact'}}
@@ -63,6 +64,7 @@ export default class extends React.Component{
           placeholder='Think of a catchy headline!'
           maxLength={32}
         />
+
         <InputField style={[styles.bio, styles.value]} containerStyle={styles.container} placeholderTextColor='#a3a3c2'
           ref='bio'
           placeholder='Write your biography here.'

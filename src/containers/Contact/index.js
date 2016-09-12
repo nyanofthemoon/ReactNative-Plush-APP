@@ -2,8 +2,9 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { Header, InputGroup, Icon, Button, Input, Tabs, Title } from 'native-base'
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 import ScrollableTabView from 'react-native-scrollable-tab-view'
 
@@ -75,12 +76,15 @@ export default class extends React.Component {
       footer = <SendMessageFooter id={app.get('currentSceneId')} />
     }
     return (
-      <Container header={true} footer={footer} headerTitle={this._getProfileType(id)}>
-        <ScrollableTabView initialPage={1} onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily, fontSize:tabStyle.fontSize, lineHeight:tabStyle.lineHeight}} style={styles.container}>
-          <ProfileTab tabLabel='Profile' id={id} profile={profile} />
-          <ConversationTab tabLabel='Conversation' id={id} user={user.toJSON()} profile={profile} conversation={message} />
-        </ScrollableTabView>
-      </Container>
+      <View style={{flex: 1}}>
+        <Container header={true} footer={footer} headerTitle={this._getProfileType(id)}>
+          <ScrollableTabView initialPage={1} onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily, fontSize:tabStyle.fontSize, lineHeight:tabStyle.lineHeight}} style={styles.container}>
+            <ProfileTab tabLabel='Profile' id={id} profile={profile} />
+            <ConversationTab tabLabel='Conversation' id={id} user={user.toJSON()} profile={profile} conversation={message} />
+          </ScrollableTabView>
+        </Container>
+        <KeyboardSpacer/>
+      </View>
     )
   }
 
