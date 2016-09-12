@@ -346,9 +346,6 @@ export function goToErrorScene(data) {
 
 export function handleAppStateChange(data) {
   dispatch({type: types.APPLICATION_STATE_CHANGED, payload: data})
-  if ('active' !== data) {
-    goToHomeScene()
-  }
 }
 
 export function handleAppMemoryWarning() {

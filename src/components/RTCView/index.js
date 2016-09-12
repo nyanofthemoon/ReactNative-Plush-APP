@@ -236,7 +236,9 @@ export default class extends React.Component {
       delete newPeers[socketId];
       const remoteList = this.state.remoteList;
       delete remoteList[socketId]
-      //delete remoteStream[socketId]
+      if (remoteStream[socketId]) {
+        delete remoteStream[socketId]
+      }
       this.setState({
         pcPeers: newPeers,
         remoteList: remoteList
