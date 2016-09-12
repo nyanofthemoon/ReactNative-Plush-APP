@@ -95,9 +95,7 @@ export default class extends React.Component {
                   </Carousel>
                 </View>
               ) : (
-              <View>
-                <Text>Audio Only</Text>
-              </View>
+              <View></View>
               )
             }
             <RTCView key='rtc' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: true }} socket={app.get('socket')} config={Config.webrtc} />
