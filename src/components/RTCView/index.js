@@ -17,6 +17,7 @@ import Config from './../../config'
 import styles from './styles'
 
 let globalStream = null
+let remoteStream = null
 
 export default class extends React.Component {
 
@@ -47,37 +48,34 @@ export default class extends React.Component {
   componentDidMount() {
     if (true === this.props.data.flush) {
       globalStream = null
+      remoteStream = null
     }
-
     if (globalStream) {
       let tracks = globalStream.getAudioTracks()
       if (tracks[0]) {
         tracks[0].enabled = true
       }
-    } else {
-      let that = this
-      this._getLocalStream(true, function (stream) {
-        globalStream = stream
-        that.setState({
-          localStream: stream,
-          selfViewSrc: stream.toURL(),
-          status: 'connect',
-          info: 'Waiting For Someone'
-        })
-        that.props.socket.emit('join', that.props.data, function (socketIds) {
-          for (const i in socketIds) {
-            const socketId = socketIds[i];
-            that._createPC(socketId, true);
-          }
-        });
-      });
-      this.props.socket.on('exchange', function(data) {
-        that._exchange(data);
-      });
-      this.props.socket.on('leave', function(socketId) {
-        that._leave(socketId);
-      });
     }
+    let that = this
+    this._getLocalStream(true, function (stream) {
+      globalStream = stream
+      that.setState({
+        localStream: stream,
+        selfViewSrc: stream.toURL()
+      })
+      that.props.socket.emit('join', that.props.data, function (socketIds) {
+        for (const i in socketIds) {
+          const socketId = socketIds[i];
+          that._createPC(socketId, true);
+        }
+      });
+    });
+    this.props.socket.on('exchange', function (data) {
+      that._exchange(data);
+    });
+    this.props.socket.on('leave', function (socketId) {
+      that._leave(socketId);
+    });
   }
 
   componentWillUnmount() {
@@ -87,9 +85,12 @@ export default class extends React.Component {
         tracks[0].enabled = false
       }
     }
+    this.props.socket.off('leave')
+    this.props.socket.off('exchange')
   }
 
   _logError(message) {
+    console.log(message)
   }
 
   _getStats() {
@@ -145,24 +146,23 @@ export default class extends React.Component {
       // peer joined
       const remoteList = that.state.remoteList;
       remoteList[socketId] = event.stream.toURL();
+      remoteStream = remoteList
       that.setState({ remoteList: remoteList });
     };
 
     pc.addStream(that.state.localStream);
+
     function createDataChannel() {
       if (pc.textDataChannel) {
         return;
       }
       const dataChannel = pc.createDataChannel('text');
-
       dataChannel.onmessage = function (event) {
         that._receiveTextData({user: socketId, message: event.data});
       };
-
       dataChannel.onopen = function () {
         that.setState({textRoomConnected: true});
       };
-
       pc.textDataChannel = dataChannel;
     }
     return pc;
@@ -236,6 +236,7 @@ export default class extends React.Component {
       delete newPeers[socketId];
       const remoteList = this.state.remoteList;
       delete remoteList[socketId]
+      //delete remoteStream[socketId]
       this.setState({
         pcPeers: newPeers,
         remoteList: remoteList
@@ -249,6 +250,7 @@ export default class extends React.Component {
     this.setState({textRoomData, textRoomValue: ''});
   }
 
+  /*
   _textRoomPress() {
     if (!this.state.textRoomValue) {
       return
@@ -261,27 +263,36 @@ export default class extends React.Component {
     }
     this.setState({textRoomData, textRoomValue: ''});
   }
+  */
 
   render() {
     let height = this.state.windowHeight
     let width  = Math.floor((height * 3 / 4))
     let miniTop  = height - 175
     let miniLeft = this.state.windowWidth - 90
-    var remote = this.state.remoteList[Object.keys(this.state.remoteList)[0]]
+    var remote =  null
+      if (remoteStream) {
+        remote = remoteStream[Object.keys(remoteStream)[0]]
+      }
+    var local = null
+      if (globalStream) {
+        local = globalStream.toURL()
+      }
+
     if (remote) {
       if ('video' != this.props.data.mode) {
         return (
           <View style={styles.container}>
             <Text style={styles.audio}>Audio Only</Text>
-            <RTCView key='2' streamURL={remote} style={styles.hidden}/>
-            <RTCView key='1' streamURL={this.state.selfViewSrc} style={[styles.mini, styles.hidden]}/>
+            <RTCView streamURL={remote} style={styles.hidden}/>
+            <RTCView streamURL={local} style={[styles.mini, styles.hidden]}/>
           </View>
         )
       } else {
         return (
-          <View style={{flex:1, justifyContent: 'flex-end', backgroundColor: 'black', height: height}}>
-            <RTCView key='2' streamURL={remote} style={{width: width, height: height}}/>
-            <RTCView key='1' streamURL={this.state.selfViewSrc} style={[styles.mini, {top: miniTop, left: miniLeft}]}/>
+          <View style={{flex:1, backgroundColor: 'black', height: height}}>
+            <RTCView streamURL={remote} style={{width: width, height: height}}/>
+            <RTCView streamURL={local} style={[styles.mini, {backgroundColor:'black', top: miniTop, left: miniLeft}]}/>
           </View>
         )
       }
@@ -290,13 +301,13 @@ export default class extends React.Component {
         return (
         <View style={styles.container}>
             <Text style={styles.audio}>Audio Only</Text>
-            <RTCView key='1' streamURL={this.state.selfViewSrc} style={[styles.mini, styles.hidden]}/>
+            <RTCView streamURL={local} style={[styles.mini, styles.hidden]}/>
         </View>
         )
       } else {
         return (
-          <View style={{flex:1, justifyContent: 'flex-end', backgroundColor: 'black', height: height}}>
-            <RTCView key='1' streamURL={this.state.selfViewSrc} style={[styles.mini, {top: miniTop, left: miniLeft}]}/>
+          <View style={{flex:1, backgroundColor: 'black', height: height}}>
+            <RTCView streamURL={local} style={[styles.mini, {backgroundColor:'black', top: miniTop, left: miniLeft}]}/>
           </View>
         )
       }

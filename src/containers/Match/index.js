@@ -100,7 +100,7 @@ export default class extends React.Component {
               </View>
               )
             }
-            <RTCView key='rtc_audio' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: true }} socket={app.get('socket')} config={Config.webrtc} />
+            <RTCView key='rtc' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
           </Container>
         )
         break
@@ -130,7 +130,7 @@ export default class extends React.Component {
         footer = <Timer key='video' notify={true} milliseconds={room.get('timer')} />
         return (
           <Container header={false} footer={footer}>
-            <RTCView key='rtc_video' data={{ mode: 'video', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
+            <RTCView key='rtc' data={{ mode: 'video', kind: 'rematch', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
           </Container>
         )
         break
