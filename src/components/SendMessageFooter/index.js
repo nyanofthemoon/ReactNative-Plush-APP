@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { View, TextInput } from 'react-native'
+import { View } from 'react-native'
 import { Button } from 'native-base'
 import { Form, InputField } from 'react-native-form-generator'
 
@@ -36,7 +36,7 @@ export default class extends React.Component {
   render() {
       return (
         <Form ref='form' style={{ flex:1, flexDirection:'row', flexWrap:'nowrap', alignItems:'center'}} onChange={this.handleFormChange.bind(this)}>
-          <TextInput ref='message' placeholder='Type your message here' maxLength={140} multiline={true} placeholderTextColor='#a3a3c2' style={styles.value} containerStyle={styles.value} />
+          <InputField ref='message' placeholder='Type your message here' maxLength={140} multiline={true} placeholderTextColor='#a3a3c2' style={styles.value} containerStyle={styles.value} />
           <Button success style={styles.sendButton} onPress={this._sendMessage.bind(this)}>Send</Button>
         </Form>
       )

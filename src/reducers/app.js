@@ -124,7 +124,10 @@ export default (state = initialState, action) => {
       })
     case types.SOCKET_QUERY_CONTACT_RECEIVED:
       if ('match' === state.get('currentScene')) {
-        nextState = fromJS(state).set('currentSceneId', action.payload.data.id)
+        nextState = fromJS(state).merge({
+          currentSceneId : action.payload.data.id,
+          currentSceneTab: 0
+        })
       }
       break
     default:

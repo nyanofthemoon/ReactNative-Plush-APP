@@ -35,6 +35,22 @@ export default class extends React.Component {
     contact: React.PropTypes.object.isRequired
   }
 
+  constructor(props){
+    super(props);
+    this.state = {
+      initialTab: 1
+    }
+  }
+
+  componentWillMount() {
+    const {app} = this.props
+    if ('match' === app.get('previousScene')) {
+      this.setState({
+        initialTab: 0
+      })
+    }
+  }
+
   _onChangeTab(e) {
     goToTab(e.i)
   }
@@ -66,19 +82,16 @@ export default class extends React.Component {
       message = message.toJSON()
     }
     let footer
-    if (0 == app.get('currentSceneTab')) {
+    let currentSceneTab = app.get('currentSceneTab')
+    if (0 == currentSceneTab) {
       footer = <BlockReportFooter id={id} redirect={goToContactsScene} />
     } else {
       footer = <SendMessageFooter id={id} />
     }
-    let initialPage = 1
-    if ('match' === app.get('previousScene')) {
-      initialPage = 0
-    }
     return (
       <View style={{flex: 1}}>
         <Container header={true} footer={footer} headerTitle={this._getProfileType(id)}>
-          <ScrollableTabView initialPage={initialPage} onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily, fontSize:tabStyle.fontSize, lineHeight:tabStyle.lineHeight}} style={styles.container}>
+          <ScrollableTabView initialPage={this.state.initialTab} onChangeTab={this._onChangeTab} tabBarBackgroundColor={tabStyle.backgroundColor} tabBarActiveTextColor='orange' tabBarInactiveTextColor={tabStyle.color} tabBarUnderlineColor='orange' tabBarTextStyle={{fontFamily:tabStyle.fontFamily, fontSize:tabStyle.fontSize, lineHeight:tabStyle.lineHeight}} style={styles.container}>
             <ProfileTab tabLabel='Profile' id={id} profile={profile} />
             <ConversationTab tabLabel='Conversation' id={id} user={user.toJSON()} profile={profile} conversation={message} />
           </ScrollableTabView>
