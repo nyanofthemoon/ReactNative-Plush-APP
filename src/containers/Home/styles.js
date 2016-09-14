@@ -1,6 +1,6 @@
 'use strict'
 
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 import { getCorrectFontSizeForResolution } from './../../helpers/font'
 
@@ -8,10 +8,7 @@ export default StyleSheet.create({
 
   container: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginTop: 40
+    flexDirection: 'column'
   },
 
   title: {
@@ -36,13 +33,7 @@ export default StyleSheet.create({
 
   buttonText: {
     fontSize: getCorrectFontSizeForResolution(38),
-    lineHeight: getCorrectFontSizeForResolution(34)
-  },
-
-  button: {
-    alignSelf: 'center',
-    height: 150,
-    width: 250
+    lineHeight: getCorrectFontSizeForResolution(34),
   },
 
   centered: {
@@ -57,6 +48,21 @@ export default StyleSheet.create({
       height: 5,
       width: 0
     }
+  },
+
+  cover: {
+    resizeMode: 'cover',
+    width : null,
+    height: null,
+    flex: 1,
+    justifyContent: 'center'
+  },
+
+  coverText: {
+    color        : 'white',
+    fontFamily   : 'IndieFlower',
+    fontSize     : getCorrectFontSizeForResolution(50),
+    lineHeight   : getCorrectFontSizeForResolution(80),
   }
 
 })

@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Image, TouchableHighlight } from 'react-native'
 import { Spinner, Button, Title } from 'native-base'
 import { connect } from 'react-redux'
 
@@ -9,6 +9,8 @@ import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchFriendsh
 
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
+
+import halfcovers from './../../helpers/images/halfcovers'
 
 import styles from './styles'
 
@@ -69,6 +71,10 @@ export default class extends React.Component {
     }
   }
 
+  _getHalfCover(type, gender, orientation) {
+    return halfcovers[type][(gender+orientation)][Math.floor(Math.random()*halfcovers[type][(gender+orientation)].length)]
+  }
+
   render() {
     const {app, user} = this.props
     if ('unauthenticated' === app.get('facebookStatus')) {
@@ -80,11 +86,21 @@ export default class extends React.Component {
         </Container>
       )
     } else if ('connected' === app.get('apiStatus')) {
+      let friendship   = this._getHalfCover('friendship', user.getIn(['profile','gender']), user.getIn(['profile', 'friendship']))
+      let relationship = this._getHalfCover('relationship', user.getIn(['profile','gender']), user.getIn(['profile', 'orientation']))
       return (
         <Container header={true} scene='home'>
           <View style={styles.container}>
-            <Button info style={[styles.button, styles.shadowed]} onPress={goToMatchFriendshipScene}><Title style={[styles.subtitle, styles.buttonText]}>Friendship</Title></Button>
-            <Button info style={[styles.button, styles.shadowed]} onPress={goToMatchRelationshipScene}><Title style={[styles.subtitle, styles.buttonText]}>Relationship</Title></Button>
+            <TouchableHighlight underlayColor='transparent' style={{flex: 1}} onPress={goToMatchFriendshipScene}>
+              <Image source={friendship} style={styles.cover}>
+                <Title style={[styles.coverText, styles.shadowed]}>Friendship</Title>
+              </Image>
+            </TouchableHighlight>
+            <TouchableHighlight underlayColor='transparent' style={{flex: 1}} onPress={goToMatchRelationshipScene}>
+              <Image source={relationship} style={styles.cover}>
+                <Title style={[styles.coverText, styles.shadowed]}>Relationship</Title>
+              </Image>
+            </TouchableHighlight>
           </View>
         </Container>
       )

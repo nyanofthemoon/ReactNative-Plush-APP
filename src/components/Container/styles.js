@@ -35,7 +35,7 @@ export default StyleSheet.create({
   },
 
   content: {
-    height: Dimensions.get('window').height - 120
+    height: Dimensions.get('window').height - 75
   },
 
   footer: {
