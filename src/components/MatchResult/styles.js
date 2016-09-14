@@ -10,8 +10,7 @@ export default StyleSheet.create({
     flexDirection: 'column',
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop    : 25
+    justifyContent: 'center'
   },
 
   subcontainer: {
@@ -31,7 +30,9 @@ export default StyleSheet.create({
   icon: {
     width : getCorrectFontSizeForResolution(105),
     height: getCorrectFontSizeForResolution(120),
-    margin: 25
+    marginRight: 25,
+    marginLeft: 25,
+    marginBottom: 25
   },
 
   button: {
@@ -39,7 +40,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     height: 75,
     width: 200,
-    paddingTop: 25
+    paddingTop: 22
   },
 
 
