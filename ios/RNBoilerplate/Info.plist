@@ -54,9 +54,13 @@
 		<true/>
 	</dict>
 	<key>NSLocationUsageDescription</key>
-	<string>This application requires location services to work.</string>
+	<string>Plush! requires location services so that you can choose to engage with members in your area.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This application requires location services to work.</string>
+	<string>Plush! requires location services so that you can choose to engage with members in your area.</string>
+	<key>NSMicrophoneUsageDescription</key>
+    <string>Plush! requires access to your microphone so that you can engage in audio conversations.</string>
+	<key>NSCameraUsageDescription</key>
+    <string>Plush! requires access to your front camera so that you can engage in video conversations.</string>
 	<key>NSMainNibFile</key>
 	<string>LaunchScreen</string>
 	<key>UIAppFonts</key>
