@@ -69,9 +69,10 @@ export default (state = initialState, action) => {
       break
     case types.SCENE_NAVIGATION_CONTACT:
       nextState = fromJS(state).merge({
-        previousScene : state.get('currentScene'),
-        currentScene  : 'contact',
-        currentSceneId: action.payload
+        previousScene  : state.get('currentScene'),
+        currentScene   : 'contact',
+        currentSceneId : action.payload,
+        currentSceneTab: 1
       })
       break
     case types.SOCKET_QUERY_ROOM_RECEIVED:
@@ -123,7 +124,7 @@ export default (state = initialState, action) => {
         currentScene  : 'error'
       })
     case types.SOCKET_QUERY_CONTACT_RECEIVED:
-      if ('match' === state.get('currentScene')) {
+      if ('match' === state.get('currentScene') && action.payload.self == false) {
         nextState = fromJS(state).merge({
           currentSceneId : action.payload.data.id,
           currentSceneTab: 0

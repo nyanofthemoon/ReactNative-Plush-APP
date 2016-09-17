@@ -87,6 +87,10 @@ export default class extends React.Component {
     }
     this.props.socket.off('leave')
     this.props.socket.off('exchange')
+    if ('video' === this.props.data.mode) {
+      globalStream = null
+      remoteStream = null
+    }
   }
 
   _logError(message) {
