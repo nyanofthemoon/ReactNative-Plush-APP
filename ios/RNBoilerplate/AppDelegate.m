@@ -13,7 +13,7 @@
 #import "RCTRootView.h"
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-
+ 
 @implementation AppDelegate
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

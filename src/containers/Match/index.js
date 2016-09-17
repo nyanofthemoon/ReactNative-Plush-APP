@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react';
-import { View, Dimensions, Text, Vibration } from 'react-native'
+import { View, Dimensions, Text, Vibration, Image } from 'react-native'
 import { Title, Button } from 'native-base'
 import { connect } from 'react-redux'
 import Carousel from 'react-native-looped-carousel'
@@ -19,6 +19,8 @@ import LatestOutcome from './../../components/LatestOutcome'
 import BlockReportFooter from './../../components/BlockReportFooter'
 
 import Config from './../../config'
+
+import slides from './../../helpers/images/tutorial'
 
 import styles from './styles'
 
@@ -83,14 +85,66 @@ export default class extends React.Component {
               (
                 <View>
                   <Carousel delay={10000} style={this.state.size}>
-                    <View style={[{backgroundColor:'lightgreen'}, this.state.size]}>
-                      <Text>Slide 1</Text>
+                    <View style={styles.slideTextContainer}>
+                      <Text style={styles.slideTextHeader}>Plush?</Text>
+                      <Text style={styles.slideText}>In 10 Steps</Text>
+                      <Text style={styles.slideText}>(You Can Slide Through)</Text>
                     </View>
-                    <View style={[{backgroundColor:'pink'}, this.state.size]}>
-                      <Text>Slide 2</Text>
+                    <View style={styles.slideTextContainer}>
+                      <Text style={styles.slideTextHeader}>Step 1</Text>
+                      <Text style={styles.slideText}>Find Quiet Location</Text>
                     </View>
-                    <View style={[{backgroundColor:'lightblue'}, this.state.size]}>
-                      <Text>Slide 3</Text>
+                    <View style={styles.slideTextContainer}>
+                      <Text style={styles.slideTextHeader}>Step 2</Text>
+                      <Text style={styles.slideText}>Sit Comfortably</Text>
+                    </View>
+                    <View style={styles.slideTextContainer}>
+                      <Text style={styles.slideTextHeader}>Step 3</Text>
+                      <Text style={styles.slideText}>Put On Headphones !</Text>
+                    </View>
+                    <View style={styles.slideTextContainer}>
+                      <Text style={styles.slideTextHeader}>Step 4</Text>
+                      <Text style={styles.slideText}>Be Prepared</Text>
+                      <Text style={styles.slideTextDetail}>Someone might join your Plush at any given time.</Text>
+                      <Text style={styles.slideTextDetail}>Remember to always be kind and courteous to other members or you will be blocked and reported.</Text>
+                    </View>
+                    <View style={styles.slideTextContainer}>
+                      <Text style={styles.slideTextHeader}>Step 5</Text>
+                      <Text style={styles.slideText}>Voice Plush</Text>
+                      <Text style={styles.slideText}>You have 1 minute.</Text>
+                      <Text style={styles.slideTextDetail}>Shy? It's OK- this is a blind match! Get to know eachother for the first time by voice only.</Text>
+                    </View>
+                    <View style={styles.slideTextContainer}>
+                      <Text style={styles.slideTextHeader}>Step 6</Text>
+                      <Text style={styles.slideText}>Initial Thoughts</Text>
+                      <Text style={styles.slideTextDetail}>Did you enjoy the Plush?</Text>
+                      <Text style={styles.slideTextDetail}>Share your thoughts by selecting an emoticon. Left side represents negative feelings, the middle is neutral and the right side are positives.</Text>
+                    </View>
+                    <View style={styles.slideTextContainer}>
+                      <Text style={styles.slideTextHeader}>Step 7</Text>
+                      <Text style={styles.slideText}>Initial Outcome</Text>
+                      <Text style={styles.slideTextDetail}>Did both of you enjoy the voice plush?</Text>
+                      <Text style={styles.slideTextDetail}>If so, congrats! You can continue.</Text>
+                      <Text style={styles.slideTextDetail}>Otherwise, just try again!</Text>
+                    </View>
+                    <View style={styles.slideTextContainer}>
+                      <Text style={styles.slideTextHeader}>Step 8</Text>
+                      <Text style={styles.slideText}>Video Plush</Text>
+                      <Text style={styles.slideText}>You have 2 minutes.</Text>
+                      <Text style={styles.slideTextDetail}>This is it! Get to see eachother for the first time.</Text>
+                    </View>
+                    <View style={styles.slideTextContainer}>
+                      <Text style={styles.slideTextHeader}>Step 9</Text>
+                      <Text style={styles.slideText}>Final Thoughts</Text>
+                      <Text style={styles.slideTextDetail}>Did you enjoy the Plush?</Text>
+                      <Text style={styles.slideTextDetail}>Share your thoughts by selecting an emoticon. Left side represents negative feelings, the middle is neutral and the right side are positives.</Text>
+                    </View>
+                    <View style={styles.slideTextContainer}>
+                      <Text style={styles.slideTextHeader}>Step 10</Text>
+                      <Text style={styles.slideText}>Final Outcome</Text>
+                      <Text style={styles.slideTextDetail}>Did both of you enjoy the video plush?</Text>
+                      <Text style={styles.slideTextDetail}>If so, congrats! You are added to your respective contact lists.</Text>
+                      <Text style={styles.slideTextDetail}>Otherwise, just try again!</Text>
                     </View>
                   </Carousel>
                 </View>
