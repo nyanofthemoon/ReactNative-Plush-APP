@@ -91,12 +91,12 @@ export default class extends React.Component {
       return (
         <Container header={true} scene='home'>
           <View style={styles.container}>
-            <TouchableHighlight underlayColor='transparent' style={{flex: 1}} onPress={goToMatchFriendshipScene}>
+            <TouchableHighlight underlayColor='transparent' style={{flex: 1, borderTopWidth: 1, borderTopColor: 'white', borderBottomWidth: 1, borderBottomStyle: 'dashed', borderBottomColor: 'white'}} onPress={goToMatchFriendshipScene}>
               <Image source={friendship} style={styles.cover}>
                 <Title style={[styles.coverText, styles.shadowed]}>Friendship</Title>
               </Image>
             </TouchableHighlight>
-            <TouchableHighlight underlayColor='transparent' style={{flex: 1}} onPress={goToMatchRelationshipScene}>
+            <TouchableHighlight underlayColor='transparent' style={{flex: 1 }} onPress={goToMatchRelationshipScene}>
               <Image source={relationship} style={styles.cover}>
                 <Title style={[styles.coverText, styles.shadowed]}>Relationship</Title>
               </Image>
