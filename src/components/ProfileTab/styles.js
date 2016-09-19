@@ -44,7 +44,9 @@ export default StyleSheet.create({
   },
 
   bio: {
-    marginTop: 15
+    marginTop: 15,
+    flex: 1,
+    flexWrap: 'wrap'
   },
 
   hidden: {

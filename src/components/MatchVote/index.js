@@ -46,12 +46,18 @@ export default class extends React.Component {
     return (
     <View style={styles.container}>
       <View style={styles.subcontainer}>
-        <Button onPress={this._handlePress.bind(this, 'negativeOne', 'bored')} style={styles.button}><Animatable.Image source={emoticons.left.bored} animation={this.state.animations.negativeOne} style={styles.icon} duration={1000} iterationCount='infinite' /></Button>
-        <Button onPress={this._handlePress.bind(this, 'negativeTwo', 'offended')} style={styles.button}><Animatable.Image source={emoticons.left.offended} animation={this.state.animations.negativeTwo} style={styles.icon} duration={1000} iterationCount='infinite' /></Button>
-        <Button onPress={this._handlePress.bind(this, 'negativeThree', 'angry')} style={styles.button}><Animatable.Image source={emoticons.left.angry} animation={this.state.animations.negativeThree} style={styles.icon} duration={1000} iterationCount='infinite' /></Button>
+        <Button onPress={this._handlePress.bind(this, 'negativeOne', 'bored')} style={styles.button}><Animatable.Image source={emoticons.right.bored} animation={this.state.animations.negativeOne} style={styles.icon} duration={1000} iterationCount='infinite' /></Button>
+        <Button onPress={this._handlePress.bind(this, 'negativeTwo', 'offended')} style={styles.button}><Animatable.Image source={emoticons.right.offended} animation={this.state.animations.negativeTwo} style={styles.icon} duration={1000} iterationCount='infinite' /></Button>
+        <Button onPress={this._handlePress.bind(this, 'negativeThree', 'angry')} style={styles.button}><Animatable.Image source={emoticons.right.angry} animation={this.state.animations.negativeThree} style={styles.icon} duration={1000} iterationCount='infinite' /></Button>
       </View>
       <View style={styles.subcontainer}>
-        <Button onPress={this._handlePress.bind(this, 'neutral', 'undecided')} style={styles.button}><Animatable.Image source={emoticons.left.undecided} animation={this.state.animations.neutral} style={styles.icon} duration={1000} iterationCount='infinite' /></Button>
+        { 'audio' === this.props.step ?
+          (
+            <Button onPress={this._handlePress.bind(this, 'neutral', 'undecided')} style={styles.button}><Animatable.Image source={emoticons.left.undecided}  animation={this.state.animations.neutral} style={styles.icon} duration={1000} iterationCount='infinite'/></Button>
+          ) : (
+            <Button onPress={this._handlePress.bind(this, 'neutral', 'undecided')} style={styles.button}><Animatable.Image source={emoticons.right.undecided}  animation={this.state.animations.neutral} style={styles.icon} duration={1000} iterationCount='infinite'/></Button>
+          )
+        }
       </View>
       <View style={styles.subcontainer}>
         { 'relationship' === this.props.type ?
