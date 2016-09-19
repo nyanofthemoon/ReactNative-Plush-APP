@@ -256,6 +256,7 @@
 		88A3C0001D688558001A72BA /* RNSound.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSound.xcodeproj; path = "../node_modules/react-native-sound/RNSound.xcodeproj"; sourceTree = "<group>"; };
 		88A3C0171D6885AD001A72BA /* notification.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notification.mp3; sourceTree = "<group>"; };
 		88A69F2F1D7795F4005D5DA3 /* Condiment.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Condiment.ttf; sourceTree = "<group>"; };
+		88A6FDFB1D8DCF2000C638F5 /* RNBoilerplate.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RNBoilerplate.entitlements; path = RNBoilerplate/RNBoilerplate.entitlements; sourceTree = "<group>"; };
 		88AA0D341D6751B70040F537 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		88AA0D591D6793CE0040F537 /* IndieFlower.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = IndieFlower.ttf; sourceTree = "<group>"; };
 		88AAC08C1D57711D00D4BE85 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -419,6 +420,7 @@
 		13B07FAE1A68108700A75B9A /* RNBoilerplate */ = {
 			isa = PBXGroup;
 			children = (
+				88A6FDFB1D8DCF2000C638F5 /* RNBoilerplate.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -699,6 +701,11 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = YYU3V995E7;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1107,6 +1114,7 @@
 				ASSETCATALOG_WARNINGS = YES;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = RNBoilerplate/RNBoilerplate.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
@@ -1163,6 +1171,7 @@
 				ASSETCATALOG_WARNINGS = NO;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = RNBoilerplate/RNBoilerplate.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;

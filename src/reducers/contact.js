@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
     case types.SOCKET_QUERY_CONTACT_RECEIVED:
       var tempState = state.toJS()
       tempState.profiles[action.payload.data.id] = action.payload.data
-      nextState = fromJS(tempState).set('profiles', fromJS(tempState.profiles))
+      nextState = state.set('profiles', fromJS(tempState.profiles))
       break
 
     case types.SOCKET_MESSAGE_USER_REQUESTED:
@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
         tempState.messages[senderId] = tempState.messages[senderId].slice(0, 200)
       }
       tempState.count[senderId] = 0
-      nextState = fromJS(tempState).merge({
+      nextState = state.merge({
         messages: fromJS(tempState.messages),
         count   : fromJS(tempState.count)
       })
@@ -58,7 +58,7 @@ export default (state = initialState, action) => {
       if ('contact' !== scene || action.payload.id != sceneId || sceneTab != 1) {
         tempState.count[action.payload.id] = tempState.count[action.payload.id] + 1 || 1
       }
-      nextState = fromJS(tempState).merge({
+      nextState = state.merge({
         messages: fromJS(tempState.messages),
         count   : fromJS(tempState.count)
       })
@@ -67,7 +67,7 @@ export default (state = initialState, action) => {
     case types.SCENE_NAVIGATION_CONTACT:
       var tempState = state.toJS()
       tempState.count[action.payload] = 0
-      nextState = fromJS(tempState).set('count', tempState.count)
+      nextState = state.set('count', fromJS(tempState.count))
       break
 
     default:

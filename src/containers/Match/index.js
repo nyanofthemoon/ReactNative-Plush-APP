@@ -86,9 +86,10 @@ export default class extends React.Component {
                 <View>
                   <Carousel delay={10000} style={this.state.size}>
                     <View style={styles.slideTextContainer}>
-                      <Text style={styles.slideTextHeader}>Plush?</Text>
-                      <Text style={styles.slideText}>In 10 Steps</Text>
-                      <Text style={styles.slideText}>(You Can Slide Through)</Text>
+                      <Text style={styles.slideTextHeader}>Huh?</Text>
+                      <Text style={styles.slideText}>You are currently waiting in line for someone else to join in.</Text>
+                      <Text style={styles.slideText}>Stay here or lose your spot!</Text>
+                      <Text style={styles.slideTextDetail}>In the meantime, you can put your headphones on and swipe through our 10 Steps Tutorial.</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 1</Text>
@@ -123,14 +124,13 @@ export default class extends React.Component {
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 7</Text>
                       <Text style={styles.slideText}>Initial Outcome</Text>
-                      <Text style={styles.slideTextDetail}>Did both of you enjoy the voice plush?</Text>
-                      <Text style={styles.slideTextDetail}>If so, congrats! You can continue.</Text>
-                      <Text style={styles.slideTextDetail}>Otherwise, just try again!</Text>
+                      <Text style={styles.slideTextDetail}>Did both parties enjoy the Plush?</Text>
+                      <Text style={styles.slideTextDetail}>If so, congrats! You can continue. Otherwise, just try again!</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 8</Text>
                       <Text style={styles.slideText}>Video Plush</Text>
-                      <Text style={styles.slideText}>You have 2 minutes.</Text>
+                      <Text style={styles.slideText}>You have 3 minutes.</Text>
                       <Text style={styles.slideTextDetail}>This is it! Get to see eachother for the first time.</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
@@ -143,8 +143,7 @@ export default class extends React.Component {
                       <Text style={styles.slideTextHeader}>Step 10</Text>
                       <Text style={styles.slideText}>Final Outcome</Text>
                       <Text style={styles.slideTextDetail}>Did both of you enjoy the video plush?</Text>
-                      <Text style={styles.slideTextDetail}>If so, congrats! You are added to your respective contact lists.</Text>
-                      <Text style={styles.slideTextDetail}>Otherwise, just try again!</Text>
+                      <Text style={styles.slideTextDetail}>If so, congrats! You are added to your respective contact lists. Otherwise, just try again!</Text>
                     </View>
                   </Carousel>
                 </View>
@@ -152,11 +151,12 @@ export default class extends React.Component {
               <View></View>
               )
             }
-            <RTCView key='rtc' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: true }} socket={app.get('socket')} config={Config.webrtc} />
+            <RTCView key='rtc' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth')}} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />
           </Container>
         )
         break
       case 'selection_audio':
+        this._vibrate()
         footer = <Timer key='selection_audio' milliseconds={room.get('timer')} />
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>
@@ -182,11 +182,12 @@ export default class extends React.Component {
         footer = <Timer key='video' notify={true} milliseconds={room.get('timer')} />
         return (
           <Container header={false} footer={footer}>
-            <RTCView key='rtc' data={{ mode: 'video', kind: 'rematch', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth'), flush: false }} socket={app.get('socket')} config={Config.webrtc} />
+            <RTCView key='rtc' data={{ mode: 'video', kind: 'rematch', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth') }} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />
           </Container>
         )
         break
       case 'selection_video':
+        this._vibrate()
         footer = <Timer key='selection_video' milliseconds={room.get('timer')} />
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>

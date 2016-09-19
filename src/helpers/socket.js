@@ -58,9 +58,9 @@ export function emitSocketContactQueryEvent(id) {
   }
 }
 
-export function emitSocketUserJoinEvent() {
+export function emitSocketUserJoinEvent(data, callback) {
   if (true === isSocketConnected()) {
-    socket.emit('join', {})
+    socket.emit('join', data, callback)
   }
 }
 
@@ -79,6 +79,13 @@ export function emitSocketUpdateMatchEvent(data) {
 export function emitSocketUpdateProfileEvent(data) {
   if (true === isSocketConnected()) {
     socket.emit('update', {type: 'profile', data: data})
+  }
+}
+
+// @NOTE To prevent conversation message loss by storing them as offline messages
+export function emitSocketUpdateAvailabilityEvent(status) {
+  if (true === isSocketConnected()) {
+    socket.emit('update', {type: 'availability', status: status})
   }
 }
 

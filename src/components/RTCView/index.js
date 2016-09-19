@@ -10,13 +10,12 @@ import { Text, TouchableHighlight, View, TextInput, ListView, Dimensions } from 
 var WebRTC = require('react-native-webrtc');
 var { RTCPeerConnection, RTCIceCandidate, RTCSessionDescription, RTCView, MediaStreamTrack, getUserMedia } = WebRTC;
 
-import { goToErrorScene } from './../../actions'
+import { goToErrorScene, joinMatch, leaveMatch } from './../../actions'
 
 import Config from './../../config'
 
 import styles from './styles'
 
-let globalStream = null
 let remoteStream = null
 
 export default class extends React.Component {
@@ -31,11 +30,9 @@ export default class extends React.Component {
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => true});
     this.state = {
       pcPeers: {},
-      localStream: null,
       info: 'Initializing',
       status: 'init',
       isFront: true,
-      selfViewSrc: null,
       remoteList: {},
       textRoomConnected: false,
       textRoomData: [],
@@ -46,50 +43,50 @@ export default class extends React.Component {
   }
 
   componentDidMount() {
-    if (true === this.props.data.flush) {
-      globalStream = null
-      remoteStream = null
-    }
-    if (globalStream) {
-      let tracks = globalStream.getAudioTracks()
-      if (tracks[0]) {
-        tracks[0].enabled = true
+    let that = this
+    if (!this.props.localStream) {
+      this._getLocalStream(true, function(stream) {
+        let data = that.props.data
+        data.stream = stream
+        joinMatch(data, function(socketIds) {
+          for (const i in socketIds) {
+            const socketId = socketIds[i];
+            that._createPC(socketId, true);
+          }
+        })
+      })
+      this.props.socket.on('exchange', function (data) { that._exchange(data); });
+      this.props.socket.on('leave', function (socketId) { that._leave(socketId); });
+    } else {
+      if (this.props.localStream.getAudioTracks()[0]) {
+        this.props.localStream.getAudioTracks()[0].enabled = true
+      }
+      if ('video' === this.props.data.mode) {
+        if (this.props.localStream.getVideoTracks()[0]) {
+          this.props.localStream.getVideoTracks()[0].enabled = true
+        }
       }
     }
-    let that = this
-    this._getLocalStream(true, function (stream) {
-      globalStream = stream
-      that.setState({
-        localStream: stream,
-        selfViewSrc: stream.toURL()
-      })
-      that.props.socket.emit('join', that.props.data, function (socketIds) {
-        for (const i in socketIds) {
-          const socketId = socketIds[i];
-          that._createPC(socketId, true);
-        }
-      });
-    });
-    this.props.socket.on('exchange', function (data) {
-      that._exchange(data);
-    });
-    this.props.socket.on('leave', function (socketId) {
-      that._leave(socketId);
-    });
   }
 
   componentWillUnmount() {
-    if (globalStream) {
-      let tracks = globalStream.getAudioTracks()
-      if (tracks[0]) {
-        tracks[0].enabled = false
-      }
+    if (this.props.localStream.getAudioTracks()[0]) {
+      this.props.localStream.getAudioTracks()[0].enabled = false
     }
-    this.props.socket.off('leave')
-    this.props.socket.off('exchange')
+    if (this.props.localStream.getVideoTracks()[0]) {
+      this.props.localStream.getVideoTracks()[0].enabled = false
+    }
     if ('video' === this.props.data.mode) {
-      globalStream = null
       remoteStream = null
+      if (this.props.localStream.getAudioTracks()[0]) {
+        this.props.localStream.getAudioTracks()[0].stop()
+      }
+      if (this.props.localStream.getVideoTracks()[0]) {
+        this.props.localStream.getVideoTracks()[0].stop()
+      }
+      this.props.socket.off('exchange')
+      this.props.socket.off('leave')
+      leaveMatch()
     }
   }
 
@@ -154,7 +151,7 @@ export default class extends React.Component {
       that.setState({ remoteList: remoteList });
     };
 
-    pc.addStream(that.state.localStream);
+    pc.addStream(that.props.localStream);
 
     function createDataChannel() {
       if (pc.textDataChannel) {
@@ -187,23 +184,14 @@ export default class extends React.Component {
       if (!Config.environment.isDevelopment() && !frontCameraExists) {
         return goToErrorScene('Unable to access camera. Please ensure that this device has both a functional front camera and the required permission to access it.')
       } else {
-        if ('video' != that.props.data.mode) {
-          getUserMedia({
-            "audio": true,
-            "video": false
-          }, function (stream) {
-            callback(stream);
-          }, that._logError);
-        } else {
-          getUserMedia({
-            "audio": true,
-            "video": {
-              optional: [{sourceId: videoSourceId}]
-            }
-          }, function (stream) {
-            callback(stream);
-          }, that._logError);
-        }
+        getUserMedia({
+          "audio": true,
+          "video": {
+            optional: [{sourceId: videoSourceId}]
+          }
+        }, function (stream) {
+          callback(stream);
+        }, that._logError);
       }
     });
   }
@@ -232,22 +220,24 @@ export default class extends React.Component {
   }
 
   _leave(socketId) {
-    // peer left
-    const pc = this.state.pcPeers[socketId];
-    if (pc) {
-      pc.close();
-      let newPeers = this.state.pcPeers
-      delete newPeers[socketId];
-      const remoteList = this.state.remoteList;
-      delete remoteList[socketId]
-      if (remoteStream[socketId]) {
-        delete remoteStream[socketId]
+    try {
+      leaveMatch()
+      const pc = this.state.pcPeers[socketId];
+      if (pc) {
+        pc.close();
+        let newPeers = this.state.pcPeers
+        delete newPeers[socketId];
+        const remoteList = this.state.remoteList;
+        delete remoteList[socketId]
+        if (remoteStream[socketId]) {
+          delete remoteStream[socketId]
+        }
+        this.setState({
+          pcPeers: newPeers,
+          remoteList: remoteList
+        });
       }
-      this.setState({
-        pcPeers: newPeers,
-        remoteList: remoteList
-      });
-    }
+    } catch (e) {}
   }
 
   _receiveTextData(data) {
@@ -277,13 +267,13 @@ export default class extends React.Component {
     let miniTop  = height - 175
     let miniLeft = this.state.windowWidth - 90
     var remote =  null
-      if (remoteStream) {
-        remote = remoteStream[Object.keys(remoteStream)[0]]
-      }
+    if (remoteStream) {
+      remote = remoteStream[Object.keys(remoteStream)[0]]
+    }
     var local = null
-      if (globalStream) {
-        local = globalStream.toURL()
-      }
+    if (this.props.localStream) {
+      local = this.props.localStream.toURL()
+    }
 
     if (remote) {
       if ('video' != this.props.data.mode) {

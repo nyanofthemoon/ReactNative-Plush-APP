@@ -16,7 +16,8 @@ const initialState = fromJS({
   currentSceneTab: null,
   currentSceneId : null,
   matchMode      : null,
-  matchIsShy     : null
+  matchIsShy     : null,
+  localStream    : null
 })
 
 export default (state = initialState, action) => {
@@ -131,6 +132,19 @@ export default (state = initialState, action) => {
         })
       }
       break
+
+    case types.SOCKET_MATCH_JOIN_REQUESTED:
+      nextState = fromJS(state).merge({
+        localStream: action.payload.stream
+      })
+      break
+
+    case types.SOCKET_MATCH_LEAVE_REQUESTED:
+      nextState = fromJS(state).merge({
+        localStream: null
+      })
+      break
+
     default:
       break
   }

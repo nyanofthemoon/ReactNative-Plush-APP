@@ -25,7 +25,7 @@ export default StyleSheet.create({
     color        : 'white',
     fontFamily   : 'IndieFlower',
     fontSize     : getCorrectFontSizeForResolution(25),
-    lineHeight   : getCorrectFontSizeForResolution(25)
+    lineHeight   : getCorrectFontSizeForResolution(30)
   },
 
   message: {
@@ -33,8 +33,8 @@ export default StyleSheet.create({
     padding      : 10,
     color        : 'red',
     fontFamily   : 'Comfortaa',
-    fontSize     : getCorrectFontSizeForResolution(12),
-    lineHeight   : getCorrectFontSizeForResolution(12)
+    fontSize     : getCorrectFontSizeForResolution(16),
+    lineHeight   : getCorrectFontSizeForResolution(20)
   },
 
   shadowed: {

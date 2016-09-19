@@ -5,8 +5,12 @@ let environment = {
   //protocol: 'http',
   //host    : 'localhost',
   //port    : ':8888'
+  //protocol: 'https',
+  //host    : 'camroulette-api.herokuapp.com',
+  //port    : '',
+  //name    : 'production',
   protocol: 'https',
-  host    : 'camroulette-api.herokuapp.com',
+  host    : 'plush-api.herokuapp.com',
   port    : ''
 }
 
@@ -36,7 +40,8 @@ module.exports = {
   },
 
   ads: {
-    test  : true,
+    //test        : true,
+    test        : false,
     interstitial: {
       id      : 'ca-app-pub-5170625817624589/6144279753',
       interval: (5 * 60000)

@@ -1,5 +1,6 @@
 // https://github.com/facebook/react-native-fbsdk
 // https://developers.facebook.com/docs/facebook-login/permissions#reference-email
+// iOS 10 Error : http://stackoverflow.com/questions/38689631/how-to-use-facebook-ios-sdk-on-ios-10
 
 'use strict'
 

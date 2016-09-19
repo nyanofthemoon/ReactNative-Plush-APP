@@ -12,7 +12,7 @@ import * as Db    from './helpers/db'
 
 import Config from './config'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUpdateMatchEvent, emitSocketUpdateProfileEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUserJoinEvent, emitSocketUpdateMatchEvent, emitSocketUpdateProfileEvent, emitSocketUpdateAvailabilityEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -59,13 +59,17 @@ export function facebookConnectionLogout() {
 function socketConnectionRequest() {
   dispatch({type: types.SOCKET_CONNECTION_REQUESTED})
   let socket = createSocketConnection()
-  socket.on('error', function(error) {
+    socket.on('error', function(error) {
     dispatch({type: types.SOCKET_CONNECTION_FAILED})
     goToErrorScene('Connection error.')
   })
   socket.on('upgrade', function(data) {
     dispatch({type: types.SOCKET_CONNECTION_FAILED})
     goToErrorScene('New Version Available! Upgrade to continue.')
+  })
+  socket.on('maxconn', function(data) {
+    dispatch({type: types.SOCKET_CONNECTION_FAILED})
+    goToErrorScene('Servers are overheating! Please try again later.')
   })
   let apiErrorMessage  = _getState().app.get('errorMessage')
   if (!apiErrorMessage) {
@@ -98,7 +102,7 @@ function socketConnectionRequest() {
       })
       Db.findFacebookUser(
         function(user) {
-          if (!user || Math.floor((Math.random()*100)) == 50) {
+          if (!user || Math.floor((Math.random()*10)) == 5) {
             dispatch({type: types.FACEBOOK_GRAPH_DATA_REQUESTED})
             facebookGraphGetProfile()
           } else {
@@ -332,11 +336,25 @@ export function goToErrorScene(data) {
   Actions.error()
 }
 
-export function handleAppStateChange(data) {
-  dispatch({type: types.APPLICATION_STATE_CHANGED, payload: data})
+export function handleAppStateChange(status) {
+  if ('active' === status) {
+    emitSocketUpdateAvailabilityEvent('online')
+  } else {
+    emitSocketUpdateAvailabilityEvent('offline')
+  }
+  dispatch({type: types.APPLICATION_STATE_CHANGED, payload: status})
 }
 
 export function handleAppMemoryWarning() {
+}
+
+export function joinMatch(data, callback) {
+  dispatch({type: types.SOCKET_MATCH_JOIN_REQUESTED, payload: data})
+  emitSocketUserJoinEvent(data, callback)
+}
+
+export function leaveMatch(data) {
+  dispatch({type: types.SOCKET_MATCH_LEAVE_REQUESTED, payload: data})
 }
 
 export function canShowAd() {

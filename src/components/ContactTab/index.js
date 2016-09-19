@@ -1,5 +1,7 @@
 'use strict'
 
+import { mapValues } from 'lodash'
+
 import React from 'react'
 import { ScrollView, View } from 'react-native'
 import { Column as Col, Row } from 'react-native-flexbox-grid'
@@ -10,7 +12,6 @@ import { goToContact, goToMatchFriendshipScene, goToMatchRelationshipScene } fro
 
 import renderIf from './../../helpers/renderIf'
 import { genderIcon } from './../../helpers/icons'
-
 
 import styles from './styles'
 
@@ -65,10 +66,26 @@ export default class extends React.Component {
     }
   }
 
+  _sortListByMessageCount() {
+    const {contact} = this.props
+    let unreads = mapValues(contact.get('count').toJSON(), parseInt);
+    let oldList = this.props.list
+    let newList = {}
+    Object.keys(unreads).forEach(function (unread) {
+      newList[unread] = unread
+      delete(oldList[unread])
+    })
+    Object.keys(oldList).forEach(function (old) {
+      newList[old] = old
+    })
+    return newList
+  }
+
   render() {
     if (this.props.list && Object.keys(this.props.list).length > 0) {
+      let orderedList = this._sortListByMessageCount()
       return <ScrollView>
-        <List dataArray={this.props.list} renderRow={this._renderRow.bind(this)}/>
+        <List dataArray={orderedList} renderRow={this._renderRow.bind(this)}/>
       </ScrollView>
     } else {
       if (this.props.type === 'relationship') {
@@ -76,7 +93,7 @@ export default class extends React.Component {
           <Col style={{ flex: 1, justifyContent:'center'}}>
             <Title style={styles.title}>It's time to meet people.</Title>
             <Button large info style={styles.button} onPress={goToMatchRelationshipScene}>
-              <Text style={styles.title}>I'm Ready.</Text>
+              <Text style={styles.title}>I'm Ready!</Text>
             </Button>
           </Col>
         </View>
