@@ -2,10 +2,13 @@
 
 import React from 'react'
 import { Text, View, Vibration } from 'react-native'
+import { default as Sound } from 'react-native-sound'
 
 import * as Animatable from 'react-native-animatable'
 
 import styles from './styles'
+
+const notificationSound = new Sound('notification.mp3', Sound.MAIN_BUNDLE)
 
 export default class extends React.Component {
 
@@ -16,6 +19,14 @@ export default class extends React.Component {
       interval : null,
       vibration: 0
     }
+  }
+
+  _vibrate() {
+    Vibration.vibrate()
+    notificationSound.play()
+    this.setState({
+      vibration: 1
+    })
   }
 
   componentDidMount() {
@@ -45,8 +56,7 @@ export default class extends React.Component {
     let remaining = this.state.remaining - 1000
     if (remaining > 99) {
       this.setState({
-        remaining: remaining,
-        vibration: (this.state.vibration + 1)
+        remaining: remaining
       })
     } else {
       this._clearInterval()
@@ -64,7 +74,7 @@ export default class extends React.Component {
     if (this.state.remaining < 11000) {
       animation = 'tada'
       if (true === this.props.notify && this.state.vibration < 1) {
-        Vibration.vibrate()
+        this._vibrate()
       }
     }
 

@@ -24,13 +24,13 @@ export default (state = initialState, action) => {
   let nextState
   switch (action.type) {
     case types.FACEBOOK_LOGIN_REQUESTED:
-      nextState = fromJS(state).set('facebookStatus', 'authenticating')
+      nextState = state.set('facebookStatus', 'authenticating')
       break
     case types.FACEBOOK_LOGIN_SUCCEEDED:
-      nextState = fromJS(state).set('facebookStatus', 'authenticated')
+      nextState = state.set('facebookStatus', 'authenticated')
       break
     case types.FACEBOOK_LOGIN_FAILED:
-      nextState = fromJS(state).merge({
+      nextState = state.merge({
         facebookStatus: 'unauthenticated',
         socketStatus  : 'disconnected',
         apiStatus     : 'disconnected',
@@ -38,38 +38,38 @@ export default (state = initialState, action) => {
       })
       break
     case types.SOCKET_CONNECTION_REQUESTED:
-      nextState = fromJS(state).merge({
+      nextState = state.merge({
         socketStatus: 'connecting',
         apiStatus   : 'disconnected'
       })
       break
     case types.SOCKET_CONNECTION_SUCCEEDED:
-      nextState = fromJS(state).merge({
+      nextState = state.merge({
         socketStatus: 'connected',
         apiStatus   : 'disconnected',
         socket      : action.payload.socket
       })
       break
     case types.SOCKET_CONNECTION_FAILED:
-      nextState = fromJS(state).merge({
+      nextState = state.merge({
         socketStatus: 'disconnected',
         apiStatus   : 'disconnected'
       })
       break
     case types.SOCKET_LOGIN_USER_REQUESTED:
-      nextState = fromJS(state).set('apiStatus', 'connecting')
+      nextState = state.set('apiStatus', 'connecting')
       break
     case types.SOCKET_QUERY_USER_RECEIVED:
-      nextState = fromJS(state).set('apiStatus', 'connected')
+      nextState = state.set('apiStatus', 'connected')
       break
     case types.SCENE_NAVIGATION_CONTACTS:
-      nextState = fromJS(state).merge({
+      nextState = state.merge({
         previousScene: state.get('currentScene'),
         currentScene : 'contacts'
       })
       break
     case types.SCENE_NAVIGATION_CONTACT:
-      nextState = fromJS(state).merge({
+      nextState = state.merge({
         previousScene  : state.get('currentScene'),
         currentScene   : 'contact',
         currentSceneId : action.payload,
@@ -80,34 +80,34 @@ export default (state = initialState, action) => {
       if (action.payload.data.users) {
         Object.keys(action.payload.data.users).forEach(function(socketId) {
           if (('/#' + getSocketId()) != socketId) {
-            nextState = fromJS(state).set('currentSceneId', action.payload.data.users[socketId])
+            nextState = state.set('currentSceneId', action.payload.data.users[socketId])
           }
         })
       }
       break
     case types.SCENE_NAVIGATION_TAB_CHANGE:
-      nextState = fromJS(state).set('currentSceneTab', action.payload)
+      nextState = state.set('currentSceneTab', action.payload)
       break
     case types.SCENE_NAVIGATION_PROFILE:
-      nextState = fromJS(state).merge({
+      nextState = state.merge({
         previousScene: state.get('currentScene'),
         currentScene : 'profile'
       })
       break
     case types.SCENE_NAVIGATION_HOME:
-      nextState = fromJS(state).merge({
+      nextState = state.merge({
         previousScene: state.get('currentScene'),
         currentScene : 'home'
       })
       break
     case types.SCENE_NAVIGATION_LOGOUT:
-      nextState = fromJS(state).merge({
+      nextState = state.merge({
         previousScene: state.get('currentScene'),
         currentScene : 'logout'
       })
       break
     case types.SCENE_NAVIGATION_MATCH:
-      nextState = fromJS(state).merge({
+      nextState = state.merge({
         previousScene : state.get('currentScene'),
         currentScene  : 'match',
         matchMode     : action.payload.type,
@@ -115,7 +115,7 @@ export default (state = initialState, action) => {
       })
       break
     case types.SCENE_NAVIGATION_ERROR:
-      nextState = fromJS(state).merge({
+      nextState = state.merge({
         facebookStatus: 'unauthenticated',
         socketStatus  : 'disconnected',
         apiStatus     : 'disconnected',
@@ -126,23 +126,17 @@ export default (state = initialState, action) => {
       })
     case types.SOCKET_QUERY_CONTACT_RECEIVED:
       if ('match' === state.get('currentScene') && action.payload.self == false) {
-        nextState = fromJS(state).merge({
+        nextState = state.merge({
           currentSceneId : action.payload.data.id,
           currentSceneTab: 0
         })
       }
       break
-
     case types.SOCKET_MATCH_JOIN_REQUESTED:
-      nextState = fromJS(state).merge({
-        localStream: action.payload.stream
-      })
+      nextState = state.set('localStream', action.payload.stream)
       break
-
     case types.SOCKET_MATCH_LEAVE_REQUESTED:
-      nextState = fromJS(state).merge({
-        localStream: null
-      })
+      nextState = state.set('localStream', null)
       break
 
     default:

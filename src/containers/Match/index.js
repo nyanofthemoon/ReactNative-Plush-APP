@@ -84,71 +84,74 @@ export default class extends React.Component {
             { 'audio' !== status ?
               (
                 <View>
-                  <Carousel delay={10000} style={this.state.size}>
+                  <Carousel delay={15000} style={this.state.size}>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Huh?</Text>
-                      <Text style={styles.slideText}>You are currently waiting in line for someone else to join in.</Text>
+                      <Text style={styles.slideText}>You are waiting in line for someone else to join.</Text>
                       <Text style={styles.slideText}>Stay here or lose your spot!</Text>
-                      <Text style={styles.slideTextDetail}>In the meantime, you can put your headphones on and swipe through our 10 Steps Tutorial.</Text>
+                      <Text style={styles.slideTextDetail}>In the meantime, you should put your headphones on! You could also swipe through this 10 Steps Tutorial...</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 1</Text>
                       <Text style={styles.slideText}>Find Quiet Location</Text>
+                      <Text style={styles.slideTextDetail}>It's important to find the location where you feel most comfortable and where you can be yourself.</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 2</Text>
                       <Text style={styles.slideText}>Sit Comfortably</Text>
+                      <Text style={styles.slideTextDetail}>You're about to engage with another person for up to 5 minutes. You might want to find a comfortable "best angle" position kind of thing. ;)</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 3</Text>
                       <Text style={styles.slideText}>Put On Headphones !</Text>
+                      <Text style={styles.slideTextDetail}>This is required in order to provide a quality conversation. Otherwise no one is going to have any fun during the Plushs (and that sucks).</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 4</Text>
-                      <Text style={styles.slideText}>Be Prepared</Text>
-                      <Text style={styles.slideTextDetail}>Someone might join your Plush at any given time.</Text>
-                      <Text style={styles.slideTextDetail}>Remember to always be kind and courteous to other members or you will be blocked and reported.</Text>
+                      <Text style={styles.slideText}>Prepare Yourself</Text>
+                      <Text style={styles.slideTextDetail}>Someone matching your profile might join at any given time.</Text>
+                      <Text style={styles.slideTextDetail}>Always be courteous to other members. This is a self-managed community where you will be blocked and reported.</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 5</Text>
-                      <Text style={styles.slideText}>Voice Plush</Text>
+                      <Text style={styles.slideText}>Voice Plush!</Text>
                       <Text style={styles.slideText}>You have 1 minute.</Text>
-                      <Text style={styles.slideTextDetail}>Shy? It's OK- this is a blind match! Get to know eachother for the first time by voice only.</Text>
+                      <Text style={styles.slideTextDetail}>Shy? It's OK- this is a blind match! Take it slow and get to know each other for the first time by sound only.</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 6</Text>
                       <Text style={styles.slideText}>Initial Thoughts</Text>
-                      <Text style={styles.slideTextDetail}>Did you enjoy the Plush?</Text>
+                      <Text style={styles.slideTextDetail}>Did you enjoy your Plush?</Text>
                       <Text style={styles.slideTextDetail}>Share your thoughts by selecting an emoticon. Left side represents negative feelings, the middle is neutral and the right side are positives.</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 7</Text>
                       <Text style={styles.slideText}>Initial Outcome</Text>
                       <Text style={styles.slideTextDetail}>Did both parties enjoy the Plush?</Text>
-                      <Text style={styles.slideTextDetail}>If so, congrats! You can continue. Otherwise, just try again!</Text>
+                      <Text style={styles.slideTextDetail}>If so, congrats! You can continue to the Video Plush! Otherwise, just try again with someone else.</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 8</Text>
-                      <Text style={styles.slideText}>Video Plush</Text>
+                      <Text style={styles.slideText}>Video Plush!</Text>
                       <Text style={styles.slideText}>You have 3 minutes.</Text>
-                      <Text style={styles.slideTextDetail}>This is it! Get to see eachother for the first time.</Text>
+                      <Text style={styles.slideTextDetail}>This is it! You both enjoyed the last Plush! now it's time to get to see eachother for the first time.</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 9</Text>
                       <Text style={styles.slideText}>Final Thoughts</Text>
-                      <Text style={styles.slideTextDetail}>Did you enjoy the Plush?</Text>
+                      <Text style={styles.slideTextDetail}>Did you enjoy your Plush?</Text>
                       <Text style={styles.slideTextDetail}>Share your thoughts by selecting an emoticon. Left side represents negative feelings, the middle is neutral and the right side are positives.</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 10</Text>
                       <Text style={styles.slideText}>Final Outcome</Text>
-                      <Text style={styles.slideTextDetail}>Did both of you enjoy the video plush?</Text>
-                      <Text style={styles.slideTextDetail}>If so, congrats! You are added to your respective contact lists. Otherwise, just try again!</Text>
+                      <Text style={styles.slideTextDetail}>Did both parties enjoy the Plush?</Text>
+                      <Text style={styles.slideTextDetail}>If so, congrats! This is the final matching step and you are both added to your respective contact lists. Otherwise, there's plenty of fish in the sea!</Text>
                     </View>
                   </Carousel>
                 </View>
               ) : (
-              <View></View>
+                <View></View>
               )
             }
             <RTCView key='rtc' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth')}} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />

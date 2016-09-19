@@ -58,11 +58,11 @@ export default class extends React.Component {
       this.props.socket.on('exchange', function (data) { that._exchange(data); });
       this.props.socket.on('leave', function (socketId) { that._leave(socketId); });
     } else {
-      if (this.props.localStream.getAudioTracks()[0]) {
+      if (this.props.localStream && this.props.localStream.getAudioTracks()[0]) {
         this.props.localStream.getAudioTracks()[0].enabled = true
       }
       if ('video' === this.props.data.mode) {
-        if (this.props.localStream.getVideoTracks()[0]) {
+        if (this.props.localStream && this.props.localStream.getVideoTracks()[0]) {
           this.props.localStream.getVideoTracks()[0].enabled = true
         }
       }
@@ -70,18 +70,18 @@ export default class extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.props.localStream.getAudioTracks()[0]) {
+    if (this.props.localStream && this.props.localStream.getAudioTracks()[0]) {
       this.props.localStream.getAudioTracks()[0].enabled = false
     }
-    if (this.props.localStream.getVideoTracks()[0]) {
+    if (this.props.localStream && this.props.localStream.getVideoTracks()[0]) {
       this.props.localStream.getVideoTracks()[0].enabled = false
     }
     if ('video' === this.props.data.mode) {
       remoteStream = null
-      if (this.props.localStream.getAudioTracks()[0]) {
+      if (this.props.localStream && this.props.localStream.getAudioTracks()[0]) {
         this.props.localStream.getAudioTracks()[0].stop()
       }
-      if (this.props.localStream.getVideoTracks()[0]) {
+      if (this.props.localStream && this.props.localStream.getVideoTracks()[0]) {
         this.props.localStream.getVideoTracks()[0].stop()
       }
       this.props.socket.off('exchange')

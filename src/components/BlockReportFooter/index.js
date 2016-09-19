@@ -16,10 +16,10 @@ export default class extends React.Component {
 
   _confirmReportUser() {
     Alert.alert(
-      'Report Request Confirmation',
-      'Are you sure you wish to REPORT this user? A mutual block will be put in place and you will mutually be removed from your respective contact list.',
+      'Report Confirmation',
+      'Are you sure you wish to REPORT ABUSIVE BEHAVIOR from this person to the community? This person will also be BLOCKED permanently.',
       [
-        { text: 'No' },
+        { text: 'No...' },
         { text: 'YES!', onPress: () => this._reportUser() }
       ]
     )
@@ -30,8 +30,8 @@ export default class extends React.Component {
     let that = this
     setTimeout(function() {
       Alert.alert(
-        'Report Request Processed',
-        'You have reported this member and can no longer communicate with eachother.'
+        'Report Confirmed',
+        'You have reported this person to the community and a BLOCK has been put in place so that you can no longer communicate with each other.'
       )
       if (that.props.redirect) {
         that.props.redirect()
@@ -41,10 +41,10 @@ export default class extends React.Component {
 
   _confirmBlockUser() {
     Alert.alert(
-      'Block Request Confirmation',
-      'Are you sure you wish to BLOCK this user? A mutual block will be put in place and you will mutually be removed from your respective contact list.',
+      'Block Confirmation',
+      'Are you sure you wish to BLOCK this person permanently?',
       [
-        { text: 'No' },
+        { text: 'No...' },
         { text: 'YES!', onPress: () => this._blockUser() }
       ]
     )
@@ -55,8 +55,8 @@ export default class extends React.Component {
     let that = this
     setTimeout(function() {
       Alert.alert(
-        'Block Request Processed',
-        'You have blocked this member and can no longer communicate with eachother.'
+        'Block Confirmed',
+        'You have blocked this person and you can no longer communicate with each other.'
       )
       if (that.props.redirect) {
         that.props.redirect()
