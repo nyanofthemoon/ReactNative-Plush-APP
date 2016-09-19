@@ -9,6 +9,8 @@ import { messageUser } from './../../actions'
 
 import styles from './styles'
 
+const dismissKeyboard = require('dismissKeyboard')
+
 export default class extends React.Component {
 
   static propTypes = {
@@ -30,6 +32,7 @@ export default class extends React.Component {
     if (this.state.data.message.length >= 2) {
       messageUser(this.props.id, this.state.data.message)
       this.refs.form.refs.message.setValue('')
+      dismissKeyboard()
     }
   }
 

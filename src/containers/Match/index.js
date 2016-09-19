@@ -87,7 +87,7 @@ export default class extends React.Component {
                   <Carousel delay={15000} style={this.state.size}>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Huh?</Text>
-                      <Text style={styles.slideText}>You are waiting in line for someone else to join.</Text>
+                      <Text style={styles.slideText}>Waiting For Next Plush</Text>
                       <Text style={styles.slideText}>Stay here or lose your spot!</Text>
                       <Text style={styles.slideTextDetail}>In the meantime, you should put your headphones on! You could also swipe through this 10 Steps Tutorial...</Text>
                     </View>
@@ -104,7 +104,7 @@ export default class extends React.Component {
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 3</Text>
                       <Text style={styles.slideText}>Put On Headphones !</Text>
-                      <Text style={styles.slideTextDetail}>This is required in order to provide a quality conversation. Otherwise no one is going to have any fun during the Plushs (and that sucks).</Text>
+                      <Text style={styles.slideTextDetail}>This is required in order to provide a quality conversation. Otherwise no one is going to have any fun during the Plush (and that sucks).</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 4</Text>
@@ -134,7 +134,7 @@ export default class extends React.Component {
                       <Text style={styles.slideTextHeader}>Step 8</Text>
                       <Text style={styles.slideText}>Video Plush!</Text>
                       <Text style={styles.slideText}>You have 3 minutes.</Text>
-                      <Text style={styles.slideTextDetail}>This is it! You both enjoyed the last Plush! now it's time to get to see eachother for the first time.</Text>
+                      <Text style={styles.slideTextDetail}>This is it! You both enjoyed the last Plush! Now it's time to see each other for the first time.</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Step 9</Text>
@@ -146,7 +146,7 @@ export default class extends React.Component {
                       <Text style={styles.slideTextHeader}>Step 10</Text>
                       <Text style={styles.slideText}>Final Outcome</Text>
                       <Text style={styles.slideTextDetail}>Did both parties enjoy the Plush?</Text>
-                      <Text style={styles.slideTextDetail}>If so, congrats! This is the final matching step and you are both added to your respective contact lists. Otherwise, there's plenty of fish in the sea!</Text>
+                      <Text style={styles.slideTextDetail}>If so, congrats! This is the final matching step and you are both added to your respective contact list. Otherwise, there's plenty of fish in the sea!</Text>
                     </View>
                   </Carousel>
                 </View>
