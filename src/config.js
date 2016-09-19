@@ -1,14 +1,14 @@
 'use strict'
 
 let environment = {
-  name    : 'development',
+  //name    : 'development',
   //protocol: 'http',
   //host    : 'localhost',
   //port    : ':8888'
   //protocol: 'https',
   //host    : 'camroulette-api.herokuapp.com',
   //port    : '',
-  //name    : 'production',
+  name    : 'production',
   protocol: 'https',
   host    : 'plush-api.herokuapp.com',
   port    : ''
@@ -40,8 +40,7 @@ module.exports = {
   },
 
   ads: {
-    //test        : true,
-    test        : false,
+    test        : false, // true for development
     interstitial: {
       id      : 'ca-app-pub-5170625817624589/6144279753',
       interval: (5 * 60000)
