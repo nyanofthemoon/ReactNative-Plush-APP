@@ -1,28 +1,29 @@
 # CamRoulette-APP
 
-## Installation
-
-* [React](https://github.com/facebook/react) & [React Native](https://github.com/facebook/react-native) v0.30
-* [Redux](https://github.com/reactjs/redux) & [Remote Redux DevTools](https://github.com/zalmoxisus/remote-redux-devtools) & [On Debugger](https://github.com/jhen0409/remote-redux-devtools-on-debugger)
-* [Immutable](https://github.com/facebook/immutable-js) & [Immutable DevTools](https://github.com/andrewdavey/immutable-devtools)
-* [Babel](https://github.com/babel/babel) & Plugins: [transform-decorators-legacy](https://github.com/loganfsmyth/babel-plugin-transform-decorators-legacy)
+# Installation
 
 See [Getting Started](https://facebook.github.io/react-native/docs/getting-started.html) to install requirement tools.
+[React-Native-Vector-Icons Installation](https://github.com/oblador/react-native-vector-icons)
+[React-Native-WebRTC iOS Installation](https://github.com/oney/react-native-webrtc/blob/master/Documentation/iOSInstallation.md)
+[iOS Device Achitecture Compatibility Chart](https://developer.apple.com/library/ios/documentation/DeviceInformation/Reference/iOSDeviceCompatibility/DeviceCompatibilityMatrix/DeviceCompatibilityMatrix.html)
+[FBSDK](https://developers.facebook.com/docs/ios/downloads)
+[Google AdMob Framework](https://github.com/sbugert/react-native-admob)
+
 
 ```bash
 $ npm install -g react-native-cli
 $ npm install
 ```
 
-## Development
+### Development
 
-#### Start local server
+##### Start local server
 
 ```bash
-$ npm start
+$ npm run dev
 ```
 
-#### iOS
+##### iOS
 
 Run command to open iOS simulator and run app:
 
@@ -36,7 +37,7 @@ Or open `ios/RNBoilerplate.xcodeproj` file with XCode:
 $ npm run ios-open
 ```
 
-#### Android (5.0+)
+##### Android (5.0+)
 
 Open Android emulator (recommented [Genymotion](https://www.genymotion.com)) and run command: (Or connect real device via USB)
 
@@ -48,11 +49,3 @@ $ npm run android
 ## DevTools
 
 In development mode, you can install [React Native Debugger](https://github.com/jhen0409/react-native-debugger) as default debugger. If not installed, it will use [Remote Redux DevTools](https://github.com/zalmoxisus/remote-redux-devtools) and [On Debugger](https://github.com/jhen0409/remote-redux-devtools-on-debugger).
-
-## Test
-
-Use [react-native-mock](https://github.com/lelandrichardson/react-native-mock), and test with [Mocha](https://github.com/mochajs/mocha), [Enzyme](https://github.com/airbnb/enzyme).
-
-```bash
-$ npm test
-```

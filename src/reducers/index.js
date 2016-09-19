@@ -1,8 +1,17 @@
-import { combineReducers } from 'redux';
-import counter from './counter';
-import routes from './routes';
+'use strict'
+
+import { combineReducers } from 'redux'
+
+import app          from './app'
+import room         from './room'
+import user         from './user'
+import contact      from './contact'
+import notification from './notification'
 
 export default combineReducers({
-  counter,
-  routes
-});
+  app,
+  room,
+  user,
+  contact,
+  notification
+})

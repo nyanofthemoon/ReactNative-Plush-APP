@@ -1,19 +1,19 @@
-/* eslint global-require: 0 */
+'use strict'
 
-import Immutable from 'immutable';
-import { Platform } from 'react-native';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import reducer from './reducers';
+import Immutable from 'immutable'
+import { createStore, applyMiddleware, compose } from 'redux'
+import { Platform } from 'react-native'
 
-const middlewares = [thunk];
+import reducer from './reducers'
 
-let enhancer;
+const middlewares = []
+
+let enhancer
 if (__DEV__) {
-  const installDevTools = require('immutable-devtools');
-  installDevTools(Immutable);
+  const installDevTools = require('immutable-devtools')
+  installDevTools(Immutable)
 
-  const reduxRemoteDevTools = require('remote-redux-devtools');
+  const reduxRemoteDevTools = require('remote-redux-devtools')
   enhancer = compose(
     applyMiddleware(...middlewares),
     global.reduxNativeDevTools ?
@@ -22,17 +22,19 @@ if (__DEV__) {
         name: Platform.OS,
         ...require('../package.json').remotedev,
       })
-  );
+  )
 } else {
-  enhancer = applyMiddleware(...middlewares);
+  enhancer = applyMiddleware(...middlewares)
 }
 
-export default function configureStore(initialState) {
-  const store = createStore(reducer, initialState, enhancer);
+function configureStore(initialState) {
+  const store = createStore(reducer, initialState, enhancer)
   if (module.hot) {
     module.hot.accept(() => {
-      store.replaceReducer(require('./reducers').default);
-    });
+      store.replaceReducer(require('./reducers').default)
+    })
   }
-  return store;
+  return store
 }
+
+export default configureStore()

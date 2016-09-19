@@ -1,1 +1,3 @@
-import './src';
+'use strict'
+
+import './src'
