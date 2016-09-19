@@ -89,7 +89,7 @@ export default class extends React.Component {
       let friendship   = this._getHalfCover('friendship', user.getIn(['profile','gender']), user.getIn(['profile', 'friendship']))
       let relationship = this._getHalfCover('relationship', user.getIn(['profile','gender']), user.getIn(['profile', 'orientation']))
       return (
-        <Container header={true} scene='home'>
+        <Container header={true} scene='home' headerTitle={'Start Plush!'}>
           <View style={styles.container}>
             <TouchableHighlight underlayColor='transparent' style={{flex: 1, borderTopWidth: 1, borderTopColor: 'white', borderBottomWidth: 1, borderBottomStyle: 'dashed', borderBottomColor: 'white'}} onPress={goToMatchFriendshipScene}>
               <Image source={friendship} style={styles.cover}>

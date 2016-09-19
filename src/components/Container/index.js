@@ -1,7 +1,7 @@
 'use strict'
 
 import React, { Component } from 'react'
-import { AppState, Dimensions, StatusBar, View, Image, Text } from 'react-native'
+import { AppState, Dimensions, StatusBar, View, Image, Text, TouchableHighlight } from 'react-native'
 import { Container, Header, Content, Footer, Title, Button, Icon, Badge } from 'native-base'
 
 import { AdMobInterstitial } from 'react-native-admob'
@@ -70,9 +70,9 @@ export default class extends Component {
     if (this.props.header) {
       count = calculateUnreadMessages()
       if (count < 1) {
-        count = ''
+        count = <Text></Text>
       } else {
-        count = <Text>{count}</Text>
+        count = <View style={{backgroundColor: 'red', position: 'absolute', top: -8, right: -9, width: 20, height: 20, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 5}}><Text style={{fontSize: 10, color: 'white', fontWeight: '900', lineHeight: 10}}>{count}</Text></View>
       }
     }
     return (
@@ -80,13 +80,15 @@ export default class extends Component {
         {renderIf(this.props.header)(
           <Header key='header' style={styles.header}>
               <Button onPress={goToHomeScene}>
-                <Icon white name='md-home' style={('home' === this.props.scene ? ( styles.selected ) : ( null ))} />
+                <Icon white name='md-cube' style={('home' === this.props.scene ? ( styles.selected ) : ( null ))} />
               </Button>
               <Button onPress={goToContactsScene}>
-                <Icon name='md-contacts' style={('contacts' === this.props.scene ? ( styles.selected ) : ( null ))} />
-                {count}
+                <View>
+                  <Icon name='md-chatboxes' style={('contacts' === this.props.scene ? ( styles.selected ) : ( null ))} />
+                  {count}
+                </View>
               </Button>
-              <Title style={styles.title}>{this.props.headerTitle || 'Plush !'} </Title>
+              <Title style={styles.title}>{this.props.headerTitle || 'Plush!'} </Title>
               <Button onPress={goToProfileScene}>
                 <Icon name='md-settings' style={('profile' === this.props.scene ? ( styles.selected ) : ( null ))} />
               </Button>
