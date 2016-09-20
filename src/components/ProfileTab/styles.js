@@ -29,7 +29,7 @@ export default StyleSheet.create({
     fontSize: getCorrectFontSizeForResolution(20),
     lineHeight: getCorrectFontSizeForResolution(24),
     paddingBottom: 10,
-    marginTop: -25
+    marginTop: -30
   },
 
   text: {

@@ -49,14 +49,14 @@ export default class extends React.Component {
       return (
         <ListItem key={id} button onPress={this._onPress.bind(this, id)} style={styles.listItem}>
           <Row style={{ flex: 1 }} nowrap>
-            <Col sm={1} style={{ justifyContent: 'center', marginRight: 6 }}>
+            <Col sm={1} style={{ justifyContent: 'center' }}>
               {genderIcon(profile.profile.gender, styles.gender)}
             </Col>
             <Col sm={2}>
-              <Thumbnail size={40} source={{uri:profile.profile.picture}}/>
+              <Thumbnail style={{ marginLeft: 6 }} size={40} source={{uri:profile.profile.picture}}/>
             </Col>
             <Col sm={8} style={{ justifyContent: 'center' }}>
-              <Text style={[styles.nickname, { marginLeft: -3 , color: online }]}>{profile.profile.nickname}</Text>
+              <Text style={[styles.nickname, { color: online, marginLeft: 2 }]}>{profile.profile.nickname}</Text>
             </Col>
             <Col sm={1} style={{ justifyContent: 'center' }}>
               <Badge style={badgeStyle}>{badgeCount}</Badge>
