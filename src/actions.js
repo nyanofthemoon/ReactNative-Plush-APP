@@ -196,12 +196,12 @@ function queryUserReception(data) {
         setTimeout(function() {
           // Query Contact Information
           Object.keys(data.data.contacts.relationship).forEach(function(id) {
-            if (undefined === _getState().contact.getIn(['profiles', id])) {
+            if (undefined === _getState().contact.getIn(['profiles', id]) || Math.floor((Math.random()*10)) == 3) {
               queryContact(id)
             }
           })
           Object.keys(data.data.contacts.friendship).forEach(function(id) {
-            if (undefined === _getState().contact.getIn(['profiles', id])) {
+            if (undefined === _getState().contact.getIn(['profiles', id]) || Math.floor((Math.random()*10)) == 7) {
               queryContact(id)
             }
           })
