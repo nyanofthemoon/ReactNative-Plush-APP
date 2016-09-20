@@ -5,6 +5,9 @@ import { View, Text, Image, TouchableHighlight } from 'react-native'
 import { Spinner, Button, Title } from 'native-base'
 import { connect } from 'react-redux'
 
+const FBSDK = require('react-native-fbsdk');
+const { ShareDialog } = FBSDK;
+
 import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchFriendshipScene, goToMatchRelationshipScene } from './../../actions'
 
 import Container from './../../components/Container'
@@ -71,6 +74,28 @@ export default class extends React.Component {
     }
   }
 
+  _shareLinkWithDialog() {
+    const shareLinkContent = {
+      contentType       : 'link',
+      contentUrl        : 'https://hotchiwawa.com/plush', //@TODO Change me to app store download link
+      contentDescription: 'Plush! A fun way of meeting new people online.'
+    }
+    ShareDialog.canShow(shareLinkContent).then(
+      function(canShow) {
+        if (canShow) { return ShareDialog.show(shareLinkContent) }
+      }
+    ).then(
+      function(result) {
+        if (result.postId) {
+          alert('Thank you for sharing Plush!')
+        }
+      },
+      function(error) {
+        alert('Plush! was not shared: ' + error)
+      }
+    )
+  }
+
   _getHalfCover(type, gender, orientation) {
     return halfcovers[type][(gender+orientation)][Math.floor(Math.random()*halfcovers[type][(gender+orientation)].length)]
   }
@@ -101,6 +126,7 @@ export default class extends React.Component {
                 <Title style={[styles.coverText, styles.shadowed]}>Relationship</Title>
               </Image>
             </TouchableHighlight>
+            <Button block info onPress={this._shareLinkWithDialog.bind(this)}>Share Plush! On Facebook</Button>
           </View>
         </Container>
       )
