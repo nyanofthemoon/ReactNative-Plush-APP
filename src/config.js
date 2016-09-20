@@ -1,17 +1,17 @@
 'use strict'
 
 let environment = {
-  //name    : 'development',
+  name    : 'development',
   //protocol: 'http',
   //host    : 'localhost',
   //port    : ':8888'
-  //protocol: 'https',
-  //host    : 'camroulette-api.herokuapp.com',
-  //port    : '',
-  name    : 'production',
   protocol: 'https',
-  host    : 'plush-api.herokuapp.com',
-  port    : ''
+  host    : 'camroulette-api.herokuapp.com',
+  port    : '',
+  //name    : 'production',
+  //protocol: 'https',
+  //host    : 'plush-api.herokuapp.com',
+  //port    : ''
 }
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
   // https://identitysafe.norton.com/password-generator
   application: {
     mode   : 'free',
-    version: '1.0',
+    version: '1.5',
     token  : 'dr7p4Kaja53#-xaY7remuthU7es*ucAjW_EcenUh-t@#SpE3e_uBuswef-a*atuSbrEW#e2aprEx2pusPubra_ru@#eruWrAp3n2HE$rA#2+uwu2eStUqu2r2z$vAVUg5*zeqU4wepr+kaT=aWr8+reh5phaduVuQaFr6P5XacrarUdR2vE+w6CHutHusUs4#exa8ADed5@est7de6EhapHej4pr*4Ra!E6re7raq@wrus?f=e#aqAZufrEwru?R'
   },
 
@@ -40,7 +40,7 @@ module.exports = {
   },
 
   ads: {
-    test        : false, // true for development
+    test        : true, // false for production
     interstitial: {
       id      : 'ca-app-pub-5170625817624589/6144279753',
       interval: (5 * 60000)

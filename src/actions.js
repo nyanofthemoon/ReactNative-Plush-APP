@@ -318,9 +318,9 @@ export function messageUser(id, message) {
 }
 
 function messageReception(data) {
-  data.scene    = _getState().app.get('currentScene')
-  data.sceneId  = _getState().app.get('currentSceneId')
-  data.sceneTab = _getState().app.get('currentSceneTab')
+  data.scene    = _getState().app.get('currentScene')    || null
+  data.sceneId  = _getState().app.get('currentSceneId')  || null
+  data.sceneTab = _getState().app.get('currentSceneTab') || null
   dispatch({type: types.SOCKET_MESSAGE_USER_RECEIVED, payload: data})
   Db.saveContacts(_getState().contact.toJSON(), function() {})
 }

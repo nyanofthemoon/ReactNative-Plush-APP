@@ -2,11 +2,10 @@
 
 import React from 'react'
 import { View, Text, Image } from 'react-native'
-import { Button } from 'native-base'
+import { Button, Title } from 'native-base'
 
 import * as Animatable from 'react-native-animatable'
 
-import { getSocketId } from './../../helpers/socket'
 import emoticons from './../../helpers/images/emoticons'
 
 import styles from './styles'
@@ -33,39 +32,14 @@ export default class extends React.Component {
     }
   }
 
-  componentDidMount() {
-    let socketId = getSocketId()
-    let votes    = this.props.votes.toJSON() || {}
-    let that     = this
-    Object.keys(votes).forEach(function(socket) {
-      if (('/#'+socketId) == socket) {
-        switch(votes[socket]) {
-          case 'bored'      : return that._setAnimation('negativeOne')
-          case 'offended'   : return that._setAnimation('negativeTwo')
-          case 'angry'      : return that._setAnimation('negativeThree')
-          case 'undecided'  : return that._setAnimation('neutral')
-          case 'charmed'    :
-          case 'inspired'   : return that._setAnimation('positiveOne')
-          case 'entertained': return that._setAnimation('positiveTwo')
-          case 'excited'    : return that._setAnimation('positiveThree')
-          default: break
-        }
-      }
-    })
-  }
-
-  _setAnimation(key) {
+  _handlePress(key, feeling) {
     let animations = this.state.animations
     Object.keys(animations).forEach(function(key) {
       animations[key] = null
     })
     animations[key] = 'pulse'
-    this.setState({ animations: animations })
-  }
-
-  _handlePress(key, feeling) {
-    this._setAnimation(key)
     this.props.handleVote(this.props.step, feeling)
+    this.setState({ animations: animations })
   }
 
   render() {

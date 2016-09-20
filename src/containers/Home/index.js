@@ -77,7 +77,7 @@ export default class extends React.Component {
   _shareLinkWithDialog() {
     const shareLinkContent = {
       contentType       : 'link',
-      contentUrl        : 'https://hotchiwawa.com/plush', //@TODO Change me to app store download link
+      contentUrl        : 'https://hotchiwawa.com/plush',
       contentDescription: 'Plush! A fun way of meeting new people online.'
     }
     ShareDialog.canShow(shareLinkContent).then(
@@ -126,7 +126,7 @@ export default class extends React.Component {
                 <Title style={[styles.coverText, styles.shadowed]}>Relationship</Title>
               </Image>
             </TouchableHighlight>
-            <Button block info onPress={this._shareLinkWithDialog.bind(this)}>Share Plush! On Facebook</Button>
+            <Button block info onPress={this._shareLinkWithDialog.bind(this)}>Share The Plush! iOS App On Facebook</Button>
           </View>
         </Container>
       )

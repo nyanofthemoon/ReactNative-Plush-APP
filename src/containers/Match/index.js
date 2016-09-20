@@ -5,6 +5,7 @@ import { View, Dimensions, Text, Vibration, Image } from 'react-native'
 import { Title, Button } from 'native-base'
 import { connect } from 'react-redux'
 import Carousel from 'react-native-looped-carousel'
+import Drawer from 'react-native-drawer'
 import { default as Sound } from 'react-native-sound'
 
 import { updateMatch, goToHomeScene } from './../../actions'
@@ -14,6 +15,7 @@ import Container from './../../components/Container'
 import RTCView from './../../components/RTCView'
 import Timer from './../../components/Timer'
 import MatchVote from './../../components/MatchVote'
+import MatchVoteDrawer from './../../components/MatchVoteDrawer'
 import MatchResult from './../../components/MatchResult'
 import LatestOutcome from './../../components/LatestOutcome'
 import BlockReportFooter from './../../components/BlockReportFooter'
@@ -49,6 +51,14 @@ export default class extends React.Component {
     }
   }
 
+  closeVoteDrawer() {
+    this._drawer.close()
+  }
+
+  openVoteDrawer() {
+    this._drawer.open()
+  }
+
   _handleVote(step, feeling) {
     updateMatch({
       step   : step,
@@ -63,9 +73,6 @@ export default class extends React.Component {
 
   render() {
     const {app, room, notification} = this.props
-
-    // @TODO app.get('matchIsStealth')
-
     let status = room.get('status')
     let footer = null
     switch(status) {
@@ -154,7 +161,21 @@ export default class extends React.Component {
                 <View></View>
               )
             }
-            <RTCView key='rtc' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth')}} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />
+            <Drawer
+              type="overlay"
+              negotiatePan={true}
+              acceptPan={true}
+              captureGestures={true}
+              panThreshold={0.25}
+              panOpenMask={0.25}
+              panCloseMask={0.25}
+              closedDrawerOffset={0}
+              side="left"
+              content={<MatchVoteDrawer key='audio' step='audio' type={app.get('matchMode')} handleVote={this._handleVote} />}
+            >
+              <RTCView key='rtc' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth')}} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />
+            </Drawer>
+
           </Container>
         )
         break
@@ -164,7 +185,7 @@ export default class extends React.Component {
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>
             <Title style={styles.title}>How do you feel after this plush?</Title>
-            <MatchVote key='audio' step='audio' type={app.get('matchMode')} handleVote={this._handleVote} />
+            <MatchVote key='audio' step='audio' type={app.get('matchMode')} votes={room.getIn(['results', 'audio'])} handleVote={this._handleVote} />
             <Timer key='selection_audio' milliseconds={room.get('timer')} />
           </Container>
         )
@@ -195,7 +216,7 @@ export default class extends React.Component {
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>
             <Title style={styles.title}>How do you feel after this plush?</Title>
-            <MatchVote key='video' step='video' type={app.get('matchMode')} handleVote={this._handleVote} />
+            <MatchVote key='video' step='video' type={app.get('matchMode')} votes={room.getIn(['results', 'video'])} handleVote={this._handleVote} />
           </Container>
         )
         break
