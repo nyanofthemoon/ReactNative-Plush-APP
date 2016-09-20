@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import Carousel from 'react-native-looped-carousel'
 import Drawer from 'react-native-drawer'
 import { default as Sound } from 'react-native-sound'
+var Spinner = require('react-native-spinkit')
 
 import { updateMatch, goToHomeScene } from './../../actions'
 import { getSocketId } from './../../helpers/socket'
@@ -87,7 +88,7 @@ export default class extends React.Component {
           this._vibrate()
         }
         return (
-          <Container header={header} footer={footer} headerTitle='Waiting Room'>
+          <Container header={header} footer={footer} headerTitle={<Spinner size={45} type='ThreeBounce' style={{ alignSelf:'center'}} color='#FFFFFF'/>}>
             { 'audio' !== status ?
               (
                 <View>
@@ -95,7 +96,6 @@ export default class extends React.Component {
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Huh?</Text>
                       <Text style={styles.slideText}>Waiting For Next Plush</Text>
-                      <Text style={styles.slideText}>Stay here or lose your spot!</Text>
                       <Text style={styles.slideTextDetail}>In the meantime, you should put your headphones on! You could also swipe through this 10 Steps Tutorial...</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
