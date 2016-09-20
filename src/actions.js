@@ -93,6 +93,9 @@ function socketConnectionRequest() {
             return unknownNotificationReception(data)
         }
       })
+      socket.on('availability', function (data) {
+        return queryAvailabilityReception(data)
+      })
       socket.on('message', function (data) {
          return messageReception(data)
       })
@@ -121,7 +124,7 @@ function socketConnectionRequest() {
 export function facebookGraphGetProfile() {
   AccessToken.getCurrentAccessToken().then(function(data) {
     new GraphRequestManager().addRequest(new GraphRequest(
-      '/me?fields=email,gender,birthday,first_name,last_name,link,picture,locale,timezone',
+      '/me?fields=id,email,gender,birthday,first_name,last_name,link,picture,locale,timezone',
       null,
       function(error, result) {
         if (error) {
@@ -218,6 +221,10 @@ function queryUserReception(data) {
 
 function queryRoomReception(data) {
   dispatch({type: types.SOCKET_QUERY_ROOM_RECEIVED, payload: data})
+}
+
+function queryAvailabilityReception(data) {
+  dispatch({type: types.SOCKET_CONTACT_AVAILABILITY_RECEIVED, payload: data})
 }
 
 function queryUnknownReception(data) {

@@ -5,8 +5,8 @@ import {fromJS} from 'immutable'
 import * as types from './../constants'
 
 const initialState = fromJS({
-  room: null,
-  data: {
+  room        : null,
+  data        : {
     leftEmoticon : null,
     leftGender   : null,
     rightEmoticon: null,
@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
   let nextState
   switch (action.type) {
     case types.SOCKET_NOTIFICATION_ROOM_RECEIVED:
-      nextState = fromJS(state).merge(action.payload)
+      nextState = state.merge(action.payload)
       break
     case types.SOCKET_NOTIFICATION_UNKNOWN_RECEIVED:
     default:

@@ -126,7 +126,7 @@ export default class extends React.Component {
                 <Title style={[styles.coverText, styles.shadowed]}>Relationship</Title>
               </Image>
             </TouchableHighlight>
-            <Button block info onPress={this._shareLinkWithDialog.bind(this)}>Share The Plush! iOS App On Facebook</Button>
+            <Button block info onPress={this._shareLinkWithDialog.bind(this)}>Share The Plush! App On Facebook</Button>
           </View>
         </Container>
       )
