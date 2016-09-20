@@ -206,7 +206,20 @@ export default class extends React.Component {
         footer = <Timer key='video' notify={true} milliseconds={room.get('timer')} />
         return (
           <Container header={false} footer={footer}>
+            <Drawer
+              type="overlay"
+              negotiatePan={true}
+              acceptPan={true}
+              captureGestures={true}
+              panThreshold={0.25}
+              panOpenMask={0.25}
+              panCloseMask={0.25}
+              closedDrawerOffset={0}
+              side="left"
+              content={<MatchVoteDrawer key='video' step='video' type={app.get('matchMode')} handleVote={this._handleVote} />}
+            >
             <RTCView key='rtc' data={{ mode: 'video', kind: 'rematch', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth') }} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />
+            </Drawer>
           </Container>
         )
         break

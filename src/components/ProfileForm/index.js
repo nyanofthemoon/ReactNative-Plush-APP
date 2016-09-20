@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { View } from 'react-native'
+import { View, Image } from 'react-native'
 import { Button } from 'native-base'
 import { Form,InputField,PickerField,SwitchField } from 'react-native-form-generator'
 
@@ -35,8 +35,13 @@ export default class extends React.Component{
   }
 
   render() {
+
+
     return (
       <Form ref='form' style={[styles.container, { marginTop: 10}]} onChange={this.handleFormChange.bind(this)}>
+
+        <Image style={{ height: 100, width: 100, resizeMode: 'cover', alignSelf: 'center', borderRadius: 50, marginTop: 10, marginBottom: 10}} source={{ uri: this.props.user.profile.picture }} />
+
         <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' maxLength={25} labelStyle={styles.label} valueStyle={styles.value} style={styles.value} containerStyle={styles.container} />
 
         <PickerField ref='education' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
