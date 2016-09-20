@@ -45,7 +45,7 @@ export default class extends React.Component {
       if (!badgeCount || badgeCount < 1) {
         badgeStyle = styles.hidden
       }
-      let online = (!availability.getIn(['online', id])) ? 'white' : 'lightblue'
+      let online = (!availability.getIn(['online', id])) ? '#AAAAAA' : '#FFFFFF'
       return (
         <ListItem key={id} button onPress={this._onPress.bind(this, id)} style={styles.listItem}>
           <Row style={{ flex: 1 }} nowrap>

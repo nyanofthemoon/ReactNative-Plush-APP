@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 const FBSDK = require('react-native-fbsdk');
 const { ShareDialog } = FBSDK;
 
-import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchFriendshipScene, goToMatchRelationshipScene } from './../../actions'
+import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchFriendshipScene, goToMatchRelationshipScene, calculateUnreadMessages } from './../../actions'
 
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
@@ -54,14 +54,16 @@ const femaleGreets = [
 @connect(
   state => ({
     app : state.app,
-    user: state.user
+    user: state.user,
+    contact: state.contact
   })
 )
 
 export default class extends React.Component {
   static propTypes = {
     app : React.PropTypes.object.isRequired,
-    user: React.PropTypes.object.isRequired
+    user: React.PropTypes.object.isRequired,
+    contact: React.PropTypes.object.isRequired
   }
 
   _getGreeting(gender) {
@@ -114,7 +116,7 @@ export default class extends React.Component {
       let friendship   = this._getHalfCover('friendship', user.getIn(['profile','gender']), user.getIn(['profile', 'friendship']))
       let relationship = this._getHalfCover('relationship', user.getIn(['profile','gender']), user.getIn(['profile', 'orientation']))
       return (
-        <Container header={true} scene='home' headerTitle={'Start Plush!'}>
+        <Container header={true} unread={calculateUnreadMessages()} scene='home' headerTitle={'Start Plush!'}>
           <View style={styles.container}>
             <TouchableHighlight underlayColor='transparent' style={{flex: 1, borderTopWidth: 1, borderTopColor: 'white', borderBottomWidth: 1, borderBottomStyle: 'dashed', borderBottomColor: 'white'}} onPress={goToMatchFriendshipScene}>
               <Image source={friendship} style={styles.cover}>

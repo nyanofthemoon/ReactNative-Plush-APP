@@ -47,8 +47,8 @@ export default StyleSheet.create({
   badge: {
     alignSelf: 'flex-end',
     marginRight: -6,
-    width: 28,
-    height: 28
+    height: 28,
+    minWidth: 28
   },
 
   hidden: {

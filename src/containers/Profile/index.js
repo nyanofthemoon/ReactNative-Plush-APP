@@ -8,19 +8,21 @@ import { connect } from 'react-redux'
 import Container from './../../components/Container'
 import ProfileForm from './../../components/ProfileForm'
 
-import { goToLogoutScene, updateProfile } from './../../actions'
+import { goToLogoutScene, updateProfile, calculateUnreadMessages } from './../../actions'
 
 import styles from './styles'
 
 @connect(
   state => ({
-    user: state.user
+    user: state.user,
+    contact: state.contact
   })
 )
 
 export default class extends React.Component {
   static propTypes = {
-    user: React.PropTypes.object.isRequired
+    user: React.PropTypes.object.isRequired,
+    contact: React.PropTypes.object.isRequired
   }
 
   _saveProfile() {
@@ -42,7 +44,7 @@ export default class extends React.Component {
       </View>
     )
     return (
-      <Container header={true} footer={footer} scene='profile' headerTitle='Plush Profile'>
+      <Container header={true} footer={footer} unread={calculateUnreadMessages()} scene='profile' headerTitle='Plush Profile'>
         <ScrollView scrollEnabled={true}>
           <ProfileForm ref='form' user={user.toJSON()}/>
         </ScrollView>
