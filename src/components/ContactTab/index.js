@@ -72,13 +72,13 @@ export default class extends React.Component {
   _sortListByMessageCount() {
     const {contact} = this.props
     let unreads = mapValues(contact.get('count').toJSON(), parseInt);
-    let oldList = this.props.list
+    let oldList = JSON.parse(JSON.stringify(this.props.list))
     let newList = {}
-    Object.keys(unreads).forEach(function (unread) {
+    Object.keys(unreads).forEach(function(unread) {
       newList[unread] = unread
       delete(oldList[unread])
     })
-    Object.keys(oldList).forEach(function (old) {
+    Object.keys(oldList).forEach(function(old) {
       newList[old] = old
     })
     return newList

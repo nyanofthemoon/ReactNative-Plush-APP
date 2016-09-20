@@ -20,7 +20,7 @@ export default StyleSheet.create({
 
   picture: {
     resizeMode: 'cover',
-    height:200,
+    height:250,
     marginBottom: 10
   },
 
