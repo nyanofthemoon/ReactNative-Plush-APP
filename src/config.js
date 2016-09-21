@@ -1,17 +1,17 @@
 'use strict'
 
 let environment = {
-  name    : 'development',
+  //name    : 'development',
   //protocol: 'http',
   //host    : 'localhost',
   //port    : ':8888'
-  protocol: 'https',
-  host    : 'camroulette-api.herokuapp.com',
-  port    : '',
-  //name    : 'production',
   //protocol: 'https',
-  //host    : 'plush-api.herokuapp.com',
-  //port    : ''
+  //host    : 'camroulette-api.herokuapp.com',
+  //port    : '',
+  name    : 'production',
+  protocol: 'https',
+  host    : 'plush.hotchiwawa.com',
+  port    : ''
 }
 
 module.exports = {
@@ -31,7 +31,8 @@ module.exports = {
       {'url': 'stun:stun1.l.google.com:19302'},
       {'url': 'stun:stun2.l.google.com:19302'},
       {'url': 'stun:stun3.l.google.com:19302'},
-      {'url': 'stun:stun4.l.google.com:19302'}
+      {'url': 'stun:stun4.l.google.com:19302'},
+      {'url': 'stun:numb.viagenie.ca'}
     ]
   },
 
@@ -40,7 +41,7 @@ module.exports = {
   },
 
   ads: {
-    test        : true, // false for production
+    test        : false, // true for development
     interstitial: {
       id      : 'ca-app-pub-5170625817624589/6144279753',
       interval: (5 * 60000)
