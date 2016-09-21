@@ -9,7 +9,7 @@ import Drawer from 'react-native-drawer'
 import { default as Sound } from 'react-native-sound'
 var Spinner = require('react-native-spinkit')
 
-import { updateMatch, goToHomeScene } from './../../actions'
+import { updateMatch, goToHomeScene, goToMatchRelationshipScene, goToMatchFriendshipScene } from './../../actions'
 import { getSocketId } from './../../helpers/socket'
 
 import Container from './../../components/Container'
@@ -158,8 +158,8 @@ export default class extends React.Component {
                   </Carousel>
                 </View>
               ) : (
-                <View></View>
-              )
+              <View></View>
+            )
             }
             <Drawer
               type="overlay"
@@ -218,7 +218,7 @@ export default class extends React.Component {
               side="left"
               content={<MatchVoteDrawer key='video' step='video' type={app.get('matchMode')} handleVote={this._handleVote} />}
             >
-            <RTCView key='rtc' data={{ mode: 'video', kind: 'rematch', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth') }} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />
+              <RTCView key='rtc' data={{ mode: 'video', kind: 'rematch', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth') }} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />
             </Drawer>
           </Container>
         )
@@ -246,13 +246,18 @@ export default class extends React.Component {
         )
         break
       case 'terminated':
+        let retryButton
+        if ('relationship' === app.get('matchMode')) {
+          retryButton = <Button style={styles.button} success onPress={goToMatchRelationshipScene}><Title style={styles.slideText}>Try Again!</Title></Button>
+        } else {
+          retryButton = <Button style={styles.button} success onPress={goToMatchFriendshipScene}><Title style={styles.slideText}>Try Again!</Title></Button>
+        }
         return (
           <Container header={true} footer={<BlockReportFooter style={{ marginTop: 50 }} id={app.get('currentSceneId')} redirect={goToHomeScene} />} headerTitle='Escaped !'>
-            <Title style={{ marginTop: 25 }}>Your Match Left Early...</Title>
-            <Text style={{ color: 'white', padding: 25 }}>Sorry, it appears that your match had to leave in the middle of your conversation.</Text>
-            <Text style={{ color: 'white', paddingLeft: 25, paddingRight: 25 }}>Please assume positive intent as a random life event might have happened to your match!</Text>
-            <Text style={{ color: 'white', padding: 25 }}>If you feel you have been OFFENDED or ANNOYED by this member in any way, you can choose to BLOCK them and prevent any future communication.</Text>
-            <Text style={{ color: 'white', paddingLeft: 25, paddingRight: 25 }}>If you feel you have been ABUSED or BULLIED by this member in any way, you can choose to REPORT them to the community and prevent any future communication.</Text>
+            <Text style={[styles.slideTextDetail, {marginTop:20}]}>Sorry, it appears that your match had to leave in the middle of your conversation...</Text>
+            <Text style={styles.slideTextDetail}>Please assume positive intent as a random life event might have happened to your match!</Text>
+            {retryButton}
+            <Text style={[styles.slideTextDetail, {marginTop:30}]}>If you feel you have been ABUSED in any way, you can choose to BLOCK or REPORT to the community and prevent any future communication.</Text>
           </Container>
         )
         break

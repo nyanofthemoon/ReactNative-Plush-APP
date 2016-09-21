@@ -59,6 +59,13 @@ export default StyleSheet.create({
     marginBottom : 50,
     fontSize     : getCorrectFontSizeForResolution(60),
     lineHeight   : getCorrectFontSizeForResolution(80)
+  },
+
+  button: {
+    alignSelf: 'center',
+    paddingBottom: 50,
+    paddingTop: 20,
+    width: 200,
   }
 
 })
