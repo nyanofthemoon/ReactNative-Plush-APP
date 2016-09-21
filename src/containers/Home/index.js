@@ -2,11 +2,13 @@
 
 import React from 'react'
 import { View, Text, Image, TouchableHighlight } from 'react-native'
-import { Spinner, Button, Title } from 'native-base'
+import { Button, Title } from 'native-base'
 import { connect } from 'react-redux'
 
 const FBSDK = require('react-native-fbsdk');
 const { ShareDialog } = FBSDK;
+
+var Spinner = require('react-native-spinkit')
 
 import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchFriendshipScene, goToMatchRelationshipScene, calculateUnreadMessages } from './../../actions'
 
@@ -51,6 +53,19 @@ const femaleGreets = [
   "You are irreplaceable."
 ]
 
+const loadingAnimations = [
+  'CircleFlip',
+  'Bounce',
+  'Wave',
+  'WanderingCubes',
+  'Pulse',
+  'ThreeBounce',
+  'Circle',
+  '9CubeGrid',
+  'FadingCircle',
+  'FadingCircleAlt'
+]
+
 @connect(
   state => ({
     app : state.app,
@@ -74,6 +89,10 @@ export default class extends React.Component {
     } else {
       return unisexGreets[Math.floor((Math.random() * unisexGreets.length))]
     }
+  }
+
+  _getLoadingAnimation() {
+    return loadingAnimations[Math.floor((Math.random() * loadingAnimations.length))]
   }
 
   _shareLinkWithDialog() {
@@ -137,7 +156,7 @@ export default class extends React.Component {
         <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
           <Title style={[styles.title, styles.shadowed]}>Plush!</Title>
           <Title style={[styles.subtitle, styles.shadowed]}>{this._getGreeting(user.getIn(['profile', 'gender']))}</Title>
-          <Spinner style={styles.shadowed} color='white' />
+          <Spinner size={50} type={this._getLoadingAnimation()} style={[styles.shadowed]} color='#FFFFFF'/>
         </Container>
       )
     }
