@@ -38,8 +38,8 @@ export default StyleSheet.create({
     color        : 'white',
     fontFamily   : 'IndieFlower',
     marginBottom : 30,
-    fontSize     : getCorrectFontSizeForResolution(22),
-    lineHeight   : getCorrectFontSizeForResolution(32)
+    fontSize     : getCorrectFontSizeForResolution(32),
+    lineHeight   : getCorrectFontSizeForResolution(40)
   },
 
   slideTextDetail: {
@@ -47,7 +47,6 @@ export default StyleSheet.create({
     fontFamily   : 'IndieFlower',
     marginLeft   : 20,
     marginRight  : 20,
-    marginBottom : 30,
     letterSpacing: 1,
     fontSize     : getCorrectFontSizeForResolution(18),
     lineHeight   : getCorrectFontSizeForResolution(28)
@@ -66,6 +65,11 @@ export default StyleSheet.create({
     paddingBottom: 50,
     paddingTop: 20,
     width: 200,
+  },
+
+  hidden: {
+    height: 0,
+    width: 0
   }
 
 })

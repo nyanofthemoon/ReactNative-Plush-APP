@@ -20,14 +20,14 @@ export default StyleSheet.create({
 
   picture: {
     resizeMode: 'cover',
-    height:200,
-    marginBottom: 10
+    height:250,
+    marginBottom: 15
   },
 
   headline: {
     fontFamily: 'IndieFlower',
     fontSize: getCorrectFontSizeForResolution(20),
-    lineHeight: getCorrectFontSizeForResolution(24),
+    lineHeight: getCorrectFontSizeForResolution(28),
     paddingBottom: 10,
     marginTop: -25
   },
@@ -46,7 +46,8 @@ export default StyleSheet.create({
   bio: {
     marginTop: 15,
     flex: 1,
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    marginBottom: 65
   },
 
   hidden: {

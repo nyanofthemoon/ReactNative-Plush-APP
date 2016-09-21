@@ -12,7 +12,7 @@ import * as Db    from './helpers/db'
 
 import Config from './config'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUserJoinEvent, emitSocketUpdateMatchEvent, emitSocketUpdateProfileEvent, emitSocketUpdateAvailabilityEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUserJoinEvent, emitSocketUpdateMatchEvent, emitSocketUpdateCallEvent, emitSocketUpdateProfileEvent, emitSocketUpdateAvailabilityEvent, emitSocketUserCallEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -81,6 +81,8 @@ function socketConnectionRequest() {
             return queryUserReception(data)
           case 'room':
             return queryRoomReception(data)
+          case 'call':
+            return queryCallReception(data)
           default:
             return queryUnknownReception(data)
         }
@@ -92,6 +94,9 @@ function socketConnectionRequest() {
           default:
             return unknownNotificationReception(data)
         }
+      })
+      socket.on('availability', function (data) {
+        return queryAvailabilityReception(data)
       })
       socket.on('message', function (data) {
          return messageReception(data)
@@ -121,7 +126,7 @@ function socketConnectionRequest() {
 export function facebookGraphGetProfile() {
   AccessToken.getCurrentAccessToken().then(function(data) {
     new GraphRequestManager().addRequest(new GraphRequest(
-      '/me?fields=email,gender,birthday,first_name,last_name,link,picture,locale,timezone',
+      '/me?fields=id,email,gender,birthday,first_name,last_name,link,picture,locale,timezone',
       null,
       function(error, result) {
         if (error) {
@@ -193,12 +198,12 @@ function queryUserReception(data) {
         setTimeout(function() {
           // Query Contact Information
           Object.keys(data.data.contacts.relationship).forEach(function(id) {
-            if (undefined === _getState().contact.getIn(['profiles', id])) {
+            if (undefined === _getState().contact.getIn(['profiles', id]) || Math.floor((Math.random()*10)) == 3) {
               queryContact(id)
             }
           })
           Object.keys(data.data.contacts.friendship).forEach(function(id) {
-            if (undefined === _getState().contact.getIn(['profiles', id])) {
+            if (undefined === _getState().contact.getIn(['profiles', id]) || Math.floor((Math.random()*10)) == 7) {
               queryContact(id)
             }
           })
@@ -218,6 +223,17 @@ function queryUserReception(data) {
 
 function queryRoomReception(data) {
   dispatch({type: types.SOCKET_QUERY_ROOM_RECEIVED, payload: data})
+}
+
+function queryCallReception(data) {
+  dispatch({type: types.SOCKET_QUERY_CALL_RECEIVED, payload: data})
+  if ('waiting' === data.data.status) {
+    goToCallScene()
+  }
+}
+
+function queryAvailabilityReception(data) {
+  dispatch({type: types.SOCKET_CONTACT_AVAILABILITY_RECEIVED, payload: data})
 }
 
 function queryUnknownReception(data) {
@@ -283,6 +299,11 @@ function goToMatchScene(data) {
   Actions.matchs()
 }
 
+function goToCallScene() {
+  dispatch({type: types.SCENE_NAVIGATION_CALL})
+  Actions.calls()
+}
+
 export function goToMatchRelationshipScene() {
   goToMatchScene({ type: 'relationship', stealth: 'no' })
 }
@@ -318,9 +339,11 @@ export function messageUser(id, message) {
 }
 
 function messageReception(data) {
-  data.scene    = _getState().app.get('currentScene')
-  data.sceneId  = _getState().app.get('currentSceneId')
-  data.sceneTab = _getState().app.get('currentSceneTab')
+  if (_getState().app) {
+    data.scene    = _getState().app.get('currentScene') || null
+    data.sceneId  = _getState().app.get('currentSceneId') || null
+    data.sceneTab = _getState().app.get('currentSceneTab') || null
+  }
   dispatch({type: types.SOCKET_MESSAGE_USER_RECEIVED, payload: data})
   Db.saveContacts(_getState().contact.toJSON(), function() {})
 }
@@ -353,6 +376,22 @@ export function joinMatch(data, callback) {
   emitSocketUserJoinEvent(data, callback)
 }
 
+export function callContact(data, callback) {
+  dispatch({type: types.SOCKET_QUERY_CALL_REQUESTED, payload: data})
+  emitSocketUserCallEvent(data, callback)
+}
+
+export function initiateCall(data) {
+  dispatch({type: types.SOCKET_CONTACT_CALL_REQUESTED, payload: data})
+  Actions.calls()
+}
+
+export function hangupCall(name) {
+  dispatch({type: types.SOCKET_CONTACT_CALL_HANGUP_REQUESTED, payload: name})
+  emitSocketUpdateCallEvent({ status: 'inactive' }, name)
+  Actions.contacts()
+}
+
 export function leaveMatch(data) {
   dispatch({type: types.SOCKET_MATCH_LEAVE_REQUESTED, payload: data})
 }
@@ -360,6 +399,10 @@ export function leaveMatch(data) {
 export function canShowAd() {
   let roomStatus = _getState().room.get('status')
   if (roomStatus && 'waiting' !== roomStatus) {
+    return false
+  }
+  let callStatus = _getState().ring.get('status')
+  if (callStatus && 'waiting' !== callStatus) {
     return false
   }
   return true

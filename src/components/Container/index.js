@@ -68,11 +68,11 @@ export default class extends Component {
   render() {
     let count = ''
     if (this.props.header) {
-      count = calculateUnreadMessages()
+      count = this.props.unread || calculateUnreadMessages()
       if (count < 1) {
         count = <Text></Text>
       } else {
-        count = <View style={{backgroundColor: 'red', position: 'absolute', top: -8, right: -9, width: 20, height: 20, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 5}}><Text style={{fontSize: 10, color: 'white', fontWeight: '900', lineHeight: 10}}>{count}</Text></View>
+        count = <View style={{backgroundColor: 'red', position: 'absolute', top: -10, right: -10, width: 24, height: 24, borderRadius: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 5}}><Text style={{fontSize: 10, color: 'white', fontWeight: '900', lineHeight: 10}}>{count}</Text></View>
       }
     }
     return (

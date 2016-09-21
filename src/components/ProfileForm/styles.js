@@ -35,7 +35,8 @@ export default StyleSheet.create({
   },
 
   bio: {
-    marginBottom: 100
+    marginBottom: 50,
+    minHeight: 150
   }
 
 })

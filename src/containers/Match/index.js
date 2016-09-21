@@ -5,15 +5,18 @@ import { View, Dimensions, Text, Vibration, Image } from 'react-native'
 import { Title, Button } from 'native-base'
 import { connect } from 'react-redux'
 import Carousel from 'react-native-looped-carousel'
+import Drawer from 'react-native-drawer'
 import { default as Sound } from 'react-native-sound'
+var Spinner = require('react-native-spinkit')
 
-import { updateMatch, goToHomeScene } from './../../actions'
+import { updateMatch, goToHomeScene, goToMatchRelationshipScene, goToMatchFriendshipScene } from './../../actions'
 import { getSocketId } from './../../helpers/socket'
 
 import Container from './../../components/Container'
 import RTCView from './../../components/RTCView'
 import Timer from './../../components/Timer'
 import MatchVote from './../../components/MatchVote'
+import MatchVoteDrawer from './../../components/MatchVoteDrawer'
 import MatchResult from './../../components/MatchResult'
 import LatestOutcome from './../../components/LatestOutcome'
 import BlockReportFooter from './../../components/BlockReportFooter'
@@ -49,6 +52,14 @@ export default class extends React.Component {
     }
   }
 
+  closeVoteDrawer() {
+    this._drawer.close()
+  }
+
+  openVoteDrawer() {
+    this._drawer.open()
+  }
+
   _handleVote(step, feeling) {
     updateMatch({
       step   : step,
@@ -63,9 +74,6 @@ export default class extends React.Component {
 
   render() {
     const {app, room, notification} = this.props
-
-    // @TODO app.get('matchIsStealth')
-
     let status = room.get('status')
     let footer = null
     switch(status) {
@@ -80,7 +88,7 @@ export default class extends React.Component {
           this._vibrate()
         }
         return (
-          <Container header={header} footer={footer} headerTitle='Waiting Room'>
+          <Container header={header} footer={footer} headerTitle={<Spinner size={45} type='ThreeBounce' style={{ alignSelf:'center'}} color='#FFFFFF'/>}>
             { 'audio' !== status ?
               (
                 <View>
@@ -88,7 +96,6 @@ export default class extends React.Component {
                     <View style={styles.slideTextContainer}>
                       <Text style={styles.slideTextHeader}>Huh?</Text>
                       <Text style={styles.slideText}>Waiting For Next Plush</Text>
-                      <Text style={styles.slideText}>Stay here or lose your spot!</Text>
                       <Text style={styles.slideTextDetail}>In the meantime, you should put your headphones on! You could also swipe through this 10 Steps Tutorial...</Text>
                     </View>
                     <View style={styles.slideTextContainer}>
@@ -151,10 +158,24 @@ export default class extends React.Component {
                   </Carousel>
                 </View>
               ) : (
-                <View></View>
-              )
+              <View></View>
+            )
             }
-            <RTCView key='rtc' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth')}} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />
+            <Drawer
+              type="overlay"
+              negotiatePan={true}
+              acceptPan={true}
+              captureGestures={true}
+              panThreshold={0.25}
+              panOpenMask={0.25}
+              panCloseMask={0.25}
+              closedDrawerOffset={0}
+              side="left"
+              content={<MatchVoteDrawer key='audio' step='audio' type={app.get('matchMode')} handleVote={this._handleVote} />}
+            >
+              <RTCView key='rtc' data={{ mode: 'audio', kind: 'match', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth')}} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />
+            </Drawer>
+
           </Container>
         )
         break
@@ -164,7 +185,7 @@ export default class extends React.Component {
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>
             <Title style={styles.title}>How do you feel after this plush?</Title>
-            <MatchVote key='audio' step='audio' type={app.get('matchMode')} handleVote={this._handleVote} />
+            <MatchVote key='audio' step='audio' type={app.get('matchMode')} votes={room.getIn(['results', 'audio'])} handleVote={this._handleVote} />
             <Timer key='selection_audio' milliseconds={room.get('timer')} />
           </Container>
         )
@@ -185,7 +206,20 @@ export default class extends React.Component {
         footer = <Timer key='video' notify={true} milliseconds={room.get('timer')} />
         return (
           <Container header={false} footer={footer}>
-            <RTCView key='rtc' data={{ mode: 'video', kind: 'rematch', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth') }} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />
+            <Drawer
+              type="overlay"
+              negotiatePan={true}
+              acceptPan={true}
+              captureGestures={true}
+              panThreshold={0.25}
+              panOpenMask={0.25}
+              panCloseMask={0.25}
+              closedDrawerOffset={0}
+              side="left"
+              content={<MatchVoteDrawer key='video' step='video' type={app.get('matchMode')} handleVote={this._handleVote} />}
+            >
+              <RTCView key='rtc' data={{ mode: 'video', kind: 'rematch', type: app.get('matchMode'), name: room.get('name'), stealth: app.get('matchIsStealth') }} localStream={app.get('localStream')} socket={app.get('socket')} config={Config.webrtc} />
+            </Drawer>
           </Container>
         )
         break
@@ -195,7 +229,7 @@ export default class extends React.Component {
         return (
           <Container header={true} footer={footer} headerTitle='Your Thoughts'>
             <Title style={styles.title}>How do you feel after this plush?</Title>
-            <MatchVote key='video' step='video' type={app.get('matchMode')} handleVote={this._handleVote} />
+            <MatchVote key='video' step='video' type={app.get('matchMode')} votes={room.getIn(['results', 'video'])} handleVote={this._handleVote} />
           </Container>
         )
         break
@@ -212,13 +246,18 @@ export default class extends React.Component {
         )
         break
       case 'terminated':
+        let retryButton
+        if ('relationship' === app.get('matchMode')) {
+          retryButton = <Button style={styles.button} success onPress={goToMatchRelationshipScene}><Title style={styles.slideText}>Try Again!</Title></Button>
+        } else {
+          retryButton = <Button style={styles.button} success onPress={goToMatchFriendshipScene}><Title style={styles.slideText}>Try Again!</Title></Button>
+        }
         return (
           <Container header={true} footer={<BlockReportFooter style={{ marginTop: 50 }} id={app.get('currentSceneId')} redirect={goToHomeScene} />} headerTitle='Escaped !'>
-            <Title style={{ marginTop: 25 }}>Your Match Left Early...</Title>
-            <Text style={{ color: 'white', padding: 25 }}>Sorry, it appears that your match had to leave in the middle of your conversation.</Text>
-            <Text style={{ color: 'white', paddingLeft: 25, paddingRight: 25 }}>Please assume positive intent as a random life event might have happened to your match!</Text>
-            <Text style={{ color: 'white', padding: 25 }}>If you feel you have been OFFENDED or ANNOYED by this member in any way, you can choose to BLOCK them and prevent any future communication.</Text>
-            <Text style={{ color: 'white', paddingLeft: 25, paddingRight: 25 }}>If you feel you have been ABUSED or BULLIED by this member in any way, you can choose to REPORT them to the community and prevent any future communication.</Text>
+            <Text style={[styles.slideTextDetail, {marginTop:20}]}>Sorry, it appears that your match had to leave in the middle of your conversation...</Text>
+            <Text style={styles.slideTextDetail}>Please assume positive intent as a random life event might have happened to your match!</Text>
+            {retryButton}
+            <Text style={[styles.slideTextDetail, {marginTop:30}]}>If you feel you have been ABUSED in any way, you can choose to BLOCK or REPORT to the community and prevent any future communication.</Text>
           </Container>
         )
         break
