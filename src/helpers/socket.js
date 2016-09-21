@@ -64,6 +64,12 @@ export function emitSocketUserJoinEvent(data, callback) {
   }
 }
 
+export function emitSocketUserCallEvent(data, callback) {
+  if (true === isSocketConnected()) {
+    socket.emit('call', data, callback)
+  }
+}
+
 export function emitSocketUserLeaveEvent() {
   if (true === isSocketConnected()) {
     socket.emit('leave', {})
@@ -79,6 +85,12 @@ export function emitSocketUpdateMatchEvent(data) {
 export function emitSocketUpdateProfileEvent(data) {
   if (true === isSocketConnected()) {
     socket.emit('update', {type: 'profile', data: data})
+  }
+}
+
+export function emitSocketUpdateCallEvent(data, name) {
+  if (true === isSocketConnected()) {
+    socket.emit('update', {type: 'call', id: name, data: data})
   }
 }
 

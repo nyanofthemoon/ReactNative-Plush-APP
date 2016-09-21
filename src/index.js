@@ -9,6 +9,7 @@ import { Actions, ActionConst, Scene, Router } from 'react-native-router-flux'
 import Store from './configureStore'
 import Home from './containers/Home'
 import Match from './containers/Match'
+import Call from './containers/Call'
 import Profile from './containers/Profile'
 import Contacts from './containers/Contacts'
 import Contact from './containers/Contact'
@@ -22,6 +23,7 @@ const scenes = Actions.create(
     <Scene key='contact' component={Contact} type={ActionConst.REPLACE}/>
     <Scene key='profile' component={Profile} type={ActionConst.REPLACE}/>
     <Scene key='matchs' component={Match} type={ActionConst.REPLACE}/>
+    <Scene key='calls' component={Call} type={ActionConst.REPLACE}/>
     <Scene key='logout' component={Logout} type={ActionConst.PUSH_OR_POP}/>
     <Scene key='error' component={Error} type={ActionConst.PUSH_OR_POP} />
   </Scene>

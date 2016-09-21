@@ -8,7 +8,7 @@ import { Column as Col, Row } from 'react-native-flexbox-grid'
 import { Title, Button, List, ListItem, Text, Thumbnail, Badge, Icon } from 'native-base'
 import { connect } from 'react-redux'
 
-import { goToContact, goToMatchFriendshipScene, goToMatchRelationshipScene } from './../../actions'
+import { goToContact, initiateCall, goToMatchFriendshipScene, goToMatchRelationshipScene } from './../../actions'
 
 import renderIf from './../../helpers/renderIf'
 import { genderIcon } from './../../helpers/icons'
@@ -35,6 +35,10 @@ export default class extends React.Component {
     goToContact(id)
   }
 
+  _onInitiateCall(id) {
+    initiateCall({ id: id })
+  }
+
   _renderRow(id) {
     const {contact, availability} = this.props
     let profile = contact.getIn(['profiles', id])
@@ -45,7 +49,15 @@ export default class extends React.Component {
       if (!badgeCount || badgeCount < 1) {
         badgeStyle = styles.hidden
       }
-      let online = (!availability.getIn(['online', id])) ? '#AAAAAA' : '#FFFFFF'
+      let online
+      let callButton = null
+      if (!availability.getIn(['online', id])) {
+        online = '#AAAAAA'
+        callButton = <Button bordered style={{paddingLeft:10, paddingRight:30}}><Icon style={{ color:'#AAAAAA' }} name='ios-call-outline' /></Button>
+      } else {
+        online = '#FFFFFF'
+        callButton = <Button bordered style={{paddingLeft:10, paddingRight:30}} onPress={this._onInitiateCall.bind(this, id)}><Icon style={{ color:'white' }} name='ios-call' /></Button>
+      }
       return (
         <ListItem key={id} button onPress={this._onPress.bind(this, id)} style={styles.listItem}>
           <Row style={{ flex: 1 }} nowrap>
@@ -55,11 +67,14 @@ export default class extends React.Component {
             <Col sm={2}>
               <Thumbnail style={{ marginLeft: 6 }} size={40} source={{uri:profile.profile.picture}}/>
             </Col>
-            <Col sm={8} style={{ justifyContent: 'center' }}>
+            <Col sm={7} style={{ justifyContent: 'center' }}>
               <Text style={[styles.nickname, { color: online, marginLeft: 2 }]}>{profile.profile.nickname}</Text>
             </Col>
             <Col sm={1} style={{ justifyContent: 'center' }}>
               <Badge style={badgeStyle}>{badgeCount}</Badge>
+            </Col>
+            <Col sm={1} style={{ justifyContent: 'center' }}>
+              {callButton}
             </Col>
           </Row>
         </ListItem>

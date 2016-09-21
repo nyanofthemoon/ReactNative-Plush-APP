@@ -114,6 +114,12 @@ export default (state = initialState, action) => {
         matchIsStealth: action.payload.stealth || 'no'
       })
       break
+    case types.SCENE_NAVIGATION_CALL:
+      nextState = state.merge({
+        previousScene : state.get('currentScene'),
+        currentScene  : 'call'
+      })
+      break
     case types.SCENE_NAVIGATION_ERROR:
       nextState = state.merge({
         facebookStatus: 'unauthenticated',
@@ -124,18 +130,32 @@ export default (state = initialState, action) => {
         previousScene : state.get('currentScene'),
         currentScene  : 'error'
       })
+      break
+
     case types.SOCKET_QUERY_CONTACT_RECEIVED:
-      if ('match' === state.get('currentScene') && action.payload.self == false) {
-        nextState = state.merge({
-          currentSceneId : action.payload.data.id,
-          currentSceneTab: 0
-        })
+      nextState = state.set('currentSceneId', action.payload.data.id)
+      break
+
+    case types.SOCKET_CONTACT_CALL_REQUESTED:
+      nextState = state.set('currentSceneId', action.payload.id)
+      break
+
+    case types.SOCKET_MATCH_JOIN_REQUESTED:
+      if (action.payload.stream) {
+        nextState = state.set('localStream', action.payload.stream)
       }
       break
-    case types.SOCKET_MATCH_JOIN_REQUESTED:
-      nextState = state.set('localStream', action.payload.stream)
-      break
+
+    case types.SOCKET_QUERY_CALL_REQUESTED:
+      if (action.payload.data && action.payload.data.status === 'inactive') {
+        nextState = state.set('localStream', null)
+      } else if (action.payload.stream) {
+        nextState = state.set('localStream', action.payload.stream)
+      }
+      break;
+
     case types.SOCKET_MATCH_LEAVE_REQUESTED:
+    case types.SOCKET_CONTACT_CALL_HANGUP_REQUESTED:
       nextState = state.set('localStream', null)
       break
 

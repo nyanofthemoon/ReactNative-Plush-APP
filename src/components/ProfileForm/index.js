@@ -42,7 +42,7 @@ export default class extends React.Component{
 
         <Image style={{ height: 100, width: 100, resizeMode: 'cover', alignSelf: 'center', borderRadius: 50, marginTop: 10, marginBottom: 10}} source={{ uri: this.props.user.profile.picture }} />
 
-        <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' maxLength={25} labelStyle={styles.label} valueStyle={styles.value} style={styles.value} containerStyle={styles.container} />
+        <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' maxLength={20} labelStyle={styles.label} valueStyle={styles.value} style={styles.value} containerStyle={styles.container} />
 
         <PickerField ref='education' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
                      label='Education'

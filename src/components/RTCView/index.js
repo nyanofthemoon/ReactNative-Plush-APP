@@ -10,7 +10,9 @@ import { Text, TouchableHighlight, View, TextInput, ListView, Dimensions } from 
 var WebRTC = require('react-native-webrtc');
 var { RTCPeerConnection, RTCIceCandidate, RTCSessionDescription, RTCView, MediaStreamTrack, getUserMedia } = WebRTC;
 
-import { goToErrorScene, joinMatch, leaveMatch } from './../../actions'
+var Spinner = require('react-native-spinkit')
+
+import { goToErrorScene, callContact, hangupCall, joinMatch, leaveMatch } from './../../actions'
 
 import Config from './../../config'
 
@@ -48,12 +50,21 @@ export default class extends React.Component {
       this._getLocalStream(true, function(stream) {
         let data = that.props.data
         data.stream = stream
-        joinMatch(data, function(socketIds) {
-          for (const i in socketIds) {
-            const socketId = socketIds[i];
-            that._createPC(socketId, true);
-          }
-        })
+        if (that.props.data.kind != 'call') {
+          joinMatch(data, function(socketIds) {
+            for (const i in socketIds) {
+              const socketId = socketIds[i];
+              that._createPC(socketId, true);
+            }
+          })
+        } else {
+          callContact(data, function(socketIds) {
+            for (const i in socketIds) {
+              const socketId = socketIds[i];
+              that._createPC(socketId, true);
+            }
+          })
+        }
       })
       this.props.socket.on('exchange', function (data) { that._exchange(data); });
       this.props.socket.on('leave', function (socketId) { that._leave(socketId); });
@@ -86,7 +97,11 @@ export default class extends React.Component {
       }
       this.props.socket.off('exchange')
       this.props.socket.off('leave')
-      leaveMatch()
+      if (this.props.data.kind != 'call') {
+        leaveMatch()
+      } else {
+        hangupCall()
+      }
     }
   }
 
@@ -221,7 +236,11 @@ export default class extends React.Component {
 
   _leave(socketId) {
     try {
-      leaveMatch()
+      if (this.props.data.kind != 'call') {
+        leaveMatch()
+      } else {
+        hangupCall()
+      }
       const pc = this.state.pcPeers[socketId];
       if (pc) {
         pc.close();
@@ -264,7 +283,7 @@ export default class extends React.Component {
   render() {
     let height = this.state.windowHeight
     let width  = Math.floor((height * 3 / 4))
-    let miniTop  = height - 175
+    let miniTop = height - 175
     let miniLeft = this.state.windowWidth - 90
     var remote =  null
     if (remoteStream) {
@@ -286,7 +305,7 @@ export default class extends React.Component {
         )
       } else {
         return (
-          <View style={{flex:1, backgroundColor: 'black', height: height}}>
+          <View style={{flex:1, backgroundColor: '#262672', height: height}}>
             <RTCView streamURL={remote} style={{width: width, height: height}}/>
             <RTCView streamURL={local} style={[styles.mini, {backgroundColor:'black', top: miniTop, left: miniLeft}]}/>
           </View>
@@ -302,7 +321,8 @@ export default class extends React.Component {
         )
       } else {
         return (
-          <View style={{flex:1, backgroundColor: 'black', height: height}}>
+          <View style={{flex:1, justifyContent: 'space-around', backgroundColor: '#262672', height: height}}>
+            <Spinner size={250} type='ThreeBounce' style={{ marginTop: -40, alignSelf:'center'}} color='#FFFFFF'/>
             <RTCView streamURL={local} style={[styles.mini, {backgroundColor:'black', top: miniTop, left: miniLeft}]}/>
           </View>
         )

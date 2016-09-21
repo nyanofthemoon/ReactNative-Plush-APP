@@ -34,8 +34,8 @@ export default StyleSheet.create({
 
   nickname: {
     fontFamily: 'IndieFlower',
-    fontSize: getCorrectFontSizeForResolution(20),
-    lineHeight: getCorrectFontSizeForResolution(24),
+    fontSize: getCorrectFontSizeForResolution(18),
+    lineHeight: getCorrectFontSizeForResolution(22),
     marginTop: 8,
     marginLeft: -8
   },
@@ -46,7 +46,7 @@ export default StyleSheet.create({
 
   badge: {
     alignSelf: 'flex-end',
-    marginRight: -6,
+    marginRight: -4,
     height: 28,
     minWidth: 28
   },

@@ -12,7 +12,7 @@ import * as Db    from './helpers/db'
 
 import Config from './config'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUserJoinEvent, emitSocketUpdateMatchEvent, emitSocketUpdateProfileEvent, emitSocketUpdateAvailabilityEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUserJoinEvent, emitSocketUpdateMatchEvent, emitSocketUpdateCallEvent, emitSocketUpdateProfileEvent, emitSocketUpdateAvailabilityEvent, emitSocketUserCallEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -81,6 +81,8 @@ function socketConnectionRequest() {
             return queryUserReception(data)
           case 'room':
             return queryRoomReception(data)
+          case 'call':
+            return queryCallReception(data)
           default:
             return queryUnknownReception(data)
         }
@@ -223,6 +225,13 @@ function queryRoomReception(data) {
   dispatch({type: types.SOCKET_QUERY_ROOM_RECEIVED, payload: data})
 }
 
+function queryCallReception(data) {
+  dispatch({type: types.SOCKET_QUERY_CALL_RECEIVED, payload: data})
+  if ('waiting' === data.data.status) {
+    goToCallScene()
+  }
+}
+
 function queryAvailabilityReception(data) {
   dispatch({type: types.SOCKET_CONTACT_AVAILABILITY_RECEIVED, payload: data})
 }
@@ -288,6 +297,11 @@ function goToMatchScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_MATCH, payload: data})
   emitSocketUserLeaveEvent()
   Actions.matchs()
+}
+
+function goToCallScene() {
+  dispatch({type: types.SCENE_NAVIGATION_CALL})
+  Actions.calls()
 }
 
 export function goToMatchRelationshipScene() {
@@ -360,6 +374,22 @@ export function joinMatch(data, callback) {
   emitSocketUserJoinEvent(data, callback)
 }
 
+export function callContact(data, callback) {
+  dispatch({type: types.SOCKET_QUERY_CALL_REQUESTED, payload: data})
+  emitSocketUserCallEvent(data, callback)
+}
+
+export function initiateCall(data) {
+  dispatch({type: types.SOCKET_CONTACT_CALL_REQUESTED, payload: data})
+  Actions.calls()
+}
+
+export function hangupCall(name) {
+  dispatch({type: types.SOCKET_CONTACT_CALL_HANGUP_REQUESTED, payload: name})
+  emitSocketUpdateCallEvent({ status: 'inactive' }, name)
+  Actions.contacts()
+}
+
 export function leaveMatch(data) {
   dispatch({type: types.SOCKET_MATCH_LEAVE_REQUESTED, payload: data})
 }
@@ -367,6 +397,10 @@ export function leaveMatch(data) {
 export function canShowAd() {
   let roomStatus = _getState().room.get('status')
   if (roomStatus && 'waiting' !== roomStatus) {
+    return false
+  }
+  let callStatus = _getState().call.get('status')
+  if (callStatus && 'waiting' !== roomStatus) {
     return false
   }
   return true
