@@ -27,7 +27,37 @@ const initialState = fromJS({
       element   : null
     }
   },
+  match: {
+    audio: {
+      success: 0,
+      fail   : 0
+    },
+    video: {
+      success: 0,
+      fail   : 0
+    }
+  },
   personality: {
+    internal: {
+      bored      : 0,
+      offended   : 0,
+      angry      : 0,
+      undecided  : 0,
+      charmed    : 0,
+      inspired   : 0,
+      entertained: 0,
+      excited    : 0
+    },
+    external: {
+      bored      : 0,
+      offended   : 0,
+      angry      : 0,
+      undecided  : 0,
+      charmed    : 0,
+      inspired   : 0,
+      entertained: 0,
+      excited    : 0
+    }
   },
   location: {
     city     : null,

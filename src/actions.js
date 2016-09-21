@@ -339,9 +339,11 @@ export function messageUser(id, message) {
 }
 
 function messageReception(data) {
-  data.scene    = _getState().app.get('currentScene')    || null
-  data.sceneId  = _getState().app.get('currentSceneId')  || null
-  data.sceneTab = _getState().app.get('currentSceneTab') || null
+  if (_getState().app) {
+    data.scene    = _getState().app.get('currentScene') || null
+    data.sceneId  = _getState().app.get('currentSceneId') || null
+    data.sceneTab = _getState().app.get('currentSceneTab') || null
+  }
   dispatch({type: types.SOCKET_MESSAGE_USER_RECEIVED, payload: data})
   Db.saveContacts(_getState().contact.toJSON(), function() {})
 }
@@ -399,8 +401,8 @@ export function canShowAd() {
   if (roomStatus && 'waiting' !== roomStatus) {
     return false
   }
-  let callStatus = _getState().call.get('status')
-  if (callStatus && 'waiting' !== roomStatus) {
+  let callStatus = _getState().ring.get('status')
+  if (callStatus && 'waiting' !== callStatus) {
     return false
   }
   return true

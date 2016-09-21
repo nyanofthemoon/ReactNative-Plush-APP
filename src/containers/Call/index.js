@@ -92,7 +92,6 @@ export default class extends React.Component {
               <Text style={styles.slideTextDetail}>Someone Is Calling!</Text>
               <Image style={{ height: 250, width: 250, resizeMode: 'cover', alignSelf: 'center', borderRadius: 125}} source={{uri: profile.getIn(['profile', 'picture'])} } />
               <Text style={styles.slideText}>{profile.getIn(['profile', 'nickname'])}</Text>
-
               </View>
             </Container>
           )
