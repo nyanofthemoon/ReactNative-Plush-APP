@@ -18,7 +18,7 @@ export default class extends React.Component {
     } else {
       return (
         <View style={styles.container}>
-          <Button danger style={styles.logoutButton} onPress={this.props.reject}>Reject</Button>
+          <Button danger style={styles.logoutButton} onPress={this.props.reject}>Decline</Button>
           <Button success style={styles.saveButton} onPress={this.props.accept}>Accept</Button>
         </View>
       )
