@@ -416,8 +416,8 @@ export function canShowAd() {
   if (roomStatus && 'waiting' !== roomStatus) {
     return false
   }
-  let callStatus = _getState().ring.get('status')
-  if (callStatus && 'waiting' !== callStatus) {
+  let currentScene = _getState().app.get('currentScene')
+  if (currentScene && 'calls' === currentScene) {
     return false
   }
   return true
