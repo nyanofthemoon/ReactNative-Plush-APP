@@ -417,7 +417,7 @@ export function canShowAd() {
     return false
   }
   let currentScene = _getState().app.get('currentScene')
-  if (currentScene && 'calls' === currentScene) {
+  if (currentScene && 'call' === currentScene) {
     return false
   }
   return true
