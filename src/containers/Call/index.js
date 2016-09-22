@@ -106,13 +106,11 @@ export default class extends React.Component {
       case 'busy':
         return (
           <Container header={true} headerTitle={'Unavailable'} unread={calculateUnreadMessages()}>
-            <Text>Busy Or Unavailable</Text>
           </Container>
         )
       case 'inactive':
         return (
           <Container header={true} headerTitle={'Call Ended'} unread={calculateUnreadMessages()}>
-            <Text>Ended</Text>
           </Container>
         )
       }
