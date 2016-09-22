@@ -4,7 +4,7 @@ import { Actions } from 'react-native-router-flux'
 import { Geolocation } from 'react-native'
 import Geocoder from 'react-native-geocoder'
 const FBSDK = require('react-native-fbsdk')
-const { AccessToken, GraphRequest, GraphRequestManager } = FBSDK
+const { AccessToken, GraphRequest, GraphRequestManager, LoginManager } = FBSDK
 
 import * as types from './constants'
 import Store      from './configureStore'
@@ -12,7 +12,7 @@ import * as Db    from './helpers/db'
 
 import Config from './config'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUserJoinEvent, emitSocketUpdateMatchEvent, emitSocketUpdateCallEvent, emitSocketUpdateProfileEvent, emitSocketUpdateAvailabilityEvent, emitSocketUserCallEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUserJoinEvent, emitSocketUpdateMatchEvent, emitSocketUpdateCallEvent, emitSocketUpdateProfileEvent, emitSocketUpdateAvailabilityEvent, emitSocketUserCallEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent, emitSocketUserDeletionRequestEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -39,6 +39,21 @@ export function loadUserData() {
       }
     )
   }
+}
+
+export function eraseAllData() {
+  try {
+    emitSocketUserDeletionRequestEvent()
+    LoginManager.logOut()
+    facebookConnectionFailure()
+    Db.deleteFacebookUser()
+    Db.deleteUser()
+    Db.deleteContacts()
+    setTimeout(function () {
+      dispatch({type: types.ERASE_ALL_DATA})
+      goToHomeScene()
+    }, 1000)
+  } catch (e) {}
 }
 
 export function facebookConnectionSuccess() {

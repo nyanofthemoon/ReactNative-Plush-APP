@@ -98,7 +98,7 @@ export default class extends React.Component {
   _shareLinkWithDialog() {
     const shareLinkContent = {
       contentType       : 'link',
-      contentUrl        : 'https://hotchiwawa.com/plush',
+      contentUrl        : 'https://itunes.apple.com/us/app/plush!/id1155174037',
       contentDescription: 'Plush! A fun way of meeting new people online.'
     }
     ShareDialog.canShow(shareLinkContent).then(

@@ -45,6 +45,12 @@ export default StyleSheet.create({
   logout: {
     width: 182,
     height: 75
+  },
+
+  erase: {
+    width: 182,
+    height: 30,
+    marginTop: 25
   }
 
 })

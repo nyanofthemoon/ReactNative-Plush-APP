@@ -130,3 +130,9 @@ export function unsubscribeFromMatchNotifications() {
     socket.emit('unsubscribe', {room: 'matches'})
   }
 }
+
+export function emitSocketUserDeletionRequestEvent() {
+  if (true === isSocketConnected()) {
+    socket.emit('delete', {})
+  }
+}

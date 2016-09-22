@@ -27,6 +27,10 @@ const initialState = fromJS({
 export default (state = initialState, action) => {
   let nextState
   switch (action.type) {
+    case types.ERASE_ALL_DATA:
+      nextState = initialState
+      break
+
     case types.SCENE_NAVIGATION_MATCH:
       nextState = fromJS(initialState)
       break

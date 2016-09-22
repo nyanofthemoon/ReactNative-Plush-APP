@@ -23,6 +23,10 @@ const initialState = fromJS({
 export default (state = initialState, action) => {
   let nextState
   switch (action.type) {
+    case types.ERASE_ALL_DATA:
+      nextState = initialState
+      break
+
     case types.FACEBOOK_LOGIN_REQUESTED:
       nextState = state.set('facebookStatus', 'authenticating')
       break

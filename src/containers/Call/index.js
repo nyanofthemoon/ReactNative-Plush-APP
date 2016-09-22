@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { default as Sound } from 'react-native-sound'
 var Spinner = require('react-native-spinkit')
 
-import { goToContactsScene, calculateUnreadMessages, hangupCall } from './../../actions'
+import { calculateUnreadMessages, hangupCall } from './../../actions'
 
 import Container from './../../components/Container'
 import RTCView from './../../components/RTCView'
@@ -49,12 +49,13 @@ export default class extends React.Component {
   }
 
   _confirmHangup() {
+    let that = this
     Alert.alert(
       'Hangup Confirmation',
       'Are you sure you wish to HANGUP and leave this call?',
       [
         { text: 'No...' },
-        { text: 'YES!', onPress: () => hangupCall() }
+        { text: 'YES!', onPress: () => that._rejectCall() }
       ]
     )
   }
