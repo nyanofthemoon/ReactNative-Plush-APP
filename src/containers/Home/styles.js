@@ -62,7 +62,23 @@ export default StyleSheet.create({
     color        : 'white',
     fontFamily   : 'IndieFlower',
     fontSize     : getCorrectFontSizeForResolution(50),
-    lineHeight   : getCorrectFontSizeForResolution(80),
+    lineHeight   : getCorrectFontSizeForResolution(80)
+  },
+
+  registerButton: {
+    alignSelf: 'center',
+    width: 190,
+    height: 22,
+    marginTop: 25,
+    backgroundColor: '#888888',
+    justifyContent: 'center'
+  },
+
+  registerButtonText: {
+    color: 'white',
+    fontFamily   : 'Helvetica',
+    fontSize     : 13,
+    alignSelf: 'center'
   }
 
 })

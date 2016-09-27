@@ -7,6 +7,7 @@ import { getSocketId } from './../helpers/socket'
 
 const initialState = fromJS({
   facebookStatus : 'unauthenticated',
+  plushStatus    : 'unauthenticated',
   socketStatus   : 'disconnected',
   socket         : null,
   apiStatus      : 'disconnected',
@@ -26,7 +27,12 @@ export default (state = initialState, action) => {
     case types.ERASE_ALL_DATA:
       nextState = initialState
       break
-
+    case types.PLUSH_LOGIN_REQUESTED:
+      nextState = state.set('plushStatus', 'authenticating')
+      break
+    case types.PLUSH_LOGIN_SUCCEEDED:
+      nextState = state.set('plushStatus', 'authenticated')
+      break
     case types.FACEBOOK_LOGIN_REQUESTED:
       nextState = state.set('facebookStatus', 'authenticating')
       break
@@ -34,8 +40,10 @@ export default (state = initialState, action) => {
       nextState = state.set('facebookStatus', 'authenticated')
       break
     case types.FACEBOOK_LOGIN_FAILED:
+    case types.PLUSH_LOGIN_FAILED:
       nextState = state.merge({
         facebookStatus: 'unauthenticated',
+        plushStatus   : 'unauthenticated',
         socketStatus  : 'disconnected',
         apiStatus     : 'disconnected',
         socket        : null
@@ -104,6 +112,12 @@ export default (state = initialState, action) => {
         currentScene : 'home'
       })
       break
+    case types.SCENE_NAVIGATION_REGISTER:
+      nextState = state.merge({
+        previousScene: state.get('currentScene'),
+        currentScene : 'register'
+      })
+      break
     case types.SCENE_NAVIGATION_LOGOUT:
       nextState = state.merge({
         previousScene: state.get('currentScene'),
@@ -127,6 +141,7 @@ export default (state = initialState, action) => {
     case types.SCENE_NAVIGATION_ERROR:
       nextState = state.merge({
         facebookStatus: 'unauthenticated',
+        plushStatus   : 'unauthenticated',
         socketStatus  : 'disconnected',
         apiStatus     : 'disconnected',
         socket        : null,

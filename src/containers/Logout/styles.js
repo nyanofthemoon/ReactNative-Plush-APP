@@ -51,6 +51,11 @@ export default StyleSheet.create({
     width: 182,
     height: 30,
     marginTop: 25
+  },
+
+  plushLogout: {
+    width: 182,
+    height: 30
   }
 
 })

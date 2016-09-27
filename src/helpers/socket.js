@@ -40,8 +40,10 @@ export function isSocketConnected() {
   return false
 }
 
-export function emitSocketUserLoginEvent(data) {
+export function emitSocketUserLoginEvent(provider, data) {
   if (true === isSocketConnected()) {
+    data.provider = provider
+    delete(data.null)
     socket.emit('login', {data: data})
   }
 }
