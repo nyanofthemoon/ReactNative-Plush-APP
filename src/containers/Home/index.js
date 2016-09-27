@@ -10,7 +10,7 @@ const { ShareDialog } = FBSDK;
 
 var Spinner = require('react-native-spinkit')
 
-import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchFriendshipScene, goToMatchRelationshipScene, calculateUnreadMessages } from './../../actions'
+import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchFriendshipScene, goToMatchRelationshipScene, calculateUnreadMessages, goToRegisterScene } from './../../actions'
 
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
@@ -98,7 +98,7 @@ export default class extends React.Component {
   _shareLinkWithDialog() {
     const shareLinkContent = {
       contentType       : 'link',
-      contentUrl        : 'https://hotchiwawa.com/plush',
+      contentUrl        : 'https://itunes.apple.com/us/app/plush!/id1155174037',
       contentDescription: 'Plush! A fun way of meeting new people online.'
     }
     ShareDialog.canShow(shareLinkContent).then(
@@ -123,17 +123,23 @@ export default class extends React.Component {
 
   render() {
     const {app, user} = this.props
-    if ('unauthenticated' === app.get('facebookStatus')) {
+    if ('unauthenticated' === app.get('facebookStatus') && 'unauthenticated' === app.get('plushStatus')) {
       return (
         <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
           <Title style={[styles.title, styles.shadowed, { marginBottom: 65 }]}>Plush!</Title>
           <Title style={[styles.subtitle, styles.shadowed]}></Title>
           <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
+          <TouchableHighlight style={styles.registerButton} onPress={goToRegisterScene}><Text style={styles.registerButtonText}>Log in with Plush! Account</Text></TouchableHighlight>
         </Container>
       )
     } else if ('connected' === app.get('apiStatus')) {
       let friendship   = this._getHalfCover('friendship', user.getIn(['profile','gender']), user.getIn(['profile', 'friendship']))
       let relationship = this._getHalfCover('relationship', user.getIn(['profile','gender']), user.getIn(['profile', 'orientation']))
+
+      let shareButton  = null
+      if ('facebook' === user.get('provider')) {
+        shareButton = <Button block info onPress={this._shareLinkWithDialog.bind(this)}>Share Plush! On Facebook</Button>
+      }
       return (
         <Container header={true} unread={calculateUnreadMessages()} scene='home' headerTitle={'Start Plush!'}>
           <View style={styles.container}>
@@ -147,7 +153,7 @@ export default class extends React.Component {
                 <Title style={[styles.coverText, styles.shadowed]}>Relationship</Title>
               </Image>
             </TouchableHighlight>
-            <Button block info onPress={this._shareLinkWithDialog.bind(this)}>Share Plush! On Facebook</Button>
+            {shareButton}
           </View>
         </Container>
       )

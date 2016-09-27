@@ -13,6 +13,10 @@ export default (state = initialState, action) => {
   let nextState
   switch (action.type) {
 
+    case types.ERASE_ALL_DATA:
+      nextState = initialState
+      break
+
     case types.SOCKET_CONTACT_AVAILABILITY_RECEIVED:
       if (action.payload) {
         let prevState = state.toJSON()

@@ -321,8 +321,8 @@ export default class extends React.Component {
         )
       } else {
         return (
-          <View style={{flex:1, justifyContent: 'space-around', backgroundColor: '#262672', height: height}}>
-            <Spinner size={125} type='ThreeBounce' style={{ marginTop: -40, alignSelf:'center'}} color='#FFFFFF'/>
+          <View style={{flex:1, justifyContent: 'space-around', backgroundColor: 'rgba(25, 25, 76, 0.9)', height: height}}>
+            <Spinner size={125} type='ThreeBounce' style={{ marginTop: -60, alignSelf:'center'}} color='#FFFFFF'/>
             <RTCView streamURL={local} style={[styles.mini, {backgroundColor:'black', top: miniTop, left: miniLeft}]}/>
           </View>
         )

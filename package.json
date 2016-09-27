@@ -43,7 +43,8 @@
     "react-native-webrtc": "^0.10.0",
     "react-redux": "^4.4.0",
     "redux": "^3.3.1",
-    "socket.io": "^1.4.8"
+    "socket.io": "^1.4.8",
+    "validator": "^6.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.5.1",

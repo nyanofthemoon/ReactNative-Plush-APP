@@ -13,6 +13,11 @@ const initialState = fromJS({
 export default (state = initialState, action) => {
   let nextState
   switch (action.type) {
+
+    case types.ERASE_ALL_DATA:
+      nextState = initialState
+      break
+
     case types.DB_LOAD_CONTACTS:
       nextState = fromJS(action.payload.data)
       break

@@ -11,6 +11,7 @@ import Home from './containers/Home'
 import Match from './containers/Match'
 import Call from './containers/Call'
 import Profile from './containers/Profile'
+import Register from './containers/Register'
 import Contacts from './containers/Contacts'
 import Contact from './containers/Contact'
 import Logout from './containers/Logout'
@@ -25,6 +26,7 @@ const scenes = Actions.create(
     <Scene key='matchs' component={Match} type={ActionConst.REPLACE}/>
     <Scene key='calls' component={Call} type={ActionConst.REPLACE}/>
     <Scene key='logout' component={Logout} type={ActionConst.PUSH_OR_POP}/>
+    <Scene key='register' component={Register} type={ActionConst.PUSH_OR_POP}/>
     <Scene key='error' component={Error} type={ActionConst.PUSH_OR_POP} />
   </Scene>
 )

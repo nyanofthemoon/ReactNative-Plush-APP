@@ -4,7 +4,7 @@ import { Actions } from 'react-native-router-flux'
 import { Geolocation } from 'react-native'
 import Geocoder from 'react-native-geocoder'
 const FBSDK = require('react-native-fbsdk')
-const { AccessToken, GraphRequest, GraphRequestManager } = FBSDK
+const { AccessToken, GraphRequest, GraphRequestManager, LoginManager } = FBSDK
 
 import * as types from './constants'
 import Store      from './configureStore'
@@ -12,7 +12,7 @@ import * as Db    from './helpers/db'
 
 import Config from './config'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUserJoinEvent, emitSocketUpdateMatchEvent, emitSocketUpdateCallEvent, emitSocketUpdateProfileEvent, emitSocketUpdateAvailabilityEvent, emitSocketUserCallEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUserJoinEvent, emitSocketUpdateMatchEvent, emitSocketUpdateCallEvent, emitSocketUpdateProfileEvent, emitSocketUpdateAvailabilityEvent, emitSocketUserCallEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent, emitSocketUserDeletionRequestEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -41,9 +41,36 @@ export function loadUserData() {
   }
 }
 
+/*
+export function eraseAllData() {
+  try {
+    emitSocketUserDeletionRequestEvent()
+    LoginManager.logOut()
+    facebookConnectionFailure()
+    Db.deleteFacebookUser()
+    Db.deleteUser()
+    Db.deleteContacts()
+    setTimeout(function () {
+      dispatch({type: types.ERASE_ALL_DATA})
+      goToHomeScene()
+    }, 1000)
+  } catch (e) {}
+}
+*/
+
+export function loginUsingPlushAccount(data) {
+  dispatch({type: types.PLUSH_LOGIN_REQUESTED})
+  socketConnectionRequest('plush', data)
+}
+
+export function createPlushAccount(data) {
+  dispatch({type: types.PLUSH_REGISTRATION_REQUESTED})
+  socketConnectionRequest('plush', data)
+}
+
 export function facebookConnectionSuccess() {
   dispatch({type: types.FACEBOOK_LOGIN_SUCCEEDED})
-  socketConnectionRequest()
+  socketConnectionRequest('facebook')
 }
 
 export function facebookConnectionFailure() {
@@ -52,11 +79,29 @@ export function facebookConnectionFailure() {
 }
 
 export function facebookConnectionLogout() {
+  LoginManager.logOut()
   facebookConnectionFailure()
-  Actions.home()
+    Db.deleteFacebookUser()
+    Db.deleteUser()
+    Db.deleteContacts()
+  setTimeout(function () {
+    dispatch({type: types.ERASE_ALL_DATA})
+    goToHomeScene()
+  }, 1000)
 }
 
-function socketConnectionRequest() {
+export function plushConnectionLogout() {
+  dispatch({type: types.PLUSH_LOGIN_FAILED})
+  Db.deleteFacebookUser()
+  Db.deleteUser()
+  Db.deleteContacts()
+  setTimeout(function () {
+    dispatch({type: types.ERASE_ALL_DATA})
+    goToHomeScene()
+  }, 1000)
+}
+
+function socketConnectionRequest(provider, providerData) {
   dispatch({type: types.SOCKET_CONNECTION_REQUESTED})
   let socket = createSocketConnection()
     socket.on('error', function(error) {
@@ -105,20 +150,24 @@ function socketConnectionRequest() {
         dispatch({type: types.SOCKET_CONNECTION_FAILED})
         Actions.home()
       })
-      Db.findFacebookUser(
-        function(user) {
-          if (!user || Math.floor((Math.random()*10)) == 5) {
+      if ('facebook' === provider) {
+        Db.findFacebookUser(
+          function (user) {
+            if (!user || Math.floor((Math.random() * 10)) == 5) {
+              dispatch({type: types.FACEBOOK_GRAPH_DATA_REQUESTED})
+              facebookGraphGetProfile()
+            } else {
+              loginUser(provider, user)
+            }
+          },
+          function () {
             dispatch({type: types.FACEBOOK_GRAPH_DATA_REQUESTED})
             facebookGraphGetProfile()
-          } else {
-           loginUser(user)
           }
-        },
-        function() {
-          dispatch({type: types.FACEBOOK_GRAPH_DATA_REQUESTED})
-          facebookGraphGetProfile()
-        }
-      )
+        )
+      } else {
+        loginUser(provider, providerData)
+      }
     })
   }
 }
@@ -134,7 +183,7 @@ export function facebookGraphGetProfile() {
         } else {
           Db.saveFacebookUser(result, function() {
             dispatch({type: types.FACEBOOK_GRAPH_DATA_SUCCEEDED, payload: result})
-            loginUser(result)
+            loginUser('facebook', result)
           })
         }
       }
@@ -142,8 +191,8 @@ export function facebookGraphGetProfile() {
   })
 }
 
-function loginUser(data) {
-  if (false === Config.environment.isDevelopment()) {
+function loginUser(provider, providerData) {
+  if (!Config.environment.isDevelopment()) {
     navigator.geolocation.getCurrentPosition(
       function (geo) {
         var current = {
@@ -153,30 +202,33 @@ function loginUser(data) {
         }
         if (current.lng != _getState().user.getIn(['location', 'longitude']) || current.lat != _getState().user.getIn(['location', 'latitude'])) {
           Geocoder.geocodePosition(current).then(res => {
-              data.country = res[0].country
-              data.city = res[0].locality
-              data.latitude = current.lat
-              data.longitude = current.lng
-              emitSocketUserLoginEvent(data)
-              return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
+              providerData.country = res[0].country
+              providerData.city = res[0].locality
+              providerData.latitude = current.lat
+              providerData.longitude = current.lng
+              emitSocketUserLoginEvent(provider, providerData)
+              return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: providerData}
             })
             .catch(error => {
               goToErrorScene('Unable to analyze location. The application might be run on an older device either unable or having difficulties analyzing "location" data.')
             })
         } else {
-          emitSocketUserLoginEvent(data)
-          return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
+          emitSocketUserLoginEvent(provider, providerData)
+          return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: providerData}
         }
       }, function (error) {
-        alert(JSON.stringify(error));
         goToErrorScene('Unable to retrieve location. Please ensure that the application on this device has permission to access "location" data.')
       }, {
         enableHighAccuracy: true
       }
     )
   } else {
-    emitSocketUserLoginEvent(data)
-    return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: data}
+    providerData.country   = 'Canada'
+    providerData.city      = 'Monreal'
+    providerData.latitude  = '100'
+    providerData.longitude = '100'
+    emitSocketUserLoginEvent(provider, providerData)
+    return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: providerData}
   }
 }
 
@@ -193,6 +245,10 @@ export function queryContact(id) {
 function queryUserReception(data) {
   if (true === data.self) {
     Db.saveUser(data.data, function () {
+      if ('plush' === data.data.provider) {
+        dispatch({type: types.PLUSH_LOGIN_SUCCEEDED, payload: data})
+        goToHomeScene()
+      }
       if (_getState().app.get('apiStatus') !== 'connected') {
         dispatch({type: types.SOCKET_QUERY_USER_RECEIVED, payload: data})
         setTimeout(function() {
@@ -354,6 +410,11 @@ export function goToLogoutScene(data) {
   Actions.logout()
 }
 
+export function goToRegisterScene(data) {
+  dispatch({type: types.SCENE_NAVIGATION_REGISTER, payload: data})
+  Actions.register()
+}
+
 export function goToErrorScene(data) {
   dispatch({type: types.SCENE_NAVIGATION_ERROR, payload: data})
   Actions.error()
@@ -401,8 +462,8 @@ export function canShowAd() {
   if (roomStatus && 'waiting' !== roomStatus) {
     return false
   }
-  let callStatus = _getState().ring.get('status')
-  if (callStatus && 'waiting' !== callStatus) {
+  let currentScene = _getState().app.get('currentScene')
+  if (currentScene && 'call' === currentScene) {
     return false
   }
   return true
