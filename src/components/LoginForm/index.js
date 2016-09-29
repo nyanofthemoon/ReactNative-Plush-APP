@@ -49,7 +49,7 @@ export default class extends React.Component{
     return (
       <Form ref='form' style={[styles.container, { marginTop: 10}]} onChange={this.handleFormChange.bind(this)}>
         <InputField ref='email' label='Email' placeholder='you@mail.com' maxLength={128} labelStyle={styles.label} valueStyle={styles.value} style={styles.value} containerStyle={styles.container} />
-        <InputField ref='password' label='Password' placeholder='secret password' maxLength={32} labelStyle={styles.label} valueStyle={styles.value} style={styles.value} containerStyle={styles.container} />
+        <InputField ref='password' label='Password' placeholder='secret password' maxLength={32} secureTextEntry={true} labelStyle={styles.label} valueStyle={styles.value} style={styles.value} containerStyle={styles.container} />
       </Form>
     )
   }
