@@ -109,10 +109,7 @@ export default class extends React.Component {
       if (this.props.type === 'relationship') {
         return <View style={{ flex:1 }}>
           <Col style={{ flex: 1, justifyContent:'center'}}>
-            <Title style={styles.title}>It's time to meet people.</Title>
-            <Button large info style={styles.button} onPress={goToMatchRelationshipScene}>
-              <Text style={styles.title}>I'm Ready!</Text>
-            </Button>
+            <Title style={styles.title}>No Contacts Yet.</Title>
           </Col>
         </View>
       } else {

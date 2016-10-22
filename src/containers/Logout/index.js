@@ -38,7 +38,7 @@ export default class extends React.Component {
 
   render() {
     const {user} = this.props
-    let logoutButton = <FacebookButton style={styles.centered} handleLogout={facebookConnectionLogout}/>
+    let logoutButton = <FacebookButton large={false} style={styles.centered} handleLogout={facebookConnectionLogout}/>
     if ('plush' === user.get('provider')) {
       logoutButton = <Button danger style={[styles.centered, styles.plushLogout]} onPress={plushConnectionLogout}>Plush! Logout</Button>
     }

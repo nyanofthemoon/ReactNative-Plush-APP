@@ -9,6 +9,7 @@ import contact      from './contact'
 import notification from './notification'
 import availability from './availability'
 import ring         from './ring'
+import event        from './event'
 
 export default combineReducers({
   app,
@@ -17,5 +18,6 @@ export default combineReducers({
   contact,
   notification,
   availability,
-  ring
+  ring,
+  event
 })

@@ -12,7 +12,7 @@ import * as Db    from './helpers/db'
 
 import Config from './config'
 
-import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUserJoinEvent, emitSocketUpdateMatchEvent, emitSocketUpdateCallEvent, emitSocketUpdateProfileEvent, emitSocketUpdateAvailabilityEvent, emitSocketUserCallEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent, emitSocketUserDeletionRequestEvent} from './helpers/socket'
+import {createSocketConnection, destroySocketConnection, isSocketConnected, emitSocketUserLoginEvent, emitSocketUserQueryEvent, emitSocketContactQueryEvent, emitSocketUserLeaveEvent, emitSocketUserJoinEvent, emitSocketUpdateMatchEvent, emitSocketUpdateCallEvent, emitSocketUpdateProfileEvent, emitSocketUpdateAvailabilityEvent, emitSocketUserCallEvent, emitSocketReportEvent, emitSocketBlockEvent, emitSocketMessageEvent, emitSocketEventQueryEvent} from './helpers/socket'
 
 let dispatch = Store.dispatch
 
@@ -128,6 +128,8 @@ function socketConnectionRequest(provider, providerData) {
             return queryRoomReception(data)
           case 'call':
             return queryCallReception(data)
+          case 'event':
+            return queryEventReception(data)
           default:
             return queryUnknownReception(data)
         }
@@ -207,6 +209,7 @@ function loginUser(provider, providerData) {
               providerData.latitude = current.lat
               providerData.longitude = current.lng
               emitSocketUserLoginEvent(provider, providerData)
+              emitSocketEventQueryEvent()
               return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: providerData}
             })
             .catch(error => {
@@ -214,6 +217,7 @@ function loginUser(provider, providerData) {
             })
         } else {
           emitSocketUserLoginEvent(provider, providerData)
+          emitSocketEventQueryEvent()
           return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: providerData}
         }
       }, function (error) {
@@ -228,6 +232,7 @@ function loginUser(provider, providerData) {
     providerData.latitude  = '100'
     providerData.longitude = '100'
     emitSocketUserLoginEvent(provider, providerData)
+    emitSocketEventQueryEvent()
     return {type: types.SOCKET_LOGIN_USER_REQUESTED, payload: providerData}
   }
 }
@@ -235,6 +240,11 @@ function loginUser(provider, providerData) {
 export function queryUser() {
   emitSocketUserQueryEvent()
   return { type: types.SOCKET_QUERY_USER_REQUESTED, payload: {} }
+}
+
+export function queryEvent() {
+  emitSocketEventQueryEvent()
+  return { type: types.SOCKET_QUERY_EVENT_REQUESTED, payload: {} }
 }
 
 export function queryContact(id) {
@@ -286,6 +296,10 @@ function queryCallReception(data) {
   if ('waiting' === data.data.status) {
     goToCallScene()
   }
+}
+
+function queryEventReception(data) {
+  dispatch({type: types.SOCKET_QUERY_EVENT_RECEIVED, payload: data})
 }
 
 function queryAvailabilityReception(data) {
@@ -458,15 +472,19 @@ export function leaveMatch(data) {
 }
 
 export function canShowAd() {
-  let roomStatus = _getState().room.get('status')
-  if (roomStatus && 'waiting' !== roomStatus) {
+  if (true === Config.ads.enabled) {
+    let roomStatus = _getState().room.get('status')
+    if (roomStatus && 'waiting' !== roomStatus) {
+      return false
+    }
+    let currentScene = _getState().app.get('currentScene')
+    if (currentScene && 'call' === currentScene) {
+      return false
+    }
+    return true
+  } else {
     return false
   }
-  let currentScene = _getState().app.get('currentScene')
-  if (currentScene && 'call' === currentScene) {
-    return false
-  }
-  return true
 }
 
 export function calculateUnreadMessages() {

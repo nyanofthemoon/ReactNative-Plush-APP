@@ -55,12 +55,12 @@ export default class extends Component {
 
   _getCoverSource() {
     if ('splash' === this.props.cover.type) {
-        let gender      = this.props.cover.data.gender      || 'F'
-        let orientation = this.props.cover.data.orientation || 'A'
+        let gender      = this.props.cover.data.gender      || 'U'
+        let orientation = this.props.cover.data.orientation || 'U'
         let length = images[this.props.cover.type][(gender+orientation)][this.props.cover.data.subtype].length
         return images.splash[(gender+orientation)][this.props.cover.data.subtype][Math.floor(Math.random()*length)]
     } else {
-      return images[this.props.cover]
+      return images[this.props.cover] || this.props.cover
     }
   }
 

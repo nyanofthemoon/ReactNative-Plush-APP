@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react'
-import { View, Text, Image, TouchableHighlight } from 'react-native'
+import { View, Text, Image, TouchableHighlight, StyleSheet, WebView } from 'react-native'
 import { Button, Title } from 'native-base'
 import { connect } from 'react-redux'
 
@@ -9,13 +9,12 @@ const FBSDK = require('react-native-fbsdk');
 const { ShareDialog } = FBSDK;
 
 var Spinner = require('react-native-spinkit')
+import * as Animatable from 'react-native-animatable'
 
 import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchFriendshipScene, goToMatchRelationshipScene, calculateUnreadMessages, goToRegisterScene } from './../../actions'
 
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
-
-import halfcovers from './../../helpers/images/halfcovers'
 
 import styles from './styles'
 
@@ -70,6 +69,7 @@ const loadingAnimations = [
   state => ({
     app : state.app,
     user: state.user,
+    event : state.event,
     contact: state.contact
   })
 )
@@ -78,6 +78,7 @@ export default class extends React.Component {
   static propTypes = {
     app : React.PropTypes.object.isRequired,
     user: React.PropTypes.object.isRequired,
+    event: React.PropTypes.object.isRequired,
     contact: React.PropTypes.object.isRequired
   }
 
@@ -117,49 +118,72 @@ export default class extends React.Component {
     )
   }
 
-  _getHalfCover(type, gender, orientation) {
-    return halfcovers[type][(gender+orientation)][Math.floor(Math.random()*halfcovers[type][(gender+orientation)].length)]
-  }
-
   render() {
-    const {app, user} = this.props
+    const {app, user, event} = this.props
+    let cover={type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}
     if ('unauthenticated' === app.get('facebookStatus') && 'unauthenticated' === app.get('plushStatus')) {
       return (
-        <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
+        <Container header={false} cover={cover}>
           <Title style={[styles.title, styles.shadowed, { marginBottom: 65 }]}>Plush!</Title>
-          <Title style={[styles.subtitle, styles.shadowed]}></Title>
-          <FacebookButton handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} />
+          <Title style={[styles.subtitle, styles.shadowed]}>Dating From Your Mobile.</Title>
+          <Animatable.View animation='pulse' iterationCount='infinite'><FacebookButton large={true} handleSuccess={facebookConnectionSuccess} handleFailure={facebookConnectionFailure} /></Animatable.View>
           <TouchableHighlight style={styles.registerButton} onPress={goToRegisterScene}><Text style={styles.registerButtonText}>Log in with Plush! Account</Text></TouchableHighlight>
         </Container>
       )
     } else if ('connected' === app.get('apiStatus')) {
-      let friendship   = this._getHalfCover('friendship', user.getIn(['profile','gender']), user.getIn(['profile', 'friendship']))
-      let relationship = this._getHalfCover('relationship', user.getIn(['profile','gender']), user.getIn(['profile', 'orientation']))
-
-      let shareButton  = null
-      if ('facebook' === user.get('provider')) {
-        shareButton = <Button block info onPress={this._shareLinkWithDialog.bind(this)}>Share Plush! On Facebook</Button>
+      let now        = new Date().getTime()
+      let eventStart = event.get('start')
+      let eventEnd   = event.get('end')
+      let footer = null
+      let title  = null
+      let video  = null
+      let countdownDays = 0
+      let countdownHours = 0
+      let countdownMins = 0
+      let countdownSecs = 0
+      if (now >= eventStart && now < eventEnd) {
+        title  = 'Current Plush! Event'
+        footer = <TouchableHighlight style={styles.eventButton} underlayColor={'#003200'} onPress={goToMatchRelationshipScene}><Text style={styles.eventButtonText}>Meet Someone Now</Text></TouchableHighlight>
+      } else {
+        //cover.data.subtype = 'logout'
+        title = 'Next Plush! Event'
       }
+
+      var stylesb = StyleSheet.create({
+        container: {
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        },
+        video: {
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'transparent'
+        }
+      });
+
+
+      var html = '<!DOCTYPE html><html><body><h1>This is a heading!</body></html>'
+      //source={{uri: 'https://www.youtube.com/embed/QH2-TGUlwu4?rel=0&autoplay=0&showinfo=0&controls=0'}}
+
       return (
-        <Container header={true} unread={calculateUnreadMessages()} scene='home' headerTitle={'Start Plush!'}>
+        <Container header={true} footer={footer} cover={cover} unread={calculateUnreadMessages()} scene='home' headerTitle={'Start Plush!'}>
           <View style={styles.container}>
-            <TouchableHighlight underlayColor='transparent' style={{flex: 1, borderTopWidth: 1, borderTopColor: 'white', borderBottomWidth: 1, borderBottomStyle: 'dashed', borderBottomColor: 'white'}} onPress={goToMatchFriendshipScene}>
-              <Image source={friendship} style={styles.cover}>
-                <Title style={[styles.coverText, styles.shadowed]}>Friendship</Title>
-              </Image>
-            </TouchableHighlight>
-            <TouchableHighlight underlayColor='transparent' style={{flex: 1 }} onPress={goToMatchRelationshipScene}>
-              <Image source={relationship} style={styles.cover}>
-                <Title style={[styles.coverText, styles.shadowed]}>Relationship</Title>
-              </Image>
-            </TouchableHighlight>
-            {shareButton}
+            <Title>{title}</Title>
+            <Text>A {countdownDays} :: {countdownHours} :: {countdownMins} :: {countdownSecs}</Text>
+            <WebView style={styles.video}
+
+                     automaticallyAdjustContentInsets={false}
+                     scrollEnabled={false}
+                     javaScriptEnabled={false} source={{uri: 'https://www.youtube.com/embed/HmZKgaHa3Fg?rel=0&autoplay=0&showinfo=0&controls=0'}}/>
           </View>
         </Container>
       )
     } else {
       return (
-        <Container header={false} cover={{type: 'splash', data:{subtype: 'login', gender:user.getIn(['profile', 'gender']), orientation:user.getIn(['profile', 'orientation'])}}}>
+        <Container header={false} cover={cover}>
           <Title style={[styles.title, styles.shadowed]}>Plush!</Title>
           <Title style={[styles.subtitle, styles.shadowed]}>{this._getGreeting(user.getIn(['profile', 'gender']))}</Title>
           <Spinner size={50} type={this._getLoadingAnimation()} style={[styles.shadowed]} color='#FFFFFF'/>
@@ -168,3 +192,12 @@ export default class extends React.Component {
     }
   }
 }
+
+/*
+
+ <Video
+ resizeMode='cover'
+ source={{uri:'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'}}
+ />
+
+ */

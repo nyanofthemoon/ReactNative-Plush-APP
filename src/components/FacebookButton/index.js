@@ -31,9 +31,13 @@ export default class extends React.Component {
   }
 
   render() {
+    let btnstyle = {}
+    if (true === this.props.large) {
+      btnstyle = styles.container
+    }
     return (
-      <View style={styles.container}>
-        <LoginButton
+      <View style={btnstyle}>
+        <LoginButton styleContainer={btnstyle}
           onLoginFinished={(error, result) => {
             if (error || result.isCancelled) {
               this.props.handleFailure()

@@ -31,11 +31,6 @@ export default StyleSheet.create({
     marginRight  : 10
   },
 
-  buttonText: {
-    fontSize: getCorrectFontSizeForResolution(38),
-    lineHeight: getCorrectFontSizeForResolution(34),
-  },
-
   centered: {
     alignSelf: 'center'
   },
@@ -50,24 +45,9 @@ export default StyleSheet.create({
     }
   },
 
-  cover: {
-    resizeMode: 'cover',
-    width : null,
-    height: null,
-    flex: 1,
-    justifyContent: 'center'
-  },
-
-  coverText: {
-    color        : 'white',
-    fontFamily   : 'IndieFlower',
-    fontSize     : getCorrectFontSizeForResolution(50),
-    lineHeight   : getCorrectFontSizeForResolution(80)
-  },
-
   registerButton: {
     alignSelf: 'center',
-    width: 190,
+    width: 180,
     height: 22,
     marginTop: 25,
     backgroundColor: '#888888',
@@ -77,8 +57,30 @@ export default StyleSheet.create({
   registerButtonText: {
     color: 'white',
     fontFamily   : 'Helvetica',
-    fontSize     : 13,
+    fontSize     : 11,
     alignSelf: 'center'
+  },
+
+  eventButton: {
+    alignSelf: 'center',
+    width: Dimensions.get('window').width,
+    height: 55,
+    backgroundColor: '#006600',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
+  eventButtonText: {
+    color: 'white',
+    alignSelf: 'center',
+    fontFamily   : 'IndieFlower',
+    fontSize     : getCorrectFontSizeForResolution(26),
+    lineHeight   : getCorrectFontSizeForResolution(40)
+  },
+
+  video: {
+    width    : 300,
+    maxHeight: 170
   }
 
 })

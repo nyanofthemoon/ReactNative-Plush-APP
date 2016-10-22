@@ -18,7 +18,7 @@ export default class extends React.Component{
   componentDidMount() {
     this.refs.form.refs.nickname.setValue(this.props.user.profile.nickname)
     this.refs.form.refs.orientation.setValue(this.props.user.profile.orientation)
-    this.refs.form.refs.friendship.setValue(this.props.user.profile.friendship)
+    //this.refs.form.refs.friendship.setValue(this.props.user.profile.friendship)
     this.refs.form.refs.diet.setValue(this.props.user.profile.diet)
     this.refs.form.refs.education.setValue(this.props.user.profile.education)
     this.refs.form.refs.employment.setValue(this.props.user.profile.employment)
@@ -43,7 +43,10 @@ export default class extends React.Component{
         <Image style={{ height: 100, width: 100, resizeMode: 'cover', alignSelf: 'center', borderRadius: 50, marginTop: 10, marginBottom: 10}} source={{ uri: this.props.user.profile.picture }} />
 
         <InputField ref='nickname' label='Nickname' placeholder='Nickname or Full Name' maxLength={20} labelStyle={styles.label} valueStyle={styles.value} style={styles.value} containerStyle={styles.container} />
-
+        <PickerField ref='orientation' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
+                     label='Preference'
+                     options={{ O: 'Opposite Gender', S: 'Same Gender', A: 'Any Gender' }}
+        />
         <PickerField ref='education' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
                      label='Education'
                      options={{ '':'', 'Secondary': 'Secondary', 'Post-Secondary': 'Post-Secondary', 'College': 'College', 'University': 'University', Autodidact: 'Autodidact'}}
@@ -55,14 +58,6 @@ export default class extends React.Component{
         <PickerField ref='diet' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
                      label='Regular Diet'
                      options={{ '':'', Healthy: 'Healthy', Unhealthy: 'Unhealthy', Vegetarian: 'Vegetarian', Vegan: 'Vegan', Other: 'Other'}}
-        />
-        <PickerField ref='orientation' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
-                     label='Relationships'
-                     options={{ O: 'Opposite Gender', S: 'Same Gender', A: 'Any Gender' }}
-        />
-        <PickerField ref='friendship' labelStyle={styles.label} valueStyle={[styles.value, styles.select]} containerStyle={styles.container} pickerWrapper={<View style={{backgroundColor:'#a3a3c2'}} />}
-                     label='Friendships'
-                     options={{ S: 'Same Gender', O: 'Opposite Gender', A: 'Any Gender'}}
         />
         <InputField labelStyle={styles.label} style={[styles.value, {marginTop: 10}]} containerStyle={styles.container} placeholderTextColor='#a3a3c2'
           ref='headline'

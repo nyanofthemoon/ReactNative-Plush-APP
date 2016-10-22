@@ -26,6 +26,10 @@ export default {
     FA: {
       login : [require('./splash-straight-1.png'), require('./splash-lesbian-2.png')],
       logout: [require('./splash-straight-1-grayscale.png'), require('./splash-lesbian-2-grayscale.png')]
+    },
+    UU: {
+      login : [require('./splash-lesbian-2.png')],
+      logout: [require('./splash-lesbian-2-grayscale.png')]
     }
   },
 

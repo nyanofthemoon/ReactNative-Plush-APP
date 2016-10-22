@@ -60,6 +60,12 @@ export function emitSocketContactQueryEvent(id) {
   }
 }
 
+export function emitSocketEventQueryEvent() {
+  if (true === isSocketConnected()) {
+    socket.emit('query', {type: 'event'})
+  }
+}
+
 export function emitSocketUserJoinEvent(data, callback) {
   if (true === isSocketConnected()) {
     socket.emit('join', data, callback)
