@@ -70,6 +70,14 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
 
+  eventButtonDisabled: {
+    alignSelf: 'center',
+    width: Dimensions.get('window').width,
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+
   eventButtonText: {
     color: 'white',
     alignSelf: 'center',

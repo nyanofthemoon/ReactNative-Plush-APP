@@ -15,6 +15,7 @@ import { facebookConnectionSuccess, facebookConnectionFailure, goToMatchFriendsh
 
 import Container from './../../components/Container'
 import FacebookButton from './../../components/FacebookButton'
+import EventTimer from './../../components/EventTimer'
 
 import styles from './styles'
 
@@ -136,46 +137,19 @@ export default class extends React.Component {
       let eventEnd   = event.get('end')
       let footer = null
       let title  = null
-      let video  = null
-      let countdownDays = 0
-      let countdownHours = 0
-      let countdownMins = 0
-      let countdownSecs = 0
       if (now >= eventStart && now < eventEnd) {
         title  = 'Current Plush! Event'
-        footer = <TouchableHighlight style={styles.eventButton} underlayColor={'#003200'} onPress={goToMatchRelationshipScene}><Text style={styles.eventButtonText}>Meet Someone Now</Text></TouchableHighlight>
+        footer = <TouchableHighlight style={styles.eventButton} underlayColor={'#003200'} onPress={goToMatchRelationshipScene}><Text style={styles.eventButtonText}>Meet Someone Now !</Text></TouchableHighlight>
       } else {
-        //cover.data.subtype = 'logout'
         title = 'Next Plush! Event'
+        footer = <TouchableHighlight style={styles.eventButtonDisabled}><Text style={styles.eventButtonText}>Waiting For Next Event</Text></TouchableHighlight>
       }
-
-      var stylesb = StyleSheet.create({
-        container: {
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center'
-        },
-        video: {
-          position: 'absolute',
-          top: 0, left: 0, right: 0, bottom: 0,
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: 'transparent'
-        }
-      });
-
-
-      var html = '<!DOCTYPE html><html><body><h1>This is a heading!</body></html>'
-      //source={{uri: 'https://www.youtube.com/embed/QH2-TGUlwu4?rel=0&autoplay=0&showinfo=0&controls=0'}}
-
       return (
-        <Container header={true} footer={footer} cover={cover} unread={calculateUnreadMessages()} scene='home' headerTitle={'Start Plush!'}>
-          <View style={styles.container}>
-            <Title>{title}</Title>
-            <Text>A {countdownDays} :: {countdownHours} :: {countdownMins} :: {countdownSecs}</Text>
+        <Container header={true} footer={footer} unread={calculateUnreadMessages()} scene='home' headerTitle={'Start Plush!'}>
+          <View style={[styles.container, styles.centered]}>
+            <Title style={[styles.subtitle, styles.shadowed]}>{title}</Title>
+            <EventTimer start={eventStart} />
             <WebView style={styles.video}
-
-                     automaticallyAdjustContentInsets={false}
                      scrollEnabled={false}
                      javaScriptEnabled={false} source={{uri: 'https://www.youtube.com/embed/HmZKgaHa3Fg?rel=0&autoplay=0&showinfo=0&controls=0'}}/>
           </View>
@@ -192,12 +166,3 @@ export default class extends React.Component {
     }
   }
 }
-
-/*
-
- <Video
- resizeMode='cover'
- source={{uri:'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'}}
- />
-
- */

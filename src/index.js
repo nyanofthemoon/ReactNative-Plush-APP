@@ -1,17 +1,5 @@
 'use strict'
 
-/*
-
-Plush! Check List
-
-- Updated Title Screen with “Dating From Your Mobile”
-- Removed Google Ads
-- Removed Friendship
-
-
-
-*/
-
 import React from 'react'
 import { AppRegistry } from 'react-native'
 import './compat'
